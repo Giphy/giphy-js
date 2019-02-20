@@ -1,0 +1,17 @@
+.colors {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 12px;
+}
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+.color {
+    width: 80px;
+    height: 50px;
+    border: 1px solid white;
+    margin: 3px;
+}

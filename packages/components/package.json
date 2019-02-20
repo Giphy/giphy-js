@@ -1,0 +1,33 @@
+{
+    "scripts": {
+        "clean": "rm -rf ./dist",
+        "types": "tcm src",
+        "dev": "npm run clean && parcel public/index.html",
+        "build": "npm run clean && parcel build public/index.tsx"
+    },
+    "devDependencies": {
+        "@types/bricks.js": "^1.8.0",
+        "autoprefixer": "^9.4.7",
+        "parcel-bundler": "^1.11.0",
+        "postcss-modules": "^1.4.1",
+        "postcss-nested": "^4.1.1",
+        "typescript": "^3.3.3",
+        "typed-css-modules": "0.3.7"
+    },
+    "name": "@giphy-js/components",
+    "version": "0.0.0",
+    "description": "lightweight ui components ",
+    "main": "index.tsx",
+    "author": "giannif",
+    "license": "MIT",
+    "dependencies": {
+        "@giphy-js/brand": "1.0.0",
+        "@giphy-js/types": "1.0.0",
+        "@giphy-js/util": "1.0.0",
+        "bricks.js": "^1.8.0",
+        "intersection-observer": "^0.5.1",
+        "preact": "^8.4.2",
+        "prettier": "^1.16.4",
+        "throttle-debounce": "^2.1.0"
+    }
+}

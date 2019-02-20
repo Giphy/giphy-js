@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true, // this enables import React from "react" instead of import * as React from "react"
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "skipLibCheck": true, // no reason to check the dependencies
+        "jsx": "react",
+        "jsxFactory": "h", // preact
+        "lib": ["es6", "es7", "dom"],
+        "resolveJsonModule": true
+    }
+}

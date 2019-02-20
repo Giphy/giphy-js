@@ -1,0 +1,12 @@
+.DS_Store
+**/node_modules
+package-lock.json
+public/*
+!public/index.html
+!public/gifs.*
+dist
+lib
+*.log
+.env
+coverage/
+.cache

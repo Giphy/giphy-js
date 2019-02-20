@@ -1,0 +1,8 @@
+{
+    "name": "giphy-js",
+    "private": true,
+    "devDependencies": {
+        "lerna": "^3.13.0",
+        "prettier": "^1.16.4"
+    }
+}

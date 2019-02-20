@@ -1,0 +1,10 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "jsx": "react",
+        "jsxFactory": "h", // preact
+        "resolveJsonModule": true,
+        "outDir": "./dist"
+    },
+    "include": ["./src"]
+}

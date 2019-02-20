@@ -1,0 +1,27 @@
+{
+    "scripts": {
+        "dev": "parcel public/index.html",
+        "types": "tcm src && tsc -d --emitDeclarationOnly -declarationDir ./dist",
+        "build": "parcel build src/index.ts && npm run types"
+    },
+    "devDependencies": {
+        "autoprefixer": "^9.4.7",
+        "parcel-bundler": "^1.11.0",
+        "postcss-modules": "^1.4.1",
+        "postcss-nested": "^4.1.1",
+        "preact": "^8.4.2",
+        "typed-css-modules": "0.3.7",
+        "typestyle": "2.0.1",
+        "typescript": "^3.3.3"
+    },
+    "name": "@giphy-js/brand",
+    "version": "1.0.0",
+    "description": "colors, fonts, and other shared css",
+    "main": "./dist/index.js",
+    "author": "giannif",
+    "license": "MIT",
+    "dependencies": {
+        "prettier": "^1.16.4",
+        "typestyle": "^2.0.1"
+    }
+}

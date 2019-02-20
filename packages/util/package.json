@@ -1,0 +1,17 @@
+{
+    "scripts": {
+        "build": "parcel build src/index.ts"
+    },
+    "name": "@giphy-js/util",
+    "version": "1.0.0",
+    "main": "dist/index.js",
+    "license": "MIT",
+    "dependencies": {
+        "lodash": "4.17.11",
+        "@giphy-js/types": "1.0.0"
+    },
+    "devDependencies": {
+        "typescript": "^3.3.3",
+        "parcel-bundler": "^1.11.0"
+    }
+}
