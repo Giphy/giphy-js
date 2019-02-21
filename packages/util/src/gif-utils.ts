@@ -29,7 +29,7 @@ export const getSpecificRendition = (
     { images, is_sticker: isSticker }: IGif,
     renditionLabel: string,
     isStill = false,
-    useVideo = false
+    useVideo = false,
 ) => {
     if (!images || !renditionLabel) return ''
 

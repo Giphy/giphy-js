@@ -1,17 +1,18 @@
 {
     "scripts": {
-        "build": "parcel build src/index.ts"
+        "clean": "rm -rf ./dist",
+        "build": "npm run clean && parcel build src/index.ts"
     },
     "name": "@giphy-js/util",
     "version": "1.0.0",
     "main": "dist/index.js",
     "license": "MIT",
     "dependencies": {
-        "lodash": "4.17.11",
-        "@giphy-js/types": "1.0.0"
+        "@giphy-js/types": "1.0.0",
+        "lodash": "4.17.11"
     },
     "devDependencies": {
-        "typescript": "^3.3.3",
-        "parcel-bundler": "^1.11.0"
+        "parcel-bundler": "^1.11.0",
+        "typescript": "^3.3.3"
     }
 }

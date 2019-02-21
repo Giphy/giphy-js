@@ -1,0 +1,9 @@
+# Operational Files
+**/node_modules/*
+coverage/*
+
+# Styles
+*.css
+
+# Built files
+dist

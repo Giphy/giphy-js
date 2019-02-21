@@ -1,7 +1,0 @@
-{
-  "modules": false,
-  "plugins": {
-    "autoprefixer": true,
-    "postcss-nested": true
-  }
-}

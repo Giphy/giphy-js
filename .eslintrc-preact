@@ -1,0 +1,14 @@
+{
+    "extends": [".eslintrc", "plugin:react/recommended"],
+    "rules": {
+        "@typescript-eslint/no-unused-vars": [2, { "args": "after-used" }],
+        "react/prop-types": 0,
+        "react/no-unknown-property": 0,
+        "react/display-name": 0
+    },
+    "settings": {
+        "react": {
+            "pragma": "h"
+        }
+    }
+}

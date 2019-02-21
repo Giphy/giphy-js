@@ -1,16 +1,39 @@
 import { h } from 'preact'
-import colors from '../src/colors.css'
+import * as colors from '../src/colors'
+import { css, cx } from 'emotion'
+import { SubheaderSmall } from '../src/typography'
 
-// @ts-ignore
-import css from './color-display.css'
+const colorsCss = cx(
+    SubheaderSmall,
+    css`
+        display: flex;
+        flex-wrap: wrap;
+        color: ${colors.giphyLightestGrey};
+    `,
+)
+const item = css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+`
+const colorCss = css`
+    width: 80px;
+    height: 50px;
+    border: 1px solid white;
+    margin: 3px;
+`
+
 const Color = ({ color, name }) => (
-    <div class={css.item}>
-        <div class={css.color} style={{ backgroundColor: color }} />
+    <div class={item}>
+        <div class={colorCss} style={{ backgroundColor: color }} />
         <div>{name}</div>
         <div>{color}</div>
     </div>
 )
 
-const Colors = Object.keys(colors).map(color => <Color color={colors[color]} name={color} />)
+const Colors = Object.keys(colors).map(color =>
+    color !== '__esModule' ? <Color color={colors[color]} name={color} /> : null,
+)
 
-export default () => <div class={css.colors}>{Colors}</div>
+export default () => <div class={colorsCss}>{Colors}</div>

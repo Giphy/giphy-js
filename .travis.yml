@@ -1,14 +1,23 @@
-
 language: node_js
 node_js:
-  - "10.9.0"
-
-cache: yarn
-
-install:
-  - yarn global add lerna jest
-  - lerna bootstrap
-
+    - '10'
+cache:
+    yarn: true
+    directories:
+        - 'node_modules'
+before_install:
+    - curl -o- -L https://yarnpkg.com/install.sh | bash -s
+    - export PATH="$HOME/.yarn/bin:$PATH"
+before_script:
+    - yarn run lerna bootstrap
 script:
-  - yarn test
-  - yarn build
+    - yarn test
+before_deploy:
+    - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+deploy:
+    provider: script
+    script: 'yarn run lerna:publish'
+    skip_cleanup: true
+    on:
+        node: '10'
+        tags: true

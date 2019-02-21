@@ -1,4 +1,4 @@
-{"data": {"count": 100, "gifs":   [
+[
     {
       "rating": "g",
       "is_featured": 0,
@@ -20913,4 +20913,4 @@
       "import_datetime": "2018-03-15 01:28:30",
       "is_realtime": 0
     }
-  ]}}
+  ]

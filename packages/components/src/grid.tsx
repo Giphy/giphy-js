@@ -84,7 +84,7 @@ class Grid extends Component<Props, State> {
             <div style={{ width }}>
                 <div ref={c => (this.el = c)}>
                     {gifs.map(gif => (
-                        <Gif gif={gif} width={gifWidth} />
+                        <Gif gif={gif} key={gif.id} width={gifWidth} />
                     ))}
                 </div>
                 {showLoader && (

@@ -4,7 +4,7 @@ import Grid from '../src/grid'
 import { IGif } from '@giphy-js/types'
 
 // to require json, we need to define require
-declare function require(name: string): string
+declare function require(name: string): any
 
 const gifs = require('./gifs.json')
 const gifs2 = require('./gifs.2.json')
@@ -30,14 +30,14 @@ class Resizer extends Component<Props, State> {
         if (!this.fetched) {
             this.fetched = true
             setTimeout(() => {
-                this.setState({ gifs: [...gifs.data.gifs, ...gifs2.data.gifs] })
+                this.setState({ gifs: [...gifs, ...gifs2] })
             }, 2000)
         }
     }
     componentDidMount() {
         window.addEventListener('resize', this.setWidth, false)
         setTimeout(() => {
-            this.setState({ gifs: gifs.data.gifs })
+            this.setState({ gifs })
         }, 1000)
     }
     componentWillUnmount() {
