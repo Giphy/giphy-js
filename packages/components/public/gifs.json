@@ -1,6 +1,9 @@
 [
     {
         "rating": "pg",
+        "bottle_data": {
+            "fake ad": true
+        },
         "is_featured": 0,
         "source_post_url": "",
         "images": {

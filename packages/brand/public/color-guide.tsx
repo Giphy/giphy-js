@@ -36,4 +36,11 @@ const Colors = Object.keys(colors).map(color =>
     color !== '__esModule' ? <Color color={colors[color]} name={color} /> : null,
 )
 
-export default () => <div class={colorsCss}>{Colors}</div>
+const ColorsGuide = () => (
+    <div>
+        <h2>Colors</h2>
+        <div class={colorsCss}>{Colors}</div>
+    </div>
+)
+
+export default ColorsGuide

@@ -2988,6 +2988,11 @@ mime@1.4.1:
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
   integrity sha512-KI1+qOZu5DcW6wayYHSzR/tXKCDC5Om4s1z2QJjDULzLcmf3DvzS7oluY4HCTrc+9FiKmWUgeNLg7W3uIQvxtQ==
 
+mime@^2.0.3:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/mime/-/mime-2.4.0.tgz#e051fd881358585f3279df333fe694da0bcffdd6"
+  integrity sha512-ikBcWwyqXQSHKtciCcctu9YfPbFYZ4+gbHEmE0Q8jzcTYQg5dHCr3g2wwAZjPoJfQVXZq6KXAjpXOTf5/cjT7w==
+
 mimic-fn@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-1.2.0.tgz#820c86a39334640e99516928bd03fca88057d022"
@@ -3489,6 +3494,13 @@ parcel-plugin-bundle-visualiser@1.2.0:
     filesize "^3.6.0"
     gzip-size "^4.1.0"
     yargs "^11.0.0"
+
+parcel-plugin-url-loader@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/parcel-plugin-url-loader/-/parcel-plugin-url-loader-1.3.1.tgz#78dc68e9b2d89a2f53f76e46bcc2ca3d2d94434f"
+  integrity sha512-UJWGJz1aEU3aYYaV47wHxX2rB71oq6x/hZUCRxDhS06MugyT5I5Ll7597wshY+T2Oepa3E8+L3kceDyL2WV6XQ==
+  dependencies:
+    mime "^2.0.3"
 
 parse-asn1@^5.0.0:
   version "5.1.4"
@@ -4975,7 +4987,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.3.3333:
+typescript@^3.3.3:
   version "3.3.3333"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.3.3333.tgz#171b2c5af66c59e9431199117a3bcadc66fdcfd6"
   integrity sha512-JjSKsAfuHBE/fB2oZ8NxtRTk5iGcg6hkYXMnZ3Wc+b2RSqejEqTaem11mHASMnFilHrax3sLK0GDzcJrekZYLw==

@@ -5,7 +5,8 @@ import Observer from './util/observer'
 import Loader from './components/loader'
 import { IGif } from '@giphy-js/types'
 
-type Props = {
+export const className = 'giphy-grid' // used in preact render
+export type Props = {
     width: number
     gifs: IGif[]
     columns: number
@@ -81,7 +82,7 @@ class Grid extends Component<Props, State> {
     render({ gifs, fetchGifs, width }: Props, { gifWidth }: State) {
         const showLoader = fetchGifs && gifs.length > 0
         return (
-            <div style={{ width }}>
+            <div style={{ width }} class={className}>
                 <div ref={c => (this.el = c)}>
                     {gifs.map(gif => (
                         <Gif gif={gif} key={gif.id} width={gifWidth} />
