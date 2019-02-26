@@ -1,5 +1,7 @@
 import { h, render } from 'preact'
-import Grid, { Props as GridProps, className } from './grid'
+import Grid, { Props as GridProps, className } from './components/grid'
+export { default as Grid, Props as GridProps } from './components/grid'
+export { default as Gif } from './components/gif'
 
 export const renderGrid = ({ width, gifs, columns, gutter, fetchGifs }: GridProps, target: HTMLElement) => {
     // preact will append if there's no existig node

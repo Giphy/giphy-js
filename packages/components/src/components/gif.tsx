@@ -8,14 +8,22 @@ import AdPill from './ad-pill'
 export const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow]
 export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLORS.length - 1))]
 
+const hoverTimeoutDelay = 200
+
 type Props = {
     gif: IGif
     width: number
     backgroundColor?: string
-    onGifVisible?: (gif: IGif, e: HTMLElement) => void
+    // fired on desktop when hovered for
+    onGifHover?: (gif: IGif, e: Event) => void
+    // fired every time the gif is show
+    onGifVisible?: (gif: IGif, e: Event) => void
+    // fired once after the gif loads and when it's completely in view
     onGifSeen?: (gif: IGif) => void
-    onGifClick?: (e: Event, gif: IGif) => void
-    onGifRightClick?: (e: Event, gif: IGif) => void
+    // fired when the gif is clicked
+    onGifClick?: (gif: IGif, e: Event) => void
+    // fired when the gif is right clicked
+    onGifRightClick?: (gif: IGif, e: Event) => void
 }
 
 type State = { ready: boolean; backgroundColor: string; showGif: boolean; gifSeen: boolean }
@@ -29,6 +37,7 @@ class Gif extends Component<Props, State> {
     fullGifObserver: IntersectionObserver
     container: HTMLElement
     hasFiredSeen = false
+    hoverTimeout
     constructor(props: Props) {
         super(props)
         this.check()
@@ -58,7 +67,17 @@ class Gif extends Component<Props, State> {
             { threshold: [1] },
         )
     }
-    onImageLoad = e => {
+    onMouseOver = (e: Event) => {
+        const { gif, onGifHover } = this.props
+        clearTimeout(this.hoverTimeout)
+        this.hoverTimeout = setTimeout(() => {
+            onGifHover && onGifHover(gif, e)
+        }, hoverTimeoutDelay)
+    }
+    onMouseOut = () => {
+        clearTimeout(this.hoverTimeout)
+    }
+    onImageLoad = (e: Event) => {
         const { gif, onGifVisible = () => {} } = this.props
         // // onSeen is called only once per GIF and indicates that
         // // the image was loaded. onGifVisible will be called every time
@@ -67,7 +86,7 @@ class Gif extends Component<Props, State> {
         if (!this.hasFiredSeen) {
             this.observeSeen()
         }
-        onGifVisible(gif, e.target)
+        onGifVisible(gif, e)
     }
     async componentDidMount() {
         this.observer = await addObserver(this.container, ([entry]: IntersectionObserverEntry[]) => {
@@ -78,9 +97,10 @@ class Gif extends Component<Props, State> {
     componentWillUnmount() {
         if (this.observer) this.observer.disconnect()
         if (this.fullGifObserver) this.fullGifObserver.disconnect()
+        if (this.hoverTimeout) clearTimeout(this.hoverTimeout)
     }
     render(
-        { gif, gif: { bottle_data }, width, onGifClick = noop, onGifRightClick = noop }: Props,
+        { gif, gif: { bottle_data: bottleData }, width, onGifClick = noop, onGifRightClick = noop }: Props,
         { ready, backgroundColor, showGif }: State,
     ) {
         const height = getGifHeight(gif, width)
@@ -88,14 +108,16 @@ class Gif extends Component<Props, State> {
         return (
             <div
                 style={{ backgroundColor, width, height }}
-                onClick={(e: Event) => onGifClick(e, gif)}
-                onContextMenu={(e: Event) => onGifRightClick(e, gif)}
+                onMouseOver={this.onMouseOver}
+                onMouseOut={this.onMouseOut}
+                onClick={(e: Event) => onGifClick(gif, e)}
+                onContextMenu={(e: Event) => onGifRightClick(gif, e)}
                 ref={c => (this.container = c)}
             >
                 {showGif ? (
                     <img src={fit} width={width} height={height} alt={getAltText(gif)} onLoad={this.onImageLoad} />
                 ) : null}
-                {showGif ? <AdPill bottle_data={bottle_data} /> : null}
+                {showGif ? <AdPill bottleData={bottleData} /> : null}
             </div>
         )
     }

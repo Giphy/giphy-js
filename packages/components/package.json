@@ -3,7 +3,7 @@
         "clean": "rm -rf ./dist",
         "types": "tsc -d --emitDeclarationOnly -declarationDir ./dist",
         "dev": "parcel public/test.html",
-        "build": "npm run clean && npm run types && parcel build public/index.tsx"
+        "build": "npm run clean && npm run types && parcel build ./src/index.tsx"
     },
     "devDependencies": {
         "@types/bricks.js": "^1.8.0",

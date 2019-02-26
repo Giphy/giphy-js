@@ -10,11 +10,11 @@ const adPillPosition = css`
 
 const adPillClass = cx(adPill, adPillPosition)
 type Props = {
-    bottle_data?: object
+    bottleData?: object
 }
 
-const AdPill = ({ bottle_data }: Props) => {
-    const renderAdPill = bottle_data && Object.keys(bottle_data).length > 0
+const AdPill = ({ bottleData }: Props) => {
+    const renderAdPill = bottleData && Object.keys(bottleData).length > 0
     return renderAdPill ? <div class={adPillClass} /> : null
 }
 

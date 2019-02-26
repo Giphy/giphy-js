@@ -1,8 +1,8 @@
 import { h, Component } from 'preact'
-import Gif from './components/gif'
+import Gif from './gif'
 import Bricks from 'bricks.js'
-import Observer from './util/observer'
-import Loader from './components/loader'
+import Observer from '../util/observer'
+import Loader from './loader'
 import { IGif } from '@giphy-js/types'
 
 export const className = 'giphy-grid' // used in preact render
