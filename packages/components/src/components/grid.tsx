@@ -1,18 +1,21 @@
 import { h, Component } from 'preact'
-import Gif from './gif'
+import Gif, { EventProps } from './gif'
 import Bricks from 'bricks.js'
 import Observer from '../util/observer'
 import Loader from './loader'
 import { IGif } from '@giphy-js/types'
+import * as pingback from '../util/pingback'
 
 export const className = 'giphy-grid' // used in preact render
-export type Props = {
+type GridProps = {
     width: number
     gifs: IGif[]
     columns: number
     gutter: number
     fetchGifs?: () => void
 }
+
+export type Props = GridProps & EventProps
 
 type State = { gifWidth: number; isFetching: boolean; numberOfGifs: number }
 class Grid extends Component<Props, State> {
@@ -70,6 +73,20 @@ class Grid extends Component<Props, State> {
             }
         }
     }
+    onGifClick = (gif: IGif, e: Event) => {
+        const { onGifClick } = this.props
+        if (onGifClick) {
+            onGifClick(gif, e)
+        }
+        pingback.onGifClick(gif, e)
+    }
+    onGifHover = (gif: IGif, e: Event) => {
+        const { onGifHover } = this.props
+        if (onGifHover) {
+            onGifHover(gif, e)
+        }
+        pingback.onGifHover(gif, e)
+    }
     fetchGifs = () => {
         const { fetchGifs } = this.props
         const { isFetching } = this.state
@@ -85,7 +102,13 @@ class Grid extends Component<Props, State> {
             <div style={{ width }} class={className}>
                 <div ref={c => (this.el = c)}>
                     {gifs.map(gif => (
-                        <Gif gif={gif} key={gif.id} width={gifWidth} />
+                        <Gif
+                            gif={gif}
+                            key={gif.id}
+                            width={gifWidth}
+                            onGifClick={this.onGifClick}
+                            onGifHover={this.onGifHover}
+                        />
                     ))}
                 </div>
                 {showLoader && (

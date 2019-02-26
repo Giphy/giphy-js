@@ -2,7 +2,7 @@
     "scripts": {
         "clean": "rm -rf ./dist",
         "dev": "parcel public/test.html",
-        "types": "tsc -d --emitDeclarationOnly -declarationDir ./dist",
+        "types": "tsc ./src/index.ts -d --emitDeclarationOnly -declarationDir ./dist",
         "build": "npm run clean && parcel build src/index.ts && npm run types"
     },
     "devDependencies": {

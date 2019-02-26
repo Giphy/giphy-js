@@ -1,4 +1,5 @@
 export default interface IUser {
+    id: number
     avatar_url: string
     banner_url: string
     banner_image: string

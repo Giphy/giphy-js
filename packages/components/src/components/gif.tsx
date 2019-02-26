@@ -4,27 +4,32 @@ import { getGifHeight, getBestRendition, getAltText, checkIfWebP } from '@giphy-
 import { giphyBlack, giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy-js/brand'
 import addObserver from '../util/add-observer'
 import AdPill from './ad-pill'
+import * as pingback from '../util/pingback'
 
 export const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow]
 export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLORS.length - 1))]
 
 const hoverTimeoutDelay = 200
 
-type Props = {
-    gif: IGif
-    width: number
-    backgroundColor?: string
+export type EventProps = {
     // fired on desktop when hovered for
     onGifHover?: (gif: IGif, e: Event) => void
     // fired every time the gif is show
     onGifVisible?: (gif: IGif, e: Event) => void
     // fired once after the gif loads and when it's completely in view
-    onGifSeen?: (gif: IGif) => void
+    onGifSeen?: (gif: IGif, boundingClientRect: ClientRect | DOMRect) => void
     // fired when the gif is clicked
     onGifClick?: (gif: IGif, e: Event) => void
     // fired when the gif is right clicked
     onGifRightClick?: (gif: IGif, e: Event) => void
 }
+type GifProps = {
+    gif: IGif
+    width: number
+    backgroundColor?: string
+}
+
+type Props = GifProps & EventProps
 
 type State = { ready: boolean; backgroundColor: string; showGif: boolean; gifSeen: boolean }
 
@@ -60,8 +65,12 @@ class Gif extends Component<Props, State> {
                 if (entry.isIntersecting) {
                     this.hasFiredSeen = true
                     // full gif seen
-                    const { onGifSeen } = this.props
-                    if (onGifSeen) onGifSeen(this.props.gif)
+                    const { onGifSeen, gif } = this.props
+                    if (onGifSeen) onGifSeen(gif, entry.boundingClientRect)
+                    // fire pingback
+                    // also perhaps third party here
+                    // TODO should this be in the grid?
+                    pingback.onGifSeen(gif, entry.boundingClientRect)
                 }
             },
             { threshold: [1] },
