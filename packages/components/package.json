@@ -11,7 +11,7 @@
         "typescript": "^3.3.3"
     },
     "name": "@giphy/js-components",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "lightweight ui components ",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -21,10 +21,10 @@
     "author": "giannif",
     "license": "MIT",
     "dependencies": {
-        "@giphy/js-brand": "1.0.0",
-        "@giphy/js-analytics": "1.0.0",
-        "@giphy/js-types": "1.0.0",
-        "@giphy/js-util": "1.0.0",
+        "@giphy/js-analytics": "^1.0.0",
+        "@giphy/js-brand": "^1.0.0",
+        "@giphy/js-types": "^1.0.0",
+        "@giphy/js-util": "^1.0.0",
         "bricks.js": "^1.8.0",
         "intersection-observer": "^0.5.1",
         "preact": "^8.4.2",

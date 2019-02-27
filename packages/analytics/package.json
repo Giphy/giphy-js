@@ -13,10 +13,10 @@
     ],
     "license": "MIT",
     "dependencies": {
-        "@giphy/js-types": "1.0.0",
-        "lodash": "4.17.11",
+        "@giphy/js-types": "^1.0.0",
         "cookie": "0.3.1",
-        "dompurify": "^1.0.10"
+        "dompurify": "^1.0.10",
+        "lodash": "4.17.11"
     },
     "devDependencies": {
         "parcel-bundler": "^1.11.0",
