@@ -11,10 +11,8 @@
         "strictNullChecks": true,
         "sourceMap": true,
         "skipLibCheck": true, // no reason to check the dependencies
-        "jsx": "react",
-        "jsxFactory": "h", // preact
         "lib": ["es6", "es7", "dom"],
-        "resolveJsonModule": true,
         "declaration": true
-    }
+    },
+    "exclude": ["node_modules"]
 }

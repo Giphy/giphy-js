@@ -4,6 +4,8 @@ import { IGif, ImageAllTypes } from '@giphy/js-types'
 
 let SUPPORTS_WEBP: null | boolean = null
 
+export const testMe = () => 'works!'
+
 const RENDITIONS = ['original', 'fixed_width', 'fixed_height', 'fixed_width_small', 'fixed_height_small']
 
 export const checkIfWebP = () =>

@@ -6,5 +6,5 @@
         "resolveJsonModule": true,
         "outDir": "./dist"
     },
-    "include": ["./src"]
+    "files": ["src/index.tsx"]
 }

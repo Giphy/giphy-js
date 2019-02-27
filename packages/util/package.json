@@ -2,7 +2,8 @@
     "scripts": {
         "clean": "rm -rf ./dist",
         "dev": "tsc --watch",
-        "build": "npm run clean && tsc"
+        "build": "npm run clean && tsc",
+        "test": "jest --config ./jestconfig.js"
     },
     "name": "@giphy/js-util",
     "version": "1.0.0",
