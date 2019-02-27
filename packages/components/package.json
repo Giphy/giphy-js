@@ -3,24 +3,28 @@
         "clean": "rm -rf ./dist",
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
         "dev": "parcel public/test.html",
-        "build": "npm run clean && npm run types && parcel build ./src/index.tsx"
+        "build": "npm run clean && tsc"
     },
     "devDependencies": {
         "@types/bricks.js": "^1.8.0",
         "parcel-bundler": "^1.11.0",
         "typescript": "^3.3.3"
     },
-    "name": "@giphy-js/components",
+    "name": "@giphy/js-components",
     "version": "0.0.0",
     "description": "lightweight ui components ",
-    "main": "index.tsx",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist/**/*"
+    ],
     "author": "giannif",
     "license": "MIT",
     "dependencies": {
-        "@giphy-js/brand": "1.0.0",
-        "@giphy-js/analytics": "1.0.0",
-        "@giphy-js/types": "1.0.0",
-        "@giphy-js/util": "1.0.0",
+        "@giphy/js-brand": "1.0.0",
+        "@giphy/js-analytics": "1.0.0",
+        "@giphy/js-types": "1.0.0",
+        "@giphy/js-util": "1.0.0",
         "bricks.js": "^1.8.0",
         "intersection-observer": "^0.5.1",
         "preact": "^8.4.2",

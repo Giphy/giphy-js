@@ -3,7 +3,7 @@ import Gif, { EventProps } from './gif'
 import Bricks from 'bricks.js'
 import Observer from '../util/observer'
 import Loader from './loader'
-import { IGif } from '@giphy-js/types'
+import { IGif } from '@giphy/js-types'
 import * as pingback from '../util/pingback'
 
 export const className = 'giphy-grid' // used in preact render

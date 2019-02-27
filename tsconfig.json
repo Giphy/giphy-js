@@ -14,6 +14,7 @@
         "jsx": "react",
         "jsxFactory": "h", // preact
         "lib": ["es6", "es7", "dom"],
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "declaration": true
     }
 }

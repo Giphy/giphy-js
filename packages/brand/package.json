@@ -11,11 +11,14 @@
         "parcel-plugin-url-loader": "^1.3.1",
         "typescript": "^3.3.3"
     },
-    "name": "@giphy-js/brand",
+    "name": "@giphy/js-brand",
     "version": "1.0.0",
     "description": "colors, fonts, and other shared css",
     "main": "./dist/index.js",
-    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "dist/**/*"
+    ],
     "author": "giannif",
     "license": "MIT",
     "source": true,

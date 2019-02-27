@@ -1,6 +1,6 @@
 import { take, without, map, pick } from 'lodash'
 import bestfit from './bestfit'
-import { IGif, ImageAllTypes } from '@giphy-js/types'
+import { IGif, ImageAllTypes } from '@giphy/js-types'
 
 let SUPPORTS_WEBP: null | boolean = null
 

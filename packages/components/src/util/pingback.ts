@@ -1,6 +1,6 @@
-import { pingback, PingbackAction } from '@giphy-js/analytics'
-import { getClientRect } from '@giphy-js/util'
-import { IGif } from '@giphy-js/types'
+import { pingback, PingbackAction } from '@giphy/js-analytics'
+import { getClientRect } from '@giphy/js-util'
+import { IGif } from '@giphy/js-types'
 
 // DUMMY DATA
 const searchResponseId = 'test'

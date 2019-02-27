@@ -1,5 +1,5 @@
 import { h, Component } from 'preact'
-import { loader } from '@giphy-js/brand'
+import { loader } from '@giphy/js-brand'
 type Props = { isVisible?: boolean; fetchGifs: () => void }
 
 type State = {}

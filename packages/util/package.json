@@ -1,15 +1,19 @@
 {
     "scripts": {
         "clean": "rm -rf ./dist",
-        "types": "tsc ./src/index.ts -d --emitDeclarationOnly -declarationDir ./dist",
-        "build": "npm run clean && npm run types && parcel build src/index.ts"
+        "dev": "tsc --watch",
+        "build": "npm run clean && tsc"
     },
-    "name": "@giphy-js/util",
+    "name": "@giphy/js-util",
     "version": "1.0.0",
     "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist/**/*"
+    ],
     "license": "MIT",
     "dependencies": {
-        "@giphy-js/types": "1.0.0",
+        "@giphy/js-types": "1.0.0",
         "lodash": "4.17.11"
     },
     "devDependencies": {

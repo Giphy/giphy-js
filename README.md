@@ -4,19 +4,19 @@ Docs are a WIP
 
 [lerna](https://github.com/lerna/lerna) repo containing our public javascript libs.
 
-#### @giphy-js/brand
+#### @giphy/js-brand
 
     colors, fonts
 
-#### @giphy-js/components
+#### @giphy/js-components
 
     lightweight grid with infinite scroll and lazyload, ad pill, attribution. no layout thrashing
 
-#### @giphy-js/types
+#### @giphy/js-types
 
     shared data types
 
-#### @giphy-js/util
+#### @giphy/js-util
 
     shared util
 

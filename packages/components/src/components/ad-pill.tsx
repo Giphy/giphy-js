@@ -1,6 +1,6 @@
 import { h } from 'preact'
 import { css, cx } from 'emotion'
-import { adPill } from '@giphy-js/brand'
+import { adPill } from '@giphy/js-brand'
 
 const adPillPosition = css`
     position: absolute;

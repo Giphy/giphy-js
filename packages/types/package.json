@@ -1,11 +1,16 @@
 {
     "scripts": {
         "clean": "rm -rf ./dist",
+        "dev": "tsc --watch",
         "build": "npm run clean && tsc -d --emitDeclarationOnly -declarationDir ./dist"
     },
-    "name": "@giphy-js/types",
+    "name": "@giphy/js-types",
     "version": "1.0.0",
     "main": "dist/index.d.ts",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist/**/*"
+    ],
     "license": "MIT",
     "devDependencies": {
         "typescript": "^3.3.3"

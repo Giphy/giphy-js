@@ -1,4 +1,4 @@
-import { IRendition } from '@giphy-js/types'
+import { IRendition } from '@giphy/js-types'
 
 const chooseFunc = (width: number, height: number) => renditions => {
     let currentBest = Infinity

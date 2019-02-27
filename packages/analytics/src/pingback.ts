@@ -5,7 +5,7 @@ import {
     explorePingBackEvent,
     trendingCarouselPingBackEvent,
 } from './pingback-requests'
-import { IGif } from '@giphy-js/types'
+import { IGif } from '@giphy/js-types'
 import { IPingbackUser } from './types'
 
 const pingbackFunction = {
