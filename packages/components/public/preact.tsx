@@ -1,6 +1,6 @@
 import { h, render, Component } from 'preact'
 import { throttle } from 'throttle-debounce'
-import Grid from '../src/grid'
+import { Grid } from '../src'
 import { IGif } from '@giphy/js-types'
 
 // to require json, we need to define require

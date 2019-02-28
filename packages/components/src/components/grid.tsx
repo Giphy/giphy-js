@@ -24,8 +24,8 @@ class Grid extends Component<Props, State> {
         numberOfGifs: 0,
         gifWidth: 0,
     }
-    bricks
-    el: HTMLElement
+    bricks?: any
+    el?: HTMLElement
     static getDerivedStateFromProps({ columns, gutter, width, gifs }: Props, prevState: State) {
         const gutterOffset = gutter * (columns - 1)
         const gifWidth = Math.floor((width - gutterOffset) / columns)
@@ -43,7 +43,7 @@ class Grid extends Component<Props, State> {
         const { columns, gutter, gifs } = this.props
         // bricks
         this.bricks = Bricks({
-            container: this.el,
+            container: this.el!,
             packed: 'data-packed',
             sizes: [{ columns, gutter }],
         })

@@ -1,11 +1,11 @@
 import { IRendition } from '@giphy/js-types'
 
-const chooseFunc = (width: number, height: number) => renditions => {
+const chooseFunc = (width: number, height: number) => (renditions: IRendition[]) => {
     let currentBest = Infinity
-    let result
-    renditions.forEach(rendition => {
-        const widthPercentage = parseInt(rendition.width) / width
-        const heightPercentage = parseInt(rendition.height) / height
+    let result: IRendition
+    renditions.forEach((rendition: IRendition) => {
+        const widthPercentage = rendition.width / width
+        const heightPercentage = rendition.height / height
         // a width percentage of 1 is exact, 2 is double, .5 half etc
         const areaPercentage = widthPercentage * heightPercentage
         // img could be bigger or smaller
@@ -15,7 +15,7 @@ const chooseFunc = (width: number, height: number) => renditions => {
             result = rendition
         }
     })
-    return result
+    return result!
 }
 /**
  * Finds image rendition that best fits a given container preferring images

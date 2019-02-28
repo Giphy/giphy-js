@@ -38,11 +38,11 @@ const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAAL
 const noop = () => {}
 
 class Gif extends Component<Props, State> {
-    observer: IntersectionObserver
-    fullGifObserver: IntersectionObserver
-    container: HTMLElement
+    observer?: IntersectionObserver
+    fullGifObserver?: IntersectionObserver
+    container?: HTMLElement
     hasFiredSeen = false
-    hoverTimeout
+    hoverTimeout?: any
     constructor(props: Props) {
         super(props)
         this.check()
@@ -60,7 +60,7 @@ class Gif extends Component<Props, State> {
     }
     async observeSeen() {
         this.fullGifObserver = await addObserver(
-            this.container,
+            this.container!,
             ([entry]: IntersectionObserverEntry[]) => {
                 if (entry.isIntersecting) {
                     this.hasFiredSeen = true
@@ -98,7 +98,7 @@ class Gif extends Component<Props, State> {
         onGifVisible(gif, e)
     }
     async componentDidMount() {
-        this.observer = await addObserver(this.container, ([entry]: IntersectionObserverEntry[]) => {
+        this.observer = await addObserver(this.container!, ([entry]: IntersectionObserverEntry[]) => {
             // we won't show the gif until we have our polyfill (if we need it)
             this.setState({ showGif: entry.isIntersecting })
         })

@@ -1,11 +1,12 @@
 const addObserver = async (el: HTMLElement, cb: IntersectionObserverCallback, options?: IntersectionObserverInit) => {
     // @ts-ignore
     if (!window.IntersectionObserver) {
+        // @ts-ignore
         await import('intersection-observer')
     }
-    this.observer = new IntersectionObserver(cb, options)
-    this.observer.observe(el)
-    return this.observer
+    const observer = new IntersectionObserver(cb, options)
+    observer.observe(el)
+    return observer
 }
 
 export default addObserver

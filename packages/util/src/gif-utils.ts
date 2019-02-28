@@ -1,6 +1,6 @@
 import { take, without, map, pick } from 'lodash'
 import bestfit from './bestfit'
-import { IGif, ImageAllTypes } from '@giphy/js-types'
+import { IGif, ImageAllTypes, IRendition } from '@giphy/js-types'
 
 let SUPPORTS_WEBP: null | boolean = null
 
@@ -35,6 +35,7 @@ export const getSpecificRendition = (
 ) => {
     if (!images || !renditionLabel) return ''
 
+    // @ts-ignore come back to this
     const rendition = images[`${renditionLabel}${isStill ? '_still' : ''}`] as ImageAllTypes
 
     if (rendition) {
@@ -48,21 +49,32 @@ export const getSpecificRendition = (
     return ''
 }
 
-export const getBestRendition = ({ images }, gifWidth, gifHeight, isStill = false, useVideo = false) => {
+interface IRenditionWithKey extends IRendition {
+    renditionName: string
+}
+
+export const getBestRendition = (
+    { images }: IGif,
+    gifWidth: number,
+    gifHeight: number,
+    isStill = false,
+    useVideo = false,
+) => {
     if (!gifWidth || !gifHeight || !images) return ''
     const checkRenditions = pick(images, RENDITIONS)
-    const testImages = map(checkRenditions, (val, key) => ({ key, ...val }))
-    const { key } = bestfit(testImages, gifWidth, gifHeight)
-    const rendition = images[`${key}${isStill ? '_still' : ''}`]
+    const testImages = map(checkRenditions, (val, renditionName) => ({ renditionName, ...val })) as IRenditionWithKey[]
+    const { renditionName } = bestfit(testImages, gifWidth, gifHeight) as IRenditionWithKey
+    // @ts-ignore come back to this
+    const rendition = images[`${renditionName}${isStill ? '_still' : ''}`]
     const match = useVideo ? rendition.mp4 : SUPPORTS_WEBP && rendition.webp ? rendition.webp : rendition.url
     return match || ''
 }
 
-export const getGifHeight = ({ images }, gifWidth) => {
+export const getGifHeight = ({ images }: IGif, gifWidth: number) => {
     const { fixed_width } = images
     if (fixed_width) {
         const { width, height } = fixed_width
-        const aspectRatio = parseInt(width) / parseInt(height)
+        const aspectRatio = width / height
         return Math.round(gifWidth / aspectRatio)
     }
     return 0
@@ -74,7 +86,7 @@ export const getGifHeight = ({ images }, gifWidth) => {
  * @prop  {Gif}
  * @return {String} GIF alt text.
  */
-export const getAltText = ({ user, tags = [], is_sticker = false, title = '' }: IGif) => {
+export const getAltText = ({ user, tags = [], is_sticker = false, title = '' }: IGif): string => {
     if (title) {
         return title
     }
