@@ -90,7 +90,7 @@ export const getAltText = ({ user, tags = [], is_sticker = false, title = '' }: 
     if (title) {
         return title
     }
-    const username = (user && user.name) || ''
+    const username = (user && user.username) || ''
     const filteredTags = take(without(tags, 'transparent'), username ? 4 : 5)
     return `${username} ${filteredTags.join(' ')} ${is_sticker ? 'Sticker' : 'GIF'}`
 }

@@ -1,10 +1,4 @@
-import { css, injectGlobal } from 'emotion'
-export const titleFont = "'nexablack', sans-serif"
-export const smallTitleSize = '20px'
-export const titleSize = '26px'
-export const largeTitleSize = '36px'
-export const subheaderSize = '16px'
-export const smallSubheaderSize = '12px'
+import { css, cx, injectGlobal } from 'emotion'
 
 injectGlobal`
 @font-face {
@@ -49,28 +43,73 @@ injectGlobal`
 }
 `
 
-export const Title = css`
-    font-family: ${titleFont};
+export const fontFamily = {
+    title: "'nexablack', sans-serif",
+}
+
+export const fontSize = {
+    titleSmall: '20px',
+    title: '26px',
+    titleLarge: '36px',
+    subheader: '16px',
+    subheaderSmall: '12px',
+}
+
+const sharedTitle = css`
+    font-family: ${fontFamily.title};
     -webkit-font-smoothing: antialiased;
-    font-size: ${titleSize};
 `
-export const TitleLarge = css`
-    font-size: ${largeTitleSize};
-`
-export const TitleSmall = css`
-    font-size: ${smallTitleSize};
-`
-export const Subheader = css`
-    font-size: ${subheaderSize};
+
+const title = cx(
+    css`
+        font-size: ${fontSize.title};
+    `,
+    sharedTitle,
+)
+const titleLarge = cx(
+    css`
+        font-size: ${fontSize.titleLarge};
+    `,
+    sharedTitle,
+)
+const titleSmall = cx(
+    css`
+        font-size: ${fontSize.titleSmall};
+    `,
+    sharedTitle,
+)
+
+const sharedSubheader = css`
     font-weight: bold;
     -webkit-font-smoothing: antialiased;
 `
-export const SubheaderSmall = css`
-    font-size: ${smallSubheaderSize};
-`
-export const SectionHeader = css`
+const subheader = cx(
+    css`
+        font-size: ${fontSize.subheader};
+    `,
+    sharedSubheader,
+)
+const subheaderSmall = cx(
+    css`
+        font-size: ${fontSize.subheaderSmall};
+    `,
+    sharedSubheader,
+)
+
+const sectionHeader = css`
     font-size: 14px;
     font-weight: bold;
     text-transform: uppercase;
     -webkit-font-smoothing: antialiased;
 `
+
+const classNames = {
+    sectionHeader,
+    subheaderSmall,
+    subheader,
+    titleLarge,
+    titleSmall,
+    title,
+}
+
+export { classNames as css }
