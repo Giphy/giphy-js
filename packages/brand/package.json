@@ -12,7 +12,7 @@
         "typescript": "^3.3.3"
     },
     "name": "@giphy/js-brand",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "colors, fonts, and other shared css",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",

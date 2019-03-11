@@ -5,7 +5,7 @@
         "build": "npm run clean && tsc"
     },
     "name": "@giphy/js-analytics",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
@@ -13,7 +13,7 @@
     ],
     "license": "MIT",
     "dependencies": {
-        "@giphy/js-types": "^1.0.0",
+        "@giphy/js-types": "^1.0.1",
         "cookie": "0.3.1",
         "dompurify": "^1.0.10",
         "lodash": "4.17.11"

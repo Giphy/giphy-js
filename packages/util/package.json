@@ -6,7 +6,7 @@
         "test": "jest --config ./jestconfig.js"
     },
     "name": "@giphy/js-util",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
@@ -14,7 +14,7 @@
     ],
     "license": "MIT",
     "dependencies": {
-        "@giphy/js-types": "^1.0.0",
+        "@giphy/js-types": "^1.0.1",
         "lodash": "4.17.11"
     },
     "devDependencies": {
