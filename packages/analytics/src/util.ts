@@ -20,7 +20,7 @@ export function getAction(
         action_type,
         ts: Date.now(),
         gif_id,
-        tid: tid,
+        tid,
         attributes,
     }
 }

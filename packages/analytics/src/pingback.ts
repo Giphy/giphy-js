@@ -1,16 +1,10 @@
-import cookie from 'cookie'
 import { debounce, forEach } from 'lodash'
-import getLastSearchResponseId from './response-ids'
+import { createSession } from './session'
 import { EventType, Pingback, PingbackRequestAction, PingbackType } from './types'
 import { getAction } from './util'
 
-const pingBackUrl = 'https://pingback.giphy.com/pingback?apikey=l0HlIwPWyBBUDAUgM'
-// const pingBackUrl_debug = 'https://pingback.giphy.com/pingback_debug?apikey=l0HlIwPWyBBUDAUgM'
-const queuedEvents: { [key in PingbackType]?: any } = {}
-let loggedInUserId = ''
-const debouncedPingbackEvent = debounce(fetchPingbackRequest, 1000)
-
-const map: { [key in PingbackType]: EventType } = {
+// TODO why does this map exist?
+const map: { [key in PingbackType]: Partial<EventType> } = {
     trending_grid: 'GIF_TRENDING',
     trending_carousel: 'GIF_TRENDING',
     related_grid: 'GIF_RELATED',
@@ -20,47 +14,29 @@ const map: { [key in PingbackType]: EventType } = {
     suggested_terms: 'GIF_SEARCH',
     explore_grid: 'GIF_EXPLORE',
 }
-const getActions = (queuedEventsForType, searchResponseId) =>
-    queuedEventsForType && searchResponseId ? queuedEventsForType[searchResponseId] : null
 
-export const createSession = (pingbackType: PingbackType, searchResponseId?: string) => ({
-    user: {
-        user_id: cookie.parse(document.cookie).giphy_pbid,
-        logged_in_user_id: loggedInUserId,
-    },
-    events: [
-        {
-            event_type: map[pingbackType],
-            referrer: document && document.referrer ? document.referrer : null,
-            actions: getActions(queuedEvents[pingbackType], searchResponseId),
-            response_id: searchResponseId,
-            previous_response_id: getLastSearchResponseId() || null,
-        },
-    ],
-})
+const pingBackUrl = 'https://pingback.giphy.com/pingback?apikey=l0HlIwPWyBBUDAUgM'
+
+// const pingBackUrl_debug = 'https://pingback.giphy.com/pingback_debug?apikey=l0HlIwPWyBBUDAUgM'
+type ActionMap = { [key: string]: PingbackRequestAction[] }
+
+const queuedPingbacks: { [key in PingbackType]?: ActionMap } = {}
+
+let loggedInUserId = ''
+
+const debouncedPingbackEvent = debounce(fetchPingbackRequest, 1000)
 
 // for IntervalCalls and UnmountCalls
 export function fetchPingbackRequest() {
     // if there are no actions lined up inside this pingbackType do nothing
-    forEach(Object.keys(queuedEvents), pingbackTypeKeys => {
-        if (Array.isArray(queuedEvents[pingbackTypeKeys])) {
-            if (queuedEvents[pingbackTypeKeys].length) {
-                const session = createSession(pingbackTypeKeys as PingbackType)
-                fetch(pingBackUrl, {
-                    method: 'POST',
-                    body: JSON.stringify({ sessions: [session] }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                // empty this specific batch
-                queuedEvents[pingbackTypeKeys] = []
-            }
-        } else {
-            // if the nested value is an object loop over the keys otherwise take what is there
-            forEach(Object.keys(queuedEvents[pingbackTypeKeys]), pingBackResponseIdKeys => {
-                if (queuedEvents[pingbackTypeKeys][pingBackResponseIdKeys].length) {
-                    const session = createSession(pingbackTypeKeys as PingbackType, pingBackResponseIdKeys)
+    // TODO remove lodash
+    forEach(Object.keys(queuedPingbacks), pingbackTypeKeys => {
+        const pingbackType = pingbackTypeKeys as PingbackType
+        const actionMap = queuedPingbacks[pingbackType]
+        if (actionMap) {
+            forEach(Object.keys(actionMap), responseId => {
+                if (actionMap[responseId].length) {
+                    const session = createSession(map[pingbackType], actionMap[responseId], responseId, loggedInUserId)
                     fetch(pingBackUrl, {
                         method: 'POST',
                         body: JSON.stringify({ sessions: [session] }),
@@ -69,44 +45,42 @@ export function fetchPingbackRequest() {
                         },
                     })
                     // empty this specific batch
-                    queuedEvents[pingbackTypeKeys][pingBackResponseIdKeys] = []
+                    actionMap[responseId] = []
                 }
             })
         }
     })
 }
 
-export function firePingBackEvent(
-    type: PingbackType,
-    action: PingbackRequestAction,
-    searchResponseId: string,
-    userId: string,
-    skipQueue = false,
-) {
-    if (loggedInUserId) {
-        // we don't need anything more than the user.id
-        loggedInUserId = userId
-    }
-    // the queue doesn't exist for this pingbackType yet so create it and create the corresponding searchResponseId key
-    if (!queuedEvents[type] && action) {
-        queuedEvents[type] = {}
-        queuedEvents[type][searchResponseId] = [action]
-        // the group exists but the searchRepsonseId queue does not so create it
-    } else if (!queuedEvents[type][searchResponseId] && action) {
-        queuedEvents[type][searchResponseId] = [action]
-        // the queue exists already so just store it into the appropriate type queue
-    } else if (action) {
-        queuedEvents[type][searchResponseId].push(action)
-    }
-    skipQueue ? fetchPingbackRequest() : debouncedPingbackEvent()
-}
+const pingback = ({ gif, user, searchResponseId, type: pingbackType, actionType, position }: Pingback) => {
+    const {
+        id,
+        bottle_data: { tid },
+    } = gif
 
-const pingback = ({ gif, user, searchResponseId, type, actionType, position }: Pingback) => {
-    const { id, bottle_data = { tid: '' } } = gif
-    const { tid } = bottle_data
-    const skipQueue = !!tid
-    const action = getAction(actionType, String(id), tid, position)
-    firePingBackEvent(type, action, searchResponseId, user ? String(user.id) : '', skipQueue)
+    // save the user id for whenever create session is invoked
+    loggedInUserId = user ? String(user.id) : loggedInUserId
+
+    // the queue doesn't exist for this pingbackType yet so create it
+    if (!queuedPingbacks[pingbackType]) {
+        queuedPingbacks[pingbackType] = {}
+    }
+
+    // a map of actions based on pingback type
+    const actionMap = queuedPingbacks[pingbackType]! // we just created it so ! is ok
+
+    // create the searchRepsonseId queue
+    if (!actionMap[searchResponseId]) {
+        actionMap[searchResponseId] = []
+    }
+    // add the action
+    actionMap[searchResponseId].push(getAction(actionType, String(id), tid, position))
+    // if there's a tid, skip the queue
+    if (tid) {
+        fetchPingbackRequest()
+    } else {
+        debouncedPingbackEvent()
+    }
 }
 
 export default pingback
