@@ -9,7 +9,7 @@ export type PingbackUser = {
 export type Pingback = {
     gif: IGif
     user: PingbackUser
-    type: PingbackType
+    type: PingbackEventType
     searchResponseId: string
     actionType: PingbackActionType
     position?: ClientRect
@@ -25,14 +25,4 @@ export type PingbackRequestAction = {
     ts: number
 }
 
-export type PingbackType =
-    | 'trending_carousel'
-    | 'trending_grid'
-    | 'related_grid'
-    | 'channel_grid'
-    | 'search_grid'
-    | 'universal_search'
-    | 'suggested_terms'
-    | 'explore_grid'
-
-export type EventType = 'GIF_TRENDING' | 'GIF_RELATED' | 'GIF_CHANNEL' | 'GIF_SEARCH' | 'GIF_EXPLORE'
+export type PingbackEventType = 'GIF_TRENDING' | 'GIF_RELATED' | 'GIF_CHANNEL' | 'GIF_SEARCH' | 'GIF_EXPLORE'

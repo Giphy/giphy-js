@@ -1,26 +1,15 @@
 import { debounce, forEach } from 'lodash'
 import { createSession } from './session'
-import { EventType, Pingback, PingbackRequestAction, PingbackType } from './types'
+import { Pingback, PingbackRequestAction, PingbackEventType } from './types'
 import { getAction } from './util'
 
-// TODO why does this map exist?
-const map: { [key in PingbackType]: Partial<EventType> } = {
-    trending_grid: 'GIF_TRENDING',
-    trending_carousel: 'GIF_TRENDING',
-    related_grid: 'GIF_RELATED',
-    channel_grid: 'GIF_CHANNEL',
-    search_grid: 'GIF_SEARCH',
-    universal_search: 'GIF_SEARCH',
-    suggested_terms: 'GIF_SEARCH',
-    explore_grid: 'GIF_EXPLORE',
-}
-
+// TODO remove api key
 const pingBackUrl = 'https://pingback.giphy.com/pingback?apikey=l0HlIwPWyBBUDAUgM'
 
 // const pingBackUrl_debug = 'https://pingback.giphy.com/pingback_debug?apikey=l0HlIwPWyBBUDAUgM'
 type ActionMap = { [key: string]: PingbackRequestAction[] }
 
-const queuedPingbacks: { [key in PingbackType]?: ActionMap } = {}
+const queuedPingbacks: { [key in PingbackEventType]?: ActionMap } = {}
 
 let loggedInUserId = ''
 
@@ -31,12 +20,12 @@ export function fetchPingbackRequest() {
     // if there are no actions lined up inside this pingbackType do nothing
     // TODO remove lodash
     forEach(Object.keys(queuedPingbacks), pingbackTypeKeys => {
-        const pingbackType = pingbackTypeKeys as PingbackType
+        const pingbackType = pingbackTypeKeys as PingbackEventType
         const actionMap = queuedPingbacks[pingbackType]
         if (actionMap) {
             forEach(Object.keys(actionMap), responseId => {
                 if (actionMap[responseId].length) {
-                    const session = createSession(map[pingbackType], actionMap[responseId], responseId, loggedInUserId)
+                    const session = createSession(pingbackType, actionMap[responseId], responseId, loggedInUserId)
                     fetch(pingBackUrl, {
                         method: 'POST',
                         body: JSON.stringify({ sessions: [session] }),

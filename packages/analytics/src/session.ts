@@ -1,8 +1,8 @@
 import cookie from 'cookie'
-import { EventType, PingbackRequestAction } from './types'
+import { PingbackEventType, PingbackRequestAction } from './types'
 
 type SessionEvent = {
-    event_type: EventType
+    event_type: PingbackEventType
     referrer: string
     actions: PingbackRequestAction[]
     response_id?: string
@@ -31,7 +31,7 @@ function getLastSearchResponseId(): string {
 
 // the session is the request payload of a pingback request
 export const createSession = (
-    event_type: EventType,
+    event_type: PingbackEventType,
     actions: PingbackRequestAction[],
     searchResponseId: string = '',
     loggedInUserId: string = '',

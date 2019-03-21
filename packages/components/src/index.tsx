@@ -7,7 +7,14 @@ export const renderGrid = ({ width, gifs, columns, gutter, fetchGifs }: GridProp
     // preact will append if there's no existig node
     const existingNode = target.querySelector(`.${className}`)!
     render(
-        <Grid width={width} gifs={gifs} columns={columns} gutter={gutter} fetchGifs={fetchGifs} />,
+        <Grid
+            width={width}
+            gifs={gifs}
+            columns={columns}
+            gutter={gutter}
+            fetchGifs={fetchGifs}
+            pingbackEventType="GIF_SEARCH"
+        />,
         target,
         existingNode,
     )

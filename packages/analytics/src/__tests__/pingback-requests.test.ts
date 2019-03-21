@@ -15,7 +15,7 @@ describe('pingback', () => {
         pingback({
             gif: gif as IGif,
             user,
-            type: 'related_grid',
+            type: 'GIF_RELATED',
             searchResponseId,
             actionType: 'CLICK',
         })
