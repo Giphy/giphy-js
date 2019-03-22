@@ -94,8 +94,8 @@ class GiphyFetch {
      * @param {RandomParams}
      * @returns {Promise<GifsResult>}
      **/
-    random(params?: RandomParams): Promise<GifsResult> {
-        return request(`${getType(params)}/random?${this.getQS(params)}`, normalizeGifs) as Promise<GifsResult>
+    random(params?: RandomParams): Promise<GifResult> {
+        return request(`${getType(params)}/random?${this.getQS(params)}`, normalizeGif) as Promise<GifResult>
     }
 }
 export default GiphyFetch
