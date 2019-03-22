@@ -4,21 +4,25 @@ Docs are a WIP
 
 [lerna](https://github.com/lerna/lerna) repo containing our public javascript libs.
 
+#### @giphy/js-fetch-api
+
+> fetch gifs, categories, and subcategories using the [GIPHY API](https://developers.giphy.com/docs/)
+
 #### @giphy/js-brand
 
-    colors, fonts
+> colors, fonts
 
 #### @giphy/js-components
 
-    lightweight grid with infinite scroll and lazyload, ad pill, attribution. no layout thrashing
+> lightweight grid with infinite scroll and lazyload, ad pill, attribution. no layout thrashing
 
 #### @giphy/js-types
 
-    shared data types
+> shared data types
 
 #### @giphy/js-util
 
-    shared util
+> shared util
 
 ### Install
 
