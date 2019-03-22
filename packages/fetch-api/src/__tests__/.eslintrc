@@ -1,0 +1,9 @@
+{
+    "globals": {
+        "fetch": true,
+        "fetchMock": true
+    },
+    "env": {
+        "jest": true
+    }
+}
