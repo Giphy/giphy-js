@@ -45,7 +45,16 @@ class Resizer extends Component<Props, State> {
     }
 
     render(_: Props, { width, gifs }) {
-        return <Grid width={width} gifs={gifs} columns={3} gutter={6} fetchGifs={this.fetchGifs} />
+        return (
+            <Grid
+                width={width}
+                gifs={gifs}
+                columns={3}
+                gutter={6}
+                fetchGifs={this.fetchGifs}
+                pingbackEventType="GIF_SEARCH"
+            />
+        )
     }
 }
 

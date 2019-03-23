@@ -25,6 +25,9 @@ const normalize = (gif: any) => {
     const newGif: IGif = { ...gif }
     newGif.id = String(newGif.id)
     newGif.tags = newGif.tags.map(getTag)
+    if (!newGif.bottle_data) {
+        newGif.bottle_data = {} as any
+    }
     BOOL_PROPS.forEach(makeBool(newGif))
     const { user } = newGif
     if (user) {

@@ -23,6 +23,7 @@
     "dependencies": {
         "@giphy/js-analytics": "^1.0.1",
         "@giphy/js-brand": "^1.0.1",
+        "@giphy/js-fetch-api": "^1.0.1",
         "@giphy/js-types": "^1.0.1",
         "@giphy/js-util": "^1.0.1",
         "bricks.js": "^1.8.0",

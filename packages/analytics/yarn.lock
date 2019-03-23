@@ -638,11 +638,6 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@giphy/js-types@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@giphy/js-types/-/js-types-1.0.1.tgz#28d1aa3361b70cd092604e2501697e6bc3d3cc74"
-  integrity sha512-bP8OXmZHhmXs97Cw3I/od4hZkHFI4Z11vE5CksG3Sj1a7kpCdn4ID1oiuUKlD2agwMx+/T2uQ6d1QYE/yHAxYA==
-
 "@iarna/toml@^2.2.0":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.3.tgz#f060bf6eaafae4d56a7dac618980838b0696e2ab"
@@ -726,6 +721,11 @@
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/@types/semver/-/semver-5.5.0.tgz#146c2a29ee7d3bae4bf2fcb274636e264c813c45"
   integrity sha512-41qEJgBH/TWgo5NFSvBCJ1qkoi3Q6ONSF2avrHq1LVEZfYpdHmj0y9SuTK+u9ZhG1sYQKBL1AWXKyLWP4RaUoQ==
+
+"@types/throttle-debounce@1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/throttle-debounce/-/throttle-debounce-1.1.1.tgz#4a78636c36a4534b76d85ee244fce238d435f22a"
+  integrity sha512-VhX9p0l8p3TS27XU+CnDfhdnzW7HpVgtKiYDh/lfucSAz8s9uTt0q4aPwcYIr+q+3/NghlU3smXBW6ItvfJKYQ==
 
 abab@^2.0.0:
   version "2.0.0"
@@ -4821,6 +4821,11 @@ terser@^3.7.3:
     commander "~2.17.1"
     source-map "~0.6.1"
     source-map-support "~0.5.9"
+
+throttle-debounce@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/throttle-debounce/-/throttle-debounce-2.1.0.tgz#257e648f0a56bd9e54fe0f132c4ab8611df4e1d5"
+  integrity sha512-AOvyNahXQuU7NN+VVvOOX+uW6FPaWdAOdRP5HfwYxAfCzXTFKRMoIMk+n+po318+ktcChx+F1Dd91G3YHeMKyg==
 
 through2@^2.0.0, through2@~2.0.3:
   version "2.0.5"
