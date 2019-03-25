@@ -11,9 +11,7 @@ const queuedPingbacks: { [key in PingbackEventType]?: ActionMap } = {}
 
 let loggedInUserId = ''
 
-const debouncedPingbackEvent = debounce(1000, fetchPingbackRequest)
-
-export function fetchPingbackRequest() {
+function fetchPingbackRequest() {
     forEach(queuedPingbacks, (actionMap: ActionMap, pingbackType: PingbackEventType) => {
         if (actionMap) {
             forEach(actionMap, (action: PingbackRequestAction[], responseId: string) => {
@@ -29,12 +27,14 @@ export function fetchPingbackRequest() {
     })
 }
 
+const debouncedPingbackEvent = debounce(1000, fetchPingbackRequest)
+
 const pingback = ({ gif, user, searchResponseId, type: pingbackType, actionType, position }: Pingback) => {
     const { id, bottle_data = {} } = gif
     const { tid } = bottle_data
 
     // save the user id for whenever create session is invoked
-    loggedInUserId = user ? String(user.id) : loggedInUserId
+    loggedInUserId = user && user.id ? String(user.id) : loggedInUserId
 
     // the queue doesn't exist for this pingbackType yet so create it
     if (!queuedPingbacks[pingbackType]) queuedPingbacks[pingbackType] = {}

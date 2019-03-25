@@ -6,7 +6,7 @@ type SessionEvent = {
     referrer: string
     actions: PingbackRequestAction[]
     response_id?: string
-    previous_response_id?: string
+    prior_response_id?: string
 }
 export type Session = {
     user: {
@@ -28,7 +28,6 @@ function getLastSearchResponseId(): string {
     }
     return ''
 }
-
 // the session is the request payload of a pingback request
 export const createSession = (
     event_type: PingbackEventType,
@@ -38,7 +37,7 @@ export const createSession = (
 ): Session => ({
     user: {
         user_id: cookie.parse(document.cookie).giphy_pbid,
-        logged_in_user_id: loggedInUserId,
+        logged_in_user_id: loggedInUserId || '',
     },
     events: [
         {
@@ -46,7 +45,7 @@ export const createSession = (
             referrer: document ? document.referrer : '',
             actions,
             response_id: searchResponseId,
-            previous_response_id: getLastSearchResponseId(),
+            prior_response_id: getLastSearchResponseId(),
         },
     ],
 })

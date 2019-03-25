@@ -76,4 +76,5 @@ export default interface IGif {
     is_removed: boolean
     tags: string[]
     bottle_data: IBottleData
+    response_id: string
 }

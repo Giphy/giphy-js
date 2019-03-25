@@ -35,24 +35,25 @@ namespace Preact {
         fetchGifs = async () => {
             const result = await giphyFetch(this.offset)
             const { gifs } = this.state
-            this.offset = (result as GifsResult).pagination.count
+            const { pagination } = result as GifsResult
+            this.offset = pagination.count + pagination.offset
             this.setState({ gifs: [...gifs, ...(result as GifsResult).data] })
             render()
         }
         componentDidMount() {
             document.title = 'Preact Grid Wrapper'
             window.addEventListener('resize', this.setWidth, false)
-            setTimeout(this.fetchGifs, 1000)
+            this.fetchGifs()
         }
         componentWillUnmount() {
             window.removeEventListener('resize', this.setWidth, false)
         }
 
         render(_: Props, { width, gifs }) {
-            console.log(`> index.tsx:86`, gifs.length, `gifs.length`)
             return (
                 <Grid
                     width={width}
+                    user={{}}
                     gifs={gifs}
                     columns={3}
                     gutter={6}
@@ -70,20 +71,31 @@ namespace Preact {
 namespace Vanilla {
     let renderGifs: IGif[] = []
     let offset = 0
+    let inited = false
     document.title = 'Vanilla Grid Wrapper'
     const fetchGifs = async () => {
         const result = await giphyFetch(offset)
-        offset = (result as GifsResult).pagination.count
+        const { pagination } = result as GifsResult
+        offset = pagination.count + pagination.offset
         renderGifs = renderGifs.concat((result as GifsResult).data)
         render()
     }
+    const init = () => {
+        if (inited) return
+        inited = true
+        const setWidth = throttle(500, render)
+        window.addEventListener('resize', setWidth, false)
+        fetchGifs()
+    }
     // eslint-disable-next-line
     export const render = () => {
+        init()
         const width = getWidth()
         renderGrid(
             {
                 width,
                 gifs: renderGifs,
+                user: {},
                 columns,
                 gutter,
                 fetchGifs,
@@ -91,9 +103,6 @@ namespace Vanilla {
             },
             mountNode,
         )
-        const setWidth = throttle(500, render)
-        window.addEventListener('resize', setWidth, false)
-        fetchGifs()
     }
 }
 
@@ -103,4 +112,4 @@ if (module.hot) {
     module.hot.accept()
 }
 
-location.search.indexOf('preact') ? Preact.render() : Vanilla.render()
+location.search.indexOf('preact') !== -1 ? Preact.render() : Vanilla.render()

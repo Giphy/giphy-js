@@ -3,7 +3,7 @@ import Gif, { EventProps } from './gif'
 import Bricks from 'bricks.js'
 import Observer from '../util/observer'
 import Loader from './loader'
-import { IGif } from '@giphy/js-types'
+import { IGif, IUser } from '@giphy/js-types'
 import * as pingback from '../util/pingback'
 import { PingbackEventType } from '@giphy/js-analytics'
 
@@ -11,6 +11,7 @@ export const className = 'giphy-grid' // used in preact render
 type GridProps = {
     width: number
     gifs: IGif[]
+    user: Partial<IUser>
     columns: number
     gutter: number
     pingbackEventType: PingbackEventType
@@ -76,27 +77,27 @@ class Grid extends Component<Props, State> {
         }
     }
     onGifSeen = (gif: IGif, boundingClientRect: ClientRect | DOMRect) => {
-        const { onGifSeen, pingbackEventType } = this.props
+        const { onGifSeen, pingbackEventType, user } = this.props
         if (onGifSeen) {
             onGifSeen(gif, boundingClientRect)
         }
         // fire pingback
         // also perhaps third party here
-        pingback.onGifSeen(gif, pingbackEventType, boundingClientRect)
+        pingback.onGifSeen(gif, user, pingbackEventType, boundingClientRect)
     }
     onGifClick = (gif: IGif, e: Event) => {
-        const { onGifClick, pingbackEventType } = this.props
+        const { onGifClick, pingbackEventType, user } = this.props
         if (onGifClick) {
             onGifClick(gif, e)
         }
-        pingback.onGifClick(gif, pingbackEventType, e)
+        pingback.onGifClick(gif, user, pingbackEventType, e)
     }
     onGifHover = (gif: IGif, e: Event) => {
-        const { onGifHover, pingbackEventType } = this.props
+        const { onGifHover, pingbackEventType, user } = this.props
         if (onGifHover) {
             onGifHover(gif, e)
         }
-        pingback.onGifHover(gif, pingbackEventType, e)
+        pingback.onGifHover(gif, user, pingbackEventType, e)
     }
     fetchGifs = () => {
         const { fetchGifs } = this.props

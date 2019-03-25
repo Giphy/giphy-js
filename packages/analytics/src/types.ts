@@ -1,14 +1,8 @@
-import { IGif } from '@giphy/js-types'
-
-export type PingbackUser = {
-    // if this is all we ever need about a user
-    // we can just pass the id
-    id?: number
-}
+import { IGif, IUser } from '@giphy/js-types'
 
 export type Pingback = {
     gif: IGif
-    user: PingbackUser
+    user: Partial<IUser>
     type: PingbackEventType
     searchResponseId: string
     actionType: PingbackActionType

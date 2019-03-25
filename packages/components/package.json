@@ -3,6 +3,7 @@
         "clean": "rm -rf ./dist",
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
         "dev": "parcel public/test.html",
+        "refresh": "tsc",
         "build": "npm run clean && tsc"
     },
     "devDependencies": {
