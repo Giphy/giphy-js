@@ -4,7 +4,7 @@ export type Pingback = {
     gif: IGif
     user: Partial<IUser>
     type: PingbackEventType
-    searchResponseId: string
+    responseId: string
     actionType: PingbackActionType
     position?: ClientRect
 }

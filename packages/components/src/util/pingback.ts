@@ -11,7 +11,7 @@ const firePingback = (actionType: PingbackActionType) => (
     pingback({
         gif,
         user,
-        searchResponseId: gif.response_id,
+        responseId: gif.response_id,
         type,
         actionType,
         position: getClientRect(e.target as HTMLElement),
@@ -23,7 +23,7 @@ export const onGifSeen = (gif: IGif, user: Partial<IUser>, type: PingbackEventTy
     pingback({
         gif,
         user,
-        searchResponseId: gif.response_id,
+        responseId: gif.response_id,
         type,
         actionType: 'SEEN',
         position,

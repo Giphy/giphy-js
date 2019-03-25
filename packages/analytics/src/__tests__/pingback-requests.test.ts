@@ -5,7 +5,7 @@ describe('pingback', () => {
     const bottle_data = { tid: 'tid!' }
     const gif: Partial<IGif> = { id: 9870, bottle_data }
     const user: Partial<IUser> = { id: 1234 }
-    const searchResponseId = 'search response id'
+    const responseId = 'search response id'
     beforeEach(() => {
         // @ts-ignore
         fetch.resetMocks()
@@ -15,7 +15,7 @@ describe('pingback', () => {
             gif: gif as IGif,
             user: {},
             type: 'GIF_RELATED',
-            searchResponseId,
+            responseId,
             actionType: 'CLICK',
         })
 
@@ -35,14 +35,14 @@ describe('pingback', () => {
             gif: gif as IGif,
             user,
             type: 'GIF_RELATED',
-            searchResponseId,
+            responseId,
             actionType: 'CLICK',
         })
         pingback({
             gif: gif as IGif,
             user: {},
             type: 'GIF_RELATED',
-            searchResponseId,
+            responseId,
             actionType: 'CLICK',
         })
 
@@ -64,7 +64,7 @@ describe('pingback', () => {
         expect(event).toEqual({
             event_type: 'GIF_RELATED',
             referrer: '',
-            response_id: searchResponseId,
+            response_id: responseId,
             prior_response_id: '',
         })
         const [action] = actions

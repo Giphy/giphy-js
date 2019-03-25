@@ -34,6 +34,7 @@ namespace Preact {
         setWidth = throttle(500, () => this.setState({ width: getWidth() }))
         fetchGifs = async () => {
             const result = await giphyFetch(this.offset)
+
             const { gifs } = this.state
             const { pagination } = result as GifsResult
             this.offset = pagination.count + pagination.offset

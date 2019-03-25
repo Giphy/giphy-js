@@ -29,7 +29,7 @@ function fetchPingbackRequest() {
 
 const debouncedPingbackEvent = debounce(1000, fetchPingbackRequest)
 
-const pingback = ({ gif, user, searchResponseId, type: pingbackType, actionType, position }: Pingback) => {
+const pingback = ({ gif, user, responseId, type: pingbackType, actionType, position }: Pingback) => {
     const { id, bottle_data = {} } = gif
     const { tid } = bottle_data
 
@@ -43,10 +43,10 @@ const pingback = ({ gif, user, searchResponseId, type: pingbackType, actionType,
     const actionMap = queuedPingbacks[pingbackType]! // we just created it so ! is ok
 
     // create the searchRepsonseId queue
-    if (!actionMap[searchResponseId]) actionMap[searchResponseId] = []
+    if (!actionMap[responseId]) actionMap[responseId] = []
 
     // add the action
-    actionMap[searchResponseId].push(getAction(actionType, String(id), tid!, position))
+    actionMap[responseId].push(getAction(actionType, String(id), tid!, position))
 
     // if there's a tid, skip the queue
     tid ? fetchPingbackRequest() : debouncedPingbackEvent()

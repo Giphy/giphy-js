@@ -16,12 +16,12 @@ export type Session = {
     events: SessionEvent[]
 }
 
-function getLastSearchResponseId(): string {
+function getLastResponseId(): string {
     try {
         const sessionIds = sessionStorage.getItem('responseIds')
         if (sessionIds) {
-            const searchResponseIds = JSON.parse(sessionIds) || []
-            return searchResponseIds[searchResponseIds.length - 2] || ''
+            const responseIds = JSON.parse(sessionIds) || []
+            return responseIds[responseIds.length - 2] || ''
         }
     } catch (e) {
         console.error(e)
@@ -32,7 +32,7 @@ function getLastSearchResponseId(): string {
 export const createSession = (
     event_type: PingbackEventType,
     actions: PingbackRequestAction[],
-    searchResponseId: string = '',
+    responseId: string = '',
     loggedInUserId: string = '',
 ): Session => ({
     user: {
@@ -44,8 +44,8 @@ export const createSession = (
             event_type,
             referrer: document ? document.referrer : '',
             actions,
-            response_id: searchResponseId,
-            prior_response_id: getLastSearchResponseId(),
+            response_id: responseId,
+            prior_response_id: getLastResponseId(),
         },
     ],
 })
