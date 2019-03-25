@@ -29,7 +29,6 @@ const normalize = (gif: any, responseId?: string) => {
         newGif.bottle_data = {} as any
     }
     if (responseId) {
-        // @ts-ignore
         newGif.response_id = responseId
     }
     BOOL_PROPS.forEach(makeBool(newGif))
