@@ -46,7 +46,7 @@ const pingback = ({ gif, user, responseId, type: pingbackType, actionType, posit
     if (!actionMap[responseId]) actionMap[responseId] = []
 
     // add the action
-    actionMap[responseId].push(getAction(actionType, String(id), tid!, position))
+    actionMap[responseId].push(getAction(actionType, String(id), tid, position))
 
     // if there's a tid, skip the queue
     tid ? fetchPingbackRequest() : debouncedPingbackEvent()

@@ -1,5 +1,5 @@
 import { getGifHeight } from '../gif-utils'
-import { mapObject, forEach } from '../collections'
+import { mapObject, forEach, take, without, pick } from '../collections'
 import { IGif } from '@giphy/js-types'
 
 test('getGifHeight', () => {
@@ -33,4 +33,24 @@ test('object forEach', () => {
                 break
         }
     })
+})
+
+test('array take', () => {
+    const test = ['a', 'b', 'c']
+    expect(take(test, 1)).toEqual(['a'])
+    expect(take(test, 2)).toEqual(['a', 'b'])
+    expect(take(test, 5)).toEqual(['a', 'b', 'c'])
+})
+
+test('array without', () => {
+    const test = ['a', 'b', 'c']
+    expect(without(test, ['c', 'b'])).toEqual(['a'])
+    expect(without(test, ['c'])).toEqual(['a', 'b'])
+    expect(without(test, ['sfsdfs'])).toEqual(['a', 'b', 'c'])
+})
+
+test('object pick', () => {
+    const o = Object.freeze({ one: 1, two: 2 })
+    const res = pick(o, ['one'])
+    expect(res).toEqual({ one: 1 })
 })

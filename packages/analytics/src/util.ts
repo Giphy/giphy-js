@@ -6,7 +6,7 @@ export type Attribute = {
 export function getAction(
     action_type: PingbackActionType,
     gif_id: string,
-    tid: string,
+    tid?: string,
     position?: ClientRect,
 ): PingbackRequestAction {
     const attributes: Attribute[] = []

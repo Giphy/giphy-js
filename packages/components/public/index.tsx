@@ -2,8 +2,7 @@ import { throttle } from 'throttle-debounce'
 import { renderGrid, Grid } from '../src'
 import { IGif } from '@giphy/js-types'
 import { h, render as preactRender, Component } from 'preact'
-import { GiphyFetch } from '@giphy/js-fetch-api'
-import { GifsResult } from '../../fetch-api/dist/result-types'
+import { GiphyFetch, GifsResult } from '@giphy/js-fetch-api'
 
 const columns = 3
 const gutter = 6

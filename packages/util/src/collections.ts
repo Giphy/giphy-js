@@ -16,3 +16,19 @@ export function forEach(object: any, mapFn: (val: any, key: any) => void): void 
         mapFn(object[key], key)
     })
 }
+
+export function take<T>(arr: T[], count = 0): T[] {
+    return arr.slice(0, count)
+}
+
+export function without<T>(arr: T[], values: T[]): T[] {
+    return arr.filter(val => values.indexOf(val) === -1)
+}
+
+export function pick<T extends object, U extends keyof T>(object: T, pick: Array<U>): Pick<T, U> {
+    const res: Partial<T> = {}
+    pick.forEach((key: U) => {
+        res[key] = object[key]
+    })
+    return res as Pick<T, U>
+}

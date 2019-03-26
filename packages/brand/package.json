@@ -24,6 +24,7 @@
     "license": "MIT",
     "source": true,
     "dependencies": {
-        "preact": "^8.4.2"
+        "preact": "^8.4.2",
+        "emotion": "10.0.7"
     }
 }
