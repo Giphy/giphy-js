@@ -5,7 +5,9 @@ const addObserver = async (el: HTMLElement, cb: IntersectionObserverCallback, op
         await import('intersection-observer')
     }
     const observer = new IntersectionObserver(cb, options)
-    observer.observe(el)
+    if (el) {
+        observer.observe(el)
+    }
     return observer
 }
 

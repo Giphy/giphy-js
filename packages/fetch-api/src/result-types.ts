@@ -1,9 +1,15 @@
 import { IGif } from '../../types/dist'
 
 export type Result = {
+    meta: {
+        msg: string
+        response_id: string
+        status: number
+    }
     pagination: {
         count: number
         total_count: number
+        offset: number
     }
 }
 export type GifResult = Result & {

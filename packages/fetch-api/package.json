@@ -3,6 +3,7 @@
         "clean": "rm -rf ./dist",
         "dev": "parcel public/test.html",
         "build": "npm run clean && tsc",
+        "refresh": "tsc",
         "test": "jest --config ./jestconfig.js",
         "test:watch": "jest --config ./jestconfig.js --watchAll"
     },
@@ -18,14 +19,14 @@
         "@giphy/js-types": "^1.0.1",
         "append-query": "^2.0.1",
         "cookie": "0.3.1",
-        "qs": "^6.6.0"
+        "qs": "^6.7.0"
     },
     "devDependencies": {
         "@types/cookie": "^0.3.2",
-        "@types/lodash": "^4.14.121",
+        "@types/lodash": "^4.14.123",
         "@types/qs": "^6.5.2",
         "jest-fetch-mock": "^2.1.1",
         "parcel-bundler": "^1.12.3",
-        "typescript": "^3.3.3"
+        "typescript": "^3.3.4"
     }
 }

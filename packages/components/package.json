@@ -3,6 +3,7 @@
         "clean": "rm -rf ./dist",
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
         "dev": "parcel public/test.html",
+        "refresh": "tsc",
         "build": "npm run clean && tsc"
     },
     "devDependencies": {
@@ -23,9 +24,11 @@
     "dependencies": {
         "@giphy/js-analytics": "^1.0.1",
         "@giphy/js-brand": "^1.0.1",
+        "@giphy/js-fetch-api": "^1.0.1",
         "@giphy/js-types": "^1.0.1",
         "@giphy/js-util": "^1.0.1",
         "bricks.js": "^1.8.0",
+        "emotion": "10.0.9",
         "intersection-observer": "^0.5.1",
         "preact": "^8.4.2",
         "throttle-debounce": "^2.1.0"

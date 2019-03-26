@@ -1,10 +1,9 @@
-import { h, Component } from 'preact'
-import { IGif } from '@giphy/js-types'
-import { getGifHeight, getBestRendition, getAltText, checkIfWebP } from '@giphy/js-util'
 import { giphyBlack, giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
+import { IGif } from '@giphy/js-types'
+import { checkIfWebP, getAltText, getBestRendition, getGifHeight } from '@giphy/js-util'
+import { Component, h } from 'preact'
 import addObserver from '../util/add-observer'
 import AdPill from './ad-pill'
-import * as pingback from '../util/pingback'
 
 export const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow]
 export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLORS.length - 1))]
@@ -67,10 +66,6 @@ class Gif extends Component<Props, State> {
                     // full gif seen
                     const { onGifSeen, gif } = this.props
                     if (onGifSeen) onGifSeen(gif, entry.boundingClientRect)
-                    // fire pingback
-                    // also perhaps third party here
-                    // TODO should this be in the grid?
-                    pingback.onGifSeen(gif, entry.boundingClientRect)
                 }
             },
             { threshold: [1] },

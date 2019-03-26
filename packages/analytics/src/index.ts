@@ -1,1 +1,2 @@
-export { default as pingback, Action as PingbackAction } from './pingback'
+export { default as pingback } from './pingback'
+export * from './types'

@@ -3,13 +3,14 @@
         "clean": "rm -rf ./dist",
         "dev": "parcel public/test.html",
         "types": "tsc ./src/index.ts -d --emitDeclarationOnly -declarationDir ./dist",
+        "refresh": "parcel build src/index.ts && npm run types",
         "build": "npm run clean && parcel build src/index.ts && npm run types"
     },
     "devDependencies": {
-        "parcel-bundler": "^1.12.0",
+        "parcel-bundler": "^1.12.3",
         "parcel-plugin-bundle-visualiser": "1.2.0",
         "parcel-plugin-url-loader": "^1.3.1",
-        "typescript": "^3.3.3"
+        "typescript": "^3.3.4"
     },
     "name": "@giphy/js-brand",
     "version": "1.0.1",
@@ -23,6 +24,7 @@
     "license": "MIT",
     "source": true,
     "dependencies": {
-        "preact": "^8.4.2"
+        "preact": "^8.4.2",
+        "emotion": "10.0.7"
     }
 }

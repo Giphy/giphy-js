@@ -2,12 +2,12 @@
 import qs from 'qs'
 import request from './request'
 import { CategoriesResult, GifResult, GifsResult } from './result-types'
-import { ChooseType, OptionalParams, SearchOptions, TrendingParams, RandomParams } from './param-types'
+import { TypeParam, OptionalParams, SearchOptions, TrendingParams, RandomParams } from './param-types'
 import { normalizeGifs, normalizeGif } from './normalize/gif'
 
 export type MediaType = 'stickers' | 'gifs'
 
-const getType = (params?: ChooseType): MediaType => (params && params.type ? params.type : 'gifs')
+const getType = (params?: TypeParam): MediaType => (params && params.type ? params.type : 'gifs')
 /**
  * @class GiphyFetch
  * @param {string} apiKey
@@ -94,8 +94,8 @@ class GiphyFetch {
      * @param {RandomParams}
      * @returns {Promise<GifsResult>}
      **/
-    random(params?: RandomParams): Promise<GifsResult> {
-        return request(`${getType(params)}/random?${this.getQS(params)}`, normalizeGifs) as Promise<GifsResult>
+    random(params?: RandomParams): Promise<GifResult> {
+        return request(`${getType(params)}/random?${this.getQS(params)}`, normalizeGif) as Promise<GifResult>
     }
 }
 export default GiphyFetch

@@ -9,11 +9,17 @@ const dummyGif = {
     tags: [{ text: 'text prop' }, 'regular tag'],
     is_hidden: 0,
 }
+const pagination = {}
+const meta = {}
 const gifsResponse = {
     data: [dummyGif],
+    pagination,
+    meta,
 }
 const gifResponse = {
     data: dummyGif,
+    pagination,
+    meta,
 }
 
 const category = { name: 'news & politics', name_encoded: 'news-politics' }

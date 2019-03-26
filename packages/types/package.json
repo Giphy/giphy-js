@@ -2,6 +2,7 @@
     "scripts": {
         "clean": "rm -rf ./dist",
         "dev": "tsc --watch",
+        "refresh": "tsc -d --emitDeclarationOnly -declarationDir ./dist",
         "build": "npm run clean && tsc -d --emitDeclarationOnly -declarationDir ./dist"
     },
     "name": "@giphy/js-types",
@@ -13,6 +14,6 @@
     ],
     "license": "MIT",
     "devDependencies": {
-        "typescript": "^3.3.3"
+        "typescript": "^3.3.4"
     }
 }
