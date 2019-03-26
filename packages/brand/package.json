@@ -13,7 +13,7 @@
         "typescript": "^3.3.4"
     },
     "name": "@giphy/js-brand",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "colors, fonts, and other shared css",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
@@ -24,7 +24,7 @@
     "license": "MIT",
     "source": true,
     "dependencies": {
-        "preact": "^8.4.2",
-        "emotion": "10.0.7"
+        "emotion": "10.0.7",
+        "preact": "^8.4.2"
     }
 }
