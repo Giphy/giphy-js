@@ -12,7 +12,7 @@
         "typescript": "^3.3.3"
     },
     "name": "@giphy/js-components",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "lightweight ui components ",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -24,7 +24,7 @@
     "dependencies": {
         "@giphy/js-analytics": "^1.0.2",
         "@giphy/js-brand": "^1.0.2",
-        "@giphy/js-fetch-api": "^1.0.2",
+        "@giphy/js-fetch-api": "^1.0.3",
         "@giphy/js-types": "^1.0.2",
         "@giphy/js-util": "^1.0.2",
         "bricks.js": "^1.8.0",
