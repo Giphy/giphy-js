@@ -2,12 +2,19 @@
 import qs from 'qs'
 import request from './request'
 import { CategoriesResult, GifResult, GifsResult } from './result-types'
-import { TypeParam, OptionalParams, SearchOptions, TrendingParams, RandomParams } from './param-types'
+import {
+    TypeOption,
+    SearchOptions,
+    TrendingOptions,
+    RandomOptions,
+    CategoriesOptions,
+    SubcategoriesOptions,
+    MediaType,
+    RelatedOptions,
+} from './option-types'
 import { normalizeGifs, normalizeGif } from './normalize/gif'
 
-export type MediaType = 'stickers' | 'gifs'
-
-const getType = (params?: TypeParam): MediaType => (params && params.type ? params.type : 'gifs')
+const getType = (options?: TypeOption): MediaType => (options && options.type ? options.type : 'gifs')
 /**
  * @class GiphyFetch
  * @param {string} apiKey
@@ -17,16 +24,16 @@ class GiphyFetch {
         this.apiKey = apiKey
     }
     private apiKey: string
-    private getQS = (params: any = {}) => qs.stringify({ ...params, api_key: this.apiKey })
+    private getQS = (options: any = {}) => qs.stringify({ ...options, api_key: this.apiKey })
 
     /**
      * A list of categories
      *
-     * @param {OptionalParams} [params]
+     * @param {CategoriesOptions} [options]
      * @returns {Promise<CategoriesResult>}
      */
-    categories(params?: OptionalParams): Promise<CategoriesResult> {
-        return request(`gifs/categories?${this.getQS(params)}`) as Promise<CategoriesResult>
+    categories(options?: CategoriesOptions): Promise<CategoriesResult> {
+        return request(`gifs/categories?${this.getQS(options)}`) as Promise<CategoriesResult>
     }
 
     /**
@@ -61,41 +68,51 @@ class GiphyFetch {
 
     /**
      * @param term: string The term you're searching for
-     * @param params: SearchOptions
+     * @param options: SearchOptions
      * @returns {Promise<GifsResult>}
      **/
-    search(term: string, params?: SearchOptions): Promise<GifsResult> {
-        const qsParams = this.getQS({ ...params, ...{ q: term } })
-        return request(`${getType(params)}/search?${qsParams}`, normalizeGifs) as Promise<GifsResult>
+    search(term: string, options?: SearchOptions): Promise<GifsResult> {
+        const qsParams = this.getQS({ ...options, ...{ q: term } })
+        return request(`${getType(options)}/search?${qsParams}`, normalizeGifs) as Promise<GifsResult>
     }
 
     /**
      * Get a list of subcategories
      * @param {string} category
-     * @param {OptionalParams} params
+     * @param {SubcategoriesOptions} options
      * @returns {Promise<CategoriesResult>}
      */
-    subcategories(category: string, params?: OptionalParams): Promise<CategoriesResult> {
-        return request(`gifs/categories/${category}?${this.getQS(params)}`) as Promise<CategoriesResult>
+    subcategories(category: string, options?: SubcategoriesOptions): Promise<CategoriesResult> {
+        return request(`gifs/categories/${category}?${this.getQS(options)}`) as Promise<CategoriesResult>
     }
 
     /**
      * Get trending gifs
      *
-     * @param {TrendingParams} params
+     * @param {TrendingOptions} options
      * @returns {Promise<GifsResult>}
      */
-    trending(params?: TrendingParams): Promise<GifsResult> {
-        return request(`${getType(params)}/trending?${this.getQS(params)}`, normalizeGifs) as Promise<GifsResult>
+    trending(options?: TrendingOptions): Promise<GifsResult> {
+        return request(`${getType(options)}/trending?${this.getQS(options)}`, normalizeGifs) as Promise<GifsResult>
     }
 
     /**
      * Get random gifs
-     * @param {RandomParams}
+     * @param {RandomOptions}
      * @returns {Promise<GifsResult>}
      **/
-    random(params?: RandomParams): Promise<GifResult> {
-        return request(`${getType(params)}/random?${this.getQS(params)}`, normalizeGif) as Promise<GifResult>
+    random(options?: RandomOptions): Promise<GifResult> {
+        return request(`${getType(options)}/random?${this.getQS(options)}`, normalizeGif) as Promise<GifResult>
+    }
+
+    /**
+     * Get related gifs by a id
+     * @param {string} id
+     * @param {SubcategoriesOptions} options
+     * @returns {Promise<GifsResult>}
+     **/
+    related(id: string, options?: RelatedOptions): Promise<GifsResult> {
+        return request(`gifs/related?${this.getQS({ gif_id: id, ...options })}`, normalizeGifs) as Promise<GifsResult>
     }
 }
 export default GiphyFetch

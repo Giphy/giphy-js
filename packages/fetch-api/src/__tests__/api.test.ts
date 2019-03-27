@@ -78,4 +78,9 @@ describe('response parsing', () => {
         const { data } = await gf.search('random')
         testDummyGif(data[0])
     })
+    test('related', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
+        const { data } = await gf.related('12345')
+        testDummyGif(data[0])
+    })
 })

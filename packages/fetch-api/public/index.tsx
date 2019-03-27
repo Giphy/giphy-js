@@ -34,6 +34,14 @@ const gifByCategory = async () => {
         console.error(`index.tsx:34`, error, `error`)
     }
 }
+const related = async () => {
+    try {
+        const result = await gf.related('3oEjHGr1Fhz0kyv8Ig')
+        console.log(`related`, result)
+    } catch (error) {
+        console.error(`index.tsx:18`, error, `error`)
+    }
+}
 const search = async () => {
     try {
         const result = await gf.search('dogs', { sort: 'recent' })
@@ -77,3 +85,4 @@ categories()
 subcategories()
 trending()
 random()
+related()
