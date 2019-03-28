@@ -108,7 +108,7 @@ class Grid extends Component<Props, State> {
         }
     }
 
-    render({ gifs, fetchGifs, width }: Props, { gifWidth }: State) {
+    render({ gifs, fetchGifs, width, onGifVisible, onGifRightClick }: Props, { gifWidth }: State) {
         const showLoader = fetchGifs && gifs.length > 0
         return (
             <div style={{ width }} class={className}>
@@ -121,6 +121,8 @@ class Grid extends Component<Props, State> {
                             onGifClick={this.onGifClick}
                             onGifHover={this.onGifHover}
                             onGifSeen={this.onGifSeen}
+                            onGifVisible={onGifVisible}
+                            onGifRightClick={onGifRightClick}
                         />
                     ))}
                 </div>

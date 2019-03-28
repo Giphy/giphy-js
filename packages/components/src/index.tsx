@@ -6,5 +6,5 @@ export { default as Gif } from './components/gif'
 export const renderGrid = (gridProps: GridProps, target: HTMLElement) => {
     // preact will append if there's no existig node
     const existingNode = target.querySelector(`.${className}`)!
-    render(<Grid {...gridProps} pingbackEventType="GIF_SEARCH" />, target, existingNode)
+    render(<Grid {...gridProps} />, target, existingNode)
 }

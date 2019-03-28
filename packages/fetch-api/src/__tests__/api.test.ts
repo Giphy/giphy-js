@@ -16,6 +16,11 @@ const gifsResponse = {
     pagination,
     meta,
 }
+const gifsResponseNoTags = {
+    data: [{ id: 456, is_hidden: 0 }],
+    pagination,
+    meta,
+}
 const gifResponse = {
     data: dummyGif,
     pagination,
@@ -51,6 +56,15 @@ describe('response parsing', () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.gifs(['12345'])
         testDummyGif(data[0])
+    })
+    test('gifs no tags', async () => {
+        fetchMock.resetMocks()
+        fetchMock.mockResponseOnce(JSON.stringify(gifsResponseNoTags))
+        const { data } = await gf.gifs(['456'])
+        const [gif] = data
+        expect(gif.id).toBe('456')
+        expect(gif.tags).toEqual([])
+        expect(gif.is_hidden).toBe(false)
     })
     test('gifs by category', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))

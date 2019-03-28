@@ -24,7 +24,7 @@ const getTag = (tag: Tag | string) => (typeof tag === 'string' ? (tag as string)
 const normalize = (gif: any, responseId?: string) => {
     const newGif: IGif = { ...gif }
     newGif.id = String(newGif.id)
-    newGif.tags = newGif.tags.map(getTag)
+    newGif.tags = (newGif.tags || []).map(getTag)
     if (!newGif.bottle_data) {
         newGif.bottle_data = {} as any
     }
