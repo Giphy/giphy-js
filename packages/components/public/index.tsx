@@ -12,7 +12,7 @@ const mountNode = document.getElementById('root')!
 const getWidth = () => innerWidth - 20
 
 const giphyFetch = (offset: number) => {
-    const gf = new GiphyFetch('4OMJYpPoYwVpe')
+    const gf = new GiphyFetch('eDs1NYmCVgdHvI1x0nitWd5ClhDWMpRE')
     return gf.trending({ offset })
 }
 

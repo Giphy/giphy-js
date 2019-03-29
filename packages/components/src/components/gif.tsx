@@ -4,6 +4,11 @@ import { checkIfWebP, getAltText, getBestRendition, getGifHeight } from '@giphy/
 import { Component, h } from 'preact'
 import addObserver from '../util/add-observer'
 import AdPill from './ad-pill'
+import { css } from 'emotion'
+
+const gifCss = css`
+    display: block;
+`
 
 export const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow]
 export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLORS.length - 1))]
@@ -110,8 +115,10 @@ class Gif extends Component<Props, State> {
         const height = getGifHeight(gif, width)
         const fit = ready ? getBestRendition(gif, width, height) : placeholder
         return (
-            <div
+            <a
+                href={gif.url}
                 style={{ backgroundColor, width, height }}
+                className={gifCss}
                 onMouseOver={this.onMouseOver}
                 onMouseOut={this.onMouseOut}
                 onClick={(e: Event) => onGifClick(gif, e)}
@@ -122,7 +129,7 @@ class Gif extends Component<Props, State> {
                     <img src={fit} width={width} height={height} alt={getAltText(gif)} onLoad={this.onImageLoad} />
                 ) : null}
                 {showGif ? <AdPill bottleData={bottleData} /> : null}
-            </div>
+            </a>
         )
     }
 }
