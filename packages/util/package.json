@@ -16,12 +16,9 @@
     ],
     "license": "MIT",
     "dependencies": {
-        "@giphy/js-types": "^1.0.2",
-        "lodash": "4.17.11"
+        "@giphy/js-types": "^1.0.2"
     },
     "devDependencies": {
-        "@types/lodash": "^4.14.123",
-        "parcel-bundler": "^1.12.3",
-        "typescript": "^3.3.4"
+        "typescript": "^3.4.1"
     }
 }

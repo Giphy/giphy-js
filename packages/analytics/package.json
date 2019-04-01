@@ -20,15 +20,12 @@
         "@giphy/js-util": "^1.0.2",
         "cookie": "0.3.1",
         "dompurify": "^1.0.10",
-        "lodash": "4.17.11",
         "throttle-debounce": "^2.1.0"
     },
     "devDependencies": {
         "@types/cookie": "^0.3.2",
-        "@types/lodash": "^4.14.123",
         "@types/throttle-debounce": "1.1.1",
         "jest-fetch-mock": "^2.1.1",
-        "parcel-bundler": "^1.12.3",
-        "typescript": "^3.3.4"
+        "typescript": "^3.4.1"
     }
 }

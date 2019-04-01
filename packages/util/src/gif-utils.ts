@@ -1,12 +1,8 @@
-import { take, without, map, pick } from 'lodash'
+import { take, pick, without } from './collections'
 import bestfit from './bestfit'
 import { IGif, ImageAllTypes, IRendition } from '@giphy/js-types'
 
 let SUPPORTS_WEBP: null | boolean = null
-
-export const testMe = () => 'works!'
-
-const RENDITIONS = ['original', 'fixed_width', 'fixed_height', 'fixed_width_small', 'fixed_height_small']
 
 export const checkIfWebP = () =>
     new Promise(resolve => {
@@ -61,8 +57,17 @@ export const getBestRendition = (
     useVideo = false,
 ) => {
     if (!gifWidth || !gifHeight || !images) return ''
-    const checkRenditions = pick(images, RENDITIONS)
-    const testImages = map(checkRenditions, (val, renditionName) => ({ renditionName, ...val })) as IRenditionWithKey[]
+    const checkRenditions = pick(images, [
+        'original',
+        'fixed_width',
+        'fixed_height',
+        'fixed_width_small',
+        'fixed_height_small',
+    ])
+    const testImages = Object.entries(checkRenditions).map(([renditionName, val]) => ({
+        renditionName,
+        ...val,
+    })) as IRenditionWithKey[]
     const { renditionName } = bestfit(testImages, gifWidth, gifHeight) as IRenditionWithKey
     // @ts-ignore come back to this
     const rendition = images[`${renditionName}${isStill ? '_still' : ''}`]
@@ -91,6 +96,6 @@ export const getAltText = ({ user, tags = [], is_sticker = false, title = '' }: 
         return title
     }
     const username = (user && user.username) || ''
-    const filteredTags = take(without(tags, 'transparent'), username ? 4 : 5)
+    const filteredTags = take(without(tags, ['transparent']), username ? 4 : 5)
     return `${username} ${filteredTags.join(' ')} ${is_sticker ? 'Sticker' : 'GIF'}`
 }

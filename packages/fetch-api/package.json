@@ -23,10 +23,9 @@
     },
     "devDependencies": {
         "@types/cookie": "^0.3.2",
-        "@types/lodash": "^4.14.123",
         "@types/qs": "^6.5.2",
         "jest-fetch-mock": "^2.1.1",
         "parcel-bundler": "^1.12.3",
-        "typescript": "^3.3.4"
+        "typescript": "^3.4.1"
     }
 }
