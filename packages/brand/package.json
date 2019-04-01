@@ -4,7 +4,7 @@
         "dev": "parcel public/test.html",
         "types": "tsc ./src/index.ts -d --emitDeclarationOnly -declarationDir ./dist",
         "refresh": "parcel build src/index.ts && npm run types",
-        "build": "npm run clean && parcel build src/index.ts && npm run types"
+        "prepublish": "npm run clean && parcel build src/index.ts && npm run types"
     },
     "devDependencies": {
         "parcel-bundler": "^1.12.3",

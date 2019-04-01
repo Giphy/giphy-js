@@ -3,7 +3,7 @@
         "clean": "rm -rf ./dist",
         "dev": "tsc --watch",
         "refresh": "tsc -d --emitDeclarationOnly -declarationDir ./dist",
-        "build": "npm run clean && tsc -d --emitDeclarationOnly -declarationDir ./dist"
+        "prepublish": "npm run clean && tsc -d --emitDeclarationOnly -declarationDir ./dist"
     },
     "name": "@giphy/js-types",
     "version": "1.0.3",

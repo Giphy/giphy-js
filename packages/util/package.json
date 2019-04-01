@@ -2,7 +2,7 @@
     "scripts": {
         "clean": "rm -rf ./dist",
         "dev": "tsc --watch",
-        "build": "npm run clean && tsc",
+        "prepublish": "npm run clean && tsc",
         "refresh": "tsc",
         "test": "jest --config ./jestconfig.js",
         "test:watch": "jest --config ./jestconfig.js --watchAll"
