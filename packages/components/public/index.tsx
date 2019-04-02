@@ -4,12 +4,9 @@ import { IGif } from '@giphy/js-types'
 import { h, render as preactRender, Component } from 'preact'
 import { GiphyFetch, GifsResult } from '@giphy/js-fetch-api'
 
-const columns = 3
-const gutter = 6
-
 const mountNode = document.getElementById('root')!
 
-const getWidth = () => innerWidth - 20
+const getWidth = () => innerWidth
 
 const giphyFetch = (offset: number) => {
     const gf = new GiphyFetch('eDs1NYmCVgdHvI1x0nitWd5ClhDWMpRE')
@@ -55,7 +52,7 @@ namespace Preact {
                     width={width}
                     user={{}}
                     gifs={gifs}
-                    columns={3}
+                    columns={width < 500 ? 2 : 3}
                     gutter={6}
                     fetchGifs={this.fetchGifs}
                     pingbackEventType="GIF_SEARCH"
@@ -68,38 +65,37 @@ namespace Preact {
     export const render = () => preactRender(<Test />, mountNode, mountNode.lastChild as Element)
 }
 
-namespace Vanilla {
-    let renderGifs: IGif[] = []
-    let offset = 0
-    let inited = false
-    document.title = 'Vanilla Grid Wrapper'
-    const fetchGifs = async () => {
-        const result = await giphyFetch(offset)
+class VanillaJS {
+    gifs: IGif[] = []
+    offset = 0
+    constructor() {
+        const resizeRender = throttle(500, () => this.render())
+        window.addEventListener('resize', resizeRender as any, false)
+        this.fetchGifs()
+    }
+    fetchGifs = async () => {
+        const result = await giphyFetch(this.offset)
         const { pagination } = result as GifsResult
-        offset = pagination.count + pagination.offset
-        renderGifs = renderGifs.concat((result as GifsResult).data)
-        render()
+        this.offset = pagination.count + pagination.offset
+        this.gifs = [...this.gifs, ...(result as GifsResult).data]
+        this.render()
     }
-    const init = () => {
-        if (inited) return
-        inited = true
-        const setWidth = throttle(500, render)
-        window.addEventListener('resize', setWidth, false)
-        fetchGifs()
+    onGifClick = (gif: IGif) => {
+        window.open(gif.url)
     }
-    // eslint-disable-next-line
-    export const render = () => {
-        init()
+    render = () => {
+        const { gifs, onGifClick, fetchGifs } = this
         const width = getWidth()
         renderGrid(
             {
                 width,
-                gifs: renderGifs,
-                user: {},
-                columns,
-                gutter,
+                onGifClick,
                 fetchGifs,
-                pingbackEventType: 'GIF_CHANNEL',
+                gifs,
+                user: {},
+                columns: width < 500 ? 2 : 3,
+                gutter: 6,
+                pingbackEventType: 'GIF_RELATED',
             },
             mountNode,
         )
@@ -112,4 +108,4 @@ if (module.hot) {
     module.hot.accept()
 }
 
-location.search.indexOf('preact') !== -1 ? Preact.render() : Vanilla.render()
+location.search.indexOf('preact') !== -1 ? Preact.render() : new VanillaJS()

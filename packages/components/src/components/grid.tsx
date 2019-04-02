@@ -42,14 +42,19 @@ class Grid extends Component<Props, State> {
         }
         return Object.keys(result).length ? result : null
     }
-    componentDidMount() {
-        const { columns, gutter, gifs } = this.props
+    setBricks() {
+        const { columns, gutter } = this.props
         // bricks
         this.bricks = Bricks({
             container: this.el!,
-            packed: 'data-packed',
+            packed: `data-packed-${columns}`,
             sizes: [{ columns, gutter }],
         })
+    }
+    componentDidMount() {
+        const { gifs } = this.props
+        // bricks
+        this.setBricks()
         if (gifs.length) {
             this.bricks.pack()
         }
@@ -63,6 +68,10 @@ class Grid extends Component<Props, State> {
         const numberOfNewGifs = gifs.length
 
         if (prevState.gifWidth !== gifWidth && numberOfOldGifs > 0) {
+            const { columns } = this.props
+            if (columns !== prevProps.columns) {
+                this.setBricks()
+            }
             this.bricks.pack()
         }
 
@@ -108,10 +117,10 @@ class Grid extends Component<Props, State> {
         }
     }
 
-    render({ gifs, fetchGifs, width, onGifVisible, onGifRightClick }: Props, { gifWidth }: State) {
+    render({ gifs, fetchGifs, onGifVisible, onGifRightClick }: Props, { gifWidth }: State) {
         const showLoader = fetchGifs && gifs.length > 0
         return (
-            <div style={{ width }} class={className}>
+            <div class={className}>
                 <div ref={c => (this.el = c)}>
                     {gifs.map(gif => (
                         <Gif
