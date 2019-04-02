@@ -12,7 +12,7 @@
         "typescript": "^3.4.1"
     },
     "name": "@giphy/js-components",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "description": "lightweight ui components ",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
