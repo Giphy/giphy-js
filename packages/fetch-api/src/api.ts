@@ -19,7 +19,7 @@ const getType = (options?: TypeOption): MediaType => (options && options.type ? 
  * @class GiphyFetch
  * @param {string} apiKey
  */
-class GiphyFetch {
+export class GiphyFetch {
     constructor(apiKey: string) {
         this.apiKey = apiKey
     }

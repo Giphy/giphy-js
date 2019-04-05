@@ -2,6 +2,7 @@
     "scripts": {
         "clean": "rm -rf ./dist",
         "dev": "parcel public/test.html",
+        "docs": "typedoc",
         "prepublish": "npm run clean && tsc",
         "refresh": "tsc",
         "test": "jest --config ./jestconfig.js",
@@ -26,6 +27,8 @@
         "@types/qs": "^6.5.2",
         "jest-fetch-mock": "^2.1.1",
         "parcel-bundler": "^1.12.3",
-        "typescript": "^3.4.1"
+        "typedoc": "^0.14.2",
+        "typedoc-thunder-theme": "^0.0.2",
+        "typescript": "^3.4.2"
     }
 }

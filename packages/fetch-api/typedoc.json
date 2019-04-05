@@ -1,0 +1,7 @@
+{
+    "exclude": "**/__tests__/**",
+    "theme": "node_modules/typedoc-thunder-theme/bin/minimal",
+    "out": "dist/docs/",
+    "mode": "file",
+    "excludeNotExported": true
+}
