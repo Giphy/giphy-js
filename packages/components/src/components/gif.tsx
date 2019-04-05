@@ -1,6 +1,6 @@
 import { giphyBlack, giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif } from '@giphy/js-types'
-import { checkIfWebP, getAltText, getBestRendition, getGifHeight } from '@giphy/js-util'
+import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight } from '@giphy/js-util'
 import { Component, h } from 'preact'
 import addObserver from '../util/add-observer'
 import AdPill from './ad-pill'
@@ -113,7 +113,7 @@ class Gif extends Component<Props, State> {
         { ready, backgroundColor, showGif }: State,
     ) {
         const height = getGifHeight(gif, width)
-        const fit = ready ? getBestRendition(gif, width, height) : placeholder
+        const fit = ready ? getBestRenditionUrl(gif, width, height) : placeholder
         return (
             <a
                 href={gif.url}

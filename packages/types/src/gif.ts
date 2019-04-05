@@ -49,6 +49,7 @@ export interface IImages {
 
 interface IBottleData {
     tid?: string
+    tags?: string[]
 }
 export default interface IGif {
     type: string

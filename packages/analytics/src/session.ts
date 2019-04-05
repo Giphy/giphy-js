@@ -23,9 +23,7 @@ function getLastResponseId(): string {
             const responseIds = JSON.parse(sessionIds) || []
             return responseIds[responseIds.length - 2] || ''
         }
-    } catch (e) {
-        console.error(e)
-    }
+    } catch (_) {}
     return ''
 }
 // the session is the request payload of a pingback request

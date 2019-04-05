@@ -1,6 +1,7 @@
 import { take, pick, without } from './collections'
 import bestfit from './bestfit'
 import { IGif, ImageAllTypes, IRendition } from '@giphy/js-types'
+import { IImages } from '@giphy/js-types/dist/gif'
 
 let SUPPORTS_WEBP: null | boolean = null
 
@@ -45,18 +46,11 @@ export const getSpecificRendition = (
     return ''
 }
 
-interface IRenditionWithKey extends IRendition {
-    renditionName: string
+interface IRenditionWithName extends IRendition {
+    renditionName: keyof IImages
 }
 
-export const getBestRendition = (
-    { images }: IGif,
-    gifWidth: number,
-    gifHeight: number,
-    isStill = false,
-    useVideo = false,
-) => {
-    if (!gifWidth || !gifHeight || !images) return ''
+export const getBestRendition = (images: IImages, gifWidth: number, gifHeight: number): IRenditionWithName => {
     const checkRenditions = pick(images, [
         'original',
         'fixed_width',
@@ -67,8 +61,19 @@ export const getBestRendition = (
     const testImages = Object.entries(checkRenditions).map(([renditionName, val]) => ({
         renditionName,
         ...val,
-    })) as IRenditionWithKey[]
-    const { renditionName } = bestfit(testImages, gifWidth, gifHeight) as IRenditionWithKey
+    })) as IRenditionWithName[]
+    return bestfit(testImages, gifWidth, gifHeight) as IRenditionWithName
+}
+
+export const getBestRenditionUrl = (
+    { images }: IGif,
+    gifWidth: number,
+    gifHeight: number,
+    isStill = false,
+    useVideo = false,
+): keyof IImages | '' => {
+    if (!gifWidth || !gifHeight || !images) return ''
+    const { renditionName } = getBestRendition(images, gifWidth, gifHeight)
     // @ts-ignore come back to this
     const rendition = images[`${renditionName}${isStill ? '_still' : ''}`]
     const match = useVideo ? rendition.mp4 : SUPPORTS_WEBP && rendition.webp ? rendition.webp : rendition.url

@@ -24,6 +24,7 @@
     },
     "devDependencies": {
         "@types/cookie": "^0.3.2",
+        "@types/dompurify": "^0.0.32",
         "@types/throttle-debounce": "1.1.1",
         "jest-fetch-mock": "^2.1.1",
         "typescript": "^3.4.1"

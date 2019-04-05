@@ -61,7 +61,6 @@ namespace Preact {
         }
     }
 
-    // eslint-disable-next-line
     export const render = () => preactRender(<Test />, mountNode, mountNode.lastChild as Element)
 }
 
