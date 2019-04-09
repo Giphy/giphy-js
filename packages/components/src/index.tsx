@@ -1,3 +1,4 @@
+import 'intersection-observer'
 import { h, render } from 'preact'
 import Grid, { Props as GridProps, className } from './components/grid'
 export { default as Grid, Props as GridProps } from './components/grid'
