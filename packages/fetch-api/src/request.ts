@@ -2,7 +2,7 @@ import { Result } from './result-types'
 
 const serverUrl = 'https://api.giphy.com/v1/'
 const identity = (i: any) => i
-const requestMap = {}
+const requestMap: { [key: string]: Promise<Result> } = {}
 function request(url: string, normalizer: (a: any) => any = identity) {
     if (!requestMap[url]) {
         requestMap[url] = new Promise<Result>(async (resolve, reject) => {

@@ -13,7 +13,7 @@ export const BOOL_PROPS = [
     'is_sticker',
 ]
 
-export const USER_BOOL_PROPS = ['suppress_chrome', 'is_public']
+export const USER_BOOL_PROPS = ['suppress_chrome', 'is_public', 'is_verified']
 
 const makeBool = (obj: any) => (prop: string) => (obj[prop] = !!obj[prop])
 

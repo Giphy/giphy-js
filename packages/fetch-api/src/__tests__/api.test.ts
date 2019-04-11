@@ -10,7 +10,9 @@ const dummyGif = {
     is_hidden: 0,
 }
 const pagination = {}
-const meta = {}
+const meta = {
+    response_id: 'response id',
+}
 const gifsResponse = {
     data: [dummyGif],
     pagination,
@@ -27,6 +29,17 @@ const gifResponse = {
     meta,
 }
 
+const gifResponseWithUser = {
+    ...gifResponse,
+    data: {
+        ...dummyGif,
+        user: {
+            id: 1234,
+            is_verified: 0,
+        },
+    },
+}
+
 const category = { name: 'news & politics', name_encoded: 'news-politics' }
 const categoriesResponse = {
     data: [category],
@@ -36,9 +49,11 @@ const testDummyGif = (gif: IGif) => {
     expect(gif.id).toBe('12345')
     expect(gif.tags).toEqual(['text prop', 'regular tag'])
     expect(gif.is_hidden).toBe(false)
+    expect(gif.response_id).toBe('response id')
 }
 describe('response parsing', () => {
     beforeEach(() => {
+        // possibly reset requestMap in request, which is a cache
         fetchMock.resetMocks()
     })
     test('categories', async () => {
@@ -52,9 +67,20 @@ describe('response parsing', () => {
         const { data } = await gf.gif('12345')
         testDummyGif(data)
     })
+    test('gif w user', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(gifResponseWithUser))
+        const { data } = await gf.gif('45667')
+        testDummyGif(data)
+        expect(data.user.is_verified).toBe(false)
+    })
     test('gifs', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.gifs(['12345'])
+        testDummyGif(data[0])
+    })
+    test('search with sticker type', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
+        const { data } = await gf.search('some term', { type: 'stickers' })
         testDummyGif(data[0])
     })
     test('gifs no tags', async () => {
@@ -84,17 +110,35 @@ describe('response parsing', () => {
     })
     test('trending', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
-        const { data } = await gf.search('trending')
+        const { data } = await gf.trending()
         testDummyGif(data[0])
     })
     test('random', async () => {
-        fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
-        const { data } = await gf.search('random')
-        testDummyGif(data[0])
+        fetchMock.mockResponseOnce(JSON.stringify(gifResponse))
+        const { data } = await gf.random()
+        testDummyGif(data)
     })
     test('related', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.related('12345')
         testDummyGif(data[0])
+    })
+    test('error', async () => {
+        fetchMock.mockResponses([JSON.stringify({}), { status: 400 }])
+        try {
+            await gf.related('12345 with error')
+        } catch (error) {
+            expect(error.status).toBe(400)
+            expect(error.statusText).toBe('Bad Request')
+            expect(error.message).toBe('Error fetching')
+        }
+    })
+    test('error', async () => {
+        fetchMock.mockReject(new Error('some crazy error'))
+        try {
+            await gf.related('12345 dslfjdlskj')
+        } catch (error) {
+            expect(error.message).toBe('some crazy error')
+        }
     })
 })

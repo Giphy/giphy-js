@@ -99,7 +99,7 @@ export class GiphyFetch {
     /**
      * Get random gifs
      * @param {RandomOptions}
-     * @returns {Promise<GifsResult>}
+     * @returns {Promise<GifResult>}
      **/
     random(options?: RandomOptions): Promise<GifResult> {
         return request(`${getType(options)}/random?${this.getQS(options)}`, normalizeGif) as Promise<GifResult>
