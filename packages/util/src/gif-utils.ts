@@ -2,27 +2,7 @@ import { take, pick, without } from './collections'
 import bestfit from './bestfit'
 import { IGif, ImageAllTypes, IRendition } from '@giphy/js-types'
 import { IImages } from '@giphy/js-types/dist/gif'
-
-let SUPPORTS_WEBP: null | boolean = null
-
-export const checkIfWebP = () =>
-    new Promise(resolve => {
-        if (SUPPORTS_WEBP !== null) {
-            return resolve()
-        }
-
-        const webp = new Image()
-        webp.onload = () => {
-            SUPPORTS_WEBP = true
-            resolve()
-        }
-        webp.onerror = () => {
-            SUPPORTS_WEBP = false
-            resolve()
-        }
-        webp.src =
-            'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA'
-    })
+import { SUPPORTS_WEBP } from './webp-check'
 
 export const getSpecificRendition = (
     { images, is_sticker: isSticker }: IGif,
@@ -31,7 +11,7 @@ export const getSpecificRendition = (
     useVideo = false,
 ) => {
     if (!images || !renditionLabel) return ''
-
+    isStill = isStill && !useVideo
     // @ts-ignore come back to this
     const rendition = images[`${renditionLabel}${isStill ? '_still' : ''}`] as ImageAllTypes
 
@@ -74,8 +54,9 @@ export const getBestRenditionUrl = (
 ): keyof IImages | '' => {
     if (!gifWidth || !gifHeight || !images) return ''
     const { renditionName } = getBestRendition(images, gifWidth, gifHeight)
+    const key = `${renditionName}${isStill && !useVideo ? '_still' : ''}`
     // @ts-ignore come back to this
-    const rendition = images[`${renditionName}${isStill ? '_still' : ''}`]
+    const rendition = images[key]
     const match = useVideo ? rendition.mp4 : SUPPORTS_WEBP && rendition.webp ? rendition.webp : rendition.url
     return match || ''
 }
@@ -102,5 +83,5 @@ export const getAltText = ({ user, tags = [], is_sticker = false, title = '' }: 
     }
     const username = (user && user.username) || ''
     const filteredTags = take(without(tags, ['transparent']), username ? 4 : 5)
-    return `${username} ${filteredTags.join(' ')} ${is_sticker ? 'Sticker' : 'GIF'}`
+    return `${username ? `${username} ` : ``}${filteredTags.join(' ')} ${is_sticker ? 'Sticker' : 'GIF'}`
 }

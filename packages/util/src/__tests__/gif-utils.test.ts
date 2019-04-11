@@ -1,56 +1,168 @@
-import { getGifHeight } from '../gif-utils'
+import { getGifHeight, getAltText, getBestRenditionUrl, getSpecificRendition } from '../gif-utils'
 import { mapValues, forEach, take, without, pick } from '../collections'
-import { IGif } from '@giphy/js-types'
+import { IGif, IUser } from '@giphy/js-types'
+import { IImages, ImageAllTypes } from '@giphy/js-types/dist/gif'
 
-test('getGifHeight', () => {
-    const gif = {
-        images: {
-            fixed_width: {
-                width: 10,
-                height: 10,
+jest.mock('../webp-check')
+
+describe('response parsing', () => {
+    beforeEach(() => {
+        require('../webp-check').__setWebP(false)
+    })
+    test('getGifHeight', () => {
+        const gif = {
+            images: {
+                fixed_width: {
+                    width: 10,
+                    height: 10,
+                },
             },
-        },
-    }
-    expect(getGifHeight(gif as IGif, 50)).toBe(50)
-})
-
-test('object map', () => {
-    const o = Object.freeze({ one: 1, two: 2 })
-    expect(mapValues(o, () => 100)).toEqual({ one: 100, two: 100 })
-    expect(mapValues(o, (val: number) => val + 1)).toEqual({ one: 2, two: 3 })
-    expect(mapValues(o, (val: any, key: any) => val + key)).toEqual({ one: `1one`, two: `2two` })
-})
-
-test('object forEach', () => {
-    const o = Object.freeze({ one: 1, two: 2 })
-    forEach(o, (val: number, key: string) => {
-        switch (key) {
-            case 'one':
-                expect(val).toBe(1)
-                break
-            default:
-                expect(val).toBe(2)
-                break
         }
+        expect(getGifHeight(gif as IGif, 50)).toBe(50)
+        expect(getGifHeight({ images: {} } as IGif, 50)).toBe(0)
+    })
+
+    test('getAltText', () => {
+        expect(getAltText({ title: 'title' } as IGif)).toBe(`title`)
+        const user: Partial<IUser> = {
+            username: 'jester',
+        }
+        const dummyGif: Partial<IGif> = {
+            id: 12345,
+            user: user as IUser,
+            tags: ['hi', 'bye', 'transparent'],
+        }
+        expect(getAltText(dummyGif as IGif)).toBe(`${user.username} hi bye GIF`)
+        const dummyGifNoUser: Partial<IGif> = {
+            id: 12345,
+            tags: ['hi', 'bye', 'hola', 'adios', 'bonjour', 'auvoir', 'ciao', 'arrivederci'],
+        }
+        expect(getAltText(dummyGifNoUser as IGif)).toBe(`hi bye hola adios bonjour GIF`)
+        const dummySticker: Partial<IGif> = {
+            id: 12345,
+            is_sticker: true,
+            tags: ['hi', 'bye', 'hola', 'adios', 'bonjour', 'auvoir', 'ciao', 'arrivederci'],
+        }
+        expect(getAltText(dummySticker as IGif)).toBe(`hi bye hola adios bonjour Sticker`)
+    })
+
+    test('getBestRenditionUrl', () => {
+        let fixedWidth: Partial<ImageAllTypes> = {
+            width: 10,
+            height: 10,
+            url: 'fixed_width url',
+            size: '129',
+            webp: 'fixed_width webp',
+            mp4: 'fixed_width mp4',
+        }
+        let fixedWidthStill: Partial<ImageAllTypes> = {
+            width: 10,
+            height: 10,
+            url: 'fixed_width url still',
+            size: '129',
+            webp: 'fixed_width_still webp',
+            mp4: 'fixed_width mp4?',
+        }
+        let images: Partial<IImages> = {
+            fixed_width: fixedWidth as ImageAllTypes,
+            fixed_width_still: fixedWidthStill as ImageAllTypes,
+        }
+        const dummyGif: Partial<IGif> = {
+            images: images as IImages,
+        }
+        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10)).toBe(fixedWidth.url)
+        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, true)).toBe(fixedWidthStill.url)
+        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, true, true)).toBe(fixedWidth.mp4)
+        require('../webp-check').__setWebP(true)
+        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10)).toBe(fixedWidth.webp)
+        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, true)).toBe(fixedWidthStill.webp)
+    })
+
+    test('getSpecificRendition', () => {
+        let fixedWidth: Partial<ImageAllTypes> = {
+            width: 10,
+            height: 10,
+            url: 'fixed_width url',
+            size: '129',
+            webp: 'fixed_width webp',
+            mp4: 'fixed_width mp4',
+        }
+        let fixedWidthStill: Partial<ImageAllTypes> = {
+            width: 10,
+            height: 10,
+            url: 'fixed_width url still',
+            size: '129',
+            webp: 'fixed_width_still webp',
+            mp4: 'fixed_width mp4?',
+        }
+        let images: Partial<IImages> = {
+            fixed_width: fixedWidth as ImageAllTypes,
+            fixed_width_still: fixedWidthStill as ImageAllTypes,
+        }
+        const dummyGif: Partial<IGif> = {
+            images: images as IImages,
+        }
+        expect(getSpecificRendition(dummyGif as IGif, 'fixed_width')).toBe(fixedWidth.url)
+        expect(getSpecificRendition(dummyGif as IGif, 'fixed_width', true)).toBe(fixedWidthStill.url)
+        expect(getSpecificRendition(dummyGif as IGif, 'fixed_width', true, true)).toBe(fixedWidth.mp4)
+        expect(getSpecificRendition(dummyGif as IGif, 'fixed_width_still', true, true)).toBe(fixedWidthStill.mp4)
+        require('../webp-check').__setWebP(true)
+        expect(getSpecificRendition(dummyGif as IGif, 'fixed_width')).toBe(fixedWidth.webp)
+        expect(getSpecificRendition(dummyGif as IGif, 'dsakfjslkj')).toBe('')
+        expect(getSpecificRendition({} as IGif, 'fixed_width')).toBe('')
     })
 })
 
-test('array take', () => {
-    const test = ['a', 'b', 'c']
-    expect(take(test, 1)).toEqual(['a'])
-    expect(take(test, 2)).toEqual(['a', 'b'])
-    expect(take(test, 5)).toEqual(['a', 'b', 'c'])
-})
+describe('collections', () => {
+    test('object map', () => {
+        const o = Object.freeze({ one: 1, two: 2 })
+        expect(mapValues(o, () => 100)).toEqual({ one: 100, two: 100 })
+        expect(mapValues(o, (val: number) => val + 1)).toEqual({ one: 2, two: 3 })
+        expect(mapValues(o, (val: any, key: any) => val + key)).toEqual({ one: `1one`, two: `2two` })
+        try {
+            expect(mapValues([], (val: any, key: any) => val + key)).toEqual({ one: `1one`, two: `2two` })
+        } catch (error) {
+            expect(true).toBe(true)
+        }
+    })
 
-test('array without', () => {
-    const test = ['a', 'b', 'c']
-    expect(without(test, ['c', 'b'])).toEqual(['a'])
-    expect(without(test, ['c'])).toEqual(['a', 'b'])
-    expect(without(test, ['sfsdfs'])).toEqual(['a', 'b', 'c'])
-})
+    test('object forEach', () => {
+        const o = Object.freeze({ one: 1, two: 2 })
+        forEach(o, (val: number, key: string) => {
+            switch (key) {
+                case 'one':
+                    expect(val).toBe(1)
+                    break
+                default:
+                    expect(val).toBe(2)
+                    break
+            }
+        })
 
-test('object pick', () => {
-    const o = Object.freeze({ one: 1, two: 2 })
-    const res = pick(o, ['one'])
-    expect(res).toEqual({ one: 1 })
+        try {
+            expect(forEach([], (val: any, key: any) => val + key)).toEqual({ one: `1one`, two: `2two` })
+        } catch (error) {
+            expect(true).toBe(true)
+        }
+    })
+
+    test('array take', () => {
+        const test = ['a', 'b', 'c']
+        expect(take(test, 1)).toEqual(['a'])
+        expect(take(test, 2)).toEqual(['a', 'b'])
+        expect(take(test, 5)).toEqual(['a', 'b', 'c'])
+    })
+
+    test('array without', () => {
+        const test = ['a', 'b', 'c']
+        expect(without(test, ['c', 'b'])).toEqual(['a'])
+        expect(without(test, ['c'])).toEqual(['a', 'b'])
+        expect(without(test, ['sfsdfs'])).toEqual(['a', 'b', 'c'])
+    })
+
+    test('object pick', () => {
+        const o = Object.freeze({ one: 1, two: 2 })
+        const res = pick(o, ['one'])
+        expect(res).toEqual({ one: 1 })
+    })
 })
