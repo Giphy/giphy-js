@@ -6,7 +6,7 @@ import { IImages, ImageAllTypes } from '@giphy/js-types/dist/gif'
 jest.mock('../webp-check')
 
 describe('response parsing', () => {
-    beforeEach(() => {
+    afterEach(() => {
         require('../webp-check').__setWebP(false)
     })
     test('getGifHeight', () => {

@@ -16,9 +16,10 @@ export type Session = {
     events: SessionEvent[]
 }
 
+export const SESSION_STORAGE_KEY = 'responseIds'
 function getLastResponseId(): string {
     try {
-        const sessionIds = sessionStorage.getItem('responseIds')
+        const sessionIds = sessionStorage.getItem(SESSION_STORAGE_KEY)
         if (sessionIds) {
             const responseIds = JSON.parse(sessionIds) || []
             return responseIds[responseIds.length - 2] || ''

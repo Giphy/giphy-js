@@ -1,7 +1,11 @@
 import { IGif, IUser } from '@giphy/js-types'
 import pingback from '../pingback'
+import { SESSION_STORAGE_KEY } from '../session'
 
 describe('pingback', () => {
+    afterEach(() => {
+        sessionStorage.clear()
+    })
     const bottle_data = { tid: 'tid!' }
     const gif: Partial<IGif> = { id: 9870, bottle_data }
     const user: Partial<IUser> = { id: 1234 }
@@ -30,13 +34,16 @@ describe('pingback', () => {
             logged_in_user_id: '',
         })
     })
+    const position = { top: 0, left: 20 } as ClientRect
     test('request', () => {
+        sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(['a', 'b', 'c']))
         pingback({
             gif: gif as IGif,
             user,
             type: 'GIF_RELATED',
             responseId,
             actionType: 'CLICK',
+            position,
         })
         pingback({
             gif: gif as IGif,
@@ -65,7 +72,7 @@ describe('pingback', () => {
             event_type: 'GIF_RELATED',
             referrer: '',
             response_id: responseId,
-            prior_response_id: '',
+            prior_response_id: 'b',
         })
         const [action] = actions
         delete action.ts
@@ -73,7 +80,12 @@ describe('pingback', () => {
             action_type: 'CLICK',
             gif_id: '9870',
             tid: 'tid!',
-            attributes: [],
+            attributes: [
+                {
+                    key: 'position',
+                    value: JSON.stringify(position),
+                },
+            ],
         })
 
         const {

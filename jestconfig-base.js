@@ -8,4 +8,5 @@ module.exports = {
     collectCoverage: true,
     coveragePathIgnorePatterns: ['(__tests__/.*.mock).(jsx?|tsx?)$'],
     verbose: true,
+    testPathIgnorePatterns: ['./dist'],
 }
