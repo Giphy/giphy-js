@@ -10,9 +10,10 @@
         "noUnusedParameters": true,
         "sourceMap": true,
         "skipLibCheck": true, // no reason to check the dependencies
-        "lib": ["es6", "es7", "dom"],
+        "lib": ["esnext", "dom"],
         "declaration": true,
         "strict": true
     },
+
     "exclude": ["node_modules"]
 }
