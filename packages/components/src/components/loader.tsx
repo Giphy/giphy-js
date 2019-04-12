@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
 import { loader } from '@giphy/js-brand'
-type Props = { isVisible?: boolean; fetchGifs: () => void }
+type Props = { isVisible?: boolean; fetchGifs: () => void; className?: string }
 
 type State = {}
 
@@ -12,7 +12,8 @@ class Loader extends Component<Props, State> {
         }
     }
     render() {
-        return <div class={loader} />
+        const { className = loader } = this.props
+        return <div class={className} />
     }
 }
 

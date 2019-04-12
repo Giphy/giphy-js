@@ -32,10 +32,8 @@ $ yarn && lerna bootstrap
 
 ### Dev
 
-Using [Parcel](https://parceljs.org/), the "Blazing fast, zero configuration web application bundler"
-
 ```sh
-$ cd packages/comopnents
+$ cd packages/components
 $ yarn run dev
 ```
 

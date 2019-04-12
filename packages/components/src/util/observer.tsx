@@ -5,6 +5,7 @@ type State = {
 
 type Props = {
     children: any
+    className?: string
 }
 
 class Observer extends Component<Props, State> {
@@ -21,9 +22,9 @@ class Observer extends Component<Props, State> {
             this.io.disconnect()
         }
     }
-    render({ children }: Props, { isVisible }: State) {
+    render({ children, className }: Props, { isVisible }: State) {
         return (
-            <div ref={div => (this.container = div)}>
+            <div ref={div => (this.container = div)} className={className}>
                 {children.map((child: any) => (child ? cloneElement(child, { isVisible }) : null))}
             </div>
         )

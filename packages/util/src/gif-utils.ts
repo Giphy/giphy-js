@@ -71,6 +71,16 @@ export const getGifHeight = ({ images }: IGif, gifWidth: number) => {
     return 0
 }
 
+export const getGifWidth = ({ images }: IGif, gifHeight: number) => {
+    const { fixed_width } = images
+    if (fixed_width) {
+        const { width, height } = fixed_width
+        const aspectRatio = width / height
+        return Math.round(gifHeight * aspectRatio)
+    }
+    return 0
+}
+
 /**
  * GIF Text - Alt Text: Generates alt text for
  * GIF images based on username and tags.

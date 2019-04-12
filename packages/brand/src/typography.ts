@@ -45,6 +45,7 @@ injectGlobal`
 
 export const fontFamily = {
     title: "'nexablack', sans-serif",
+    body: 'interface, Helvetica Neue, helvetica, sans-serif;',
 }
 
 export const fontSize = {
@@ -80,6 +81,7 @@ const titleSmall = cx(
 )
 
 const sharedSubheader = css`
+    font-family: ${fontFamily.body};
     font-weight: bold;
     -webkit-font-smoothing: antialiased;
 `
@@ -97,6 +99,7 @@ const subheaderSmall = cx(
 )
 
 const sectionHeader = css`
+    font-family: ${fontFamily.body};
     font-size: 14px;
     font-weight: bold;
     text-transform: uppercase;

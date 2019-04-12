@@ -4,7 +4,7 @@ import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight } from '@gip
 import { Component, h } from 'preact'
 import addObserver from '../util/add-observer'
 import AdPill from './ad-pill'
-import { css } from 'emotion'
+import { css, cx } from 'emotion'
 
 const gifCss = css`
     display: block;
@@ -31,6 +31,7 @@ type GifProps = {
     gif: IGif
     width: number
     backgroundColor?: string
+    className?: string
 }
 
 type Props = GifProps & EventProps
@@ -109,7 +110,7 @@ class Gif extends Component<Props, State> {
         if (this.hoverTimeout) clearTimeout(this.hoverTimeout)
     }
     render(
-        { gif, gif: { bottle_data: bottleData }, width, onGifClick = noop, onGifRightClick = noop }: Props,
+        { gif, gif: { bottle_data: bottleData }, width, onGifClick = noop, onGifRightClick = noop, className }: Props,
         { ready, backgroundColor, showGif }: State,
     ) {
         const height = getGifHeight(gif, width)
@@ -118,7 +119,7 @@ class Gif extends Component<Props, State> {
             <a
                 href={gif.url}
                 style={{ backgroundColor, width, height }}
-                className={gifCss}
+                className={cx(gifCss, className)}
                 onMouseOver={this.onMouseOver}
                 onMouseOut={this.onMouseOut}
                 onClick={(e: Event) => onGifClick(gif, e)}

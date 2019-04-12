@@ -1,4 +1,4 @@
-import { getGifHeight, getAltText, getBestRenditionUrl, getSpecificRendition } from '../gif-utils'
+import { getGifHeight, getAltText, getBestRenditionUrl, getSpecificRendition, getGifWidth } from '../gif-utils'
 import { mapValues, forEach, take, without, pick } from '../collections'
 import { IGif, IUser } from '@giphy/js-types'
 import { IImages, ImageAllTypes } from '@giphy/js-types/dist/gif'
@@ -9,17 +9,19 @@ describe('response parsing', () => {
     afterEach(() => {
         require('../webp-check').__setWebP(false)
     })
-    test('getGifHeight', () => {
+    test('getGifHeight getGifWidth', () => {
         const gif = {
             images: {
                 fixed_width: {
                     width: 10,
-                    height: 10,
+                    height: 100,
                 },
             },
         }
-        expect(getGifHeight(gif as IGif, 50)).toBe(50)
+        expect(getGifHeight(gif as IGif, 50)).toBe(500)
         expect(getGifHeight({ images: {} } as IGif, 50)).toBe(0)
+        expect(getGifWidth(gif as IGif, 50)).toBe(5)
+        expect(getGifWidth({ images: {} } as IGif, 50)).toBe(0)
     })
 
     test('getAltText', () => {
@@ -35,13 +37,13 @@ describe('response parsing', () => {
         expect(getAltText(dummyGif as IGif)).toBe(`${user.username} hi bye GIF`)
         const dummyGifNoUser: Partial<IGif> = {
             id: 12345,
-            tags: ['hi', 'bye', 'hola', 'adios', 'bonjour', 'auvoir', 'ciao', 'arrivederci'],
+            tags: ['hi', 'bye', 'hola', 'adios', 'bonjour', 'au revoir', 'ciao', 'arrivederci'],
         }
         expect(getAltText(dummyGifNoUser as IGif)).toBe(`hi bye hola adios bonjour GIF`)
         const dummySticker: Partial<IGif> = {
             id: 12345,
             is_sticker: true,
-            tags: ['hi', 'bye', 'hola', 'adios', 'bonjour', 'auvoir', 'ciao', 'arrivederci'],
+            tags: ['hi', 'bye', 'hola', 'adios', 'bonjour', 'au revoir', 'ciao', 'arrivederci'],
         }
         expect(getAltText(dummySticker as IGif)).toBe(`hi bye hola adios bonjour Sticker`)
     })

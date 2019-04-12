@@ -1,4 +1,4 @@
-import { PingbackEventType, pingback, PingbackActionType } from '@giphy/js-analytics'
+import { PingbackEventType, pingback, PingbackActionType, bottleData } from '@giphy/js-analytics'
 import { IGif, IUser } from '@giphy/js-types'
 import { getClientRect } from '@giphy/js-util'
 
@@ -19,7 +19,11 @@ const firePingback = (actionType: PingbackActionType) => (
 
 export const onGifClick = firePingback('CLICK')
 
-export const onGifSeen = (gif: IGif, user: Partial<IUser>, type: PingbackEventType, position: ClientRect) =>
+export const onGifSeen = (gif: IGif, user: Partial<IUser>, type: PingbackEventType, position: ClientRect) => {
+    // third party here
+    if (gif.bottle_data && gif.bottle_data.tags) {
+        bottleData(gif.bottle_data.tags)
+    }
     pingback({
         gif,
         user,
@@ -28,5 +32,6 @@ export const onGifSeen = (gif: IGif, user: Partial<IUser>, type: PingbackEventTy
         actionType: 'SEEN',
         position,
     })
+}
 
 export const onGifHover = firePingback('HOVER')

@@ -5,7 +5,7 @@ import Observer from '../util/observer'
 import Loader from './loader'
 import { IGif, IUser } from '@giphy/js-types'
 import * as pingback from '../util/pingback'
-import { PingbackEventType, bottleData } from '@giphy/js-analytics'
+import { PingbackEventType } from '@giphy/js-analytics'
 
 export const className = 'giphy-grid' // used in preact render
 type GridProps = {
@@ -32,7 +32,7 @@ class Grid extends Component<Props, State> {
     static getDerivedStateFromProps({ columns, gutter, width, gifs }: Props, prevState: State) {
         const gutterOffset = gutter * (columns - 1)
         const gifWidth = Math.floor((width - gutterOffset) / columns)
-        const result: any = {}
+        const result: Partial<State> = {}
         if (prevState.gifWidth !== gifWidth) {
             result.gifWidth = gifWidth
         }
@@ -89,10 +89,6 @@ class Grid extends Component<Props, State> {
         const { onGifSeen, pingbackEventType, user } = this.props
         if (onGifSeen) {
             onGifSeen(gif, boundingClientRect)
-        }
-        // third party here
-        if (gif.bottle_data && gif.bottle_data.tags) {
-            bottleData(gif.bottle_data.tags)
         }
         // fire pingback
         pingback.onGifSeen(gif, user, pingbackEventType, boundingClientRect)
