@@ -1,6 +1,6 @@
 import { IGif, IUser } from '@giphy/js-types'
 import pingback from '../pingback'
-import { SESSION_STORAGE_KEY } from '../session'
+import { SESSION_STORAGE_KEY, addLastSearchResponseId } from '../session'
 
 describe('pingback', () => {
     afterEach(() => {
@@ -13,6 +13,13 @@ describe('pingback', () => {
     beforeEach(() => {
         // @ts-ignore
         fetch.resetMocks()
+    })
+    test('addLastSearchResponseId', () => {
+        addLastSearchResponseId('1')
+        expect(JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY) as string)).toEqual(['1'])
+        addLastSearchResponseId('2')
+        addLastSearchResponseId('2')
+        expect(JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY) as string)).toEqual(['1', '2'])
     })
     test('request no user', () => {
         pingback({

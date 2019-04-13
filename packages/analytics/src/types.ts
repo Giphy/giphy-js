@@ -1,4 +1,4 @@
-import { IGif, IUser } from '@giphy/js-types'
+import { IGif, IUser, PingbackEventType } from '@giphy/js-types'
 
 export type Pingback = {
     gif: IGif
@@ -18,5 +18,3 @@ export type PingbackRequestAction = {
     tid?: string
     ts: number
 }
-
-export type PingbackEventType = 'GIF_TRENDING' | 'GIF_RELATED' | 'GIF_CHANNEL' | 'GIF_SEARCH' | 'GIF_EXPLORE'

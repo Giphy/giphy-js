@@ -4,15 +4,9 @@ import { PreactCarousel, vanillaJSCarousel } from './carousel'
 
 const gridTarget = document.getElementById('grid')!
 const carouselTarget = document.getElementById('carousel')!
-const banner = document.querySelector('.banner')
+const banner = document.querySelector('#banner')
 banner.className = css.title
 document.querySelectorAll('h4').forEach(c => (c.className = css.sectionHeader))
-
-declare const module: any
-// Hot Module Replacement
-if (module.hot) {
-    module.hot.accept()
-}
 
 if (location.search.indexOf('preact') !== -1) {
     banner.textContent = 'GIPHY JS Preact Components'
@@ -21,4 +15,10 @@ if (location.search.indexOf('preact') !== -1) {
 } else {
     vanillaJSCarousel(carouselTarget)
     this.grid = new VanillaJSGrid(gridTarget)
+}
+
+declare const module: any
+// Hot Module Replacement
+if (module.hot) {
+    module.hot.accept()
 }

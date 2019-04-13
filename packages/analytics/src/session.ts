@@ -1,5 +1,6 @@
 import cookie from 'cookie'
-import { PingbackEventType, PingbackRequestAction } from './types'
+import { PingbackEventType } from '@giphy/js-types'
+import { PingbackRequestAction } from './types'
 
 type SessionEvent = {
     event_type: PingbackEventType
@@ -26,6 +27,20 @@ function getLastResponseId(): string {
         }
     } catch (_) {}
     return ''
+}
+
+export function addLastSearchResponseId(responseId: string) {
+    try {
+        const existing = sessionStorage.getItem(SESSION_STORAGE_KEY)
+        if (existing) {
+            var searchResponseIds = JSON.parse(existing)
+            if (searchResponseIds[searchResponseIds.length - 1] !== responseId) {
+                window.sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify([...searchResponseIds, responseId]))
+            }
+        } else {
+            sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify([responseId]))
+        }
+    } catch (_) {}
 }
 // the session is the request payload of a pingback request
 export const createSession = (

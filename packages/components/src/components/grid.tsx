@@ -1,46 +1,52 @@
 import { h, Component } from 'preact'
+import { debounce } from 'throttle-debounce'
 import Gif, { EventProps } from './gif'
 import Bricks from 'bricks.js'
 import Observer from '../util/observer'
-import Loader from './loader'
+import { loader } from '@giphy/js-brand'
 import { IGif, IUser } from '@giphy/js-types'
 import * as pingback from '../util/pingback'
-import { PingbackEventType } from '@giphy/js-analytics'
+import { GifsResult, gifPaginator } from '@giphy/js-fetch-api'
 
 export const className = 'giphy-grid' // used in preact render
-type GridProps = {
+
+type Props = {
     width: number
-    gifs: IGif[]
     user: Partial<IUser>
     columns: number
     gutter: number
-    pingbackEventType: PingbackEventType
-    fetchGifs?: () => void
+    fetchGifs: (offset: number) => Promise<GifsResult>
+} & EventProps
+
+type State = {
+    gifWidth: number
+    isFetching: boolean
+    numberOfGifs: number
+    gifs: IGif[]
+    isLoaderVisible: boolean
 }
-
-export type Props = GridProps & EventProps
-
-type State = { gifWidth: number; isFetching: boolean; numberOfGifs: number }
 class Grid extends Component<Props, State> {
     state = {
         isFetching: false,
         numberOfGifs: 0,
         gifWidth: 0,
+        gifs: [],
+        isLoaderVisible: true,
     }
     bricks?: any
     el?: HTMLElement
-    static getDerivedStateFromProps({ columns, gutter, width, gifs }: Props, prevState: State) {
+    paginator: () => Promise<IGif[]>
+    static getDerivedStateFromProps({ columns, gutter, width }: Props, prevState: State) {
         const gutterOffset = gutter * (columns - 1)
         const gifWidth = Math.floor((width - gutterOffset) / columns)
-        const result: Partial<State> = {}
         if (prevState.gifWidth !== gifWidth) {
-            result.gifWidth = gifWidth
+            return { gifWidth }
         }
-        if (gifs.length > prevState.numberOfGifs) {
-            result.isFetching = false
-            result.numberOfGifs = gifs.length
-        }
-        return Object.keys(result).length ? result : null
+        return null
+    }
+    constructor(props: Props) {
+        super(props)
+        this.paginator = gifPaginator(props.fetchGifs)
     }
     setBricks() {
         const { columns, gutter } = this.props
@@ -52,19 +58,14 @@ class Grid extends Component<Props, State> {
         })
     }
     componentDidMount() {
-        const { gifs } = this.props
-        // bricks
         this.setBricks()
-        if (gifs.length) {
-            this.bricks.pack()
-        }
+        this.onFetch()
     }
-
     componentDidUpdate(prevProps: Props, prevState: State) {
-        const { gifs } = this.props
+        const { gifs } = this.state
         const { gifWidth } = this.state
 
-        const numberOfOldGifs = prevProps.gifs.length
+        const numberOfOldGifs = prevState.gifs.length
         const numberOfNewGifs = gifs.length
 
         if (prevState.gifWidth !== gifWidth && numberOfOldGifs > 0) {
@@ -75,7 +76,7 @@ class Grid extends Component<Props, State> {
             this.bricks.pack()
         }
 
-        if (prevProps.gifs !== gifs) {
+        if (prevState.gifs !== gifs) {
             if (numberOfNewGifs > numberOfOldGifs && numberOfOldGifs > 0) {
                 // we just added new gifs
                 this.bricks.update()
@@ -86,37 +87,41 @@ class Grid extends Component<Props, State> {
         }
     }
     onGifSeen = (gif: IGif, boundingClientRect: ClientRect | DOMRect) => {
-        const { onGifSeen, pingbackEventType, user } = this.props
+        const { onGifSeen, user } = this.props
         if (onGifSeen) {
             onGifSeen(gif, boundingClientRect)
         }
         // fire pingback
-        pingback.onGifSeen(gif, user, pingbackEventType, boundingClientRect)
+        pingback.onGifSeen(gif, user, boundingClientRect)
     }
     onGifClick = (gif: IGif, e: Event) => {
-        const { onGifClick, pingbackEventType, user } = this.props
+        const { onGifClick, user } = this.props
         if (onGifClick) {
             onGifClick(gif, e)
         }
-        pingback.onGifClick(gif, user, pingbackEventType, e)
+        pingback.onGifClick(gif, user, e)
     }
     onGifHover = (gif: IGif, e: Event) => {
-        const { onGifHover, pingbackEventType, user } = this.props
+        const { onGifHover, user } = this.props
         if (onGifHover) {
             onGifHover(gif, e)
         }
-        pingback.onGifHover(gif, user, pingbackEventType, e)
+        pingback.onGifHover(gif, user, e)
     }
-    fetchGifs = () => {
-        const { fetchGifs } = this.props
-        const { isFetching } = this.state
-        if (!isFetching && fetchGifs) {
+    onLoaderVisible = (isVisible: boolean) => {
+        this.setState({ isLoaderVisible: isVisible }, this.onFetch)
+    }
+    onFetch = debounce(100, async () => {
+        const { isFetching, isLoaderVisible } = this.state
+        if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true })
-            fetchGifs()
+            const gifs = await this.paginator()
+            this.setState({ gifs, isFetching: false })
+            this.onFetch()
         }
-    }
+    })
 
-    render({ gifs, fetchGifs, onGifVisible, onGifRightClick }: Props, { gifWidth }: State) {
+    render({ fetchGifs, onGifVisible, onGifRightClick }: Props, { gifWidth, gifs }: State) {
         const showLoader = fetchGifs && gifs.length > 0
         return (
             <div class={className}>
@@ -135,8 +140,8 @@ class Grid extends Component<Props, State> {
                     ))}
                 </div>
                 {showLoader && (
-                    <Observer>
-                        <Loader fetchGifs={this.fetchGifs} />
+                    <Observer onVisibleChange={this.onLoaderVisible}>
+                        <div class={loader} />
                     </Observer>
                 )}
             </div>

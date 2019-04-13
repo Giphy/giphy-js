@@ -1,4 +1,5 @@
-import { PingbackEventType } from '@giphy/js-analytics'
+import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
+import { debounce } from 'throttle-debounce'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifWidth } from '@giphy/js-util'
 import { css, cx } from 'emotion'
@@ -6,7 +7,6 @@ import { Component, h } from 'preact'
 import Observer from '../util/observer'
 import * as pingback from '../util/pingback'
 import Gif, { EventProps } from './gif'
-import Loader from './loader'
 
 const carouselCss = css`
     -webkit-overflow-scrolling: touch;
@@ -33,62 +33,71 @@ const loaderCss = css`
 `
 
 export const className = 'giphy-carousel' // used in preact render
-type GridProps = {
-    gifs: IGif[]
+type Props = {
     user: Partial<IUser>
     gifHeight: number
     gutter: number
-    pingbackEventType: PingbackEventType
-    fetchGifs?: () => void
+    fetchGifs: (offset: number) => Promise<GifsResult>
+} & EventProps
+
+type State = {
+    isFetching: boolean
+    numberOfGifs: number
+    gifs: IGif[]
+    isLoaderVisible: boolean
 }
-
-type Props = GridProps & EventProps
-
-type State = { isFetching: boolean; numberOfGifs: number }
 class Carousel extends Component<Props, State> {
     state = {
         isFetching: false,
         numberOfGifs: 0,
+        gifs: [],
+        isLoaderVisible: true,
     }
     el?: HTMLElement
-    static getDerivedStateFromProps({ gifs }: Props, prevState: State) {
-        if (gifs.length > prevState.numberOfGifs) {
-            return { isFetching: false, numberOfGifs: gifs.length }
-        }
-        return null
+    paginator: () => Promise<IGif[]>
+    constructor(props: Props) {
+        super(props)
+        // create a paginator
+        this.paginator = gifPaginator(props.fetchGifs)
+    }
+    componentDidMount() {
+        this.onFetch()
     }
     onGifSeen = (gif: IGif, boundingClientRect: ClientRect | DOMRect) => {
-        const { onGifSeen, pingbackEventType, user } = this.props
+        const { onGifSeen, user } = this.props
         if (onGifSeen) {
             onGifSeen(gif, boundingClientRect)
         }
         // fire pingback
-        pingback.onGifSeen(gif, user, pingbackEventType, boundingClientRect)
+        pingback.onGifSeen(gif, user, boundingClientRect)
     }
     onGifClick = (gif: IGif, e: Event) => {
-        const { onGifClick, pingbackEventType, user } = this.props
+        const { onGifClick, user } = this.props
         if (onGifClick) {
             onGifClick(gif, e)
         }
-        pingback.onGifClick(gif, user, pingbackEventType, e)
+        pingback.onGifClick(gif, user, e)
     }
     onGifHover = (gif: IGif, e: Event) => {
-        const { onGifHover, pingbackEventType, user } = this.props
+        const { onGifHover, user } = this.props
         if (onGifHover) {
             onGifHover(gif, e)
         }
-        pingback.onGifHover(gif, user, pingbackEventType, e)
+        pingback.onGifHover(gif, user, e)
     }
-    fetchGifs = () => {
-        const { fetchGifs } = this.props
-        const { isFetching } = this.state
-        if (!isFetching && fetchGifs) {
+    onLoaderVisible = (isVisible: boolean) => {
+        this.setState({ isLoaderVisible: isVisible }, this.onFetch)
+    }
+    onFetch = debounce(100, async () => {
+        const { isFetching, isLoaderVisible } = this.state
+        if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true })
-            fetchGifs()
+            const gifs = await this.paginator()
+            this.setState({ gifs, isFetching: false })
+            this.onFetch()
         }
-    }
-
-    render({ gifs, fetchGifs, onGifVisible, onGifRightClick, gifHeight, gutter = 6 }: Props) {
+    })
+    render({ fetchGifs, onGifVisible, onGifRightClick, gifHeight, gutter = 6 }: Props, { gifs }: State) {
         const showLoader = fetchGifs && gifs.length > 0
         const marginCss = css`
             margin-left: ${gutter}px;
@@ -118,8 +127,8 @@ class Carousel extends Component<Props, State> {
                     )
                 })}
                 {showLoader && (
-                    <Observer className={loaderContainerCss}>
-                        <Loader fetchGifs={this.fetchGifs} className={loaderCss} />
+                    <Observer className={loaderContainerCss} onVisibleChange={this.onLoaderVisible}>
+                        <div className={loaderCss} />
                     </Observer>
                 )}
             </div>

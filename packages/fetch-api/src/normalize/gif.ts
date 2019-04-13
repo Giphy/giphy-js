@@ -21,7 +21,7 @@ type Tag = { text: string }
 
 const getTag = (tag: Tag | string) => (typeof tag === 'string' ? (tag as string) : (tag as Tag).text)
 
-const normalize = (gif: any, responseId?: string) => {
+const normalize = (gif: any, responseId?: string, pingbackType?: string) => {
     const newGif: IGif = { ...gif }
     newGif.id = String(newGif.id)
     newGif.tags = (newGif.tags || []).map(getTag)
@@ -30,6 +30,8 @@ const normalize = (gif: any, responseId?: string) => {
     }
     if (responseId) {
         newGif.response_id = responseId
+        // @ts-ignore
+        newGif.pingbackType = pingbackType
     }
     BOOL_PROPS.forEach(makeBool(newGif))
     const { user } = newGif
@@ -47,8 +49,8 @@ export const normalizeGif = (result: GifResult) => {
     return result
 }
 
-export const normalizeGifs = (result: GifsResult) => {
+export const normalizeGifs = (result: GifsResult, pingbackType?: string) => {
     const { response_id } = result.meta
-    result.data = result.data.map(gif => normalize(gif, response_id))
+    result.data = result.data.map(gif => normalize(gif, response_id, pingbackType))
     return result
 }

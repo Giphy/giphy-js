@@ -1,11 +1,11 @@
 import 'intersection-observer'
 import { h, render } from 'preact'
-import Grid, { className as gridClassName } from './components/grid'
 import Carousel, { className as carouselClassName } from './components/carousel'
+import Grid, { className as gridClassName } from './components/grid'
 
 export { default as Carousel } from './components/carousel'
-export { default as Grid } from './components/grid'
 export { default as Gif } from './components/gif'
+export { default as Grid } from './components/grid'
 
 /**
  * render a grid
@@ -34,5 +34,5 @@ export const renderCarousel = (
 ) => {
     // preact will append if there's no existig node
     const existingNode = target.querySelector(className)!
-    return render(<Carousel {...carouselProps} />, target, existingNode)
+    render(<Carousel {...carouselProps} />, target, existingNode)
 }

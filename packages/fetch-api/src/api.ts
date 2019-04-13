@@ -93,7 +93,9 @@ export class GiphyFetch {
      * @returns {Promise<GifsResult>}
      */
     trending(options?: TrendingOptions): Promise<GifsResult> {
-        return request(`${getType(options)}/trending?${this.getQS(options)}`, normalizeGifs) as Promise<GifsResult>
+        return request(`${getType(options)}/trending?${this.getQS(options)}`, normalizeGifs, 'GIF_TRENDING') as Promise<
+            GifsResult
+        >
     }
 
     /**
