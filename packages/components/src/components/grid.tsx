@@ -3,10 +3,10 @@ import { debounce } from 'throttle-debounce'
 import Gif, { EventProps } from './gif'
 import Bricks from 'bricks.js'
 import Observer from '../util/observer'
-import { loader } from '@giphy/js-brand'
 import { IGif, IUser } from '@giphy/js-types'
 import * as pingback from '../util/pingback'
 import { GifsResult, gifPaginator } from '@giphy/js-fetch-api'
+import Loader from './loader'
 
 export const className = 'giphy-grid' // used in preact render
 
@@ -141,7 +141,7 @@ class Grid extends Component<Props, State> {
                 </div>
                 {showLoader && (
                     <Observer onVisibleChange={this.onLoaderVisible}>
-                        <div class={loader} />
+                        <Loader />
                     </Observer>
                 )}
             </div>

@@ -3,7 +3,7 @@
         "clean": "rm -rf ./dist",
         "dev": "tsc --watch",
         "prepublish": "npm run clean && tsc",
-        "refresh": "tsc",
+        "build": "tsc",
         "test": "jest --config ./jestconfig.js",
         "test:watch": "jest --config ./jestconfig.js --watchAll"
     },

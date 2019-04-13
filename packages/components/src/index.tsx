@@ -34,5 +34,5 @@ export const renderCarousel = (
 ) => {
     // preact will append if there's no existig node
     const existingNode = target.querySelector(className)!
-    render(<Carousel {...carouselProps} />, target, existingNode)
+    return render(<Carousel {...carouselProps} />, target, existingNode)
 }

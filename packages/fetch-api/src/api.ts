@@ -73,7 +73,7 @@ export class GiphyFetch {
      **/
     search(term: string, options?: SearchOptions): Promise<GifsResult> {
         const qsParams = this.getQS({ ...options, ...{ q: term } })
-        return request(`${getType(options)}/search?${qsParams}`, normalizeGifs) as Promise<GifsResult>
+        return request(`${getType(options)}/search?${qsParams}`, normalizeGifs, 'GIF_SEARCH') as Promise<GifsResult>
     }
 
     /**
@@ -114,7 +114,11 @@ export class GiphyFetch {
      * @returns {Promise<GifsResult>}
      **/
     related(id: string, options?: RelatedOptions): Promise<GifsResult> {
-        return request(`gifs/related?${this.getQS({ gif_id: id, ...options })}`, normalizeGifs) as Promise<GifsResult>
+        return request(
+            `gifs/related?${this.getQS({ gif_id: id, ...options })}`,
+            normalizeGifs,
+            'GIF_RELATED',
+        ) as Promise<GifsResult>
     }
 }
 export default GiphyFetch
