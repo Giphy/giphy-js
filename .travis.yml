@@ -7,15 +7,18 @@ cache:
         - 'node_modules'
 before_script:
     - yarn run lerna bootstrap
+    - git checkout .
 script:
     - yarn run lint
     - yarn test
 before_deploy:
-    - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+    - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc
+    - cat .npmrc
 deploy:
     provider: script
     script: 'yarn run lerna:publish'
     skip_cleanup: true
     on:
         node: '10'
-        condition: $TRAVIS_COMMIT_MESSAGE == "Publish"
+        branch: master
+        condition: $TRAVIS_COMMIT_MESSAGE =~ ^Publish
