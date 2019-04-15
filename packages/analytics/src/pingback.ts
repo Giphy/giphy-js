@@ -1,7 +1,8 @@
 import { debounce } from 'throttle-debounce'
 import { createSession } from './session'
-import { Pingback, PingbackRequestAction, PingbackEventType } from './types'
+import { Pingback, PingbackRequestAction } from './types'
 import { getAction } from './util'
+import { PingbackEventType } from '@giphy/js-types'
 import { forEach } from '@giphy/js-util'
 import { sendPingback } from './send-pingback'
 

@@ -5,6 +5,7 @@ type State = {
 
 type Props = {
     children: any
+    onVisibleChange?: (isVisible: boolean) => void
     className?: string
 }
 
@@ -14,6 +15,8 @@ class Observer extends Component<Props, State> {
     componentDidMount() {
         this.io = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
             this.setState({ isVisible: entry.isIntersecting })
+            const { onVisibleChange } = this.props
+            if (onVisibleChange) onVisibleChange(entry.isIntersecting)
         })
         this.io.observe(this.container)
     }

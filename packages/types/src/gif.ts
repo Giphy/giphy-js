@@ -1,4 +1,5 @@
 import IUser from './user'
+import { PingbackEventType } from './pingback-event'
 
 export interface IRendition {
     width: number
@@ -78,4 +79,5 @@ export default interface IGif {
     tags: string[]
     bottle_data: IBottleData
     response_id: string
+    pingback_event_type: PingbackEventType
 }

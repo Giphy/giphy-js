@@ -2,7 +2,7 @@ import GiphyFetchAPI from '../api'
 // @ts-ignore magically this defines types for fetchMock
 // eslint-disable-next-line
 import * as fetch from 'jest-fetch-mock'
-import { IGif } from '@giphy/js-types'
+import { IGif, PingbackEventType } from '@giphy/js-types'
 
 const dummyGif = {
     id: 12345,
@@ -45,11 +45,12 @@ const categoriesResponse = {
     data: [category],
 }
 const gf = new GiphyFetchAPI('4OMJYpPoYwVpe')
-const testDummyGif = (gif: IGif) => {
+const testDummyGif = (gif: IGif, pingbackEventType: PingbackEventType = '') => {
     expect(gif.id).toBe('12345')
     expect(gif.tags).toEqual(['text prop', 'regular tag'])
     expect(gif.is_hidden).toBe(false)
     expect(gif.response_id).toBe('response id')
+    expect(gif.pingback_event_type).toBe(pingbackEventType)
 }
 describe('response parsing', () => {
     beforeEach(() => {
@@ -81,7 +82,7 @@ describe('response parsing', () => {
     test('search with sticker type', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.search('some term', { type: 'stickers' })
-        testDummyGif(data[0])
+        testDummyGif(data[0], 'GIF_SEARCH')
     })
     test('gifs no tags', async () => {
         fetchMock.resetMocks()
@@ -100,7 +101,7 @@ describe('response parsing', () => {
     test('search', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.search('dogs')
-        testDummyGif(data[0])
+        testDummyGif(data[0], 'GIF_SEARCH')
     })
     test('subcategories', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(categoriesResponse))
@@ -111,7 +112,7 @@ describe('response parsing', () => {
     test('trending', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.trending()
-        testDummyGif(data[0])
+        testDummyGif(data[0], 'GIF_TRENDING')
     })
     test('random', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifResponse))
@@ -121,7 +122,7 @@ describe('response parsing', () => {
     test('related', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.related('12345')
-        testDummyGif(data[0])
+        testDummyGif(data[0], 'GIF_RELATED')
     })
     test('error', async () => {
         fetchMock.mockResponses([JSON.stringify({}), { status: 400 }])
