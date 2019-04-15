@@ -18,4 +18,4 @@ deploy:
     skip_cleanup: true
     on:
         node: '10'
-        tags: true
+        condition: $TRAVIS_COMMIT_MESSAGE == "Publish"
