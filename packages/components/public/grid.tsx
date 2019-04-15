@@ -1,6 +1,5 @@
 import { throttle } from 'throttle-debounce'
 import { renderGrid, Grid } from '../src'
-import { IGif } from '@giphy/js-types'
 import { h, render as preactRender, Component } from 'preact'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
@@ -36,8 +35,6 @@ export namespace PreactGrid {
 }
 
 export class VanillaJSGrid {
-    gifs: IGif[] = []
-    offset = 0
     mountNode: HTMLElement
     el: HTMLElement
     constructor(mountNode: HTMLElement) {

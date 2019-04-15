@@ -16,6 +16,7 @@ type Props = {
     columns: number
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
+    onGifsFetched?: (gifs: IGif[]) => void
 } & EventProps
 
 type State = {
@@ -117,6 +118,8 @@ class Grid extends Component<Props, State> {
             this.setState({ isFetching: true })
             const gifs = await this.paginator()
             this.setState({ gifs, isFetching: false })
+            const { onGifsFetched } = this.props
+            if (onGifsFetched) onGifsFetched(gifs)
             this.onFetch()
         }
     })
