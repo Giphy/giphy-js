@@ -20,7 +20,6 @@ export namespace PreactGrid {
         offset = 0
         setWidth = throttle(500, () => this.setState({ width: getWidth() }))
         componentDidMount() {
-            document.title = 'Preact Grid Wrapper'
             window.addEventListener('resize', this.setWidth, false)
         }
         componentWillUnmount() {
