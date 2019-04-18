@@ -12,7 +12,7 @@ export const className = 'giphy-grid' // used in preact render
 
 type Props = {
     width: number
-    user: Partial<IUser>
+    user?: Partial<IUser>
     columns: number
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
@@ -88,7 +88,7 @@ class Grid extends Component<Props, State> {
         }
     }
     onGifSeen = (gif: IGif, boundingClientRect: ClientRect | DOMRect) => {
-        const { onGifSeen, user } = this.props
+        const { onGifSeen, user = {} } = this.props
         if (onGifSeen) {
             onGifSeen(gif, boundingClientRect)
         }
@@ -96,14 +96,14 @@ class Grid extends Component<Props, State> {
         pingback.onGifSeen(gif, user, boundingClientRect)
     }
     onGifClick = (gif: IGif, e: Event) => {
-        const { onGifClick, user } = this.props
+        const { onGifClick, user = {} } = this.props
         if (onGifClick) {
             onGifClick(gif, e)
         }
         pingback.onGifClick(gif, user, e)
     }
     onGifHover = (gif: IGif, e: Event) => {
-        const { onGifHover, user } = this.props
+        const { onGifHover, user = {} } = this.props
         if (onGifHover) {
             onGifHover(gif, e)
         }

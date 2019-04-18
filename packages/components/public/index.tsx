@@ -1,4 +1,4 @@
-import { PreactGrid, VanillaJSGrid } from './grid'
+import { PreactGrid, vanillaJSGrid } from './grid'
 import { css } from '@giphy/js-brand'
 import { PreactCarousel, vanillaJSCarousel } from './carousel'
 
@@ -14,7 +14,7 @@ if (location.search.indexOf('preact') !== -1) {
     PreactGrid.render(gridTarget)
 } else {
     vanillaJSCarousel(carouselTarget)
-    this.grid = new VanillaJSGrid(gridTarget)
+    this.gridRemove = vanillaJSGrid(gridTarget)
 }
 
 declare const module: any

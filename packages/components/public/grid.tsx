@@ -39,7 +39,7 @@ export class VanillaJSGrid {
     constructor(mountNode: HTMLElement) {
         this.mountNode = mountNode
         const resizeRender = throttle(500, () => this.render())
-        window.addEventListener('resize', resizeRender as any, false)
+        window.addEventListener('resize', resizeRender, false)
         this.render()
     }
     render = () => {
@@ -48,7 +48,6 @@ export class VanillaJSGrid {
             {
                 width,
                 fetchGifs,
-                user: {},
                 columns: width < 500 ? 2 : 3,
                 gutter: 6,
             },
@@ -57,5 +56,27 @@ export class VanillaJSGrid {
     }
     remove() {
         this.el.parentNode.removeChild(this.el)
+    }
+}
+
+export const vanillaJSGrid = (mountNode: HTMLElement) => {
+    const render = () => {
+        const width = getWidth()
+        return renderGrid(
+            {
+                width,
+                fetchGifs,
+                columns: width < 500 ? 2 : 3,
+                gutter: 6,
+            },
+            mountNode,
+        ) as HTMLElement
+    }
+    const resizeRender = throttle(500, render)
+    window.addEventListener('resize', resizeRender, false)
+    const el = render()
+    return () => {
+        el.parentNode.removeChild(el)
+        window.removeEventListener('resize', resizeRender, false)
     }
 }
