@@ -10,3 +10,4 @@ lib
 .env
 coverage/
 .cache
+.npmrc
