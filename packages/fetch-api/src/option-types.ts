@@ -1,35 +1,41 @@
+/**
+ * If you want gifs or stickers
+ */
 export type MediaType = 'stickers' | 'gifs'
-
+/**
+ * Filters results by specified rating.
+ */
 type Rating = 'pg' | 'g' | 'unrated' | 'pg-13' | 'r'
+/**
+ * Sorting options
+ */
 type SortTypes = 'relevant' | 'recent'
 
-export type TypeOption = {
+export interface TypeOption {
     type?: MediaType
 }
 
-type PaginationOptions = {
+export interface PaginationOptions {
+    // the number of gifs/stickers to fetch
     limit?: number
+    // the starting point
     offset?: number
 }
+export interface CategoriesOptions extends PaginationOptions {}
+export interface SubcategoriesOptions extends PaginationOptions {}
+export interface RelatedOptions extends PaginationOptions {}
 
-export type CategoriesOptions = PaginationOptions
-export type SubcategoriesOptions = PaginationOptions
-export type RelatedOptions = PaginationOptions
-
-export type TrendingOptions = {
+export interface TrendingOptions extends PaginationOptions, TypeOption {
     rating?: Rating
-} & PaginationOptions &
-    TypeOption
+}
 
-export type RandomOptions = {
+export interface RandomOptions extends PaginationOptions, TypeOption {
     tag?: string
     rating?: Rating
-} & PaginationOptions &
-    TypeOption
+}
 
-export type SearchOptions = {
+export interface SearchOptions extends PaginationOptions, TypeOption {
     sort?: SortTypes
     rating?: Rating
     lang?: string
-} & TypeOption &
-    PaginationOptions
+}

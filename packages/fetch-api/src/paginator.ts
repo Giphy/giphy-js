@@ -1,6 +1,9 @@
 import { IGif } from '@giphy/js-types'
 import { GifsResult } from './result-types'
 
+/**
+ * @hidden
+ */
 export const gifPaginator = (fetchGifs: (offset: number) => Promise<GifsResult>) => {
     let gifs: IGif[] = []
     let offset = 0

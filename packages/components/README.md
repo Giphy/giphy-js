@@ -92,15 +92,12 @@ import { renderGrid, Grid } from '@giphy/js-components'
 
 // Creating a grid with window resizing and remove-ability
 export const vanillaJSCarousel = (mountNode: HTMLElement) => {
-    const onGifClick = (gif: IGif) => {
-        window.open(gif.url)
-    }
     renderCarousel(
         {
             gifHeight: 200,
-            onGifClick,
-            fetchGifs,
+            fetchGifs: (offset: number) => gf.trending({ offset }),
             gutter: 6,
+            onGifClick: (gif: IGif) => window.open(gif.url),
         },
         mountNode
     )

@@ -23,7 +23,13 @@ export class GiphyFetch {
     constructor(apiKey: string) {
         this.apiKey = apiKey
     }
+    /**
+     * @hidden
+     */
     private apiKey: string
+    /**
+     * @hidden
+     */
     private getQS = (options: any = {}) => qs.stringify({ ...options, api_key: this.apiKey })
 
     /**

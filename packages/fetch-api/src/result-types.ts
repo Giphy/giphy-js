@@ -1,6 +1,6 @@
-import { IGif } from '../../types/dist'
+import { IGif } from '@giphy/js-types'
 
-export type Result = {
+export interface Result {
     meta: {
         msg: string
         response_id: string
@@ -12,19 +12,19 @@ export type Result = {
         offset: number
     }
 }
-export type GifResult = Result & {
+export interface GifResult extends Result {
     data: IGif
 }
-export type GifsResult = Result & {
+export interface GifsResult extends Result {
     data: IGif[]
 }
 
-type Category = {
+interface Category {
     gif?: IGif
     name: string
     name_encoded: string
     subcategories: Category
 }
-export type CategoriesResult = Result & {
+export interface CategoriesResult extends Result {
     data: Category[]
 }
