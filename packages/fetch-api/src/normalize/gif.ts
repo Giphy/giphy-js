@@ -25,6 +25,7 @@ const makeBool = (obj: any) => (prop: string) => (obj[prop] = !!obj[prop])
 
 type Tag = { text: string }
 
+// tags sometimes are objects that have a text prop, sometimes they're strings
 const getTag = (tag: Tag | string) => (typeof tag === 'string' ? (tag as string) : (tag as Tag).text)
 
 const normalize = (gif: any, responseId: string = '', pingbackType: PingbackEventType = '') => {
