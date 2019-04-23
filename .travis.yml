@@ -13,7 +13,6 @@ script:
     - yarn test
 before_deploy:
     - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc
-    - cat .npmrc
 deploy:
     provider: script
     script: 'yarn run lerna:publish'
