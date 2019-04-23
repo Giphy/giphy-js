@@ -12,7 +12,8 @@ export { default as Grid } from './components/grid'
  *
  * @param gridProps grid props
  * @param target the node to render into it
- * @param className the child node that will be created
+ * @param selector a selector for the child node that will be created in target.
+ * useful only if you want to have more than one carousel in the same target
  */
 export const renderGrid = (gridProps: Grid['props'], target: HTMLElement, selector: string = `.${gridClassName}`) => {
     // preact will append if there's no existig node
@@ -25,14 +26,15 @@ export const renderGrid = (gridProps: Grid['props'], target: HTMLElement, select
  *
  * @param carouselProps Carousel props
  * @param target the node to render into it
- * @param className the child node that will be created
+ * @param selector a selector for the child node that will be created in target.
+ * useful only if you want to have more than one carousel in the same target
  */
 export const renderCarousel = (
     carouselProps: Carousel['props'],
     target: HTMLElement,
-    className: string = `.${carouselClassName}`,
+    selector: string = `.${carouselClassName}`,
 ) => {
     // preact will append if there's no existig node
-    const existingNode = target.querySelector(className)!
+    const existingNode = target.querySelector(selector)!
     return render(<Carousel {...carouselProps} />, target, existingNode)
 }
