@@ -8,9 +8,8 @@ import * as pingback from '../util/pingback'
 import { GifsResult, gifPaginator } from '@giphy/js-fetch-api'
 import Loader from './loader'
 
-export const className = 'giphy-grid' // used in preact render
-
 type Props = {
+    className?: string
     width: number
     user?: Partial<IUser>
     columns: number
@@ -27,6 +26,7 @@ type State = {
     isLoaderVisible: boolean
 }
 class Grid extends Component<Props, State> {
+    static className = 'giphy-grid'
     state = {
         isFetching: false,
         numberOfGifs: 0,
@@ -124,7 +124,7 @@ class Grid extends Component<Props, State> {
         }
     })
 
-    render({ fetchGifs, onGifVisible, onGifRightClick }: Props, { gifWidth, gifs }: State) {
+    render({ fetchGifs, onGifVisible, onGifRightClick, className = Grid.className }: Props, { gifWidth, gifs }: State) {
         const showLoader = fetchGifs && gifs.length > 0
         return (
             <div class={className}>

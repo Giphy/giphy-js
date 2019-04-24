@@ -43,6 +43,7 @@ const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAAL
 const noop = () => {}
 
 class Gif extends Component<Props, State> {
+    static className = 'giphy-gif'
     observer?: IntersectionObserver
     fullGifObserver?: IntersectionObserver
     container?: HTMLElement
@@ -119,7 +120,7 @@ class Gif extends Component<Props, State> {
             <a
                 href={gif.url}
                 style={{ backgroundColor, width, height }}
-                className={cx(gifCss, className)}
+                className={cx(Gif.className, gifCss, className)}
                 onMouseOver={this.onMouseOver}
                 onMouseOut={this.onMouseOut}
                 onClick={(e: Event) => onGifClick(gif, e)}
