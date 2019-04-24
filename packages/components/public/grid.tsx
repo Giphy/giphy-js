@@ -26,7 +26,7 @@ export namespace PreactGrid {
             window.removeEventListener('resize', this.setWidth, false)
         }
         render(_: Props, { width }) {
-            return <Grid width={width} user={{}} columns={width < 500 ? 2 : 3} gutter={6} fetchGifs={fetchGifs} />
+            return <Grid width={width} columns={width < 500 ? 2 : 3} gutter={6} fetchGifs={fetchGifs} />
         }
     }
 

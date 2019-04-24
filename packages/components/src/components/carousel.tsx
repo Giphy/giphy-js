@@ -32,8 +32,8 @@ const loaderCss = css`
     display: inline-block;
 `
 
-export const className = 'giphy-carousel' // used in preact render
 type Props = {
+    className?: string
     user: Partial<IUser>
     gifHeight: number
     gutter: number
@@ -48,6 +48,7 @@ type State = {
     isLoaderVisible: boolean
 }
 class Carousel extends Component<Props, State> {
+    static className = 'giphy-carousel'
     state = {
         isFetching: false,
         numberOfGifs: 0,
@@ -100,7 +101,10 @@ class Carousel extends Component<Props, State> {
             this.onFetch()
         }
     })
-    render({ fetchGifs, onGifVisible, onGifRightClick, gifHeight, gutter = 6 }: Props, { gifs }: State) {
+    render(
+        { fetchGifs, onGifVisible, onGifRightClick, gifHeight, gutter = 6, className = Carousel.className }: Props,
+        { gifs }: State,
+    ) {
         const showLoader = fetchGifs && gifs.length > 0
         const marginCss = css`
             margin-left: ${gutter}px;
@@ -108,7 +112,6 @@ class Carousel extends Component<Props, State> {
         const containerHeightCss = css`
             height: ${gifHeight}px;
         `
-        // className is for preact, set the height based on the prop in containerHeightCss
         const containerCss = cx(className, containerHeightCss, carouselCss)
         const gifCss = cx(carouselItemCss, marginCss)
         return (
