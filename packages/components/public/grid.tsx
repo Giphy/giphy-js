@@ -5,7 +5,7 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 
 const getWidth = () => innerWidth
 
-const gf = new GiphyFetch('eDs1NYmCVgdHvI1x0nitWd5ClhDWMpRE')
+const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 const fetchGifs = (offset: number) => gf.trending({ offset, limit: 3 })
 
 export namespace PreactGrid {

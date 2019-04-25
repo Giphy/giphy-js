@@ -3,7 +3,7 @@ import { IGif } from '@giphy/js-types'
 import { h, render as preactRender, Component } from 'preact'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
-const gf = new GiphyFetch('eDs1NYmCVgdHvI1x0nitWd5ClhDWMpRE')
+const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 const fetchGifs = (offset: number) => gf.trending({ offset, limit: 4 })
 
 export namespace PreactCarousel {

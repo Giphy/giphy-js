@@ -2,6 +2,10 @@
 
 A lightweight set of components, focused on easy-of-use and performance.
 
+## Try it out:
+
+[![Edit @giphy/js-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/1wq52x1w44?fontsize=14)
+
 ## Grid
 
 Use `renderGrid(props, target)` to render a grid to a target element

@@ -4,7 +4,7 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { css } from 'emotion'
 
-const gf = new GiphyFetch('eDs1NYmCVgdHvI1x0nitWd5ClhDWMpRE')
+const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 export const vanillaJSGif = async (targetEl: HTMLElement) => {
     // target all gifs by Gif.className
     targetEl.className = css`
