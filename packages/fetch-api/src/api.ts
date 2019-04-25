@@ -105,7 +105,7 @@ export class GiphyFetch {
     }
 
     /**
-     * Get random gifs
+     * Get a random gif
      * @param {RandomOptions}
      * @returns {Promise<GifResult>}
      **/

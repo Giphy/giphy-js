@@ -10,11 +10,15 @@
     "name": "@giphy/js-util",
     "version": "1.0.6",
     "main": "dist/index.js",
+    "description": "Shared giphy js utils",
     "types": "dist/index.d.ts",
     "files": [
         "dist/**/*"
     ],
     "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
     "dependencies": {
         "@giphy/js-types": "^1.0.6"
     },

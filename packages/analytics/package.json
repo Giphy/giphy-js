@@ -15,6 +15,9 @@
         "dist/**/*"
     ],
     "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
     "dependencies": {
         "@giphy/js-types": "^1.0.6",
         "@giphy/js-util": "^1.0.6",

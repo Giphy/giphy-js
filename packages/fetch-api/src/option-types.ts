@@ -5,7 +5,7 @@ export type MediaType = 'stickers' | 'gifs'
 /**
  * Filters results by specified rating.
  */
-type Rating = 'pg' | 'g' | 'unrated' | 'pg-13' | 'r'
+type Rating = 'pg' | 'g' | 'y' | 'pg-13' | 'r'
 /**
  * Sorting options
  */

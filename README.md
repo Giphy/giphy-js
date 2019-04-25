@@ -1,16 +1,16 @@
 ## GIPHY-JS
 
-Docs are a WIP
+[![Build Status](https://travis-ci.com/Giphy/giphy-js.svg?token=jJjbVBEbrqabxuHRjdmS&branch=master)](https://travis-ci.com/Giphy/giphy-js)
 
-[lerna](https://github.com/lerna/lerna) repo containing our public javascript libs.
+[lerna](https://github.com/lerna/lerna) monorepo containing GIPHY's public javascript packages.
 
 #### [@giphy/js-fetch-api](packages/fetch-api/README.md)
 
-> fetch gifs, categories, and subcategories using the [GIPHY API](https://developers.giphy.com/docs/)
+> fetch gifs, stickers, categories and more
 
 #### [@giphy/js-components](packages/components/README.md)
 
-> lightweight grid with infinite scroll and lazyload, ad pill, attribution. no layout thrashing
+> lightweight UI components
 
 #### [@giphy/js-types](packages/types/README.md)
 
@@ -18,11 +18,11 @@ Docs are a WIP
 
 #### [@giphy/js-util](packages/util/README.md)
 
-> shared util
+> shared js utils
 
 #### [@giphy/js-brand](packages/brand/README.md)
 
-> colors, fonts
+> giphy brand colors and fonts
 
 ### Install
 
@@ -52,3 +52,5 @@ $ yarn run lint
 ```sh
 $ lerna version
 ```
+
+[Travis](https://travis-ci.com/Giphy/giphy-js) will publish to npm

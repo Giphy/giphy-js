@@ -11,11 +11,15 @@
     "name": "@giphy/js-fetch-api",
     "version": "1.0.10",
     "main": "dist/index.js",
+    "description": "Javascript API to fetch gifs and stickers from the GIPHY API.",
     "types": "dist/index.d.ts",
     "files": [
         "dist/**/*"
     ],
     "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
     "dependencies": {
         "@giphy/js-types": "^1.0.6",
         "append-query": "^2.0.1",

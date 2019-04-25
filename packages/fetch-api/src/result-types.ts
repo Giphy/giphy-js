@@ -19,12 +19,12 @@ export interface GifsResult extends Result {
     data: IGif[]
 }
 
-interface Category {
+export interface ICategory {
     gif?: IGif
     name: string
     name_encoded: string
-    subcategories: Category
+    subcategories: ICategory
 }
 export interface CategoriesResult extends Result {
-    data: Category[]
+    data: ICategory[]
 }

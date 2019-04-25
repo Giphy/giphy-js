@@ -14,7 +14,7 @@
     },
     "name": "@giphy/js-components",
     "version": "1.0.17",
-    "description": "lightweight ui components ",
+    "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
@@ -22,6 +22,9 @@
     ],
     "author": "giannif",
     "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
     "dependencies": {
         "@giphy/js-analytics": "^1.0.6",
         "@giphy/js-brand": "^1.0.5",

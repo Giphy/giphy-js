@@ -14,14 +14,17 @@
     },
     "name": "@giphy/js-brand",
     "version": "1.0.5",
-    "description": "colors, fonts, and other shared css",
     "main": "./dist/index.js",
+    "description": "colors, fonts, and other shared css",
     "types": "./dist/index.d.ts",
     "files": [
         "dist/**/*"
     ],
     "author": "giannif",
     "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
     "source": true,
     "dependencies": {
         "emotion": "10.0.9",
