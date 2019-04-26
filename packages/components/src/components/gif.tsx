@@ -54,7 +54,11 @@ class Gif extends Component<Props, State> {
         this.check()
     }
     static getDerivedStateFromProps({ gif, backgroundColor }: Props, prevState: State) {
-        const newBackgroundColor = backgroundColor || (gif.is_sticker ? giphyBlack : getColor())
+        const newBackgroundColor =
+            // specified background prop
+            backgroundColor ||
+            // ensure sticker has black, use existing or generate a new color
+            (gif.is_sticker ? giphyBlack : prevState.backgroundColor || getColor())
         if (newBackgroundColor !== prevState.backgroundColor) {
             return { backgroundColor: newBackgroundColor }
         }
