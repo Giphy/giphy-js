@@ -6,12 +6,22 @@ import { GifsResult } from './result-types'
  */
 export const gifPaginator = (fetchGifs: (offset: number) => Promise<GifsResult>) => {
     let gifs: IGif[] = []
+    // for deduping
+    let gifIds: (string | number)[] = []
     let offset = 0
     return async () => {
         const result = await fetchGifs(offset)
-        const { pagination } = result
+        const { pagination, data: newGifs } = result
         offset = pagination.count + pagination.offset
-        gifs = [...gifs, ...result.data]
-        return gifs
+        newGifs.forEach(gif => {
+            const { id } = gif
+            if (!gifIds.includes(id)) {
+                // add gifs and gifIds
+                gifs.push(gif)
+                gifIds.push(id)
+            } else {
+            }
+        })
+        return [...gifs]
     }
 }
