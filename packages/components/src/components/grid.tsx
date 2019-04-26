@@ -7,6 +7,7 @@ import { IGif, IUser } from '@giphy/js-types'
 import * as pingback from '../util/pingback'
 import { GifsResult, gifPaginator } from '@giphy/js-fetch-api'
 import Loader from './loader'
+import FetchError from './fetch-error'
 
 type Props = {
     className?: string
@@ -16,11 +17,13 @@ type Props = {
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
+    onGifsFetchError?: (e: Error) => void
 } & EventProps
 
 type State = {
     gifWidth: number
     isFetching: boolean
+    isError: boolean
     numberOfGifs: number
     gifs: IGif[]
     isLoaderVisible: boolean
@@ -29,6 +32,7 @@ class Grid extends Component<Props, State> {
     static className = 'giphy-grid'
     state = {
         isFetching: false,
+        isError: false,
         numberOfGifs: 0,
         gifWidth: 0,
         gifs: [],
@@ -115,16 +119,28 @@ class Grid extends Component<Props, State> {
     onFetch = debounce(100, async () => {
         const { isFetching, isLoaderVisible } = this.state
         if (!isFetching && isLoaderVisible) {
-            this.setState({ isFetching: true })
-            const gifs = await this.paginator()
-            this.setState({ gifs, isFetching: false })
-            const { onGifsFetched } = this.props
-            if (onGifsFetched) onGifsFetched(gifs)
-            this.onFetch()
+            this.setState({ isFetching: true, isError: false })
+            let gifs
+            try {
+                gifs = await this.paginator()
+            } catch (error) {
+                this.setState({ isFetching: false, isError: true })
+                const { onGifsFetchError } = this.props
+                if (onGifsFetchError) onGifsFetchError(error)
+            }
+            if (gifs) {
+                this.setState({ gifs, isFetching: false })
+                const { onGifsFetched } = this.props
+                if (onGifsFetched) onGifsFetched(gifs)
+                this.onFetch()
+            }
         }
     })
 
-    render({ fetchGifs, onGifVisible, onGifRightClick, className = Grid.className }: Props, { gifWidth, gifs }: State) {
+    render(
+        { fetchGifs, onGifVisible, onGifRightClick, className = Grid.className }: Props,
+        { gifWidth, gifs, isError }: State,
+    ) {
         const showLoader = fetchGifs && gifs.length > 0
         return (
             <div class={className}>
@@ -142,10 +158,14 @@ class Grid extends Component<Props, State> {
                         />
                     ))}
                 </div>
-                {showLoader && (
-                    <Observer onVisibleChange={this.onLoaderVisible}>
-                        <Loader />
-                    </Observer>
+                {isError ? (
+                    <FetchError onClick={this.onFetch} />
+                ) : (
+                    showLoader && (
+                        <Observer onVisibleChange={this.onLoaderVisible}>
+                            <Loader />
+                        </Observer>
+                    )
                 )}
             </div>
         )

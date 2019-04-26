@@ -6,7 +6,7 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 const getWidth = () => innerWidth
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
-const fetchGifs = (offset: number) => gf.trending({ offset, limit: 3 })
+const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 
 export namespace PreactGrid {
     type State = {
@@ -68,6 +68,7 @@ export const vanillaJSGrid = (mountNode: HTMLElement) => {
                 fetchGifs,
                 columns: width < 500 ? 2 : 3,
                 gutter: 6,
+                onGifsFetchError: error => console.error(`Gif Grid fetch error`, error),
             },
             mountNode,
         ) as HTMLElement
