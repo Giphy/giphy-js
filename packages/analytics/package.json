@@ -8,7 +8,7 @@
         "test:watch": "jest --config ./jestconfig.js --watchAll"
     },
     "name": "@giphy/js-analytics",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
@@ -20,7 +20,7 @@
     },
     "dependencies": {
         "@giphy/js-types": "^1.1.0",
-        "@giphy/js-util": "^1.1.0",
+        "@giphy/js-util": "^1.1.1",
         "cookie": "0.3.1",
         "dompurify": "^1.0.10",
         "throttle-debounce": "^2.1.0"
