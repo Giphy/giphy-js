@@ -65,7 +65,7 @@ class Gif extends Component<Props, State> {
         return null
     }
     async check() {
-        await checkIfWebP()
+        await checkIfWebP
         this.setState({ ready: true })
     }
     async observeSeen() {
