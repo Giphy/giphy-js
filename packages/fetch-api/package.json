@@ -23,16 +23,16 @@
     "dependencies": {
         "@giphy/js-types": "^1.1.0",
         "append-query": "^2.0.1",
-        "cookie": "0.3.1",
+        "cookie": "0.4.0",
         "qs": "^6.7.0"
     },
     "devDependencies": {
-        "@types/cookie": "^0.3.2",
-        "@types/qs": "^6.5.2",
-        "jest-fetch-mock": "^2.1.1",
+        "@types/cookie": "^0.3.3",
+        "@types/qs": "^6.5.3",
+        "jest-fetch-mock": "^2.1.2",
         "parcel-bundler": "^1.12.3",
         "typedoc": "^0.14.2",
         "typedoc-thunder-theme": "^0.0.2",
-        "typescript": "^3.4.2"
+        "typescript": "^3.5.1"
     }
 }
