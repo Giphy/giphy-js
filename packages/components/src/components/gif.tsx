@@ -53,7 +53,7 @@ class Gif extends Component<Props, State> {
         super(props)
         this.check()
     }
-    static getDerivedStateFromProps({ gif, backgroundColor }: Props, prevState: State) {
+    static getDerivedStateFromProps({ gif, backgroundColor }: Readonly<Props>, prevState: Readonly<State>) {
         const newBackgroundColor =
             // specified background prop
             backgroundColor ||
@@ -62,7 +62,7 @@ class Gif extends Component<Props, State> {
         if (newBackgroundColor !== prevState.backgroundColor) {
             return { backgroundColor: newBackgroundColor }
         }
-        return null
+        return {}
     }
     async check() {
         await checkIfWebP

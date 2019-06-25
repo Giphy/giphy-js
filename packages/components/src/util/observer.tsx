@@ -1,10 +1,10 @@
-import { h, Component, cloneElement } from 'preact'
+import { h, Component, cloneElement, ComponentChildren, ComponentChild } from 'preact'
 type State = {
     isVisible: boolean
 }
 
 type Props = {
-    children: any
+    children: ComponentChildren
     onVisibleChange?: (isVisible: boolean) => void
     className?: string
 }
@@ -26,9 +26,10 @@ class Observer extends Component<Props, State> {
         }
     }
     render({ children, className }: Props, { isVisible }: State) {
+        const kids = Array.isArray(children) ? (children as ComponentChild[]) : [children]
         return (
             <div ref={div => (this.container = div)} className={className}>
-                {children.map((child: any) => (child ? cloneElement(child, { isVisible }) : null))}
+                {kids.map((child: any) => (child ? cloneElement(child, { isVisible }) : null))}
             </div>
         )
     }
