@@ -1,0 +1,42 @@
+{
+    "scripts": {
+        "clean": "rm -rf ./dist",
+        "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
+        "dev": "parcel public/test.html",
+        "build": "tsc",
+        "prepublish": "npm run clean && tsc"
+    },
+    "devDependencies": {
+        "@types/bricks.js": "^1.8.0",
+        "@types/throttle-debounce": "^1.1.1",
+        "parcel-bundler": "^1.12.3",
+        "typescript": "^3.5.1"
+    },
+    "name": "@giphy/react-components",
+    "version": "0.0.0",
+    "description": "A lightweight set of components, focused on easy-of-use and performance.",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist/**/*"
+    ],
+    "author": "giannif",
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "dependencies": {
+        "@giphy/js-analytics": "^1.1.2",
+        "@giphy/js-brand": "^1.1.0",
+        "@giphy/js-fetch-api": "^1.1.1",
+        "@giphy/js-types": "^1.1.0",
+        "@giphy/js-util": "^1.2.0",
+        "@types/react": "^16.8.22",
+        "bricks.js": "^1.8.0",
+        "emotion": "10.0.9",
+        "intersection-observer": "^0.7.0",
+        "react": "16.8.6",
+        "react-dom": "16.8.6",
+        "throttle-debounce": "^2.1.0"
+    }
+}
