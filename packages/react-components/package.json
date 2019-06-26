@@ -9,6 +9,7 @@
     "devDependencies": {
         "@types/bricks.js": "^1.8.0",
         "@types/throttle-debounce": "^1.1.1",
+        "@types/react": "^16.8.22",
         "parcel-bundler": "^1.12.3",
         "typescript": "^3.5.1"
     },
@@ -31,7 +32,6 @@
         "@giphy/js-fetch-api": "^1.1.1",
         "@giphy/js-types": "^1.1.0",
         "@giphy/js-util": "^1.2.0",
-        "@types/react": "^16.8.22",
         "bricks.js": "^1.8.0",
         "emotion": "10.0.9",
         "intersection-observer": "^0.7.0",
