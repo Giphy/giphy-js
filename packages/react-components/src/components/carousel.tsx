@@ -3,9 +3,8 @@ import { debounce } from 'throttle-debounce'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifWidth } from '@giphy/js-util'
 import { css, cx } from 'emotion'
-import React, { PureComponent, SyntheticEvent } from 'react'
+import React, { PureComponent } from 'react'
 import Observer from '../util/observer'
-import * as pingback from '../util/pingback'
 import Gif, { EventProps } from './gif'
 
 const carouselCss = css`
@@ -65,28 +64,6 @@ class Carousel extends PureComponent<Props, State> {
     componentDidMount() {
         this.onFetch()
     }
-    onGifSeen = (gif: IGif, boundingClientRect: ClientRect | DOMRect) => {
-        const { onGifSeen, user } = this.props
-        if (onGifSeen) {
-            onGifSeen(gif, boundingClientRect)
-        }
-        // fire pingback
-        pingback.onGifSeen(gif, user, boundingClientRect)
-    }
-    onGifClick = (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => {
-        const { onGifClick, user } = this.props
-        if (onGifClick) {
-            onGifClick(gif, e)
-        }
-        pingback.onGifClick(gif, user, e.target as HTMLElement)
-    }
-    onGifHover = (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => {
-        const { onGifHover, user } = this.props
-        if (onGifHover) {
-            onGifHover(gif, e)
-        }
-        pingback.onGifHover(gif, user, e.target as HTMLElement)
-    }
     onLoaderVisible = (isVisible: boolean) => {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
@@ -109,6 +86,10 @@ class Carousel extends PureComponent<Props, State> {
             gifHeight,
             gutter = 6,
             className = Carousel.className,
+            onGifHover,
+            onGifSeen,
+            onGifClick,
+            user,
         } = this.props
         const { gifs } = this.state
         const showLoader = fetchGifs && gifs.length > 0
@@ -130,11 +111,12 @@ class Carousel extends PureComponent<Props, State> {
                             gif={gif}
                             key={gif.id}
                             width={gifWidth}
-                            onGifClick={this.onGifClick}
-                            onGifHover={this.onGifHover}
-                            onGifSeen={this.onGifSeen}
+                            onGifClick={onGifClick}
+                            onGifHover={onGifHover}
+                            onGifSeen={onGifSeen}
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}
+                            user={user}
                         />
                     )
                 })}

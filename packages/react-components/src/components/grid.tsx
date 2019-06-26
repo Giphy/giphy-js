@@ -1,10 +1,9 @@
-import React, { PureComponent, SyntheticEvent } from 'react'
+import React, { PureComponent } from 'react'
 import { debounce } from 'throttle-debounce'
 import Gif, { EventProps } from './gif'
 import Bricks from 'bricks.js'
 import Observer from '../util/observer'
 import { IGif, IUser } from '@giphy/js-types'
-import * as pingback from '../util/pingback'
 import { GifsResult, gifPaginator } from '@giphy/js-fetch-api'
 import Loader from './loader'
 import FetchError from './fetch-error'
@@ -91,29 +90,6 @@ class Grid extends PureComponent<Props, State> {
             }
         }
     }
-    onGifSeen = (gif: IGif, boundingClientRect: ClientRect | DOMRect) => {
-        const { onGifSeen, user = {} } = this.props
-        if (onGifSeen) {
-            onGifSeen(gif, boundingClientRect)
-        }
-        // fire pingback
-        pingback.onGifSeen(gif, user, boundingClientRect)
-    }
-    onGifClick = (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => {
-        const { onGifClick, user = {} } = this.props
-        if (onGifClick) {
-            onGifClick(gif, e)
-        }
-        e.persist()
-        pingback.onGifClick(gif, user, e.target as HTMLElement)
-    }
-    onGifHover = (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => {
-        const { onGifHover, user = {} } = this.props
-        if (onGifHover) {
-            onGifHover(gif, e)
-        }
-        pingback.onGifHover(gif, user, e.target as HTMLElement)
-    }
     onLoaderVisible = (isVisible: boolean) => {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
@@ -139,7 +115,16 @@ class Grid extends PureComponent<Props, State> {
     })
 
     render() {
-        const { fetchGifs, onGifVisible, onGifRightClick, className = Grid.className } = this.props
+        const {
+            fetchGifs,
+            onGifVisible,
+            onGifRightClick,
+            className = Grid.className,
+            onGifHover,
+            onGifSeen,
+            onGifClick,
+            user,
+        } = this.props
         const { gifWidth, gifs, isError } = this.state
         const showLoader = fetchGifs && gifs.length > 0
         return (
@@ -150,11 +135,12 @@ class Grid extends PureComponent<Props, State> {
                             gif={gif}
                             key={gif.id}
                             width={gifWidth}
-                            onGifClick={this.onGifClick}
-                            onGifHover={this.onGifHover}
-                            onGifSeen={this.onGifSeen}
+                            onGifClick={onGifClick}
+                            onGifHover={onGifHover}
+                            onGifSeen={onGifSeen}
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}
+                            user={user}
                         />
                     ))}
                 </div>
