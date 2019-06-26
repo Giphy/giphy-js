@@ -4,7 +4,6 @@ import Gif, { EventProps } from './gif'
 import Bricks from 'bricks.js'
 import Observer from '../util/observer'
 import { IGif, IUser } from '@giphy/js-types'
-import * as pingback from '../util/pingback'
 import { GifsResult, gifPaginator } from '@giphy/js-fetch-api'
 import Loader from './loader'
 import FetchError from './fetch-error'
@@ -91,28 +90,6 @@ class Grid extends Component<Props, State> {
             }
         }
     }
-    onGifSeen = (gif: IGif, boundingClientRect: ClientRect | DOMRect) => {
-        const { onGifSeen, user = {} } = this.props
-        if (onGifSeen) {
-            onGifSeen(gif, boundingClientRect)
-        }
-        // fire pingback
-        pingback.onGifSeen(gif, user, boundingClientRect)
-    }
-    onGifClick = (gif: IGif, e: Event) => {
-        const { onGifClick, user = {} } = this.props
-        if (onGifClick) {
-            onGifClick(gif, e)
-        }
-        pingback.onGifClick(gif, user, e)
-    }
-    onGifHover = (gif: IGif, e: Event) => {
-        const { onGifHover, user = {} } = this.props
-        if (onGifHover) {
-            onGifHover(gif, e)
-        }
-        pingback.onGifHover(gif, user, e)
-    }
     onLoaderVisible = (isVisible: boolean) => {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
@@ -136,9 +113,17 @@ class Grid extends Component<Props, State> {
             }
         }
     })
-
     render(
-        { fetchGifs, onGifVisible, onGifRightClick, className = Grid.className }: Props,
+        {
+            fetchGifs,
+            onGifVisible,
+            onGifRightClick,
+            className = Grid.className,
+            onGifClick,
+            onGifHover,
+            onGifSeen,
+            user,
+        }: Props,
         { gifWidth, gifs, isError }: State,
     ) {
         const showLoader = fetchGifs && gifs.length > 0
@@ -150,11 +135,12 @@ class Grid extends Component<Props, State> {
                             gif={gif}
                             key={gif.id}
                             width={gifWidth}
-                            onGifClick={this.onGifClick}
-                            onGifHover={this.onGifHover}
-                            onGifSeen={this.onGifSeen}
+                            onGifClick={onGifClick}
+                            onGifHover={onGifHover}
+                            onGifSeen={onGifSeen}
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}
+                            user={user}
                         />
                     ))}
                 </div>

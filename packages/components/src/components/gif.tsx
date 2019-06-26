@@ -1,10 +1,11 @@
 import { giphyBlack, giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
-import { IGif } from '@giphy/js-types'
+import { IGif, IUser } from '@giphy/js-types'
 import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight } from '@giphy/js-util'
+import { css, cx } from 'emotion'
 import { Component, h } from 'preact'
 import addObserver from '../util/add-observer'
+import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
-import { css, cx } from 'emotion'
 
 const gifCss = css`
     display: block;
@@ -32,6 +33,7 @@ type GifProps = {
     width: number
     backgroundColor?: string
     className?: string
+    user?: Partial<IUser>
 }
 
 type Props = GifProps & EventProps
@@ -75,7 +77,10 @@ class Gif extends Component<Props, State> {
                 if (entry.isIntersecting) {
                     this.hasFiredSeen = true
                     // full gif seen
-                    const { onGifSeen, gif } = this.props
+                    const { onGifSeen, gif, user = {} } = this.props
+                    // fire pingback
+                    pingback.onGifSeen(gif, user, entry.boundingClientRect)
+                    // fire custom
                     if (onGifSeen) onGifSeen(gif, entry.boundingClientRect)
                 }
             },
@@ -83,11 +88,20 @@ class Gif extends Component<Props, State> {
         )
     }
     onMouseOver = (e: Event) => {
-        const { gif, onGifHover } = this.props
+        const { gif, onGifHover, user = {} } = this.props
         clearTimeout(this.hoverTimeout)
         this.hoverTimeout = setTimeout(() => {
+            pingback.onGifHover(gif, user, e.target as HTMLElement)
             onGifHover && onGifHover(gif, e)
         }, hoverTimeoutDelay)
+    }
+    onClick = (e: Event) => {
+        const { gif, onGifClick, user = {} } = this.props
+        // fire pingback
+        pingback.onGifClick(gif, user, e.target as HTMLElement)
+        if (onGifClick) {
+            onGifClick(gif, e)
+        }
     }
     onMouseOut = () => {
         clearTimeout(this.hoverTimeout)
@@ -115,7 +129,7 @@ class Gif extends Component<Props, State> {
         if (this.hoverTimeout) clearTimeout(this.hoverTimeout)
     }
     render(
-        { gif, gif: { bottle_data: bottleData }, width, onGifClick = noop, onGifRightClick = noop, className }: Props,
+        { gif, gif: { bottle_data: bottleData }, width, onGifRightClick = noop, className }: Props,
         { ready, backgroundColor, showGif }: State,
     ) {
         const height = getGifHeight(gif, width)
@@ -127,7 +141,7 @@ class Gif extends Component<Props, State> {
                 className={cx(Gif.className, gifCss, className)}
                 onMouseOver={this.onMouseOver}
                 onMouseOut={this.onMouseOut}
-                onClick={(e: Event) => onGifClick(gif, e)}
+                onClick={this.onClick}
                 onContextMenu={(e: Event) => onGifRightClick(gif, e)}
                 ref={c => (this.container = c)}
             >
