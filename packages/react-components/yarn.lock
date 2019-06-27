@@ -798,33 +798,33 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.2.tgz#63985d3d8b02530e0869962f4da09142ee8e200e"
   integrity sha512-n/VQ4mbfr81aqkx/XmVicOLjviMuy02eenSdJY33SVA7S2J42EU0P1H0mOogfYedb3wXA0d/LVtBrgTSm04WEA==
 
-"@giphy/js-analytics@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@giphy/js-analytics/-/js-analytics-1.1.2.tgz#01db4bfcc540932e37215b4da96d2ce7cd9a9239"
-  integrity sha512-w5YQ3FL7WcWR9AJzN3dhXPE5RocSbWTxyOSYQMjOFXrXM3HUfn5Ha7j89Syd6JVHZuNFsX09rP5wc8i8JQMOkQ==
+"@giphy/js-analytics@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@giphy/js-analytics/-/js-analytics-1.1.3.tgz#3aba9aff4212e5679b7c4f59b14a1221d38a743c"
+  integrity sha512-YklD4Ezzp+Supo6KNaaVgDv+ov7421ozUEKJCQS8uQvdU7a6zlG5uvQMDL/KzJsh+/A/rWrzvJgkYy3tl4NtwQ==
   dependencies:
     "@giphy/js-types" "^1.1.0"
-    "@giphy/js-util" "^1.2.0"
-    cookie "0.3.1"
+    "@giphy/js-util" "^1.2.1"
+    cookie "0.4.0"
     dompurify "^1.0.10"
     throttle-debounce "^2.1.0"
 
-"@giphy/js-brand@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@giphy/js-brand/-/js-brand-1.1.0.tgz#40247b955af93f0866ba6eeae58e2ce4eb633759"
-  integrity sha512-TKUwceIHrGQMb7GGIuAqqeWV42QQrUMNklJI9kOTU00/RmW00r5oO42CZPGgaovfCgxxVPaklrAR1TrQ8cE1Wg==
+"@giphy/js-brand@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@giphy/js-brand/-/js-brand-1.1.1.tgz#662bdad07240d23f48d6a2ab9cdfdbec5d6b0d2d"
+  integrity sha512-nweGz2OYW98vWbKV1027wCoO3wvwieN2SiTo4r6IPfwuwQMqtqW7KDa2MLP904DcZqSqdLL020vjieKrMzTFjQ==
   dependencies:
     emotion "10.0.9"
     preact "^8.4.2"
 
-"@giphy/js-fetch-api@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-1.1.1.tgz#7e6d194cce32bbf810ce0863556a271e2cbb65c5"
-  integrity sha512-9sumWBByMTkFArTc6OaFz+8gifC+r0o1j3K85npOcXBQFXOLU6xTQaQkQAzJE9Mh7Ob9tJ9hMsK5YS1+VlmQyQ==
+"@giphy/js-fetch-api@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-1.1.2.tgz#e8c5a7380524eeef6eed04d4a5e53bce754940e2"
+  integrity sha512-NyUMzqcmlKbU6EHZfHIGtQHQVZg1KbHVI6G7XR/QlQAnZJdaxHg2e+PWBavgRQmQrmL2Z2Qh1GeezeLfICxI3Q==
   dependencies:
     "@giphy/js-types" "^1.1.0"
     append-query "^2.0.1"
-    cookie "0.3.1"
+    cookie "0.4.0"
     qs "^6.7.0"
 
 "@giphy/js-types@^1.1.0":
@@ -832,10 +832,10 @@
   resolved "https://registry.yarnpkg.com/@giphy/js-types/-/js-types-1.1.0.tgz#2f1fb632a2129a8b40acd24d4baa8bdab8af0755"
   integrity sha512-OOCa0PzuD/I5ranaV4n8GhG2XtegEzz1p3vp7HOonkH/aw2OMFPgq9yVyWFMi6gbPS1LsDYUa+Z3pqDDsvUDOg==
 
-"@giphy/js-util@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@giphy/js-util/-/js-util-1.2.0.tgz#f53875c3b93960a71c0d1aff853a453141f24a3e"
-  integrity sha512-r3MgjAxOLlzcJGQxMQKDHWPrIGci2MFjMIRh8mfm/dmA5dMh7jdnJhuPRLVxHTwpR4E9E+p7A8/dSpGe3rTGCA==
+"@giphy/js-util@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@giphy/js-util/-/js-util-1.2.1.tgz#d7ae262aa55890b461ef6716a0aaea409664d45f"
+  integrity sha512-vNdJ+iSS7Gm20NRTydIehBp3c2h2mq0HQjAS/eHZQgdwAcAb26QZ2oNQzMu5SbeRDCiJjp8ryJVjspz1kNR/SA==
   dependencies:
     "@giphy/js-types" "^1.1.0"
 
@@ -1672,10 +1672,10 @@ convert-source-map@^1.1.0, convert-source-map@^1.5.0, convert-source-map@^1.5.1:
   dependencies:
     safe-buffer "~5.1.1"
 
-cookie@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
-  integrity sha1-5+Ch+e9DtMi6klxcWpboBtFoc7s=
+cookie@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.4.0.tgz#beb437e7022b3b6d49019d088665303ebe9c14ba"
+  integrity sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
 
 copy-descriptor@^0.1.0:
   version "0.1.1"
@@ -3310,7 +3310,7 @@ log-symbols@^2.2.0:
   dependencies:
     chalk "^2.0.1"
 
-loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
+loose-envify@^1.0.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.4.0.tgz#71ee51fa7be4caec1a63839f7e682d8132d30caf"
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
@@ -4339,15 +4339,6 @@ process@^0.11.10:
   resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
   integrity sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
 
-prop-types@^15.6.2:
-  version "15.7.2"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
-  integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
-  dependencies:
-    loose-envify "^1.4.0"
-    object-assign "^4.1.1"
-    react-is "^16.8.1"
-
 proto-list@~1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/proto-list/-/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
@@ -4453,31 +4444,6 @@ rc@^1.2.7:
     ini "~1.3.0"
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
-
-react-dom@16.8.6:
-  version "16.8.6"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
-  integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.13.6"
-
-react-is@^16.8.1:
-  version "16.8.6"
-  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
-  integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
-
-react@16.8.6:
-  version "16.8.6"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
-  integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.13.6"
 
 readable-stream@^2.0.2, readable-stream@^2.0.6, readable-stream@^2.2.2, readable-stream@^2.3.3, readable-stream@^2.3.6, readable-stream@~2.3.3, readable-stream@~2.3.6:
   version "2.3.6"
@@ -4737,14 +4703,6 @@ sax@^1.2.4, sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
-
-scheduler@^0.13.6:
-  version "0.13.6"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
-  integrity sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
 
 semver@^5.3.0, semver@^5.4.1, semver@^5.5.0, semver@^5.6.0:
   version "5.6.0"
