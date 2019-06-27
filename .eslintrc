@@ -26,6 +26,7 @@
         "no-useless-escape": 0,
         "import/first": 0,
         "import/no-duplicates": 1,
+        "import/no-unresolved": ["error", { "ignore": ["^react$", "^react-dom$"] }],
         "no-throw-literal": 0,
         "radix": 0,
         "one-var": 0,
