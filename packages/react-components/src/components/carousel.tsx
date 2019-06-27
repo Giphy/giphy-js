@@ -3,9 +3,9 @@ import { debounce } from 'throttle-debounce'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifWidth } from '@giphy/js-util'
 import { css, cx } from 'emotion'
-import { Component, h } from 'preact'
+import React, { PureComponent, ReactType } from 'react'
 import Observer from '../util/observer'
-import Gif, { EventProps } from './gif'
+import Gif, { EventProps, GifOverlayProps } from './gif'
 
 const carouselCss = css`
     -webkit-overflow-scrolling: touch;
@@ -14,10 +14,16 @@ const carouselCss = css`
     position: relative;
 `
 const carouselItemCss = css`
+    position: relative;
     display: inline-block;
     list-style: none;
     &:first-of-type {
         margin-left: 0px;
+    }
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 `
 
@@ -38,20 +44,19 @@ type Props = {
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
+    overlay?: ReactType<GifOverlayProps>
 } & EventProps
 
 type State = {
     isFetching: boolean
-    numberOfGifs: number
     gifs: IGif[]
     isLoaderVisible: boolean
     isDoneFetching: boolean
 }
-class Carousel extends Component<Props, State> {
+class Carousel extends PureComponent<Props, State> {
     static className = 'giphy-carousel'
-    state = {
+    state: State = {
         isFetching: false,
-        numberOfGifs: 0,
         gifs: [],
         isLoaderVisible: true,
         isDoneFetching: false,
@@ -60,7 +65,6 @@ class Carousel extends Component<Props, State> {
     paginator: () => Promise<IGif[]>
     constructor(props: Props) {
         super(props)
-        // create a paginator
         this.paginator = gifPaginator(props.fetchGifs)
     }
     componentDidMount() {
@@ -70,32 +74,43 @@ class Carousel extends Component<Props, State> {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
     onFetch = debounce(100, async () => {
-        const { isFetching, isLoaderVisible } = this.state
+        const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
         if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true })
-            const gifs = await this.paginator()
-            this.setState({ gifs, isFetching: false })
-            const { onGifsFetched } = this.props
-            if (onGifsFetched) onGifsFetched(gifs)
-            this.onFetch()
+            let gifs
+            try {
+                gifs = await this.paginator()
+            } catch (error) {
+                this.setState({ isFetching: false })
+            }
+            if (gifs) {
+                if (existingGifs.length === gifs.length) {
+                    this.setState({ isDoneFetching: true })
+                } else {
+                    this.setState({ gifs, isFetching: false })
+                    const { onGifsFetched } = this.props
+                    if (onGifsFetched) onGifsFetched(gifs)
+                    this.onFetch()
+                }
+            }
         }
     })
-    render(
-        {
+    render() {
+        const {
             fetchGifs,
             onGifVisible,
             onGifRightClick,
             gifHeight,
             gutter = 6,
             className = Carousel.className,
-            onGifClick,
             onGifHover,
             onGifSeen,
+            onGifClick,
             user,
-        }: Props,
-        { gifs }: State,
-    ) {
-        const showLoader = fetchGifs && gifs.length > 0
+            overlay,
+        } = this.props
+        const { gifs, isDoneFetching } = this.state
+        const showLoader = fetchGifs && gifs.length > 0 && !isDoneFetching
         const marginCss = css`
             margin-left: ${gutter}px;
         `
@@ -105,7 +120,7 @@ class Carousel extends Component<Props, State> {
         const containerCss = cx(className, containerHeightCss, carouselCss)
         const gifCss = cx(carouselItemCss, marginCss)
         return (
-            <div class={containerCss}>
+            <div className={containerCss}>
                 {gifs.map(gif => {
                     const gifWidth = getGifWidth(gif, gifHeight)
                     return (
@@ -120,6 +135,7 @@ class Carousel extends Component<Props, State> {
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}
                             user={user}
+                            overlay={overlay}
                         />
                     )
                 })}

@@ -1,0 +1,9 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "jsx": "react",
+        "resolveJsonModule": true,
+        "outDir": "./dist"
+    },
+    "files": ["src/index.tsx"]
+}

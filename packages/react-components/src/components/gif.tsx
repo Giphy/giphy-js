@@ -2,7 +2,7 @@ import { giphyBlack, giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow }
 import { IGif, IUser } from '@giphy/js-types'
 import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight } from '@giphy/js-util'
 import { css, cx } from 'emotion'
-import { Component, h } from 'preact'
+import React, { PureComponent, ReactType, SyntheticEvent, createContext } from 'react'
 import addObserver from '../util/add-observer'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
@@ -18,37 +18,51 @@ const hoverTimeoutDelay = 200
 
 export type EventProps = {
     // fired on desktop when hovered for
-    onGifHover?: (gif: IGif, e: Event) => void
+    onGifHover?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
     // fired every time the gif is show
-    onGifVisible?: (gif: IGif, e: Event) => void
+    onGifVisible?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
     // fired once after the gif loads and when it's completely in view
     onGifSeen?: (gif: IGif, boundingClientRect: ClientRect | DOMRect) => void
     // fired when the gif is clicked
-    onGifClick?: (gif: IGif, e: Event) => void
+    onGifClick?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
     // fired when the gif is right clicked
-    onGifRightClick?: (gif: IGif, e: Event) => void
+    onGifRightClick?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
 }
+
+export type GifOverlayProps = {
+    gif: IGif
+    isHovered: boolean
+}
+
 type GifProps = {
     gif: IGif
     width: number
     backgroundColor?: string
     className?: string
     user?: Partial<IUser>
+    overlay?: ReactType<GifOverlayProps>
 }
 
 type Props = GifProps & EventProps
 
-type State = { ready: boolean; backgroundColor: string; showGif: boolean; gifSeen: boolean }
+type State = { ready: boolean; backgroundColor: string; showGif: boolean; isHovered: boolean }
 
 const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
 const noop = () => {}
 
-class Gif extends Component<Props, State> {
+class Gif extends PureComponent<Props, State> {
+    static Context = createContext<IGif | null>(null)
+    state: State = {
+        ready: false,
+        backgroundColor: '',
+        showGif: false,
+        isHovered: false,
+    }
     static className = 'giphy-gif'
     observer?: IntersectionObserver
     fullGifObserver?: IntersectionObserver
-    container?: HTMLElement
+    container?: HTMLElement | null
     hasFiredSeen = false
     hoverTimeout?: any
     constructor(props: Props) {
@@ -64,7 +78,7 @@ class Gif extends Component<Props, State> {
         if (newBackgroundColor !== prevState.backgroundColor) {
             return { backgroundColor: newBackgroundColor }
         }
-        return {}
+        return null
     }
     async check() {
         await checkIfWebP
@@ -87,15 +101,21 @@ class Gif extends Component<Props, State> {
             { threshold: [1] },
         )
     }
-    onMouseOver = (e: Event) => {
+    onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
         const { gif, onGifHover, user = {} } = this.props
         clearTimeout(this.hoverTimeout)
+        e.persist()
+        this.setState({ isHovered: true })
         this.hoverTimeout = setTimeout(() => {
             pingback.onGifHover(gif, user, e.target as HTMLElement)
             onGifHover && onGifHover(gif, e)
         }, hoverTimeoutDelay)
     }
-    onClick = (e: Event) => {
+    onMouseOut = () => {
+        clearTimeout(this.hoverTimeout)
+        this.setState({ isHovered: false })
+    }
+    onClick = (e: SyntheticEvent<HTMLElement, Event>) => {
         const { gif, onGifClick, user = {} } = this.props
         // fire pingback
         pingback.onGifClick(gif, user, e.target as HTMLElement)
@@ -103,10 +123,7 @@ class Gif extends Component<Props, State> {
             onGifClick(gif, e)
         }
     }
-    onMouseOut = () => {
-        clearTimeout(this.hoverTimeout)
-    }
-    onImageLoad = (e: Event) => {
+    onImageLoad = (e: SyntheticEvent<HTMLElement, Event>) => {
         const { gif, onGifVisible = () => {} } = this.props
         // // onSeen is called only once per GIF and indicates that
         // // the image was loaded. onGifVisible will be called every time
@@ -128,10 +145,16 @@ class Gif extends Component<Props, State> {
         if (this.fullGifObserver) this.fullGifObserver.disconnect()
         if (this.hoverTimeout) clearTimeout(this.hoverTimeout)
     }
-    render(
-        { gif, gif: { bottle_data: bottleData }, width, onGifRightClick = noop, className }: Props,
-        { ready, backgroundColor, showGif }: State,
-    ) {
+    render() {
+        const {
+            gif,
+            gif: { bottle_data: bottleData },
+            width,
+            onGifRightClick = noop,
+            className,
+            overlay: Overlay,
+        } = this.props
+        const { ready, backgroundColor, showGif, isHovered } = this.state
         const height = getGifHeight(gif, width)
         const fit = ready ? getBestRenditionUrl(gif, width, height) : placeholder
         return (
@@ -142,13 +165,14 @@ class Gif extends Component<Props, State> {
                 onMouseOver={this.onMouseOver}
                 onMouseOut={this.onMouseOut}
                 onClick={this.onClick}
-                onContextMenu={(e: Event) => onGifRightClick(gif, e)}
+                onContextMenu={(e: SyntheticEvent<HTMLElement, Event>) => onGifRightClick(gif, e)}
                 ref={c => (this.container = c)}
             >
                 {showGif ? (
                     <img src={fit} width={width} height={height} alt={getAltText(gif)} onLoad={this.onImageLoad} />
                 ) : null}
                 {showGif ? <AdPill bottleData={bottleData} /> : null}
+                {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
             </a>
         )
     }
