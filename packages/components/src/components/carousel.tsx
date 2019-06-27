@@ -45,6 +45,7 @@ type State = {
     numberOfGifs: number
     gifs: IGif[]
     isLoaderVisible: boolean
+    isDoneFetching: boolean
 }
 class Carousel extends Component<Props, State> {
     static className = 'giphy-carousel'
@@ -53,6 +54,7 @@ class Carousel extends Component<Props, State> {
         numberOfGifs: 0,
         gifs: [],
         isLoaderVisible: true,
+        isDoneFetching: false,
     }
     el?: HTMLElement
     paginator: () => Promise<IGif[]>

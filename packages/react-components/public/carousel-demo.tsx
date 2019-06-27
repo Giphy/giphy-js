@@ -10,10 +10,11 @@ type State = {
     gifs: IGif[]
 }
 type Props = {}
-class CarouselShowcase extends PureComponent<Props, State> {
+
+class CarouselDemo extends PureComponent<Props, State> {
     render() {
         return <Carousel gifHeight={200} user={{}} gutter={6} fetchGifs={fetchGifs} />
     }
 }
 
-export default CarouselShowcase
+export default CarouselDemo

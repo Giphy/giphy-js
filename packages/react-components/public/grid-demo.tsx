@@ -12,7 +12,8 @@ type State = {
     width: number
 }
 type Props = {}
-class GridShowcase extends PureComponent<Props, State> {
+
+class GridDemo extends PureComponent<Props, State> {
     state = {
         width: getWidth(),
     }
@@ -30,4 +31,4 @@ class GridShowcase extends PureComponent<Props, State> {
     }
 }
 
-export default GridShowcase
+export default GridDemo

@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import GridShowcase from './grid'
+import GridDemo from './grid-demo'
 import { css } from '@giphy/js-brand'
-import CarouselShowcase from './carousel'
-import GifShowcase from './gif'
+import CarouselDemo from './carousel-demo'
+import GifDemo from './gif-demo'
 
 const target = document.getElementById('react-target')!
 const banner = document.querySelector('#banner')
@@ -14,15 +14,15 @@ const Components = () => (
     <div>
         <section>
             <h4 className={css.sectionHeader}>Gif</h4>
-            <GifShowcase />
+            <GifDemo />
         </section>
         <section>
             <h4>Carousel</h4>
-            <CarouselShowcase />
+            <CarouselDemo />
         </section>
         <section>
             <h4>Grid</h4>
-            <GridShowcase />
+            <GridDemo />
         </section>
     </div>
 )

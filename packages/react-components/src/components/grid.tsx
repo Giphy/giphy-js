@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, ReactType } from 'react'
 import { debounce } from 'throttle-debounce'
-import Gif, { EventProps } from './gif'
+import Gif, { EventProps, GifOverlayProps } from './gif'
 import Bricks from 'bricks.js'
 import Observer from '../util/observer'
 import { IGif, IUser } from '@giphy/js-types'
@@ -17,36 +17,37 @@ type Props = {
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
     onGifsFetchError?: (e: Error) => void
+    overlay?: ReactType<GifOverlayProps>
 } & EventProps
 
 type State = {
     gifWidth: number
     isFetching: boolean
     isError: boolean
-    numberOfGifs: number
     gifs: IGif[]
     isLoaderVisible: boolean
+    isDoneFetching: boolean
 }
 class Grid extends PureComponent<Props, State> {
     static className = 'giphy-grid'
     state: State = {
         isFetching: false,
         isError: false,
-        numberOfGifs: 0,
         gifWidth: 0,
         gifs: [],
         isLoaderVisible: true,
+        isDoneFetching: false,
     }
     bricks?: any
     el?: HTMLDivElement | null
     paginator: () => Promise<IGif[]>
-    static getDerivedStateFromProps({ columns, gutter, width }: Readonly<Props>, prevState: Readonly<State>) {
+    static getDerivedStateFromProps({ columns, gutter, width }: Props, prevState: State) {
         const gutterOffset = gutter * (columns - 1)
         const gifWidth = Math.floor((width - gutterOffset) / columns)
         if (prevState.gifWidth !== gifWidth) {
             return { gifWidth }
         }
-        return {}
+        return null
     }
     constructor(props: Props) {
         super(props)
@@ -94,7 +95,7 @@ class Grid extends PureComponent<Props, State> {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
     onFetch = debounce(100, async () => {
-        const { isFetching, isLoaderVisible } = this.state
+        const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
         if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true, isError: false })
             let gifs
@@ -106,14 +107,19 @@ class Grid extends PureComponent<Props, State> {
                 if (onGifsFetchError) onGifsFetchError(error)
             }
             if (gifs) {
-                this.setState({ gifs, isFetching: false })
-                const { onGifsFetched } = this.props
-                if (onGifsFetched) onGifsFetched(gifs)
-                this.onFetch()
+                // if we've just fetched and we don't have
+                // any more gifs, we're done fetching
+                if (existingGifs.length === gifs.length) {
+                    this.setState({ isDoneFetching: true })
+                } else {
+                    this.setState({ gifs, isFetching: false })
+                    const { onGifsFetched } = this.props
+                    if (onGifsFetched) onGifsFetched(gifs)
+                    this.onFetch()
+                }
             }
         }
     })
-
     render() {
         const {
             fetchGifs,
@@ -124,9 +130,10 @@ class Grid extends PureComponent<Props, State> {
             onGifSeen,
             onGifClick,
             user,
+            overlay,
         } = this.props
-        const { gifWidth, gifs, isError } = this.state
-        const showLoader = fetchGifs && gifs.length > 0
+        const { gifWidth, gifs, isError, isDoneFetching } = this.state
+        const showLoader = fetchGifs && gifs.length > 0 && !isDoneFetching
         return (
             <div className={className}>
                 <div ref={c => (this.el = c)}>
@@ -141,6 +148,7 @@ class Grid extends PureComponent<Props, State> {
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}
                             user={user}
+                            overlay={overlay}
                         />
                     ))}
                 </div>

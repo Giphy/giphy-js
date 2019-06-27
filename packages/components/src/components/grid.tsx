@@ -23,6 +23,7 @@ type State = {
     gifWidth: number
     isFetching: boolean
     isError: boolean
+    isDoneFetching: boolean
     numberOfGifs: number
     gifs: IGif[]
     isLoaderVisible: boolean
@@ -36,6 +37,7 @@ class Grid extends Component<Props, State> {
         gifWidth: 0,
         gifs: [],
         isLoaderVisible: true,
+        isDoneFetching: false,
     }
     bricks?: any
     el?: HTMLElement
@@ -94,7 +96,7 @@ class Grid extends Component<Props, State> {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
     onFetch = debounce(100, async () => {
-        const { isFetching, isLoaderVisible } = this.state
+        const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
         if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true, isError: false })
             let gifs
@@ -106,10 +108,14 @@ class Grid extends Component<Props, State> {
                 if (onGifsFetchError) onGifsFetchError(error)
             }
             if (gifs) {
-                this.setState({ gifs, isFetching: false })
-                const { onGifsFetched } = this.props
-                if (onGifsFetched) onGifsFetched(gifs)
-                this.onFetch()
+                if (existingGifs.length === gifs.length) {
+                    this.setState({ isDoneFetching: true })
+                } else {
+                    this.setState({ gifs, isFetching: false })
+                    const { onGifsFetched } = this.props
+                    if (onGifsFetched) onGifsFetched(gifs)
+                    this.onFetch()
+                }
             }
         }
     })
@@ -124,9 +130,9 @@ class Grid extends Component<Props, State> {
             onGifSeen,
             user,
         }: Props,
-        { gifWidth, gifs, isError }: State,
+        { gifWidth, gifs, isError, isDoneFetching }: State,
     ) {
-        const showLoader = fetchGifs && gifs.length > 0
+        const showLoader = fetchGifs && gifs.length > 0 && !isDoneFetching
         return (
             <div class={className}>
                 <div ref={c => (this.el = c)}>

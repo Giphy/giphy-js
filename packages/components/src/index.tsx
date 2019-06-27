@@ -14,10 +14,12 @@ export { default as Grid } from './components/grid'
  * @param gridProps grid props
  * @param target the node to render into it
  */
-export const renderGrid = (gridProps: Grid['props'], target: HTMLElement) => {
+export const renderGrid = (gridProps: Grid['props'], target: HTMLElement): Element => {
     // preact will append if there's no existing node
-    const existingNode = target.querySelector(`.${gridProps.className || Grid.className}`)!
-    return render(<Grid {...gridProps} />, target, existingNode)
+    const selector = `.${gridProps.className || Grid.className}`
+    const existingNode = target.querySelector(selector)!
+    render(<Grid {...gridProps} />, target, existingNode)
+    return target.querySelector(selector)!
 }
 
 /**
@@ -26,10 +28,12 @@ export const renderGrid = (gridProps: Grid['props'], target: HTMLElement) => {
  * @param carouselProps Carousel props
  * @param target the node to render into it
  */
-export const renderCarousel = (carouselProps: Carousel['props'], target: HTMLElement) => {
+export const renderCarousel = (carouselProps: Carousel['props'], target: HTMLElement): Element => {
     // preact will append if there's no existing node
-    const existingNode = target.querySelector(`.${carouselProps.className || Carousel.className}`)!
-    return render(<Carousel {...carouselProps} />, target, existingNode)
+    const selector = `.${carouselProps.className || Carousel.className}`
+    const existingNode = target.querySelector(selector)!
+    render(<Carousel {...carouselProps} />, target, existingNode)
+    return target.querySelector(selector)!
 }
 
 /**
@@ -38,8 +42,10 @@ export const renderCarousel = (carouselProps: Carousel['props'], target: HTMLEle
  * @param gif Gif props
  * @param target the node to render into it
  */
-export const renderGif = (gifProps: Gif['props'], target: HTMLElement) => {
+export const renderGif = (gifProps: Gif['props'], target: HTMLElement): Element => {
     // preact will append if there's no existing node
-    const existingNode = target.querySelector(`.${gifProps.className || Gif.className}`)!
-    return render(<Gif {...gifProps} />, target, existingNode)
+    const selector = `.${gifProps.className || Gif.className}`
+    const existingNode = target.querySelector(selector)!
+    render(<Gif {...gifProps} />, target, existingNode)
+    return target.querySelector(selector)!
 }

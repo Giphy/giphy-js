@@ -22,11 +22,12 @@ export const vanillaJSGif = async (targetEl: HTMLElement) => {
 
 export namespace PreactGif {
     type Props = {}
+    type State = { gif: undefined | IGif; gif2: undefined | IGif }
     const containerCss = css`
         display: flex;
     `
-    class Test extends Component<Props, { gif: undefined | IGif; gif2: undefined | IGif }> {
-        state = {
+    class Test extends Component<Props, State> {
+        state: State = {
             gif: undefined,
             gif2: undefined,
         }
@@ -37,7 +38,7 @@ export namespace PreactGif {
             ])
             this.setState({ gif, gif2 })
         }
-        render(_: Props, { gif, gif2 }) {
+        render(_: Props, { gif, gif2 }: State) {
             return gif ? (
                 <div className={containerCss}>
                     <Gif gif={gif} width={300} />

@@ -10,7 +10,7 @@ type Props = {}
 const containerCss = css`
     display: flex;
 `
-class GifShowcase extends PureComponent<Props, { gif: undefined | IGif; gif2: undefined | IGif }> {
+class GifDemo extends PureComponent<Props, { gif: undefined | IGif; gif2: undefined | IGif }> {
     state = {
         gif: undefined,
         gif2: undefined,
@@ -30,4 +30,4 @@ class GifShowcase extends PureComponent<Props, { gif: undefined | IGif; gif2: un
     }
 }
 
-export default GifShowcase
+export default GifDemo

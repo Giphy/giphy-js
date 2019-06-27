@@ -2,7 +2,7 @@ import { giphyBlack, giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow }
 import { IGif, IUser } from '@giphy/js-types'
 import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight } from '@giphy/js-util'
 import { css, cx } from 'emotion'
-import React, { PureComponent, SyntheticEvent } from 'react'
+import React, { PureComponent, ReactType, SyntheticEvent, createContext } from 'react'
 import addObserver from '../util/add-observer'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
@@ -28,28 +28,36 @@ export type EventProps = {
     // fired when the gif is right clicked
     onGifRightClick?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
 }
+
+export type GifOverlayProps = {
+    gif: IGif
+    isHovered: boolean
+}
+
 type GifProps = {
     gif: IGif
     width: number
     backgroundColor?: string
     className?: string
     user?: Partial<IUser>
+    overlay?: ReactType<GifOverlayProps>
 }
 
 type Props = GifProps & EventProps
 
-type State = { ready: boolean; backgroundColor: string; showGif: boolean; gifSeen: boolean }
+type State = { ready: boolean; backgroundColor: string; showGif: boolean; isHovered: boolean }
 
 const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
 const noop = () => {}
 
 class Gif extends PureComponent<Props, State> {
+    static Context = createContext<IGif | null>(null)
     state: State = {
         ready: false,
         backgroundColor: '',
         showGif: false,
-        gifSeen: false,
+        isHovered: false,
     }
     static className = 'giphy-gif'
     observer?: IntersectionObserver
@@ -97,6 +105,7 @@ class Gif extends PureComponent<Props, State> {
         const { gif, onGifHover, user = {} } = this.props
         clearTimeout(this.hoverTimeout)
         e.persist()
+        this.setState({ isHovered: true })
         this.hoverTimeout = setTimeout(() => {
             pingback.onGifHover(gif, user, e.target as HTMLElement)
             onGifHover && onGifHover(gif, e)
@@ -104,6 +113,7 @@ class Gif extends PureComponent<Props, State> {
     }
     onMouseOut = () => {
         clearTimeout(this.hoverTimeout)
+        this.setState({ isHovered: false })
     }
     onClick = (e: SyntheticEvent<HTMLElement, Event>) => {
         const { gif, onGifClick, user = {} } = this.props
@@ -142,8 +152,9 @@ class Gif extends PureComponent<Props, State> {
             width,
             onGifRightClick = noop,
             className,
+            overlay: Overlay,
         } = this.props
-        const { ready, backgroundColor, showGif } = this.state
+        const { ready, backgroundColor, showGif, isHovered } = this.state
         const height = getGifHeight(gif, width)
         const fit = ready ? getBestRenditionUrl(gif, width, height) : placeholder
         return (
@@ -161,6 +172,7 @@ class Gif extends PureComponent<Props, State> {
                     <img src={fit} width={width} height={height} alt={getAltText(gif)} onLoad={this.onImageLoad} />
                 ) : null}
                 {showGif ? <AdPill bottleData={bottleData} /> : null}
+                {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
             </a>
         )
     }
