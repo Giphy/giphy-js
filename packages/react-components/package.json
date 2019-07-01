@@ -9,9 +9,12 @@
     "devDependencies": {
         "@types/bricks.js": "^1.8.0",
         "@types/react": "^16.8.22",
+        "@types/react-dom": "^16.8.4",
         "@types/throttle-debounce": "^1.1.1",
         "parcel-bundler": "^1.12.3",
-        "typescript": "^3.5.1"
+        "typescript": "^3.5.2",
+        "react": "^16.8.3",
+        "react-dom": "^16.8.3"
     },
     "name": "@giphy/react-components",
     "version": "0.1.2",
@@ -27,8 +30,7 @@
         "access": "public"
     },
     "peerDependencies": {
-        "react": "^16.8.3",
-        "react-dom": "^16.8.3"
+        "react": "^16.8.3"
     },
     "dependencies": {
         "@giphy/js-analytics": "^1.1.3",

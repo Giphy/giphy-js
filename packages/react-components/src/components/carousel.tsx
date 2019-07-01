@@ -47,20 +47,23 @@ type Props = {
     overlay?: ReactType<GifOverlayProps>
 } & EventProps
 
+const defaultProps = Object.freeze({ gutter: 6, user: {} })
 type State = {
     isFetching: boolean
     gifs: IGif[]
     isLoaderVisible: boolean
     isDoneFetching: boolean
 }
+const initialState = Object.freeze({
+    isFetching: false,
+    gifs: [] as IGif[],
+    isLoaderVisible: true,
+    isDoneFetching: false,
+})
 class Carousel extends PureComponent<Props, State> {
     static className = 'giphy-carousel'
-    state: State = {
-        isFetching: false,
-        gifs: [],
-        isLoaderVisible: true,
-        isDoneFetching: false,
-    }
+    static readonly defaultProps = defaultProps
+    readonly state = initialState
     el?: HTMLElement
     paginator: () => Promise<IGif[]>
     constructor(props: Props) {
@@ -101,7 +104,7 @@ class Carousel extends PureComponent<Props, State> {
             onGifVisible,
             onGifRightClick,
             gifHeight,
-            gutter = 6,
+            gutter,
             className = Carousel.className,
             onGifHover,
             onGifSeen,

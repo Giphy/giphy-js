@@ -40,6 +40,8 @@ type Props = {
     onGifsFetched?: (gifs: IGif[]) => void
 } & EventProps
 
+const defaultProps = Object.freeze({ gutter: 6, user: {} })
+
 type State = {
     isFetching: boolean
     numberOfGifs: number
@@ -47,15 +49,18 @@ type State = {
     isLoaderVisible: boolean
     isDoneFetching: boolean
 }
+const initialState = Object.freeze({
+    isFetching: false,
+    numberOfGifs: 0,
+    gifs: [] as IGif[],
+    isLoaderVisible: true,
+    isDoneFetching: false,
+})
+
 class Carousel extends Component<Props, State> {
     static className = 'giphy-carousel'
-    state = {
-        isFetching: false,
-        numberOfGifs: 0,
-        gifs: [],
-        isLoaderVisible: true,
-        isDoneFetching: false,
-    }
+    static readonly defaultProps = defaultProps
+    readonly state = initialState
     el?: HTMLElement
     paginator: () => Promise<IGif[]>
     constructor(props: Props) {
@@ -86,7 +91,7 @@ class Carousel extends Component<Props, State> {
             onGifVisible,
             onGifRightClick,
             gifHeight,
-            gutter = 6,
+            gutter,
             className = Carousel.className,
             onGifClick,
             onGifHover,

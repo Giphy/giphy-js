@@ -23,6 +23,6 @@
         "@giphy/js-types": "^1.1.0"
     },
     "devDependencies": {
-        "typescript": "^3.5.1"
+        "typescript": "^3.5.2"
     }
 }

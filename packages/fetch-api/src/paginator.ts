@@ -19,7 +19,6 @@ export const gifPaginator = (fetchGifs: (offset: number) => Promise<GifsResult>)
                 // add gifs and gifIds
                 gifs.push(gif)
                 gifIds.push(id)
-            } else {
             }
         })
         return [...gifs]
