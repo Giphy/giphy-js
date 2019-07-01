@@ -25,6 +25,11 @@ function request(
                 }
             } catch (error) {
                 reject({ message: error.message })
+                // if the request fails with an unspecfied error,
+                // the user can request again
+                // TODO: perhaps we can return a function to clear
+                // { clearCache: () => delete requestMap[url] }
+                delete requestMap[url]
             }
         })
     }

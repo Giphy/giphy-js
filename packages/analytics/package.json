@@ -30,6 +30,6 @@
         "@types/dompurify": "^0.0.32",
         "@types/throttle-debounce": "1.1.1",
         "jest-fetch-mock": "^2.1.2",
-        "typescript": "^3.5.1"
+        "typescript": "^3.5.2"
     }
 }

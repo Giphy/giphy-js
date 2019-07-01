@@ -11,13 +11,14 @@ import FetchError from './fetch-error'
 type Props = {
     className?: string
     width: number
-    user?: Partial<IUser>
+    user: Partial<IUser>
     columns: number
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
     onGifsFetchError?: (e: Error) => void
 } & EventProps
+const defaultProps = Object.freeze({ gutter: 6, user: {} })
 
 type State = {
     gifWidth: number
@@ -28,17 +29,19 @@ type State = {
     gifs: IGif[]
     isLoaderVisible: boolean
 }
+const initialState = Object.freeze({
+    isFetching: false,
+    isError: false,
+    numberOfGifs: 0,
+    gifWidth: 0,
+    gifs: [] as IGif[],
+    isLoaderVisible: true,
+    isDoneFetching: false,
+})
 class Grid extends Component<Props, State> {
     static className = 'giphy-grid'
-    state = {
-        isFetching: false,
-        isError: false,
-        numberOfGifs: 0,
-        gifWidth: 0,
-        gifs: [],
-        isLoaderVisible: true,
-        isDoneFetching: false,
-    }
+    static readonly defaultProps = defaultProps
+    readonly state = initialState
     bricks?: any
     el?: HTMLElement
     paginator: () => Promise<IGif[]>

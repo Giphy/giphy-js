@@ -39,13 +39,21 @@ type GifProps = {
     width: number
     backgroundColor?: string
     className?: string
-    user?: Partial<IUser>
+    user: Partial<IUser>
     overlay?: ReactType<GifOverlayProps>
 }
+
+const defaultProps = Object.freeze({ user: {} })
 
 type Props = GifProps & EventProps
 
 type State = { ready: boolean; backgroundColor: string; showGif: boolean; isHovered: boolean }
+const initialState = Object.freeze({
+    ready: false,
+    backgroundColor: '',
+    showGif: false,
+    isHovered: false,
+})
 
 const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
@@ -53,12 +61,8 @@ const noop = () => {}
 
 class Gif extends PureComponent<Props, State> {
     static Context = createContext<IGif | null>(null)
-    state: State = {
-        ready: false,
-        backgroundColor: '',
-        showGif: false,
-        isHovered: false,
-    }
+    static readonly defaultProps = defaultProps
+    readonly state = initialState
     static className = 'giphy-gif'
     observer?: IntersectionObserver
     fullGifObserver?: IntersectionObserver
