@@ -8,6 +8,10 @@
 
 > fetch gifs, stickers, categories and more
 
+#### [@giphy/react-components](packages/react-components/README.md)
+
+> React components focused on ease-of-use and performance
+
 #### [@giphy/js-components](packages/components/README.md)
 
 > lightweight UI components
