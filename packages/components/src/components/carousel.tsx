@@ -62,12 +62,7 @@ class Carousel extends Component<Props, State> {
     static readonly defaultProps = defaultProps
     readonly state = initialState
     el?: HTMLElement
-    paginator: () => Promise<IGif[]>
-    constructor(props: Props) {
-        super(props)
-        // create a paginator
-        this.paginator = gifPaginator(props.fetchGifs)
-    }
+    paginator = gifPaginator(this.props.fetchGifs)
     componentDidMount() {
         this.onFetch()
     }
