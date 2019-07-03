@@ -27,6 +27,6 @@ const header = css`
     }
 `
 
-const Header = ({ children }) => <div class={header}>{children}</div>
+const Header = ({ children }: { children?: ChildNode }) => <div className={header}>{children}</div>
 
 export default Header
