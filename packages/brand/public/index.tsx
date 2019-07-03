@@ -2,7 +2,7 @@ import { h, render } from 'preact'
 import Header from './header'
 import IconsGuide from './icons-guide'
 import ColorsGuide from './color-guide'
-import loader from '../src/loader'
+import LoaderGuide from './loader-guide'
 
 declare const module: any
 
@@ -15,7 +15,7 @@ render(
         </Header>
         <ColorsGuide />
         <IconsGuide />
-        <div className={loader} />
+        <LoaderGuide />
     </div>,
     mountNode,
     mountNode.lastChild as Element,
