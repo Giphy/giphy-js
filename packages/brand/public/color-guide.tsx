@@ -1,10 +1,10 @@
 import { h } from 'preact'
 import * as colors from '../src/colors'
 import { css, cx } from 'emotion'
-import { SubheaderSmall } from '../src/typography'
+import { css as typographtCss } from '../src/typography'
 
 const colorsCss = cx(
-    SubheaderSmall,
+    typographtCss.subheaderSmall,
     css`
         display: flex;
         flex-wrap: wrap;
@@ -25,8 +25,8 @@ const colorCss = css`
 `
 
 const Color = ({ color, name }) => (
-    <div class={item}>
-        <div class={colorCss} style={{ backgroundColor: color }} />
+    <div className={item}>
+        <div className={colorCss} style={{ backgroundColor: color }} />
         <div>{name}</div>
         <div>{color}</div>
     </div>
@@ -39,7 +39,7 @@ const Colors = Object.keys(colors).map(color =>
 const ColorsGuide = () => (
     <div>
         <h2>Colors</h2>
-        <div class={colorsCss}>{Colors}</div>
+        <div className={colorsCss}>{Colors}</div>
     </div>
 )
 
