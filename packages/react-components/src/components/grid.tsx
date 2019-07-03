@@ -20,7 +20,12 @@ type Props = {
     overlay?: ReactType<GifOverlayProps>
 } & EventProps
 
-const defaultProps = Object.freeze({ gutter: 6, user: {} })
+const defaultProps = Object.freeze({
+    columns: 3,
+    gutter: 6,
+    width: (typeof window !== 'undefined') ? window.innerWidth : 800,
+    user: {},
+})
 
 type State = {
     gifWidth: number
