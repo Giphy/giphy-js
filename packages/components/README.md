@@ -12,30 +12,35 @@ Use `renderGrid(props, target)` to render a grid to a target element
 
 ### Bare Bones Example
 
-```typescript
+```javascript
+import { renderGrid } from '@giphy/js-components'
+import { GiphyFetch } from '@giphy/js-fetch-api'
+
 // use @giphy/js-fetch-api to fetch gifs
 const gf = new GiphyFetch('your api key')
-// fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
-const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
+// fetch 10 gifs at a time from the GIPHY Trending API as the user scrolls (`offset` is handled by the grid)
+const fetchGifs = (offset) => gf.trending({ offset, limit: 10 })
 // render a grid
-renderGrid({ width: 800, fetchGifs }, targetEl)
+const targetEl = window.document.getElementById('giphy-grid')
+renderGrid({ width: 800, columns: 3, gutter: 6, fetchGifs }, targetEl)
 ```
 
 <!-- The grid uses [bricks.js]() to render a grid with fixed width items. -->
 
 _renderGrid options_
 
-| _prop_                    | _type_                                   | _default_ | _description_                                                            |
-| ------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------ |
-| width                     | `number`                                 | undefined | The width of the grid                                                    |
-| fetchGifs                 | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
-| columns                   | `number`                                 | 3         | The number of columns in the grid                                        |
-| gutter                    | `number`                                 | 6         | The space between columns and rows                                       |
-| [Gif Events](#gif-events) | \*                                       | \*        | see below                                                                |
+| _prop_                    | _type_                                   | _default_             | _description_                                                            |
+| ------------------------- | ---------------------------------------- | --------------------- | ------------------------------------------------------------------------ |
+| width                     | `number`                                 | document width or 800 | The width of the grid                                                    |
+| fetchGifs                 | `(offset:number) => Promise<GifsResult>` | undefined             | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
+| columns                   | `number`                                 | 3                     | The number of columns in the grid                                        |
+| gutter                    | `number`                                 | 6                     | The space between columns and rows                                       |
+| targetEl                  |  `HTMLElement`                           | undefined             | Target element into which the grid is rendered                           |
+| [Gif Events](#gif-events) | \*                                       | \*                    | see below                                                                |
 
 ### Thorough Example
 
-```typescript
+```javascript
 import { throttle } from 'throttle-debounce'
 import { renderGrid } from '@giphy/js-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
@@ -44,14 +49,14 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 const gf = new GiphyFetch('your api key')
 // create a fetch gifs function that takes an offset
 // this will allow the grid to paginate as the user scrolls
-const fetchGifs = (offset: number) => {
+const fetchGifs = (offset) => {
     // use whatever end point you want,
     // but be sure to pass offset to paginate correctly
     return gf.trending({ offset, limit: 25 })
 }
 
 // Creating a grid with window resizing and remove-ability
-const makeGrid = (targetEl: HTMLElement) => {
+const makeGrid = (targetEl) => {
     const render = () => {
         // here is the @giphy/js-components import
         return renderGrid(
