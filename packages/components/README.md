@@ -103,19 +103,24 @@ _renderCarousel options_
 
 ```typescript
 import { renderCarousel } from '@giphy/js-components'
+import { GiphyFetch } from '@giphy/js-fetch-api'
 
-// Creating a grid with window resizing and remove-ability
-export const vanillaJSCarousel = (mountNode: HTMLElement) => {
-    renderCarousel(
-        {
-            gifHeight: 200,
-            fetchGifs: (offset: number) => gf.trending({ offset }),
-            gutter: 6,
-            onGifClick: (gif: IGif) => window.open(gif.url),
-        },
-        mountNode
-    )
-}
+// create a GIPHY API client with your api key
+const gf = new GiphyFetch('your api key')
+
+// fetch 10 gifs at a time from the GIPHY Trending API as the user scrolls
+// create a fetch gifs function that takes an `offset` parameter
+const fetchGifs = (offset) => gf.trending({ offset, limit: 10 })
+
+renderCarousel(
+    {
+        gifHeight: 200,
+        gutter: 6,
+        onGifClick: (gif) => window.open(gif.url),
+        fetchGifs
+    },
+    window.document.getElementById('giphy-carousel')
+)
 ```
 
 ### Gif Events

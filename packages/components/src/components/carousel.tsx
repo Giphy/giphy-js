@@ -6,6 +6,7 @@ import { css, cx } from 'emotion'
 import { Component, h } from 'preact'
 import Observer from '../util/observer'
 import Gif, { EventProps } from './gif'
+import FetchError from './fetch-error'
 
 const carouselCss = css`
     -webkit-overflow-scrolling: touch;
@@ -38,20 +39,24 @@ type Props = {
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
+    onGifsFetchError?: (e: Error) => void
 } & EventProps
-
-const defaultProps = Object.freeze({ gutter: 6, user: {} })
+const defaultProps = Object.freeze({
+    gifHeight: 200,
+    gutter: 6,
+    user: {},
+})
 
 type State = {
     isFetching: boolean
-    numberOfGifs: number
+    isError: boolean
     gifs: IGif[]
     isLoaderVisible: boolean
     isDoneFetching: boolean
 }
 const initialState = Object.freeze({
     isFetching: false,
-    numberOfGifs: 0,
+    isError: false,
     gifs: [] as IGif[],
     isLoaderVisible: true,
     isDoneFetching: false,
@@ -75,14 +80,27 @@ class Carousel extends Component<Props, State> {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
     onFetch = debounce(100, async () => {
-        const { isFetching, isLoaderVisible } = this.state
+        const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
         if (!isFetching && isLoaderVisible) {
-            this.setState({ isFetching: true })
-            const gifs = await this.paginator()
-            this.setState({ gifs, isFetching: false })
-            const { onGifsFetched } = this.props
-            if (onGifsFetched) onGifsFetched(gifs)
-            this.onFetch()
+            this.setState({ isFetching: true, isError: false })
+            let gifs
+            try {
+                gifs = await this.paginator()
+            } catch (error) {
+                this.setState({ isFetching: false, isError: true })
+                const { onGifsFetchError } = this.props
+                if (onGifsFetchError) onGifsFetchError(error)
+            }
+            if (gifs) {
+                if (existingGifs.length === gifs.length) {
+                    this.setState({ isDoneFetching: true })
+                } else {
+                    this.setState({ gifs, isFetching: false })
+                    const { onGifsFetched } = this.props
+                    if (onGifsFetched) onGifsFetched(gifs)
+                    this.onFetch()
+                }
+            }
         }
     })
     render(
@@ -98,9 +116,9 @@ class Carousel extends Component<Props, State> {
             onGifSeen,
             user,
         }: Props,
-        { gifs }: State,
+        { gifs, isError, isDoneFetching }: State,
     ) {
-        const showLoader = fetchGifs && gifs.length > 0
+        const showLoader = fetchGifs && gifs.length > 0 && !isDoneFetching
         const marginCss = css`
             margin-left: ${gutter}px;
         `
@@ -128,10 +146,14 @@ class Carousel extends Component<Props, State> {
                         />
                     )
                 })}
-                {showLoader && (
-                    <Observer className={loaderContainerCss} onVisibleChange={this.onLoaderVisible}>
-                        <div className={loaderCss} />
-                    </Observer>
+                {isError ? (
+                    <FetchError onClick={this.onFetch} />
+                ) : (
+                    showLoader && (
+                        <Observer className={loaderContainerCss} onVisibleChange={this.onLoaderVisible}>
+                            <div className={loaderCss} />
+                        </Observer>
+                    )
                 )}
             </div>
         )

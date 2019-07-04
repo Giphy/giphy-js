@@ -6,6 +6,7 @@ import { css, cx } from 'emotion'
 import React, { PureComponent, ReactType } from 'react'
 import Observer from '../util/observer'
 import Gif, { EventProps, GifOverlayProps } from './gif'
+import FetchError from './fetch-error'
 
 const carouselCss = css`
     -webkit-overflow-scrolling: touch;
@@ -44,18 +45,25 @@ type Props = {
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
+    onGifsFetchError?: (e: Error) => void
     overlay?: ReactType<GifOverlayProps>
 } & EventProps
+const defaultProps = Object.freeze({
+    gifHeight: 200,
+    gutter: 6,
+    user: {},
+})
 
-const defaultProps = Object.freeze({ gutter: 6, user: {} })
 type State = {
     isFetching: boolean
+    isError: boolean
     gifs: IGif[]
     isLoaderVisible: boolean
     isDoneFetching: boolean
 }
 const initialState = Object.freeze({
     isFetching: false,
+    isError: false,
     gifs: [] as IGif[],
     isLoaderVisible: true,
     isDoneFetching: false,
@@ -79,12 +87,14 @@ class Carousel extends PureComponent<Props, State> {
     onFetch = debounce(100, async () => {
         const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
         if (!isFetching && isLoaderVisible) {
-            this.setState({ isFetching: true })
+            this.setState({ isFetching: true, isError: false })
             let gifs
             try {
                 gifs = await this.paginator()
             } catch (error) {
-                this.setState({ isFetching: false })
+                this.setState({ isFetching: false, isError: true })
+                const { onGifsFetchError } = this.props
+                if (onGifsFetchError) onGifsFetchError(error)
             }
             if (gifs) {
                 if (existingGifs.length === gifs.length) {
@@ -112,7 +122,7 @@ class Carousel extends PureComponent<Props, State> {
             user,
             overlay,
         } = this.props
-        const { gifs, isDoneFetching } = this.state
+        const { gifs, isError, isDoneFetching } = this.state
         const showLoader = fetchGifs && gifs.length > 0 && !isDoneFetching
         const marginCss = css`
             margin-left: ${gutter}px;
@@ -142,10 +152,14 @@ class Carousel extends PureComponent<Props, State> {
                         />
                     )
                 })}
-                {showLoader && (
-                    <Observer className={loaderContainerCss} onVisibleChange={this.onLoaderVisible}>
-                        <div className={loaderCss} />
-                    </Observer>
+                {isError ? (
+                    <FetchError onClick={this.onFetch} />
+                ) : (
+                    showLoader && (
+                        <Observer className={loaderContainerCss} onVisibleChange={this.onLoaderVisible}>
+                            <div className={loaderCss} />
+                        </Observer>
+                    )
                 )}
             </div>
         )
