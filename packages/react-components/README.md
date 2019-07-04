@@ -27,9 +27,9 @@ const fetchGifs = (offset) => gf.trending({ offset, limit: 10 })
 | _prop_                    | _type_                                   | _default_             | _description_                                                            |
 | ------------------------- | ---------------------------------------- | --------------------- | ------------------------------------------------------------------------ |
 | width                     | `number`                                 | document width or 800 | The width of the grid                                                    |
-| fetchGifs                 | `(offset:number) => Promise<GifsResult>` | undefined             | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
 | columns                   | `number`                                 | 3                     | The number of columns in the grid                                        |
 | gutter                    | `number`                                 | 6                     | The space between columns and rows                                       |
+| fetchGifs                 | `(offset:number) => Promise<GifsResult>` | undefined             | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
 | [Gif Events](#gif-events) | \*                                       | \*                    | see below                                                                |
 
 ## Carousel
@@ -37,8 +37,8 @@ const fetchGifs = (offset) => gf.trending({ offset, limit: 10 })
 | _prop_                    | _type_                                   | _default_ | _description_                                                            |
 | ------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------ |
 | gifHeight                 | `number`                                 | undefined | The height of the gifs and the carousel                                  |
-| fetchGifs                 | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
 | gutter                    | `number`                                 | 6         | The space between columns and rows                                       |
+| fetchGifs                 | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
 | [Gif Events](#gif-events) | \*                                       | \*        | see below                                                                |
 
 ```javascript
@@ -47,7 +47,8 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 
 // use @giphy/js-fetch-api to fetch gifs
 const gf = new GiphyFetch('your api key')
-// fetch 10 gifs at a time from the GIPHY Trending API as the user scrolls (`offset` is handled by the grid)
+// fetch 10 gifs at a time from the GIPHY Trending API as the user scrolls
+// create a fetch gifs function that takes an `offset` parameter
 const fetchGifs = (offset) => gf.trending({ offset, limit: 10 })
 
 // React Component

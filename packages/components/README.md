@@ -16,9 +16,10 @@ Use `renderGrid(props, target)` to render a grid to a target element
 import { renderGrid } from '@giphy/js-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
-// use @giphy/js-fetch-api to fetch gifs
+// create a GIPHY API client with your api key
 const gf = new GiphyFetch('your api key')
-// fetch 10 gifs at a time from the GIPHY Trending API as the user scrolls (`offset` is handled by the grid)
+// fetch 10 gifs at a time from the GIPHY Trending API as the user scrolls
+// create a fetch gifs function that takes an `offset` parameter
 const fetchGifs = (offset) => gf.trending({ offset, limit: 10 })
 // render a grid
 const targetEl = window.document.getElementById('giphy-grid')
@@ -45,9 +46,10 @@ import { throttle } from 'throttle-debounce'
 import { renderGrid } from '@giphy/js-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
-// create a GiphyFetch with your api key
+// create a GIPHY API client with your api key
 const gf = new GiphyFetch('your api key')
-// create a fetch gifs function that takes an offset
+
+// create a fetch gifs function that takes an `offset` parameter
 // this will allow the grid to paginate as the user scrolls
 const fetchGifs = (offset) => {
     // use whatever end point you want,
@@ -62,16 +64,19 @@ const makeGrid = (targetEl) => {
         return renderGrid(
             {
                 width: innerWidth,
-                fetchGifs,
-                columns: width < 500 ? 2 : 3,
+                columns: window.innerWidth < 500 ? 2 : 3,
                 gutter: 6,
+                fetchGifs,
             },
             targetEl
         )
     }
+    // register callback to window resize event
     const resizeRender = throttle(500, render)
     window.addEventListener('resize', resizeRender, false)
+    // render the grid
     const el = render()
+    // return a removal function
     return () => {
         el.parentNode.removeChild(el)
         window.removeEventListener('resize', resizeRender, false)
@@ -79,10 +84,10 @@ const makeGrid = (targetEl) => {
 }
 
 // Instantiate
-const grid = makeGrid(document.querySelector('.grid'))
+const removeGrid = makeGrid(window.document.getElementById('giphy-grid'))
 
 // To remove
-grid.remove()
+removeGrid()
 ```
 
 ## Carousel
