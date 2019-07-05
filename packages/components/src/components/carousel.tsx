@@ -1,11 +1,11 @@
-import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
+import { gifPaginator, GifsResult, EventTypes as FetchEventProps } from '@giphy/js-fetch-api'
 import { debounce } from 'throttle-debounce'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifWidth } from '@giphy/js-util'
 import { css, cx } from 'emotion'
 import { Component, h } from 'preact'
 import Observer from '../util/observer'
-import Gif, { EventProps } from './gif'
+import Gif, { EventProps as GifEventProps } from './gif'
 import FetchError from './fetch-error'
 
 const carouselCss = css`
@@ -38,9 +38,7 @@ type Props = {
     gifHeight: number
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
-    onGifsFetched?: (gifs: IGif[]) => void
-    onGifsFetchError?: (e: Error) => void
-} & EventProps
+} & GifEventProps & FetchEventProps
 const defaultProps = Object.freeze({
     gifHeight: 200,
     gutter: 6,
@@ -88,8 +86,8 @@ class Carousel extends Component<Props, State> {
                 gifs = await this.paginator()
             } catch (error) {
                 this.setState({ isFetching: false, isError: true })
-                const { onGifsFetchError } = this.props
-                if (onGifsFetchError) onGifsFetchError(error)
+                const { onFetchError } = this.props
+                if (onFetchError) onFetchError(error)
             }
             if (gifs) {
                 if (existingGifs.length === gifs.length) {

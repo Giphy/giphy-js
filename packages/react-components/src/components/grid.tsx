@@ -1,10 +1,10 @@
 import React, { PureComponent, ReactType } from 'react'
 import { debounce } from 'throttle-debounce'
-import Gif, { EventProps, GifOverlayProps } from './gif'
+import Gif, { EventProps as GifEventProps, GifOverlayProps } from './gif'
 import Bricks from 'bricks.js'
 import Observer from '../util/observer'
 import { IGif, IUser } from '@giphy/js-types'
-import { GifsResult, gifPaginator } from '@giphy/js-fetch-api'
+import { gifPaginator, GifsResult, EventTypes as FetchEventProps } from '@giphy/js-fetch-api'
 import Loader from './loader'
 import FetchError from './fetch-error'
 
@@ -15,10 +15,8 @@ type Props = {
     columns: number
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
-    onGifsFetched?: (gifs: IGif[]) => void
-    onGifsFetchError?: (e: Error) => void
     overlay?: ReactType<GifOverlayProps>
-} & EventProps
+} & GifEventProps & FetchEventProps
 
 const defaultProps = Object.freeze({
     columns: 3,
@@ -114,8 +112,8 @@ class Grid extends PureComponent<Props, State> {
                 gifs = await this.paginator()
             } catch (error) {
                 this.setState({ isFetching: false, isError: true })
-                const { onGifsFetchError } = this.props
-                if (onGifsFetchError) onGifsFetchError(error)
+                const { onFetchError } = this.props
+                if (onFetchError) onFetchError(error)
             }
             if (gifs) {
                 // if we've just fetched and we don't have

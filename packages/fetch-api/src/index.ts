@@ -1,4 +1,5 @@
 export { default as GiphyFetch } from './api'
+export { EventTypes } from './event-types'
 export * from './option-types'
 export * from './result-types'
 export { gifPaginator } from './paginator'
