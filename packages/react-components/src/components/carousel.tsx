@@ -1,4 +1,4 @@
-import { gifPaginator, GifsResult, EventTypes as FetchEventProps } from '@giphy/js-fetch-api'
+import { gifPaginator, GifsResult, EventProps as FetchEventProps } from '@giphy/js-fetch-api'
 import { debounce } from 'throttle-debounce'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifWidth } from '@giphy/js-util'
@@ -74,7 +74,8 @@ class Carousel extends PureComponent<Props, State> {
     paginator: () => Promise<IGif[]>
     constructor(props: Props) {
         super(props)
-        this.paginator = gifPaginator(props.fetchGifs)
+        const { fetchGifs, onFetch, onPage } = props
+        this.paginator = gifPaginator({ fetchGifs, onFetch, onPage })
     }
     componentDidMount() {
         this.onFetch()

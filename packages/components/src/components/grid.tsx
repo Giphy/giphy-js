@@ -4,7 +4,7 @@ import Gif, { EventProps as GifEventProps } from './gif'
 import Bricks from 'bricks.js'
 import Observer from '../util/observer'
 import { IGif, IUser } from '@giphy/js-types'
-import { gifPaginator, GifsResult, EventTypes as FetchEventProps } from '@giphy/js-fetch-api'
+import { gifPaginator, GifsResult, EventProps as FetchEventProps } from '@giphy/js-fetch-api'
 import Loader from './loader'
 import FetchError from './fetch-error'
 
@@ -59,7 +59,8 @@ class Grid extends Component<Props, State> {
     }
     constructor(props: Props) {
         super(props)
-        this.paginator = gifPaginator(props.fetchGifs)
+        const { fetchGifs, onFetch, onPage } = props
+        this.paginator = gifPaginator({ fetchGifs, onFetch, onPage })
     }
     setBricks() {
         const { columns, gutter } = this.props

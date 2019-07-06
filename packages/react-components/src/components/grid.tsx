@@ -4,7 +4,7 @@ import Gif, { EventProps as GifEventProps, GifOverlayProps } from './gif'
 import Bricks from 'bricks.js'
 import Observer from '../util/observer'
 import { IGif, IUser } from '@giphy/js-types'
-import { gifPaginator, GifsResult, EventTypes as FetchEventProps } from '@giphy/js-fetch-api'
+import { gifPaginator, GifsResult, EventProps as FetchEventProps } from '@giphy/js-fetch-api'
 import Loader from './loader'
 import FetchError from './fetch-error'
 
@@ -16,6 +16,8 @@ type Props = {
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
     overlay?: ReactType<GifOverlayProps>
+    xonFetch: any
+    xonPage: any
 } & GifEventProps & FetchEventProps
 
 const defaultProps = Object.freeze({
@@ -60,7 +62,8 @@ class Grid extends PureComponent<Props, State> {
     }
     constructor(props: Props) {
         super(props)
-        this.paginator = gifPaginator(props.fetchGifs)
+        const { fetchGifs, onFetch, onPage } = props
+        this.paginator = gifPaginator({ fetchGifs, onFetch, onPage })
     }
     setBricks() {
         const { columns, gutter } = this.props
