@@ -16,8 +16,6 @@ type Props = {
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
     overlay?: ReactType<GifOverlayProps>
-    xonFetch: any
-    xonPage: any
 } & GifEventProps & FetchEventProps
 
 const defaultProps = Object.freeze({
