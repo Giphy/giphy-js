@@ -135,6 +135,7 @@ class Grid extends Component<Props, State> {
             className = Grid.className,
             onGifClick,
             onGifHover,
+            onGifUnhover,
             onGifSeen,
             user,
         }: Props,
@@ -151,6 +152,7 @@ class Grid extends Component<Props, State> {
                             width={gifWidth}
                             onGifClick={onGifClick}
                             onGifHover={onGifHover}
+                            onGifUnhover={onGifUnhover}
                             onGifSeen={onGifSeen}
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}

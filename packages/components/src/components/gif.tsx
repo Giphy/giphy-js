@@ -17,9 +17,11 @@ export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLOR
 const hoverTimeoutDelay = 200
 
 export type EventProps = {
-    // fired on desktop when hovered for
+    // fired on desktop when hovered over
     onGifHover?: (gif: IGif, e: Event) => void
-    // fired every time the gif is show
+    // fired on desktop on mouse out, given an active hover event
+    onGifUnhover?: (gif: IGif, e: Event) => void
+    // fired every time the gif is shown
     onGifVisible?: (gif: IGif, e: Event) => void
     // fired once after the gif loads and when it's completely in view
     onGifSeen?: (gif: IGif, boundingClientRect: ClientRect | DOMRect) => void
@@ -38,19 +40,27 @@ type GifProps = {
 
 type Props = GifProps & EventProps
 
-type State = { ready: boolean; backgroundColor: string; showGif: boolean; gifSeen: boolean }
+type State = { ready: boolean; backgroundColor: string; showGif: boolean; isHovered: boolean }
+const initialState = Object.freeze({
+    ready: false,
+    backgroundColor: '',
+    showGif: false,
+    isHovered: false,
+})
 
 const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
 const noop = () => {}
 
 class Gif extends Component<Props, State> {
+    readonly state = initialState
     static className = 'giphy-gif'
     observer?: IntersectionObserver
     fullGifObserver?: IntersectionObserver
     container?: HTMLElement
     hasFiredSeen = false
     hoverTimeout?: any
+    unhoverTimeout?: any
     constructor(props: Props) {
         super(props)
         this.check()
@@ -90,8 +100,10 @@ class Gif extends Component<Props, State> {
     onMouseOver = (e: Event) => {
         const { gif, onGifHover, user = {} } = this.props
         clearTimeout(this.hoverTimeout)
+        clearTimeout(this.unhoverTimeout)
         this.hoverTimeout = setTimeout(() => {
             pingback.onGifHover(gif, user, e.target as HTMLElement)
+            this.setState({ isHovered: true })
             onGifHover && onGifHover(gif, e)
         }, hoverTimeoutDelay)
     }
@@ -103,8 +115,16 @@ class Gif extends Component<Props, State> {
             onGifClick(gif, e)
         }
     }
-    onMouseOut = () => {
+    onMouseOut = (e: Event) => {
+        const { gif, onGifUnhover } = this.props
+        const { isHovered } = this.state
         clearTimeout(this.hoverTimeout)
+        if(isHovered) {
+            this.unhoverTimeout = setTimeout(() => {
+                this.setState({ isHovered: false })
+                onGifUnhover && onGifUnhover(gif, e)
+            }, hoverTimeoutDelay)
+        }
     }
     onImageLoad = (e: Event) => {
         const { gif, onGifVisible = () => {} } = this.props
@@ -127,6 +147,7 @@ class Gif extends Component<Props, State> {
         if (this.observer) this.observer.disconnect()
         if (this.fullGifObserver) this.fullGifObserver.disconnect()
         if (this.hoverTimeout) clearTimeout(this.hoverTimeout)
+        if (this.unhoverTimeout) clearTimeout(this.unhoverTimeout)
     }
     render(
         { gif, gif: { bottle_data: bottleData }, width, onGifRightClick = noop, className }: Props,

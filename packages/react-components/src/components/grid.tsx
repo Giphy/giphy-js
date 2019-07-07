@@ -137,6 +137,7 @@ class Grid extends PureComponent<Props, State> {
             onGifRightClick,
             className = Grid.className,
             onGifHover,
+            onGifUnhover,
             onGifSeen,
             onGifClick,
             user,
@@ -154,6 +155,7 @@ class Grid extends PureComponent<Props, State> {
                             width={gifWidth}
                             onGifClick={onGifClick}
                             onGifHover={onGifHover}
+                            onGifUnhover={onGifUnhover}
                             onGifSeen={onGifSeen}
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}

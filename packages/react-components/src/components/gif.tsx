@@ -17,9 +17,11 @@ export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLOR
 const hoverTimeoutDelay = 200
 
 export type EventProps = {
-    // fired on desktop when hovered for
+    // fired on desktop when hovered over
     onGifHover?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
-    // fired every time the gif is show
+    // fired on desktop on mouse out, given an active hover event
+    onGifUnhover?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
+    // fired every time the gif is shown
     onGifVisible?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
     // fired once after the gif loads and when it's completely in view
     onGifSeen?: (gif: IGif, boundingClientRect: ClientRect | DOMRect) => void
@@ -69,6 +71,7 @@ class Gif extends PureComponent<Props, State> {
     container?: HTMLElement | null
     hasFiredSeen = false
     hoverTimeout?: any
+    unhoverTimeout?: any
     constructor(props: Props) {
         super(props)
         this.check()
@@ -108,16 +111,24 @@ class Gif extends PureComponent<Props, State> {
     onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
         const { gif, onGifHover, user = {} } = this.props
         clearTimeout(this.hoverTimeout)
+        clearTimeout(this.unhoverTimeout)
         e.persist()
-        this.setState({ isHovered: true })
         this.hoverTimeout = setTimeout(() => {
             pingback.onGifHover(gif, user, e.target as HTMLElement)
+            this.setState({ isHovered: true })
             onGifHover && onGifHover(gif, e)
         }, hoverTimeoutDelay)
     }
-    onMouseOut = () => {
+    onMouseOut = (e: SyntheticEvent<HTMLElement, Event>) => {
+        const { gif, onGifUnhover } = this.props
+        const { isHovered } = this.state
         clearTimeout(this.hoverTimeout)
-        this.setState({ isHovered: false })
+        if(isHovered) {
+            this.unhoverTimeout = setTimeout(() => {
+                this.setState({ isHovered: false })
+                onGifUnhover && onGifUnhover(gif, e)
+            }, hoverTimeoutDelay)
+        }
     }
     onClick = (e: SyntheticEvent<HTMLElement, Event>) => {
         const { gif, onGifClick, user = {} } = this.props
@@ -148,6 +159,7 @@ class Gif extends PureComponent<Props, State> {
         if (this.observer) this.observer.disconnect()
         if (this.fullGifObserver) this.fullGifObserver.disconnect()
         if (this.hoverTimeout) clearTimeout(this.hoverTimeout)
+        if (this.unhoverTimeout) clearTimeout(this.unhoverTimeout)
     }
     render() {
         const {

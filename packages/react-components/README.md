@@ -82,8 +82,9 @@ const { data } = await gf.gif('fpXxIjftmkk9y')
 
 | _prop_          | _type_                                                               | _description_                                                   |
 | --------------- | -------------------------------------------------------------------- | --------------------------------------------------------------- |
-| onGifHover      | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired on desktop when hovered for                               |
-| onGifVisible    | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired every time the gif is show                                |
-| onGifSeen       | `(gif: IGif, boundingClientRect: ClientRect &#124; DOMRect) => void` | fired once after the gif loads and when it's completely in view |
+| onGifHover      | `(gif: IGif, e: Event) => void`                                      | fired on desktop when hovered over                              |
+| onGifUnhover    | `(gif: IGif, e: Event) => void`                                      | fired on desktop on mouse out, given an active hover event      |
+| onGifVisible    | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired every time the gif is shown                               |
+| onGifSeen       | `(gif: IGif, boundingClientRect: ClientRect | DOMRect) => void`      | fired once after the gif loads and when it's completely in view |
 | onGifClick      | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is clicked                                   |
 | onGifRightClick | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is right clicked                             |

@@ -116,6 +116,7 @@ class Carousel extends PureComponent<Props, State> {
             gutter,
             className = Carousel.className,
             onGifHover,
+            onGifUnhover,
             onGifSeen,
             onGifClick,
             user,
@@ -143,6 +144,7 @@ class Carousel extends PureComponent<Props, State> {
                             width={gifWidth}
                             onGifClick={onGifClick}
                             onGifHover={onGifHover}
+                            onGifUnhover={onGifUnhover}
                             onGifSeen={onGifSeen}
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}
