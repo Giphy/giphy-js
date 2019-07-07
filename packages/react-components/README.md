@@ -10,14 +10,15 @@ React components, focused on ease-of-use and performance.
 
 ### Bare Bones Example
 
-```javascript
+```typescript
 import { Grid } from '@giphy/react-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
 // use @giphy/js-fetch-api to fetch gifs
 const gf = new GiphyFetch('your api key')
-// fetch 10 gifs at a time from the GIPHY Trending API as the user scrolls (`offset` is handled by the grid)
-const fetchGifs = (offset) => gf.trending({ offset, limit: 10 })
+// create a fetch gifs function that takes an `offset` parameter
+// this will allow the grid to paginate as the user scrolls
+const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 // React Component
 <Grid width={800} columns={3} gutter={6} fetchGifs={fetchGifs} />
 ```
@@ -41,15 +42,16 @@ const fetchGifs = (offset) => gf.trending({ offset, limit: 10 })
 | fetchGifs                 | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
 | [Gif Events](#gif-events) | \*                                       | \*        | see below                                                                |
 
-```javascript
+```typescript
 import { Carousel } from '@giphy/react-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
 // use @giphy/js-fetch-api to fetch gifs
 const gf = new GiphyFetch('your api key')
-// fetch 10 gifs at a time from the GIPHY Trending API as the user scrolls
+
 // create a fetch gifs function that takes an `offset` parameter
-const fetchGifs = (offset) => gf.trending({ offset, limit: 10 })
+// this will allow the grid to paginate as the user scrolls
+const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 
 // React Component
 <Carousel gifHeight={200} gutter={6} fetchGifs={fetchGifs} />
@@ -66,7 +68,7 @@ _Gif props_
 | backgroundColor           | `string` | random giphy color | The background of the gif before it loads |
 | [Gif Events](#gif-events) | \*       | \*                 | see below                                 |
 
-```javascript
+```typescript
 import { Gif } from '@giphy/react-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
@@ -82,8 +84,8 @@ const { data } = await gf.gif('fpXxIjftmkk9y')
 
 | _prop_          | _type_                                                               | _description_                                                   |
 | --------------- | -------------------------------------------------------------------- | --------------------------------------------------------------- |
-| onGifHover      | `(gif: IGif, e: Event) => void`                                      | fired on desktop when hovered over                              |
-| onGifUnhover    | `(gif: IGif, e: Event) => void`                                      | fired on desktop on mouse out, given an active hover event      |
+| onGifHover      | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired on desktop when hovered over                              |
+| onGifUnhover    | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired on desktop on mouse out, given an active hover event      |
 | onGifVisible    | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired every time the gif is shown                               |
 | onGifSeen       | `(gif: IGif, boundingClientRect: ClientRect | DOMRect) => void`      | fired once after the gif loads and when it's completely in view |
 | onGifClick      | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is clicked                                   |
