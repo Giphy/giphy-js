@@ -123,6 +123,32 @@ renderCarousel(
 )
 ```
 
+## Gif
+
+_Gif props_
+
+| _prop_                    | _type_   | _default_          | _description_                             |
+| ------------------------- | -------- | ------------------ | ----------------------------------------- |
+| gif                       | `IGif`   | undefined          | The gif to display                        |
+| width                     | `number` | undefined          | The width of the gif                      |
+| backgroundColor           | `string` | random giphy color | The background of the gif before it loads |
+| [Gif Events](#gif-events) | \*       | \*                 | see below                                 |
+
+
+```javascript
+import { GiphyFetch } from '@giphy/js-fetch-api'
+import { renderGif } from '@giphy/js-components'
+
+(async () => {
+    const gf = new GiphyFetch('your api key')
+    const { data: gif } = await gf.gif('fpXxIjftmkk9y')
+    renderGif({
+        gif,
+        width: parseInt(gif['images']['original']['width'])
+    }, window.document.getElementById('giphy-gif'))
+})()
+```
+
 ### Gif Events
 
 | property        | type                                                                 | description                                                     |
