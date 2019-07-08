@@ -25,22 +25,24 @@ const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 
 <!-- The grid uses [bricks.js]() to render a grid with fixed width items. -->
 
-| _prop_                    | _type_                                   | _default_             | _description_                                                            |
-| ------------------------- | ---------------------------------------- | --------------------- | ------------------------------------------------------------------------ |
-| width                     | `number`                                 | document width or 800 | The width of the grid                                                    |
-| columns                   | `number`                                 | 3                     | The number of columns in the grid                                        |
-| gutter                    | `number`                                 | 6                     | The space between columns and rows                                       |
-| fetchGifs                 | `(offset:number) => Promise<GifsResult>` | undefined             | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
-| [Gif Events](#gif-events) | \*                                       | \*                    | see below                                                                |
+| _prop_                                | _type_                                   | _default_             | _description_                                                            |
+| ------------------------------------- | ---------------------------------------- | --------------------- | ------------------------------------------------------------------------ |
+| width                                 | `number`                                 | document width or 800 | The width of the grid                                                    |
+| columns                               | `number`                                 | 3                     | The number of columns in the grid                                        |
+| gutter                                | `number`                                 | 6                     | The space between columns and rows                                       |
+| fetchGifs                             | `(offset:number) => Promise<GifsResult>` | undefined             | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
+| [Gif Events](#gif-events)             | \*                                       | \*                    | see below                                                                |
+| [API Fetch Events](#api-fetch-events) | \*                                       | \*                    | see below                                                                |
 
 ## Carousel
 
-| _prop_                    | _type_                                   | _default_ | _description_                                                            |
-| ------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------ |
-| gifHeight                 | `number`                                 | undefined | The height of the gifs and the carousel                                  |
-| gutter                    | `number`                                 | 6         | The space between columns and rows                                       |
-| fetchGifs                 | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
-| [Gif Events](#gif-events) | \*                                       | \*        | see below                                                                |
+| _prop_                                | _type_                                   | _default_ | _description_                                                            |
+| ------------------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------ |
+| gifHeight                             | `number`                                 | undefined | The height of the gifs and the carousel                                  |
+| gutter                                | `number`                                 | 6         | The space between columns and rows                                       |
+| fetchGifs                             | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
+| [Gif Events](#gif-events)             | \*                                       | \*        | see below                                                                |
+| [API Fetch Events](#api-fetch-events) | \*                                       | \*        | see below                                                                |
 
 ```typescript
 import { Carousel } from '@giphy/react-components'
@@ -90,3 +92,12 @@ const { data } = await gf.gif('fpXxIjftmkk9y')
 | onGifSeen       | `(gif: IGif, boundingClientRect: ClientRect | DOMRect) => void`      | fired once after the gif loads and when it's completely in view |
 | onGifClick      | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is clicked                                   |
 | onGifRightClick | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is right clicked                             |
+
+### API Fetch Events
+
+| property        | type                                                                 | description                                                     |
+| --------------- | -------------------------------------------------------------------- | --------------------------------------------------------------- |
+| onFetch         | `(gifs: IGif[]) => void`                                             | fired by paginator on each fetch, provides list of gifs fetched |
+| onPage          | `(page: number) => void`                                             | fired by paginator on each fetch, provides page number          |
+| onGifsFetched   | `(gifs: IGif[]) => void`                                             | fired by component on each fetch, provides list of all gifs     |
+| onFetchError    | `(e: Error) => void`                                                 | fired by component on fetch error                               |

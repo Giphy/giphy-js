@@ -8,5 +8,5 @@ export interface EventProps {
     onFetch?: onFetch // used by fetch client
     onPage?: onPage // used by fetch client
     onGifsFetched?: onFetch // used by components
-    onFetchError?: onFetchError // used by components?
+    onFetchError?: onFetchError // used by components
 }
