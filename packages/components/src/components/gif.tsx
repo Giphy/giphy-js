@@ -3,7 +3,6 @@ import { IGif, IUser } from '@giphy/js-types'
 import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight } from '@giphy/js-util'
 import { css, cx } from 'emotion'
 import { Component, h } from 'preact'
-import addObserver from '../util/add-observer'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
 
@@ -70,23 +69,6 @@ class Gif extends Component<Props, State> {
         await checkIfWebP
         this.setState({ ready: true })
     }
-    async observeSeen() {
-        this.fullGifObserver = await addObserver(
-            this.container!,
-            ([entry]: IntersectionObserverEntry[]) => {
-                if (entry.isIntersecting) {
-                    this.hasFiredSeen = true
-                    // full gif seen
-                    const { onGifSeen, gif, user = {} } = this.props
-                    // fire pingback
-                    pingback.onGifSeen(gif, user, entry.boundingClientRect)
-                    // fire custom
-                    if (onGifSeen) onGifSeen(gif, entry.boundingClientRect)
-                }
-            },
-            { threshold: [1] },
-        )
-    }
     onMouseOver = (e: Event) => {
         const { gif, onGifHover, user = {} } = this.props
         clearTimeout(this.hoverTimeout)
@@ -106,22 +88,51 @@ class Gif extends Component<Props, State> {
     onMouseOut = () => {
         clearTimeout(this.hoverTimeout)
     }
+    createFullGifObserver() {
+        const fullGifObserver = new IntersectionObserver(
+            ([entry]: IntersectionObserverEntry[]) => {
+                if (entry.isIntersecting) {
+                    // flag so we don't observe any more
+                    this.hasFiredSeen = true
+                    const { onGifSeen, gif, user = {} } = this.props
+                    // fire pingback
+                    pingback.onGifSeen(gif, user, entry.boundingClientRect)
+                    // fire custom
+                    if (onGifSeen) onGifSeen(gif, entry.boundingClientRect)
+                    // disconnect
+                    fullGifObserver.disconnect()
+                }
+            },
+            { threshold: [0.98] },
+        )
+        this.fullGifObserver = fullGifObserver
+    }
     onImageLoad = (e: Event) => {
         const { gif, onGifVisible = () => {} } = this.props
+        if (!this.fullGifObserver) {
+            this.createFullGifObserver()
+        }
         // // onSeen is called only once per GIF and indicates that
         // // the image was loaded. onGifVisible will be called every time
         // // the image loads regardless of if its been loaded before
         // // or not.
         if (!this.hasFiredSeen) {
-            this.observeSeen()
+            this.fullGifObserver!.observe(this.container!)
         }
         onGifVisible(gif, e)
     }
-    async componentDidMount() {
-        this.observer = await addObserver(this.container!, ([entry]: IntersectionObserverEntry[]) => {
-            // we won't show the gif until we have our polyfill (if we need it)
-            this.setState({ showGif: entry.isIntersecting })
+    componentDidMount() {
+        this.observer = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
+            const { isIntersecting } = entry
+            // show the gif if the container is on the screen
+            this.setState({ showGif: isIntersecting })
+            // remove the fullGifObserver if we go off the screen
+            // we may have already disconnected if the hasFiredSeen happened
+            if (!isIntersecting && this.fullGifObserver) {
+                this.fullGifObserver.disconnect()
+            }
         })
+        this.observer.observe(this.container!)
     }
     componentWillUnmount() {
         if (this.observer) this.observer.disconnect()
