@@ -10,6 +10,7 @@ import Gif, { EventProps } from './gif'
 const carouselCss = css`
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
+    overflow-y: hidden;
     white-space: nowrap;
     position: relative;
 `
@@ -17,7 +18,7 @@ const carouselItemCss = css`
     display: inline-block;
     list-style: none;
     &:first-of-type {
-        margin-left: 0px;
+        margin-left: 0;
     }
 `
 
