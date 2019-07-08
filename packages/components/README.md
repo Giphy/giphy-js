@@ -10,7 +10,7 @@ A lightweight set of components, focused on ease-of-use and performance.
 
 Use `renderGrid(props, target)` to render a grid to a target element
 
-### Bare Bones Example
+### Bare Bones TypeScript Example
 
 ```typescript
 import { renderGrid } from '@giphy/js-components'
@@ -40,7 +40,7 @@ _renderGrid options_
 | [Gif Events](#gif-events)             | \*                                       | \*                    | see below                                                                |
 | [API Fetch Events](#api-fetch-events) | \*                                       | \*                    | see below                                                                |
 
-### Thorough Example
+### Thorough TypeScript Example
 
 ```typescript
 import { throttle } from 'throttle-debounce'
@@ -103,6 +103,8 @@ _renderCarousel options_
 | [Gif Events](#gif-events)             | \*                                       | \*        | see below                                                                |
 | [API Fetch Events](#api-fetch-events) | \*                                       | \*        | see below                                                                |
 
+_TypeScript example_
+
 ```typescript
 import { renderCarousel } from '@giphy/js-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
@@ -136,8 +138,9 @@ _Gif props_
 | backgroundColor           | `string` | random giphy color | The background of the gif before it loads |
 | [Gif Events](#gif-events) | \*       | \*                 | see below                                 |
 
+_TypeScript example_
 
-```javascript
+```typescript
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { renderGif } from '@giphy/js-components'
 

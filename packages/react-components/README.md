@@ -8,7 +8,7 @@ React components, focused on ease-of-use and performance.
 
 ## Grid
 
-### Bare Bones Example
+### Bare Bones Typescript Example
 
 ```typescript
 import { Grid } from '@giphy/react-components'
@@ -44,6 +44,8 @@ const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 | [Gif Events](#gif-events)             | \*                                       | \*        | see below                                                                |
 | [API Fetch Events](#api-fetch-events) | \*                                       | \*        | see below                                                                |
 
+_TypeScript example_
+
 ```typescript
 import { Carousel } from '@giphy/react-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
@@ -69,6 +71,8 @@ _Gif props_
 | width                     | `number` | undefined          | The width of the gif                      |
 | backgroundColor           | `string` | random giphy color | The background of the gif before it loads |
 | [Gif Events](#gif-events) | \*       | \*                 | see below                                 |
+
+_TypeScript example_
 
 ```typescript
 import { Gif } from '@giphy/react-components'
