@@ -88,6 +88,8 @@ const { data } = await gf.gif('fpXxIjftmkk9y')
 
 ### Gif Events
 
+Subscribe to Gif component events by passing callbacks as the following props.
+
 | _prop_          | _type_                                                               | _description_                                                   |
 | --------------- | -------------------------------------------------------------------- | --------------------------------------------------------------- |
 | onGifHover      | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired on desktop when hovered over                              |
@@ -97,7 +99,23 @@ const { data } = await gf.gif('fpXxIjftmkk9y')
 | onGifClick      | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is clicked                                   |
 | onGifRightClick | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is right clicked                             |
 
+_TypeScript example: overriding `onGifClick` event in a grid_
+
+```typescript
+import { IGif } from '@giphy/js-types'
+import { GiphyFetch } from '@giphy/js-fetch-api'
+import { Grid } from '@giphy/react-components'
+
+const gf = new GiphyFetch('your api key')
+<Grid
+    fetchGifs={(offset: number) => gf.trending({ offset, limit: 10 })}
+    onGifClick={(gif: IGif, e: Event) => { e.preventDefault(); console.log(gif) }}
+/>
+```
+
 ### API Fetch Events
+
+Subscribe to API fetch events by passing callbacks as the following props.
 
 | property        | type                                                                 | description                                                     |
 | --------------- | -------------------------------------------------------------------- | --------------------------------------------------------------- |
@@ -105,3 +123,17 @@ const { data } = await gf.gif('fpXxIjftmkk9y')
 | onPage          | `(page: number) => void`                                             | fired by paginator on each fetch, provides page number          |
 | onGifsFetched   | `(gifs: IGif[]) => void`                                             | fired by component on each fetch, provides list of all gifs     |
 | onFetchError    | `(e: Error) => void`                                                 | fired by component on fetch error                               |
+
+_TypeScript example: carousel pagination_
+
+```typescript
+import { IGif } from '@giphy/js-types'
+import { GiphyFetch } from '@giphy/js-fetch-api'
+import { Carousel } from '@giphy/react-components'
+
+const gf = new GiphyFetch('your api key')
+<Carousel
+    fetchGifs={(offset: number) => gf.trending({ offset, limit: 10 })}
+    onPage={(page: number) => { console.log(page) }}
+/>
+```
