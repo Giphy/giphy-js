@@ -1,19 +1,18 @@
 import { IGif } from '@giphy/js-types'
 import { GifsResult } from './result-types'
-import { onFetch, onPage } from './event-types'
+import { onFetch as onFetchType, onPage as onPageType } from './event-types'
 
 /**
  * @hidden
  */
-export const gifPaginator = (
-{
+export const gifPaginator = ({
     fetchGifs,
     onFetch,
-    onPage
+    onPage,
 }: {
     fetchGifs: (offset: number) => Promise<GifsResult>
-    onFetch?: onFetch
-    onPage?: onPage
+    onFetch?: onFetchType
+    onPage?: onPageType
 }) => {
     let gifs: IGif[] = []
     // for deduping

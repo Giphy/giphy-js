@@ -119,7 +119,7 @@ class Gif extends Component<Props, State> {
         const { gif, onGifUnhover } = this.props
         const { isHovered } = this.state
         clearTimeout(this.hoverTimeout)
-        if(isHovered) {
+        if (isHovered) {
             this.unhoverTimeout = setTimeout(() => {
                 this.setState({ isHovered: false })
                 onGifUnhover && onGifUnhover(gif, e)
