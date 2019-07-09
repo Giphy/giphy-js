@@ -71,14 +71,25 @@ class Carousel extends Component<Props, State> {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
     onFetch = debounce(100, async () => {
-        const { isFetching, isLoaderVisible } = this.state
+        const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
         if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true })
-            const gifs = await this.paginator()
-            this.setState({ gifs, isFetching: false })
-            const { onGifsFetched } = this.props
-            if (onGifsFetched) onGifsFetched(gifs)
-            this.onFetch()
+            let gifs
+            try {
+                gifs = await this.paginator()
+            } catch (error) {
+                this.setState({ isFetching: false })
+            }
+            if (gifs) {
+                if (existingGifs.length === gifs.length) {
+                    this.setState({ isDoneFetching: true })
+                } else {
+                    this.setState({ gifs, isFetching: false })
+                    const { onGifsFetched } = this.props
+                    if (onGifsFetched) onGifsFetched(gifs)
+                    this.onFetch()
+                }
+            }
         }
     })
     render(
