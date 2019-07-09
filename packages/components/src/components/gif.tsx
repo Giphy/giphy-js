@@ -1,6 +1,6 @@
 import { giphyBlack, giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, IUser } from '@giphy/js-types'
-import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight } from '@giphy/js-util'
+import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight, Logger } from '@giphy/js-util'
 import { css, cx } from 'emotion'
 import { Component, h } from 'preact'
 import * as pingback from '../util/pingback'
@@ -95,6 +95,7 @@ class Gif extends Component<Props, State> {
                     // flag so we don't observe any more
                     this.hasFiredSeen = true
                     const { onGifSeen, gif, user = {} } = this.props
+                    Logger.debug(`GIF ${gif.id} seen. ${gif.title}`)
                     // fire pingback
                     pingback.onGifSeen(gif, user, entry.boundingClientRect)
                     // fire custom

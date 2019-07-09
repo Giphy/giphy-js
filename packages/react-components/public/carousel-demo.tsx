@@ -13,15 +13,7 @@ type Props = {}
 
 class CarouselDemo extends PureComponent<Props, State> {
     render() {
-        return (
-            <Carousel
-                gifHeight={200}
-                user={{}}
-                gutter={6}
-                fetchGifs={fetchGifs}
-                onGifSeen={({ id }) => console.log(id)}
-            />
-        )
+        return <Carousel gifHeight={200} user={{}} gutter={6} fetchGifs={fetchGifs} />
     }
 }
 
