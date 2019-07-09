@@ -103,7 +103,6 @@ class Carousel extends PureComponent<Props, State> {
             gifHeight,
             gutter,
             className = Carousel.className,
-            onGifHover,
             onGifSeen,
             onGifClick,
             user,
@@ -130,7 +129,6 @@ class Carousel extends PureComponent<Props, State> {
                             key={gif.id}
                             width={gifWidth}
                             onGifClick={onGifClick}
-                            onGifHover={onGifHover}
                             onGifSeen={onGifSeen}
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}

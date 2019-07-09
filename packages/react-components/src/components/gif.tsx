@@ -16,8 +16,6 @@ export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLOR
 const hoverTimeoutDelay = 200
 
 export type EventProps = {
-    // fired on desktop when hovered for
-    onGifHover?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
     // fired every time the gif is show
     onGifVisible?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
     // fired once after the gif loads and when it's completely in view
@@ -88,13 +86,12 @@ class Gif extends PureComponent<Props, State> {
         this.setState({ ready: true })
     }
     onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
-        const { gif, onGifHover, user = {} } = this.props
+        const { gif, user = {} } = this.props
         clearTimeout(this.hoverTimeout)
         e.persist()
         this.setState({ isHovered: true })
         this.hoverTimeout = setTimeout(() => {
             pingback.onGifHover(gif, user, e.target as HTMLElement)
-            onGifHover && onGifHover(gif, e)
         }, hoverTimeoutDelay)
     }
     onMouseOut = () => {
