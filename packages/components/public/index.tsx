@@ -1,7 +1,7 @@
-import { PreactGrid, vanillaJSGrid } from './grid'
+import { PreactGrid, vanillaJSGrid } from './grid-demo'
 import { css } from '@giphy/js-brand'
-import { PreactCarousel, vanillaJSCarousel } from './carousel'
-import { vanillaJSGif, PreactGif } from './gif'
+import { PreactCarousel, vanillaJSCarousel } from './carousel-demo'
+import { vanillaJSGif, PreactGif } from './gif-demo'
 
 const gridTarget = document.getElementById('grid')!
 const carouselTarget = document.getElementById('carousel')!

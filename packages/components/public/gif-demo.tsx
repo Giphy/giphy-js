@@ -5,19 +5,28 @@ import { IGif } from '@giphy/js-types'
 import { css } from 'emotion'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
+const getEl = (targetEl: HTMLElement, selector: string): HTMLElement => {
+    let componentTarget = targetEl.querySelector(`.${selector}`)
+    if (!componentTarget) {
+        componentTarget = document.createElement('div')
+        componentTarget.className = selector
+        targetEl.appendChild(componentTarget)
+    }
+    return componentTarget as HTMLElement
+}
 export const vanillaJSGif = async (targetEl: HTMLElement) => {
     // target all gifs by Gif.className
     targetEl.className = css`
         .${Gif.className} {
-            display: inline-block;
+            margin-right: 6px;
         }
     `
+    // render a gif
     const { data: gif1 } = await gf.gif('fpXxIjftmkk9y')
-    // no className prop will merge props with an existing Gif using the default className
-    renderGif({ gif: gif1, width: 300 }, targetEl)
+    renderGif({ gif: gif1, width: 300 }, getEl(targetEl, 'gif1'))
+    // render another gif
     const { data: gif2 } = await gf.gif('1DqOFqULOqe5y')
-    // create new gifs in a targetEl by providing a unique className prop
-    renderGif({ gif: gif2, width: 300, className: 'gif-1DqOFqULOqe5y' }, targetEl)
+    renderGif({ gif: gif2, width: 300, className: 'gif-1DqOFqULOqe5y' }, getEl(targetEl, 'gif2'))
 }
 
 export namespace PreactGif {
