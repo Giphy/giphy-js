@@ -17,6 +17,8 @@ const carouselCss = css`
 const carouselItemCss = css`
     display: inline-block;
     list-style: none;
+    /* make sure gifs are fully visible with a scrollbar */
+    margin-bottom: 1px;
     &:first-of-type {
         margin-left: 0;
     }
@@ -28,7 +30,6 @@ const loaderContainerCss = css`
 
 const loaderCss = css`
     width: 30px;
-    height: 100%;
     display: inline-block;
 `
 
@@ -111,10 +112,10 @@ class Carousel extends Component<Props, State> {
         const marginCss = css`
             margin-left: ${gutter}px;
         `
-        const containerHeightCss = css`
+        const gifHeightCss = css`
             height: ${gifHeight}px;
         `
-        const containerCss = cx(className, containerHeightCss, carouselCss)
+        const containerCss = cx(className, carouselCss)
         const gifCss = cx(carouselItemCss, marginCss)
         return (
             <div class={containerCss}>
@@ -137,7 +138,7 @@ class Carousel extends Component<Props, State> {
                 })}
                 {showLoader && (
                     <Observer className={loaderContainerCss} onVisibleChange={this.onLoaderVisible}>
-                        <div className={loaderCss} />
+                        <div className={cx(loaderCss, gifHeightCss)} />
                     </Observer>
                 )}
             </div>

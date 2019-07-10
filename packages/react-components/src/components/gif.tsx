@@ -122,7 +122,7 @@ class Gif extends PureComponent<Props, State> {
                     fullGifObserver.disconnect()
                 }
             },
-            { threshold: [0.98] },
+            { threshold: [1] },
         )
         this.fullGifObserver = fullGifObserver
     }
