@@ -44,7 +44,7 @@ class Grid extends Component<Props, State> {
     readonly state = initialState
     bricks?: any
     el?: HTMLElement
-    paginator: () => Promise<IGif[]>
+    paginator = gifPaginator(this.props.fetchGifs)
     static getDerivedStateFromProps({ columns, gutter, width }: Readonly<Props>, prevState: Readonly<State>) {
         const gutterOffset = gutter * (columns - 1)
         const gifWidth = Math.floor((width - gutterOffset) / columns)
@@ -52,10 +52,6 @@ class Grid extends Component<Props, State> {
             return { gifWidth }
         }
         return {}
-    }
-    constructor(props: Props) {
-        super(props)
-        this.paginator = gifPaginator(props.fetchGifs)
     }
     setBricks() {
         const { columns, gutter } = this.props

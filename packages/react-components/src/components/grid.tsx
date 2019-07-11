@@ -46,7 +46,7 @@ class Grid extends PureComponent<Props, State> {
     readonly state = initialState
     bricks?: any
     el?: HTMLDivElement | null
-    paginator: () => Promise<IGif[]>
+    paginator = gifPaginator(this.props.fetchGifs)
     static getDerivedStateFromProps({ columns, gutter, width }: Props, prevState: State) {
         const gutterOffset = gutter * (columns - 1)
         const gifWidth = Math.floor((width - gutterOffset) / columns)
@@ -54,10 +54,6 @@ class Grid extends PureComponent<Props, State> {
             return { gifWidth }
         }
         return null
-    }
-    constructor(props: Props) {
-        super(props)
-        this.paginator = gifPaginator(props.fetchGifs)
     }
     setBricks() {
         const { columns, gutter } = this.props
@@ -132,7 +128,6 @@ class Grid extends PureComponent<Props, State> {
             onGifVisible,
             onGifRightClick,
             className = Grid.className,
-            onGifHover,
             onGifSeen,
             onGifClick,
             user,
@@ -149,7 +144,6 @@ class Grid extends PureComponent<Props, State> {
                             key={gif.id}
                             width={gifWidth}
                             onGifClick={onGifClick}
-                            onGifHover={onGifHover}
                             onGifSeen={onGifSeen}
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}

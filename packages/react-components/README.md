@@ -10,7 +10,9 @@ React components, focused on ease-of-use and performance.
 
 ### Bare Bones Example
 
-```typescript
+See [codesandbox](https://codesandbox.io/s/giphyreact-components-hbmcf?from-embed) for runnable code
+
+```tsx
 import { Grid } from '@giphy/react-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 // use @giphy/js-fetch-api to fetch gifs
@@ -18,7 +20,7 @@ const gf = new GiphyFetch('your api key')
 // fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
 const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 // React Component
-<Grid width={width} columns={3} gutter={6} fetchGifs={fetchGifs} />
+ReactDOM.render(<Grid width={800} columns={3} gutter={6} fetchGifs={fetchGifs} />, target)
 ```
 
 <!-- The grid uses [bricks.js]() to render a grid with fixed width items. -->
@@ -40,7 +42,9 @@ const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 | gutter                    | `number`                                 | 6         | The space between columns and rows                                       |
 | [Gif Events](#gif-events) | \*                                       | \*        | see below                                                                |
 
-```typescript
+See [codesandbox](https://codesandbox.io/s/giphyreact-components-hbmcf?from-embed) for runnable code
+
+```tsx
 import { Carousel } from '@giphy/react-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
@@ -50,21 +54,24 @@ const gf = new GiphyFetch('your api key')
 const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 
 // React Component
-<Carousel gifHeight={200} gutter={6} fetchGifs={fetchGifs} />
+ReactDOM.render(<Carousel gifHeight={200} gutter={6} fetchGifs={fetchGifs} />, target)
 ```
 
 ## Gif
 
 _Gif props_
 
-| _prop_                    | _type_   | _default_          | _description_                             |
-| ------------------------- | -------- | ------------------ | ----------------------------------------- |
-| gif                       | `IGif`   | undefined          | The gif to display                        |
-| width                     | `number` | undefined          | The width of the gif                      |
-| backgroundColor           | `string` | random giphy color | The background of the gif before it loads |
-| [Gif Events](#gif-events) | \*       | \*                 | see below                                 |
+| _prop_                    | _type_                                     | _default_          | _description_                             |
+| ------------------------- | ------------------------------------------ | ------------------ | ----------------------------------------- |
+| gif                       | `IGif`                                     | undefined          | The gif to display                        |
+| width                     | `number`                                   | undefined          | The width of the gif                      |
+| backgroundColor           | `string`                                   | random giphy color | The background of the gif before it loads |
+| [overlay](#gif-overlay)   | `(props: GifOverlayProps):ReactType => {}` | undefined          | see below                                 |
+| [Gif Events](#gif-events) | \*                                         | \*                 | see below                                 |
 
-```typescript
+See [codesandbox](https://codesandbox.io/s/giphyreact-components-hbmcf?from-embed) for runnable code
+
+```tsx
 import { Gif } from '@giphy/react-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
@@ -73,14 +80,52 @@ const gf = new GiphyFetch('your api key')
 // fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
 const { data } = await gf.gif('fpXxIjftmkk9y')
 // React Component
-<Gif gif={data} width={300} />
+ReactDOM.render(<Gif gif={data} width={300} />, target)
+```
+
+### GifOverlay
+
+The overlay prop, available on all components allows you to overlay a gif with a custom UI and respond to hover events (desktop only).
+
+_Overlay props_
+
+| _prop_    | _type_    | _default_ | _description_                   |
+| --------- | --------- | --------- | ------------------------------- |
+| gif       | `IGif`    | undefined | The gif that is being displayed |
+| isHovered | `boolean` | false     | The current hover state         |
+
+See [codesandbox](https://codesandbox.io/s/giphyreact-components-hbmcf?from-embed) for runnable code
+
+```css
+/* css for overlay */
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 255, 0, 0.3);
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+```
+
+```tsx
+// Overlay component gets GifOverlayProps
+const Overlay = ({ gif, isHovered }: GifOverlayProps) => {
+    return <div className="overlay">{isHovered ? gif.id : ''}</div>
+}
+
+// React component
+ReactDOM.render(<Carousel gifHeight={200} fetchGifs={fetchGifs} overlay={Overlay} />, target)
 ```
 
 ### Gif Events
 
 | _prop_          | _type_                                                               | _description_                                                   |
 | --------------- | -------------------------------------------------------------------- | --------------------------------------------------------------- |
-| onGifHover      | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired on desktop when hovered for                               |
 | onGifVisible    | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired every time the gif is show                                |
 | onGifSeen       | `(gif: IGif, boundingClientRect: ClientRect &#124; DOMRect) => void` | fired once after the gif loads and when it's completely in view |
 | onGifClick      | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is clicked                                   |

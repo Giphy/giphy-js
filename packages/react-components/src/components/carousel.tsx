@@ -10,6 +10,7 @@ import Gif, { EventProps, GifOverlayProps } from './gif'
 const carouselCss = css`
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
+    overflow-y: hidden;
     white-space: nowrap;
     position: relative;
 `
@@ -17,8 +18,10 @@ const carouselItemCss = css`
     position: relative;
     display: inline-block;
     list-style: none;
+    /* make sure gifs are fully visible with a scrollbar */
+    margin-bottom: 1px;
     &:first-of-type {
-        margin-left: 0px;
+        margin-left: 0;
     }
     img {
         position: absolute;
@@ -33,7 +36,6 @@ const loaderContainerCss = css`
 
 const loaderCss = css`
     width: 30px;
-    height: 100%;
     display: inline-block;
 `
 
@@ -65,11 +67,7 @@ class Carousel extends PureComponent<Props, State> {
     static readonly defaultProps = defaultProps
     readonly state = initialState
     el?: HTMLElement
-    paginator: () => Promise<IGif[]>
-    constructor(props: Props) {
-        super(props)
-        this.paginator = gifPaginator(props.fetchGifs)
-    }
+    paginator = gifPaginator(this.props.fetchGifs)
     componentDidMount() {
         this.onFetch()
     }
@@ -106,7 +104,6 @@ class Carousel extends PureComponent<Props, State> {
             gifHeight,
             gutter,
             className = Carousel.className,
-            onGifHover,
             onGifSeen,
             onGifClick,
             user,
@@ -117,10 +114,10 @@ class Carousel extends PureComponent<Props, State> {
         const marginCss = css`
             margin-left: ${gutter}px;
         `
-        const containerHeightCss = css`
+        const gifHeightCss = css`
             height: ${gifHeight}px;
         `
-        const containerCss = cx(className, containerHeightCss, carouselCss)
+        const containerCss = cx(className, carouselCss)
         const gifCss = cx(carouselItemCss, marginCss)
         return (
             <div className={containerCss}>
@@ -133,7 +130,6 @@ class Carousel extends PureComponent<Props, State> {
                             key={gif.id}
                             width={gifWidth}
                             onGifClick={onGifClick}
-                            onGifHover={onGifHover}
                             onGifSeen={onGifSeen}
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}
@@ -144,7 +140,7 @@ class Carousel extends PureComponent<Props, State> {
                 })}
                 {showLoader && (
                     <Observer className={loaderContainerCss} onVisibleChange={this.onLoaderVisible}>
-                        <div className={loaderCss} />
+                        <div className={cx(loaderCss, gifHeightCss)} />
                     </Observer>
                 )}
             </div>
