@@ -14,7 +14,8 @@
     "description": "Javascript API to fetch gifs and stickers from the GIPHY API.",
     "types": "dist/index.d.ts",
     "files": [
-        "dist/**/*"
+        "dist/**/*",
+        "src/**/*"
     ],
     "license": "MIT",
     "publishConfig": {
