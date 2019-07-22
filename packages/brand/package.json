@@ -19,7 +19,8 @@
     "description": "colors, fonts, and other shared css",
     "types": "./dist/index.d.ts",
     "files": [
-        "dist/**/*"
+        "dist/**/*",
+        "src/**/*"
     ],
     "author": "giannif",
     "license": "MIT",

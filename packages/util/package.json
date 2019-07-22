@@ -13,7 +13,8 @@
     "description": "Shared giphy js utils",
     "types": "dist/index.d.ts",
     "files": [
-        "dist/**/*"
+        "dist/**/*",
+        "src/**/*"
     ],
     "license": "MIT",
     "publishConfig": {

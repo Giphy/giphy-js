@@ -38,3 +38,16 @@ export default interface IUser extends IPublicUser {
     // website URL -- primary_site value if there is one
     website_url?: string
 }
+
+export interface IProfileUser extends IUser {
+    // user's email
+    email: string
+    gender?: 'male' | 'female' | 'other'
+    // birthdate in 'YYYY-MM-DD' format
+    birthdate?: string
+    // READ ONLY FIELDS BELOW
+    // URL to channel
+    profile_url: string
+    // if the user hasn't choosen an avatar
+    has_default_avatar: boolean
+}
