@@ -2,7 +2,7 @@ import { giphyBlack, giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow }
 import { IGif, IUser } from '@giphy/js-types'
 import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight, Logger } from '@giphy/js-util'
 import { css, cx } from 'emotion'
-import React, { PureComponent, ReactType, SyntheticEvent, createContext } from 'react'
+import React, { PureComponent, ReactType, SyntheticEvent, createContext, GetDerivedStateFromProps } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
 
@@ -70,7 +70,10 @@ class Gif extends PureComponent<Props, State> {
         super(props)
         this.check()
     }
-    static getDerivedStateFromProps({ gif, backgroundColor }: Readonly<Props>, prevState: Readonly<State>) {
+    static getDerivedStateFromProps: GetDerivedStateFromProps<Props, State> = (
+        { gif, backgroundColor }: Readonly<Props>,
+        prevState: Readonly<State>,
+    ) => {
         const newBackgroundColor =
             // specified background prop
             backgroundColor ||

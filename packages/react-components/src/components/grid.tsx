@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactType } from 'react'
+import React, { PureComponent, ReactType, GetDerivedStateFromProps } from 'react'
 import { debounce } from 'throttle-debounce'
 import Gif, { EventProps, GifOverlayProps } from './gif'
 import Bricks from 'bricks.js'
@@ -47,7 +47,10 @@ class Grid extends PureComponent<Props, State> {
     bricks?: any
     el?: HTMLDivElement | null
     paginator = gifPaginator(this.props.fetchGifs)
-    static getDerivedStateFromProps({ columns, gutter, width }: Props, prevState: State) {
+    static getDerivedStateFromProps: GetDerivedStateFromProps<Props, State> = (
+        { columns, gutter, width }: Props,
+        prevState: State,
+    ) => {
         const gutterOffset = gutter * (columns - 1)
         const gifWidth = Math.floor((width - gutterOffset) / columns)
         if (prevState.gifWidth !== gifWidth) {
