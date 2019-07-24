@@ -42,6 +42,7 @@ const initialState = Object.freeze({
 
 class Grid extends PureComponent<Props, State> {
     static className = 'giphy-grid'
+    static loaderClassName = 'loader'
     static readonly defaultProps = defaultProps
     readonly state = initialState
     bricks?: any
@@ -160,7 +161,7 @@ class Grid extends PureComponent<Props, State> {
                 ) : (
                     showLoader && (
                         <Observer onVisibleChange={this.onLoaderVisible}>
-                            <Loader />
+                            <Loader className={Grid.loaderClassName} />
                         </Observer>
                     )
                 )}
