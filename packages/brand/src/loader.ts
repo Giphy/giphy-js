@@ -14,7 +14,7 @@ const loader = css`
     padding-top: 15px;
     margin: 0 auto;
     text-align: center;
-    width: 200px;
+    justify-content: center;
     animation: pulse 0.8s ease-in-out 0s infinite alternate backwards;
     div {
         display: inline-block;
