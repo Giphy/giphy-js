@@ -30,7 +30,12 @@ interface IRenditionWithName extends IRendition {
     renditionName: keyof IImages
 }
 
-export const getBestRendition = (images: IImages, gifWidth: number, gifHeight: number): IRenditionWithName => {
+export const getBestRendition = (
+    images: IImages,
+    gifWidth: number,
+    gifHeight: number,
+    scaleUpMaxPixels?: number,
+): IRenditionWithName => {
     const checkRenditions = pick(images, [
         'original',
         'fixed_width',
@@ -42,18 +47,23 @@ export const getBestRendition = (images: IImages, gifWidth: number, gifHeight: n
         renditionName,
         ...val,
     })) as IRenditionWithName[]
-    return bestfit(testImages, gifWidth, gifHeight) as IRenditionWithName
+    return bestfit(testImages, gifWidth, gifHeight, scaleUpMaxPixels) as IRenditionWithName
 }
 
+type Options = {
+    isStill?: boolean
+    useVideo?: boolean
+    scaleUpMaxPixels?: number
+}
 export const getBestRenditionUrl = (
     { images }: IGif,
     gifWidth: number,
     gifHeight: number,
-    isStill = false,
-    useVideo = false,
+    options: Options = { isStill: false, useVideo: false },
 ): keyof IImages | '' => {
     if (!gifWidth || !gifHeight || !images) return ''
-    const { renditionName } = getBestRendition(images, gifWidth, gifHeight)
+    const { useVideo, isStill, scaleUpMaxPixels } = options
+    const { renditionName } = getBestRendition(images, gifWidth, gifHeight, scaleUpMaxPixels)
     const key = `${renditionName}${isStill && !useVideo ? '_still' : ''}`
     // @ts-ignore come back to this
     const rendition = images[key]
