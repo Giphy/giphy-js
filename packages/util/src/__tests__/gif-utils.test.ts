@@ -73,11 +73,11 @@ describe('response parsing', () => {
             images: images as IImages,
         }
         expect(getBestRenditionUrl(dummyGif as IGif, 10, 10)).toBe(fixedWidth.url)
-        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, true)).toBe(fixedWidthStill.url)
-        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, true, true)).toBe(fixedWidth.mp4)
+        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, { isStill: true })).toBe(fixedWidthStill.url)
+        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, { useVideo: true })).toBe(fixedWidth.mp4)
         require('../webp-check').__setWebP(true)
         expect(getBestRenditionUrl(dummyGif as IGif, 10, 10)).toBe(fixedWidth.webp)
-        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, true)).toBe(fixedWidthStill.webp)
+        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, { isStill: true })).toBe(fixedWidthStill.webp)
     })
 
     test('getSpecificRendition', () => {

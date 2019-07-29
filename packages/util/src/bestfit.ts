@@ -1,8 +1,9 @@
 import { IRendition } from '@giphy/js-types'
 
-const chooseFunc = (width: number, height: number) => (renditions: IRendition[]) => {
+const closestArea = (width: number, height: number, renditions: IRendition[]) => {
     let currentBest = Infinity
     let result: IRendition
+    // sort the renditions so we can avoid scaling up low resolutions
     renditions.forEach((rendition: IRendition) => {
         const widthPercentage = rendition.width / width
         const heightPercentage = rendition.height / height
@@ -17,6 +18,7 @@ const chooseFunc = (width: number, height: number) => (renditions: IRendition[])
     })
     return result!
 }
+
 /**
  * Finds image rendition that best fits a given container preferring images
  * ##### Note: all renditions are assumed to have the same aspect ratio
@@ -29,25 +31,23 @@ const chooseFunc = (width: number, height: number) => (renditions: IRendition[])
  * @param {Array.<Object>} renditions available image renditions each having a width and height property
  * @param {Number} width
  * @param {Number} height
+ * @param {Number} scaleUpMaxPixels the maximum pixels an asset should be scaled up
  */
-function bestfit(renditions: Array<IRendition>, width: number, height: number) {
-    let result
-    const choose = chooseFunc(width, height)
-    const [testRendition] = renditions
-
-    // landscape target, portrait gif
-    if (width > height && testRendition.width < testRendition.height) {
-        // make sure the rendition is as wide as the target
-        result = choose(renditions.filter(rendition => rendition.width >= width))
+function bestfit(renditions: Array<IRendition>, width: number, height: number, scaleUpMaxPixels: number = 20) {
+    let [largestRendition] = renditions
+    // filter out renditions that are smaller than the target width and height by scaleUpMaxPixels value
+    let testRenditions = renditions.filter(rendition => {
+        if (rendition.width * rendition.height > largestRendition.width * largestRendition.height) {
+            largestRendition = rendition
+        }
+        return width - rendition.width <= scaleUpMaxPixels && height - rendition.height <= scaleUpMaxPixels
+    })
+    // if all are too small, use the largest we have
+    if (testRenditions.length === 0) {
+        return largestRendition
     }
-    // portrait target, landscape gif
-    if (width < height && testRendition.width > testRendition.height) {
-        // make sure the rendition is as tall as the target
-        result = choose(renditions.filter(rendition => rendition.height >= height))
-    }
-    // matching target and rendition
-    result = result || choose(renditions)
-    return result
+    // find the closest area of the filtered renditions
+    return closestArea(width, height, testRenditions)
 }
 
 export default bestfit
