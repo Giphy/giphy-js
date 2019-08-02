@@ -2,7 +2,7 @@
     "scripts": {
         "clean": "rm -rf ./dist",
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
-        "dev": "parcel public/test.html",
+        "dev": "parcel public/test.html -p 4001",
         "build": "tsc",
         "prepublish": "npm run clean && tsc"
     },

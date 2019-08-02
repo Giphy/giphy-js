@@ -9,6 +9,11 @@ import AdPill from './ad-pill'
 const gifCss = css`
     display: block;
 `
+const stickerCss = css`
+    display: block;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AQMAAACSSKldAAAABlBMVEUhIiIWFhYoSqvJAAAAGElEQVQY02MAAv7///8PWxqIPwDZw5UGABtgwz2xhFKxAAAAAElFTkSuQmCC')
+        0 0;
+`
 
 export const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow]
 export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLORS.length - 1))]
@@ -176,8 +181,12 @@ class Gif extends PureComponent<Props, State> {
         return (
             <a
                 href={gif.url}
-                style={{ backgroundColor, width, height }}
-                className={cx(Gif.className, gifCss, className)}
+                style={{
+                    backgroundColor,
+                    width,
+                    height,
+                }}
+                className={cx(Gif.className, gif.is_sticker ? stickerCss : gifCss, className)}
                 onMouseOver={this.onMouseOver}
                 onMouseOut={this.onMouseOut}
                 onClick={this.onClick}
