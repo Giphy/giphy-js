@@ -7,6 +7,7 @@ export const giphyCharcoal = '#4a4a4a'
 export const giphyLightCharcoal = '#5c5c5c'
 export const giphyLightGrey = '#a6a6a6'
 export const giphyLightestGrey = '#d8d8d8'
+export const giphyWhiteSmoke = '#ececec'
 export const giphyWhite = '#ffffff'
 /* primary */
 export const giphyBlue = '#00ccff'
