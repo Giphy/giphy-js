@@ -11,6 +11,7 @@ import {
     SubcategoriesOptions,
     MediaType,
     RelatedOptions,
+    PaginationOptions,
 } from './option-types'
 import { normalizeGifs, normalizeGif } from './normalize/gif'
 
@@ -70,6 +71,10 @@ export class GiphyFetch {
             return request(`gifs?${this.getQS({ ids: arg1.join(',') })}`, normalizeGifs) as Promise<GifsResult>
         }
         return request(`gifs/categories/${arg1}/${arg2}?${this.getQS()}`, normalizeGifs) as Promise<GifsResult>
+    }
+
+    emoji(options?: PaginationOptions): Promise<GifsResult> {
+        return request(`emoji?${this.getQS(options)}`, normalizeGifs, 'EMOJI') as Promise<GifsResult>
     }
 
     /**
