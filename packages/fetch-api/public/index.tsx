@@ -1,6 +1,6 @@
 import { GiphyFetch } from '../src/api'
 
-const gf = new GiphyFetch('4OMJYpPoYwVpe')
+const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
 const categories = async () => {
     try {
@@ -76,6 +76,15 @@ const random = async () => {
         console.error(`random`, error)
     }
 }
+
+const emoji = async () => {
+    try {
+        const result = await gf.emoji({ limit: 2 })
+        console.log(`emoji`, result)
+    } catch (error) {
+        console.error(`emoji`, error)
+    }
+}
 categories()
 search()
 gif()
@@ -86,3 +95,4 @@ subcategories()
 trending()
 random()
 related()
+emoji()

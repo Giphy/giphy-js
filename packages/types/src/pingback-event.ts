@@ -1,1 +1,9 @@
-export type PingbackEventType = 'GIF_TRENDING' | 'GIF_RELATED' | 'GIF_CHANNEL' | 'GIF_SEARCH' | 'GIF_EXPLORE' | ''
+export type PingbackEventType =
+    | 'GIF_TRENDING'
+    | 'GIF_RELATED'
+    | 'GIF_CHANNEL'
+    | 'GIF_SEARCH'
+    | 'EMOJI'
+    | 'TEXT_SEARCH'
+    | 'TEXT_TRENDING'
+    | ''

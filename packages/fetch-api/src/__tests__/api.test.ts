@@ -124,6 +124,11 @@ describe('response parsing', () => {
         const { data } = await gf.related('12345')
         testDummyGif(data[0], 'GIF_RELATED')
     })
+    test('emoji', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
+        const { data } = await gf.emoji()
+        testDummyGif(data[0], 'EMOJI')
+    })
     test('error', async () => {
         fetchMock.mockResponses([JSON.stringify({}), { status: 400 }])
         try {
