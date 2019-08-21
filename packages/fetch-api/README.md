@@ -116,6 +116,24 @@ related(id: string, options?: RelatedOptions): Promise<GifsResult>
 const { data: gifs } = await gf.related('3oEjHGr1Fhz0kyv8Ig', { limit: 10 })
 ```
 
+## _emoji_
+
+Fetch emoji
+
+##### Signature:
+
+```typescript
+emoji(options?: PaginationOptions): Promise<GifsResult>
+```
+
+> Emoji Options: [Pagination Options](#pagination-options)
+
+##### Example:
+
+```typescript
+const { data: gifs } = await gf.emoji()
+```
+
 ## _random_
 
 Returns a random single GIF
@@ -190,8 +208,8 @@ Options: [Pagination Options](#pagination-options)
 
 ### Type Option
 
-| option | type   | description    | default |
-| :----- | :----- | :------------- | :-----: |
-| _type_ | string | gif or sticker |   gif   |
+| option | type   | description          | default |
+| :----- | :----- | :------------------- | :-----: |
+| _type_ | string | gif / sticker / text |   gif   |
 
 [lang]: https://developers.giphy.com/docs/#language-support
