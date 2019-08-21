@@ -82,9 +82,10 @@ export class GiphyFetch {
      * @param options: SearchOptions
      * @returns {Promise<GifsResult>}
      **/
-    search(term: string, options?: SearchOptions): Promise<GifsResult> {
+    search(term: string, options: SearchOptions = {}): Promise<GifsResult> {
         const qsParams = this.getQS({ ...options, ...{ q: term } })
-        return request(`${getType(options)}/search?${qsParams}`, normalizeGifs, 'GIF_SEARCH') as Promise<GifsResult>
+        const pingbackType = options.type === 'text' ? 'TEXT_SEARCH' : 'GIF_SEARCH'
+        return request(`${getType(options)}/search?${qsParams}`, normalizeGifs, pingbackType) as Promise<GifsResult>
     }
 
     /**
@@ -103,8 +104,9 @@ export class GiphyFetch {
      * @param {TrendingOptions} options
      * @returns {Promise<GifsResult>}
      */
-    trending(options?: TrendingOptions): Promise<GifsResult> {
-        return request(`${getType(options)}/trending?${this.getQS(options)}`, normalizeGifs, 'GIF_TRENDING') as Promise<
+    trending(options: TrendingOptions = {}): Promise<GifsResult> {
+        const pingbackType = options.type === 'text' ? 'TEXT_TRENDING' : 'GIF_TRENDING'
+        return request(`${getType(options)}/trending?${this.getQS(options)}`, normalizeGifs, pingbackType) as Promise<
             GifsResult
         >
     }

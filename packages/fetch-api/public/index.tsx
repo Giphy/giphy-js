@@ -85,6 +85,24 @@ const emoji = async () => {
         console.error(`emoji`, error)
     }
 }
+
+const text = async () => {
+    try {
+        const result = await gf.search('pasta', { limit: 2, type: 'text' })
+        console.log(`text`, result)
+    } catch (error) {
+        console.error(`text`, error)
+    }
+}
+
+const textTrending = async () => {
+    try {
+        const result = await gf.trending({ limit: 2, type: 'text' })
+        console.log(`textTrending`, result)
+    } catch (error) {
+        console.error(`textTrending`, error)
+    }
+}
 categories()
 search()
 gif()
@@ -96,3 +114,5 @@ trending()
 random()
 related()
 emoji()
+text()
+textTrending()
