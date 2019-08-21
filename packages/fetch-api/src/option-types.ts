@@ -29,7 +29,8 @@ export interface TrendingOptions extends PaginationOptions, TypeOption {
     rating?: Rating
 }
 
-export interface RandomOptions extends PaginationOptions, TypeOption {
+export interface RandomOptions extends PaginationOptions {
+    type?: 'gifs' | 'stickers' // no 'text' support, overrride MediaType
     tag?: string
     rating?: Rating
 }
