@@ -17,7 +17,7 @@ const { data: gifs } = await gf.trending({ limit: 10 })
 
 [![Edit @giphy/js-fetch-api](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/20kmp3zp9r?fontsize=14)
 
-# Fetch GIFs and Stickers
+# Fetch GIFs, Stickers, and Animated Text
 
 ## _search_
 
@@ -118,7 +118,7 @@ const { data: gifs } = await gf.related('3oEjHGr1Fhz0kyv8Ig', { limit: 10 })
 
 ## _emoji_
 
-Fetch emoji
+Fetch emoji. Emoji are stickers from a currated channel. There's no search or trending emoji.
 
 ##### Signature:
 
