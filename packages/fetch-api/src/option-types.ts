@@ -1,7 +1,7 @@
 /**
  * If you want gifs or stickers
  */
-export type MediaType = 'stickers' | 'gifs'
+export type MediaType = 'stickers' | 'gifs' | 'text'
 /**
  * Filters results by specified rating.
  */
@@ -29,7 +29,8 @@ export interface TrendingOptions extends PaginationOptions, TypeOption {
     rating?: Rating
 }
 
-export interface RandomOptions extends PaginationOptions, TypeOption {
+export interface RandomOptions extends PaginationOptions {
+    type?: 'gifs' | 'stickers' // no 'text' support, overrride MediaType
     tag?: string
     rating?: Rating
 }

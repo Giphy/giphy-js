@@ -129,6 +129,16 @@ describe('response parsing', () => {
         const { data } = await gf.emoji()
         testDummyGif(data[0], 'EMOJI')
     })
+    test('text search', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
+        const { data } = await gf.search('pasta', { type: 'text' })
+        testDummyGif(data[0], 'TEXT_SEARCH')
+    })
+    test('text trending', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
+        const { data } = await gf.trending({ type: 'text' })
+        testDummyGif(data[0], 'TEXT_TRENDING')
+    })
     test('error', async () => {
         fetchMock.mockResponses([JSON.stringify({}), { status: 400 }])
         try {
