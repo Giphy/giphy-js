@@ -1,4 +1,4 @@
-import { Result } from './result-types'
+import { Result, ErrorResult } from './result-types'
 import { PingbackEventType } from '@giphy/js-types'
 
 const serverUrl = 'https://api.giphy.com/v1/'
@@ -17,10 +17,16 @@ function request(
                     const result = (await response.json()) as Result
                     resolve(normalizer(result, pingbackType))
                 } else {
+                    let message = 'Error fetching'
+                    try {
+                        // error results have a different format than regular results
+                        const result = (await response.json()) as ErrorResult
+                        if (result.message) message = result.message
+                    } catch (_) {}
                     reject({
                         status: response.status,
                         statusText: response.statusText,
-                        message: 'Error fetching',
+                        message: `@giphy/js-fetch-api: ${message}`,
                     })
                 }
             } catch (error) {

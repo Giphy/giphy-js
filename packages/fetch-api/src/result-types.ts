@@ -12,6 +12,10 @@ export interface Result {
         offset: number
     }
 }
+
+export interface ErrorResult {
+    message?: string
+}
 export interface GifResult extends Result {
     data: IGif
 }
