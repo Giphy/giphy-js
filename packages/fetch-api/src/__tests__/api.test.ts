@@ -3,6 +3,7 @@ import GiphyFetchAPI from '../api'
 // eslint-disable-next-line
 import * as fetch from 'jest-fetch-mock'
 import { IGif, PingbackEventType } from '@giphy/js-types'
+import { DEFAULT_ERROR, ERROR_PREFIX } from '../request'
 
 const dummyGif = {
     id: 12345,
@@ -146,7 +147,7 @@ describe('response parsing', () => {
         } catch (error) {
             expect(error.status).toBe(400)
             expect(error.statusText).toBe('Bad Request')
-            expect(error.message).toBe('Error fetching')
+            expect(error.message).toBe(`${ERROR_PREFIX}${DEFAULT_ERROR}`)
         }
     })
     test('error', async () => {
