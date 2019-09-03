@@ -49,12 +49,21 @@ const defaultProps = Object.freeze({ user: {} })
 
 type Props = GifProps & EventProps
 
-type State = { ready: boolean; backgroundColor: string; showGif: boolean; isHovered: boolean }
+type State = {
+    ready: boolean
+    backgroundColor: string
+    showGif: boolean
+    isHovered: boolean
+    hasFiredSeen: boolean
+    gifId: string
+}
 const initialState = Object.freeze({
     ready: false,
     backgroundColor: '',
     showGif: false,
     isHovered: false,
+    hasFiredSeen: false,
+    gifId: '',
 })
 
 const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
@@ -69,7 +78,6 @@ class Gif extends PureComponent<Props, State> {
     observer?: IntersectionObserver
     fullGifObserver?: IntersectionObserver
     container?: HTMLElement | null
-    hasFiredSeen = false
     hoverTimeout?: any
     constructor(props: Props) {
         super(props)
@@ -84,10 +92,14 @@ class Gif extends PureComponent<Props, State> {
             backgroundColor ||
             // ensure sticker has black, use existing or generate a new color
             (gif.is_sticker ? giphyBlack : prevState.backgroundColor || getColor())
+        let result = null
         if (newBackgroundColor !== prevState.backgroundColor) {
-            return { backgroundColor: newBackgroundColor }
+            result = { ...(result || {}), backgroundColor: newBackgroundColor }
         }
-        return null
+        if (gif.id !== prevState.gifId) {
+            result = { ...(result || {}), hasFiredSeen: false }
+        }
+        return result
     }
     async check() {
         await checkIfWebP
@@ -119,7 +131,7 @@ class Gif extends PureComponent<Props, State> {
             ([entry]: IntersectionObserverEntry[]) => {
                 if (entry.isIntersecting) {
                     // flag so we don't observe any more
-                    this.hasFiredSeen = true
+                    this.setState({ hasFiredSeen: true })
                     const { onGifSeen, gif, user = {} } = this.props
                     Logger.debug(`GIF ${gif.id} seen. ${gif.title}`)
                     // fire pingback
@@ -143,7 +155,8 @@ class Gif extends PureComponent<Props, State> {
         // // the image was loaded. onGifVisible will be called every time
         // // the image loads regardless of if its been loaded before
         // // or not.
-        if (!this.hasFiredSeen) {
+        const { hasFiredSeen } = this.state
+        if (!hasFiredSeen) {
             this.fullGifObserver!.observe(this.container!)
         }
         onGifVisible(gif, e)
