@@ -4,6 +4,9 @@
         "node": true,
         "es6": true
     },
+    "globals": {
+        "globalThis": true
+    },
     "parserOptions": {
         "ecmaFeatures": {
             "legacyDecorators": true,
