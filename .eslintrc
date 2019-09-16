@@ -33,6 +33,14 @@
         "consistent-return": 0,
         "max-len": 0,
         "indent": 0,
+        "quotes": [
+            "error",
+            "single",
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ],
         "no-multiple-empty-lines": 0,
         "no-trailing-spaces": 0,
         "padded-blocks": 0,
