@@ -1,20 +1,12 @@
-import { Result, ErrorResult } from './result-types'
 import { PingbackEventType } from '@giphy/js-types'
+import FetchError from './fetch-error'
+import { ErrorResult, Result } from './result-types'
 export const ERROR_PREFIX = `@giphy/js-fetch-api: `
 export const DEFAULT_ERROR = 'Error fetching'
 const serverUrl = 'https://api.giphy.com/v1/'
 const identity = (i: any) => i
 const requestMap: { [key: string]: Promise<Result> } = {}
 
-class FetchError extends Error {
-    statusText: string
-    status: number
-    constructor(message: string, status: number = 0, statusText: string = '') {
-        super(message) // (1)
-        this.status = status
-        this.statusText = statusText
-    }
-}
 function request(
     url: string,
     normalizer: (a: any, pingbackType?: PingbackEventType) => any = identity,
