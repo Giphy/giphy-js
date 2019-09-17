@@ -54,6 +54,7 @@ class Gif extends Component<Props, State> {
         super(props)
         this.check()
     }
+
     static getDerivedStateFromProps({ gif, backgroundColor }: Readonly<Props>, prevState: Readonly<State>) {
         const newBackgroundColor =
             // specified background prop
@@ -65,10 +66,12 @@ class Gif extends Component<Props, State> {
         }
         return {}
     }
+
     async check() {
         await checkIfWebP
         this.setState({ ready: true })
     }
+
     onMouseOver = (e: Event) => {
         const { gif, onGifHover, user = {} } = this.props
         clearTimeout(this.hoverTimeout)
@@ -77,6 +80,7 @@ class Gif extends Component<Props, State> {
             onGifHover && onGifHover(gif, e)
         }, hoverTimeoutDelay)
     }
+
     onClick = (e: Event) => {
         const { gif, onGifClick, user = {} } = this.props
         // fire pingback
@@ -85,9 +89,11 @@ class Gif extends Component<Props, State> {
             onGifClick(gif, e)
         }
     }
+
     onMouseOut = () => {
         clearTimeout(this.hoverTimeout)
     }
+
     createFullGifObserver() {
         const fullGifObserver = new IntersectionObserver(
             ([entry]: IntersectionObserverEntry[]) => {
@@ -108,6 +114,7 @@ class Gif extends Component<Props, State> {
         )
         this.fullGifObserver = fullGifObserver
     }
+
     onImageLoad = (e: Event) => {
         const { gif, onGifVisible = () => {} } = this.props
         if (!this.fullGifObserver) {
@@ -122,6 +129,7 @@ class Gif extends Component<Props, State> {
         }
         onGifVisible(gif, e)
     }
+
     componentDidMount() {
         this.observer = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
             const { isIntersecting } = entry
@@ -135,11 +143,13 @@ class Gif extends Component<Props, State> {
         })
         this.observer.observe(this.container!)
     }
+
     componentWillUnmount() {
         if (this.observer) this.observer.disconnect()
         if (this.fullGifObserver) this.fullGifObserver.disconnect()
         if (this.hoverTimeout) clearTimeout(this.hoverTimeout)
     }
+
     render(
         { gif, gif: { bottle_data: bottleData }, width, onGifRightClick = noop, className }: Props,
         { ready, backgroundColor, showGif }: State,

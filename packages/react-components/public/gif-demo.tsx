@@ -15,6 +15,7 @@ class GifDemo extends PureComponent<Props, { gif: undefined | IGif; gif2: undefi
         gif: undefined,
         gif2: undefined,
     }
+
     async componentDidMount() {
         const [{ data: gif }, { data: gif2 }] = await Promise.all([
             gf.gif('l1J9FvenuBnI4GTeg'),
@@ -22,6 +23,7 @@ class GifDemo extends PureComponent<Props, { gif: undefined | IGif; gif2: undefi
         ])
         this.setState({ gif, gif2 })
     }
+
     render() {
         const { gif, gif2 } = this.state
         return gif ? (

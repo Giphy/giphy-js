@@ -24,6 +24,7 @@ export class GiphyFetch {
     constructor(apiKey: string) {
         this.apiKey = apiKey
     }
+
     /**
      * @hidden
      */

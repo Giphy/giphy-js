@@ -16,11 +16,13 @@ class Observer extends PureComponent<Props> {
         })
         this.io.observe(this.container)
     }
+
     componentWillUnmount() {
         if (this.io) {
             this.io.disconnect()
         }
     }
+
     render() {
         const { children, className } = this.props
         return (

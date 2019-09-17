@@ -1,7 +1,7 @@
 {
     "name": "giphy-js",
     "scripts": {
-        "lint": "eslint --ext .ts,.tsx ./packages --config ./.eslintrc --ignore-path ./.eslintignore --fix",
+        "lint": "eslint --ext .ts,.tsx ./packages --config ./.eslintrc --ignore-path ./.eslintignore",
         "test": "lerna exec -- npm test",
         "test:watch": "lerna run test:watch --stream",
         "lerna:publish": "lerna publish from-git --yes"

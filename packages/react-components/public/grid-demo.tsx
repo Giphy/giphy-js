@@ -32,14 +32,17 @@ class GridDemo extends PureComponent<Props, State> {
     state = {
         width: getWidth(),
     }
+
     offset = 0
     setWidth = throttle(500, () => this.setState({ width: getWidth() }))
     componentDidMount() {
         window.addEventListener('resize', this.setWidth, false)
     }
+
     componentWillUnmount() {
         window.removeEventListener('resize', this.setWidth, false)
     }
+
     render() {
         const { width } = this.state
         return <Grid width={width} columns={width < 500 ? 2 : 3} gutter={6} fetchGifs={fetchGifs} overlay={Overlay} />

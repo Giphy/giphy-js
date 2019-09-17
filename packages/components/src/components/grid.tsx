@@ -53,6 +53,7 @@ class Grid extends Component<Props, State> {
         }
         return {}
     }
+
     setBricks() {
         const { columns, gutter } = this.props
         // bricks
@@ -62,10 +63,12 @@ class Grid extends Component<Props, State> {
             sizes: [{ columns, gutter }],
         })
     }
+
     componentDidMount() {
         this.setBricks()
         this.onFetch()
     }
+
     componentDidUpdate(prevProps: Props, prevState: State) {
         const { gifs } = this.state
         const { gifWidth } = this.state
@@ -91,9 +94,11 @@ class Grid extends Component<Props, State> {
             }
         }
     }
+
     onLoaderVisible = (isVisible: boolean) => {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
+
     onFetch = debounce(100, async () => {
         const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
         if (!isFetching && isLoaderVisible) {
@@ -118,6 +123,7 @@ class Grid extends Component<Props, State> {
             }
         }
     })
+
     render(
         {
             fetchGifs,
