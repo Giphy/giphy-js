@@ -27,15 +27,16 @@ function request(
                 const response = await fetch(`${serverUrl}${url}`, { method: 'get' })
                 if (response.ok) {
                     const result = (await response.json()) as Result
+                    // if everything is successful, we return here, otherwise an error will be thrown
                     return normalizer(result, pingbackType)
                 } else {
-                    // handle errors
                     let message = DEFAULT_ERROR
                     try {
                         // error results have a different format than regular results
                         const result = (await response.json()) as ErrorResult
                         if (result.message) message = result.message
                     } catch (_) {}
+                    // we got an error response, throw with the message in the response body json
                     fetchError = new FetchError(`${ERROR_PREFIX}${message}`, response.status, response.statusText)
                 }
             } catch (unexpectedError) {
