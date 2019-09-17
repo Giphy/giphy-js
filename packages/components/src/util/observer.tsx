@@ -20,11 +20,13 @@ class Observer extends Component<Props, State> {
         })
         this.io.observe(this.container)
     }
+
     componentWillUnmount() {
         if (this.io) {
             this.io.disconnect()
         }
     }
+
     render({ children, className }: Props, { isVisible }: State) {
         const kids = Array.isArray(children) ? (children as ComponentChild[]) : [children]
         return (

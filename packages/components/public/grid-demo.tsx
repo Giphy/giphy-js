@@ -17,14 +17,17 @@ export namespace PreactGrid {
         state = {
             width: getWidth(),
         }
+
         offset = 0
         setWidth = throttle(500, () => this.setState({ width: getWidth() }))
         componentDidMount() {
             window.addEventListener('resize', this.setWidth, false)
         }
+
         componentWillUnmount() {
             window.removeEventListener('resize', this.setWidth, false)
         }
+
         render(_: Props, { width }) {
             return <Grid width={width} columns={width < 500 ? 2 : 3} gutter={6} fetchGifs={fetchGifs} />
         }
@@ -42,6 +45,7 @@ export class VanillaJSGrid {
         window.addEventListener('resize', resizeRender, false)
         this.render()
     }
+
     render = () => {
         const width = getWidth()
         this.el = renderGrid(
@@ -54,6 +58,7 @@ export class VanillaJSGrid {
             this.mountNode,
         ) as HTMLElement
     }
+
     remove() {
         this.el.parentNode.removeChild(this.el)
     }

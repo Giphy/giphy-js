@@ -49,7 +49,7 @@ describe('response parsing', () => {
     })
 
     test('getBestRenditionUrl', () => {
-        let fixedWidth: Partial<ImageAllTypes> = {
+        const fixedWidth: Partial<ImageAllTypes> = {
             width: 10,
             height: 10,
             url: 'fixed_width url',
@@ -57,7 +57,7 @@ describe('response parsing', () => {
             webp: 'fixed_width webp',
             mp4: 'fixed_width mp4',
         }
-        let fixedWidthStill: Partial<ImageAllTypes> = {
+        const fixedWidthStill: Partial<ImageAllTypes> = {
             width: 10,
             height: 10,
             url: 'fixed_width url still',
@@ -65,7 +65,7 @@ describe('response parsing', () => {
             webp: 'fixed_width_still webp',
             mp4: 'fixed_width mp4?',
         }
-        let images: Partial<IImages> = {
+        const images: Partial<IImages> = {
             fixed_width: fixedWidth as ImageAllTypes,
             fixed_width_still: fixedWidthStill as ImageAllTypes,
         }
@@ -81,7 +81,7 @@ describe('response parsing', () => {
     })
 
     test('getSpecificRendition', () => {
-        let fixedWidth: Partial<ImageAllTypes> = {
+        const fixedWidth: Partial<ImageAllTypes> = {
             width: 10,
             height: 10,
             url: 'fixed_width url',
@@ -89,7 +89,7 @@ describe('response parsing', () => {
             webp: 'fixed_width webp',
             mp4: 'fixed_width mp4',
         }
-        let fixedWidthStill: Partial<ImageAllTypes> = {
+        const fixedWidthStill: Partial<ImageAllTypes> = {
             width: 10,
             height: 10,
             url: 'fixed_width url still',
@@ -97,7 +97,7 @@ describe('response parsing', () => {
             webp: 'fixed_width_still webp',
             mp4: 'fixed_width mp4?',
         }
-        let images: Partial<IImages> = {
+        const images: Partial<IImages> = {
             fixed_width: fixedWidth as ImageAllTypes,
             fixed_width_still: fixedWidthStill as ImageAllTypes,
         }

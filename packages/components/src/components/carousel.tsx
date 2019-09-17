@@ -68,9 +68,11 @@ class Carousel extends Component<Props, State> {
     componentDidMount() {
         this.onFetch()
     }
+
     onLoaderVisible = (isVisible: boolean) => {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
+
     onFetch = debounce(100, async () => {
         const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
         if (!isFetching && isLoaderVisible) {
@@ -93,6 +95,7 @@ class Carousel extends Component<Props, State> {
             }
         }
     })
+
     render(
         {
             fetchGifs,

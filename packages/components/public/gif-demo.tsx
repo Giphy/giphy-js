@@ -40,6 +40,7 @@ export namespace PreactGif {
             gif: undefined,
             gif2: undefined,
         }
+
         async componentDidMount() {
             const [{ data: gif }, { data: gif2 }] = await Promise.all([
                 gf.gif('fpXxIjftmkk9y'),
@@ -47,6 +48,7 @@ export namespace PreactGif {
             ])
             this.setState({ gif, gif2 })
         }
+
         render(_: Props, { gif, gif2 }: State) {
             return gif ? (
                 <div className={containerCss}>

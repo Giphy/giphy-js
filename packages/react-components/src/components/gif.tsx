@@ -83,6 +83,7 @@ class Gif extends PureComponent<Props, State> {
         super(props)
         this.check()
     }
+
     static getDerivedStateFromProps: GetDerivedStateFromProps<Props, State> = (
         { gif, backgroundColor }: Readonly<Props>,
         prevState: Readonly<State>,
@@ -101,10 +102,12 @@ class Gif extends PureComponent<Props, State> {
         }
         return result
     }
+
     async check() {
         await checkIfWebP
         this.setState({ ready: true })
     }
+
     onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
         const { gif, user = {} } = this.props
         clearTimeout(this.hoverTimeout)
@@ -114,10 +117,12 @@ class Gif extends PureComponent<Props, State> {
             pingback.onGifHover(gif, user, e.target as HTMLElement)
         }, hoverTimeoutDelay)
     }
+
     onMouseOut = () => {
         clearTimeout(this.hoverTimeout)
         this.setState({ isHovered: false })
     }
+
     onClick = (e: SyntheticEvent<HTMLElement, Event>) => {
         const { gif, onGifClick, user = {} } = this.props
         // fire pingback
@@ -126,6 +131,7 @@ class Gif extends PureComponent<Props, State> {
             onGifClick(gif, e)
         }
     }
+
     createFullGifObserver() {
         const fullGifObserver = new IntersectionObserver(
             ([entry]: IntersectionObserverEntry[]) => {
@@ -146,6 +152,7 @@ class Gif extends PureComponent<Props, State> {
         )
         this.fullGifObserver = fullGifObserver
     }
+
     onImageLoad = (e: SyntheticEvent<HTMLElement, Event>) => {
         const { gif, onGifVisible = () => {} } = this.props
         if (!this.fullGifObserver) {
@@ -161,6 +168,7 @@ class Gif extends PureComponent<Props, State> {
         }
         onGifVisible(gif, e)
     }
+
     componentDidMount() {
         this.observer = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
             const { isIntersecting } = entry
@@ -174,11 +182,13 @@ class Gif extends PureComponent<Props, State> {
         })
         this.observer.observe(this.container!)
     }
+
     componentWillUnmount() {
         if (this.observer) this.observer.disconnect()
         if (this.fullGifObserver) this.fullGifObserver.disconnect()
         if (this.hoverTimeout) clearTimeout(this.hoverTimeout)
     }
+
     render() {
         const {
             gif,

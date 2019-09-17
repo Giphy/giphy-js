@@ -5,9 +5,9 @@ import { GifsResult } from './result-types'
  * @hidden
  */
 export const gifPaginator = (fetchGifs: (offset: number) => Promise<GifsResult>) => {
-    let gifs: IGif[] = []
+    const gifs: IGif[] = []
     // for deduping
-    let gifIds: (string | number)[] = []
+    const gifIds: (string | number)[] = []
     let offset = 0
     let isDoneFetching = false
     return async () => {

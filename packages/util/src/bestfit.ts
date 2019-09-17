@@ -36,7 +36,7 @@ const closestArea = (width: number, height: number, renditions: IRendition[]) =>
 function bestfit(renditions: Array<IRendition>, width: number, height: number, scaleUpMaxPixels: number = 20) {
     let [largestRendition] = renditions
     // filter out renditions that are smaller than the target width and height by scaleUpMaxPixels value
-    let testRenditions = renditions.filter(rendition => {
+    const testRenditions = renditions.filter(rendition => {
         if (rendition.width * rendition.height > largestRendition.width * largestRendition.height) {
             largestRendition = rendition
         }
