@@ -1,6 +1,7 @@
+import appendQuery from 'append-query'
 import { PingbackEventType } from '@giphy/js-types'
 import FetchError from './fetch-error'
-import { getGiphySDKRequestHeaders } from '@giphy/js-util'
+import { getGiphySDKRequestParams } from '@giphy/js-util'
 import { ErrorResult, Result } from './result-types'
 export const ERROR_PREFIX = `@giphy/js-fetch-api: `
 export const DEFAULT_ERROR = 'Error fetching'
@@ -18,10 +19,8 @@ function request(
         const makeRequest = async (): Promise<Result> => {
             let fetchError: FetchError
             try {
-                const response = await fetch(`${serverUrl}${url}`, {
-                    method: 'get',
-                    headers: getGiphySDKRequestHeaders(),
-                })
+                const qs = getGiphySDKRequestParams()
+                const response = await fetch(appendQuery(`${serverUrl}${url}`, qs), { method: 'get' })
                 if (response.ok) {
                     const result = (await response.json()) as Result
                     // if everything is successful, we return here, otherwise an error will be thrown
