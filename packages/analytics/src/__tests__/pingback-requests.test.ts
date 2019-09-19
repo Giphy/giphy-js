@@ -68,7 +68,7 @@ describe('pingback', () => {
             sessions: [session],
         } = JSON.parse(options.body)
         // remove api key
-        expect(url).toBe('https://pingback.giphy.com/pingback?apikey=l0HlIwPWyBBUDAUgM')
+        expect(url).toContain('https://pingback.giphy.com/pingback?apikey=l0HlIwPWyBBUDAUgM')
         expect(session.user).toEqual({
             logged_in_user_id: String(user.id),
         })
