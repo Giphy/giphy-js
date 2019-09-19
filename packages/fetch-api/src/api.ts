@@ -1,19 +1,20 @@
 /* eslint-disable no-dupe-class-members */
 import qs from 'qs'
+import { getGiphySDKRequestParams } from '@giphy/js-util'
+import { normalizeGif, normalizeGifs } from './normalize/gif'
+import {
+    CategoriesOptions,
+    MediaType,
+    PaginationOptions,
+    RandomOptions,
+    RelatedOptions,
+    SearchOptions,
+    SubcategoriesOptions,
+    TrendingOptions,
+    TypeOption,
+} from './option-types'
 import request from './request'
 import { CategoriesResult, GifResult, GifsResult } from './result-types'
-import {
-    TypeOption,
-    SearchOptions,
-    TrendingOptions,
-    RandomOptions,
-    CategoriesOptions,
-    SubcategoriesOptions,
-    MediaType,
-    RelatedOptions,
-    PaginationOptions,
-} from './option-types'
-import { normalizeGifs, normalizeGif } from './normalize/gif'
 
 const getType = (options?: TypeOption): MediaType => (options && options.type ? options.type : 'gifs')
 /**
@@ -32,7 +33,8 @@ export class GiphyFetch {
     /**
      * @hidden
      */
-    private getQS = (options: any = {}) => qs.stringify({ ...options, api_key: this.apiKey })
+    private getQS = (options: any = {}) =>
+        qs.stringify({ ...options, api_key: this.apiKey, ...getGiphySDKRequestParams() })
 
     /**
      * A list of categories
