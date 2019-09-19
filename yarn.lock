@@ -1109,6 +1109,11 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@types/append-query@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/append-query/-/append-query-2.0.0.tgz#ed93e5adb9d865a1896ccdff8a2a32f28ef313de"
+  integrity sha512-0YlmQr+wOjsHrt4cXEWY2Ef8pLPyz4jTQqv/mSiGzdf+q0ZymH7VoI7kvmXV6T31JLvlQwGo2b3B9FgR+qn19g==
+
 "@types/babel__core@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.0.tgz#710f2487dda4dcfd010ca6abb2b4dc7394365c51"

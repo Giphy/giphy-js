@@ -11,7 +11,7 @@ export { default as Grid } from './components/grid'
 
 // @ts-ignore
 const { version } = require('../package.json')
-// send headers with library type and version
+// send params with library type and version
 appendGiphySDKRequestParam(`x-giphy-sdk-name`, 'JavascriptSDK')
 appendGiphySDKRequestParam(`x-giphy-sdk-version`, version)
 

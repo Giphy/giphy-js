@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@types/append-query@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@types/append-query/-/append-query-2.0.0.tgz#ed93e5adb9d865a1896ccdff8a2a32f28ef313de"
+  integrity sha512-0YlmQr+wOjsHrt4cXEWY2Ef8pLPyz4jTQqv/mSiGzdf+q0ZymH7VoI7kvmXV6T31JLvlQwGo2b3B9FgR+qn19g==
+
 "@types/cookie@^0.3.3":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@types/cookie/-/cookie-0.3.3.tgz#85bc74ba782fb7aa3a514d11767832b0e3bc6803"
@@ -16,6 +21,13 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/throttle-debounce/-/throttle-debounce-1.1.1.tgz#4a78636c36a4534b76d85ee244fce238d435f22a"
   integrity sha512-VhX9p0l8p3TS27XU+CnDfhdnzW7HpVgtKiYDh/lfucSAz8s9uTt0q4aPwcYIr+q+3/NghlU3smXBW6ItvfJKYQ==
+
+append-query@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/append-query/-/append-query-2.1.0.tgz#c3392d2ddf8c70d3f582a14b051b12333da540bf"
+  integrity sha512-v9YXX6No91QkRA31IvTjl+1kFU+A0DaOzZpCNR7Q/ZoPSXlo5a4W2eS0qos6AKvCKL4MnNna78xgqIG8NRvQwg==
+  dependencies:
+    extend "^2.0.0"
 
 cookie@0.4.0:
   version "0.4.0"
@@ -34,6 +46,11 @@ dompurify@^1.0.10:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-1.0.10.tgz#18d7353631c86ee25049e38fbca8c6b2c5a2af87"
   integrity sha512-huhl3DSWX5LaA7jDtnj3XQdJgWW1wYouNW7N0drGzQa4vEUSVWyeFN+Atx6HP4r5cang6oQytMom6I4yhGJj5g==
+
+extend@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/extend/-/extend-2.0.2.tgz#1b74985400171b85554894459c978de6ef453ab7"
+  integrity sha512-AgFD4VU+lVLP6vjnlNfF7OeInLTyeyckCNPEsuxz1vi786UuK/nk6ynPuhn/h+Ju9++TQyr5EpLRI14fc1QtTQ==
 
 jest-fetch-mock@^2.1.2:
   version "2.1.2"
