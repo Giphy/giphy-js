@@ -1,7 +1,8 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
-import { number, withKnobs, boolean } from '@storybook/addon-knobs'
+import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 import { css } from 'emotion'
 import React, { useEffect, useState } from 'react'
+import { jsxDecorator } from 'storybook-addon-jsx'
 import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
 
@@ -9,7 +10,7 @@ const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
 export default {
     title: 'React Components|Grid',
-    decorators: [withKnobs],
+    decorators: [withKnobs, jsxDecorator],
 }
 
 const overlayCss = css`
