@@ -2,7 +2,7 @@ import { giphyBlack, giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow }
 import { IGif, IUser } from '@giphy/js-types'
 import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight, Logger } from '@giphy/js-util'
 import { css, cx } from 'emotion'
-import React, { PureComponent, ReactType, SyntheticEvent, createContext, GetDerivedStateFromProps } from 'react'
+import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
 
@@ -41,189 +41,165 @@ type GifProps = {
     width: number
     backgroundColor?: string
     className?: string
-    user: Partial<IUser>
+    user?: Partial<IUser>
     overlay?: ReactType<GifOverlayProps>
 }
 
-const defaultProps = Object.freeze({ user: {} })
-
 type Props = GifProps & EventProps
-
-type State = {
-    ready: boolean
-    backgroundColor: string
-    showGif: boolean
-    isHovered: boolean
-    hasFiredSeen: boolean
-    gifId: string
-}
-const initialState = Object.freeze({
-    ready: false,
-    backgroundColor: '',
-    showGif: false,
-    isHovered: false,
-    hasFiredSeen: false,
-    gifId: '',
-})
 
 const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
 const noop = () => {}
 
-class Gif extends PureComponent<Props, State> {
-    static Context = createContext<IGif | null>(null)
-    static readonly defaultProps = defaultProps
-    readonly state = initialState
-    static className = 'giphy-gif'
-    observer?: IntersectionObserver
-    fullGifObserver?: IntersectionObserver
-    container?: HTMLElement | null
-    hoverTimeout?: any
-    constructor(props: Props) {
-        super(props)
-        this.check()
-    }
+const Gif = ({
+    gif,
+    gif: { bottle_data: bottleData },
+    width,
+    onGifRightClick = noop,
+    className,
+    onGifClick = noop,
+    onGifSeen = noop,
+    onGifVisible = noop,
+    user = {},
+    backgroundColor,
+    overlay: Overlay,
+}: Props) => {
+    // only fire seen once per gif id
+    const [hasFiredSeen, setHasFiredSeen] = useState(false)
+    // hovered is for the gif overlay
+    const [isHovered, setHovered] = useState(false)
+    // only show the gif if it's on the screen
+    const [showGif, setShowGif] = useState(false)
+    // only render the img after we check for webp
+    const [ready, setReady] = useState(false)
+    // the background color shouldn't change unless it comes from a prop or we have a sticker
+    const defaultBgColor = useRef(getColor())
+    // the a tag the media is rendered into
+    const container = useRef<HTMLAnchorElement | null>(null)
+    // intersection observer with no threshold
+    const showGifObserver = useRef<IntersectionObserver>()
+    // intersection observer with a threshold of 1 (full element is on screen)
+    const fullGifObserver = useRef<IntersectionObserver>()
+    // fire hover pingback after this timeout
+    const hoverTimeout = useRef<number>()
+    // fire onseen ref (changes per gif, so need a ref)
+    const sendOnSeen = useRef<(_: IntersectionObserverEntry) => void>(noop)
 
-    static getDerivedStateFromProps: GetDerivedStateFromProps<Props, State> = (
-        { gif, backgroundColor }: Readonly<Props>,
-        prevState: Readonly<State>,
-    ) => {
-        const newBackgroundColor =
-            // specified background prop
-            backgroundColor ||
-            // ensure sticker has black, use existing or generate a new color
-            (gif.is_sticker ? giphyBlack : prevState.backgroundColor || getColor())
-        let result = null
-        if (newBackgroundColor !== prevState.backgroundColor) {
-            result = { ...(result || {}), backgroundColor: newBackgroundColor }
-        }
-        if (gif.id !== prevState.gifId) {
-            result = { ...(result || {}), hasFiredSeen: false }
-        }
-        return result
-    }
-
-    async check() {
-        await checkIfWebP
-        this.setState({ ready: true })
-    }
-
-    onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
-        const { gif, user = {} } = this.props
-        clearTimeout(this.hoverTimeout)
+    const onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
+        clearTimeout(hoverTimeout.current!)
         e.persist()
-        this.setState({ isHovered: true })
-        this.hoverTimeout = setTimeout(() => {
+        setHovered(true)
+        hoverTimeout.current = window.setTimeout(() => {
             pingback.onGifHover(gif, user, e.target as HTMLElement)
         }, hoverTimeoutDelay)
     }
 
-    onMouseOut = () => {
-        clearTimeout(this.hoverTimeout)
-        this.setState({ isHovered: false })
+    const onMouseOut = () => {
+        clearTimeout(hoverTimeout.current!)
+        setHovered(false)
     }
 
-    onClick = (e: SyntheticEvent<HTMLElement, Event>) => {
-        const { gif, onGifClick, user = {} } = this.props
+    const onClick = (e: SyntheticEvent<HTMLElement, Event>) => {
         // fire pingback
         pingback.onGifClick(gif, user, e.target as HTMLElement)
-        if (onGifClick) {
-            onGifClick(gif, e)
+        onGifClick(gif, e)
+    }
+
+    // using a ref in case `gif` changes
+    sendOnSeen.current = (entry: IntersectionObserverEntry) => {
+        // flag so we don't observe any more
+        setHasFiredSeen(true)
+        Logger.debug(`GIF ${gif.id} seen. ${gif.title}`)
+        // fire pingback
+        pingback.onGifSeen(gif, user, entry.boundingClientRect)
+        // fire custom onGifSeen
+        onGifSeen(gif, entry.boundingClientRect)
+        // disconnect
+        if (fullGifObserver.current) {
+            fullGifObserver.current.disconnect()
         }
     }
 
-    createFullGifObserver() {
-        const fullGifObserver = new IntersectionObserver(
-            ([entry]: IntersectionObserverEntry[]) => {
-                if (entry.isIntersecting) {
-                    // flag so we don't observe any more
-                    this.setState({ hasFiredSeen: true })
-                    const { onGifSeen, gif, user = {} } = this.props
-                    Logger.debug(`GIF ${gif.id} seen. ${gif.title}`)
-                    // fire pingback
-                    pingback.onGifSeen(gif, user, entry.boundingClientRect)
-                    // fire custom
-                    if (onGifSeen) onGifSeen(gif, entry.boundingClientRect)
-                    // disconnect
-                    fullGifObserver.disconnect()
-                }
-            },
-            { threshold: [1] },
-        )
-        this.fullGifObserver = fullGifObserver
+    const onImageLoad = (e: SyntheticEvent<HTMLElement, Event>) => {
+        if (!fullGifObserver.current) {
+            fullGifObserver.current = new IntersectionObserver(
+                ([entry]: IntersectionObserverEntry[]) => {
+                    if (entry.isIntersecting) {
+                        sendOnSeen.current(entry)
+                    }
+                },
+                { threshold: [1] },
+            )
+        }
+        if (!hasFiredSeen && container.current && fullGifObserver.current) {
+            // observe img for full gif view
+            fullGifObserver.current.observe(container.current)
+        }
+        onGifVisible(gif, e) // gif is visible, perhaps just partially
     }
 
-    onImageLoad = (e: SyntheticEvent<HTMLElement, Event>) => {
-        const { gif, onGifVisible = () => {} } = this.props
-        if (!this.fullGifObserver) {
-            this.createFullGifObserver()
-        }
-        // // onSeen is called only once per GIF and indicates that
-        // // the image was loaded. onGifVisible will be called every time
-        // // the image loads regardless of if its been loaded before
-        // // or not.
-        const { hasFiredSeen } = this.state
-        if (!hasFiredSeen) {
-            this.fullGifObserver!.observe(this.container!)
-        }
-        onGifVisible(gif, e)
+    const checkForWebP = async () => {
+        await checkIfWebP
+        setReady(true)
     }
 
-    componentDidMount() {
-        this.observer = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
+    useEffect(() => {
+        if (fullGifObserver.current) {
+            fullGifObserver.current.disconnect()
+        }
+        setHasFiredSeen(false)
+    }, [gif.id])
+
+    useEffect(() => {
+        checkForWebP()
+        showGifObserver.current = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
             const { isIntersecting } = entry
             // show the gif if the container is on the screen
-            this.setState({ showGif: isIntersecting })
+            setShowGif(isIntersecting)
             // remove the fullGifObserver if we go off the screen
             // we may have already disconnected if the hasFiredSeen happened
-            if (!isIntersecting && this.fullGifObserver) {
-                this.fullGifObserver.disconnect()
+            if (!isIntersecting && fullGifObserver.current) {
+                fullGifObserver.current.disconnect()
             }
         })
-        this.observer.observe(this.container!)
-    }
+        showGifObserver.current.observe(container.current!)
+        return () => {
+            if (showGifObserver.current) showGifObserver.current.disconnect()
+            if (fullGifObserver.current) fullGifObserver.current.disconnect()
+            if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
+        }
+    }, [])
+    const height = getGifHeight(gif, width)
+    const fit = ready ? getBestRenditionUrl(gif, width, height) : placeholder
+    const bgColor =
+        backgroundColor || // <- specified background prop
+        // ensure sticker has black
+        (gif.is_sticker ? giphyBlack : defaultBgColor.current)
 
-    componentWillUnmount() {
-        if (this.observer) this.observer.disconnect()
-        if (this.fullGifObserver) this.fullGifObserver.disconnect()
-        if (this.hoverTimeout) clearTimeout(this.hoverTimeout)
-    }
-
-    render() {
-        const {
-            gif,
-            gif: { bottle_data: bottleData },
-            width,
-            onGifRightClick = noop,
-            className,
-            overlay: Overlay,
-        } = this.props
-        const { ready, backgroundColor, showGif, isHovered } = this.state
-        const height = getGifHeight(gif, width)
-        const fit = ready ? getBestRenditionUrl(gif, width, height) : placeholder
-        return (
-            <a
-                href={gif.url}
-                style={{
-                    backgroundColor,
-                    width,
-                    height,
-                }}
-                className={cx(Gif.className, gif.is_sticker ? stickerCss : gifCss, className)}
-                onMouseOver={this.onMouseOver}
-                onMouseOut={this.onMouseOut}
-                onClick={this.onClick}
-                onContextMenu={(e: SyntheticEvent<HTMLElement, Event>) => onGifRightClick(gif, e)}
-                ref={c => (this.container = c)}
-            >
-                {showGif ? (
-                    <img src={fit} width={width} height={height} alt={getAltText(gif)} onLoad={this.onImageLoad} />
-                ) : null}
-                {showGif ? <AdPill bottleData={bottleData} /> : null}
-                {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
-            </a>
-        )
-    }
+    return (
+        <a
+            href={gif.url}
+            style={{
+                backgroundColor: bgColor,
+                width,
+                height,
+            }}
+            className={cx(Gif.className, gif.is_sticker ? stickerCss : gifCss, className)}
+            onMouseOver={onMouseOver}
+            onMouseOut={onMouseOut}
+            onClick={onClick}
+            onContextMenu={(e: SyntheticEvent<HTMLElement, Event>) => onGifRightClick(gif, e)}
+            ref={container}
+        >
+            {showGif ? (
+                <img src={fit} width={width} height={height} alt={getAltText(gif)} onLoad={onImageLoad} />
+            ) : null}
+            {showGif ? <AdPill bottleData={bottleData} /> : null}
+            {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
+        </a>
+    )
 }
+
+Gif.className = 'giphy-gif'
 
 export default Gif
