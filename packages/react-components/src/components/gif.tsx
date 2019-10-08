@@ -5,6 +5,9 @@ import { css, cx } from 'emotion'
 import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
+import moat from 'moat-display-loader'
+
+const moadLoader = moat.loadMoatTag('giphydisplay879451385633')
 
 const gifCss = css`
     display: block;
@@ -81,6 +84,14 @@ const Gif = ({
     const hoverTimeout = useRef<number>()
     // fire onseen ref (changes per gif, so need a ref)
     const sendOnSeen = useRef<(_: IntersectionObserverEntry) => void>(noop)
+    // moat ad number
+    const moatAdNumber = useRef<number>()
+
+    //
+    const trackWithMoat = async () => {
+        await moadLoader
+        moatAdNumber.current = moat.startTracking(container.current!, {})
+    }
 
     const onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
         clearTimeout(hoverTimeout.current!)
@@ -147,8 +158,17 @@ const Gif = ({
         setHasFiredSeen(false)
     }, [gif.id])
 
+    const isAd = Object.keys(bottleData).length > 0
+    useEffect(() => {
+        if (isAd) {
+            trackWithMoat()
+        } else if (moatAdNumber.current) {
+            moat.stopTracking(moatAdNumber.current)
+        }
+    }, [isAd])
     useEffect(() => {
         checkForWebP()
+
         showGifObserver.current = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
             const { isIntersecting } = entry
             // show the gif if the container is on the screen
@@ -164,6 +184,7 @@ const Gif = ({
             if (showGifObserver.current) showGifObserver.current.disconnect()
             if (fullGifObserver.current) fullGifObserver.current.disconnect()
             if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
+            if (moatAdNumber.current) moat.stopTracking(moatAdNumber.current)
         }
     }, [])
     const height = forcedHeight || getGifHeight(gif, width)
