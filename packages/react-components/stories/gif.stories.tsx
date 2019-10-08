@@ -23,7 +23,7 @@ const GifDemo = ({ id, width }: { id: string; width: number }) => {
 
     useEffect(() => {
         fetch()
-    }, [])
+    }, [id])
 
     return gif ? (
         <GifComponent
