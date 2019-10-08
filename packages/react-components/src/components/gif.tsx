@@ -5,7 +5,7 @@ import { css, cx } from 'emotion'
 import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
-import moat from 'moat-display-loader'
+import moat from './moat-display-loader'
 
 const moadLoader = moat.loadMoatTag('giphydisplay879451385633')
 
