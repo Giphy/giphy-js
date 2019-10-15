@@ -7061,9 +7061,9 @@ mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
-"moat-display-loader@https://z.moatads.com/moat-display-loader/moat-display-loader.tar.gz":
+"moat-display-loader-combined@ http://z.moatads.com/moat-display-loader-combined/moat-display-loader-combined.tar.gz":
   version "1.0.0"
-  resolved "https://z.moatads.com/moat-display-loader/moat-display-loader.tar.gz#aa45443d39605324658bebc50d578c6e84301944"
+  resolved " http://z.moatads.com/moat-display-loader-combined/moat-display-loader-combined.tar.gz#f1148466d2758eac997676397e468a6cfc5e9abc"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
