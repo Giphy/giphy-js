@@ -5,9 +5,7 @@ import { css, cx } from 'emotion'
 import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
-import moat from './moat-display-loader'
-
-const moadLoader = moat.loadMoatTag('giphydisplay879451385633')
+import moat from 'moat-display-loader-combined'
 
 const gifCss = css`
     display: block;
@@ -89,12 +87,8 @@ const Gif = ({
     const sendOnSeen = useRef<(_: IntersectionObserverEntry) => void>(noop)
     // moat ad number
     const moatAdNumber = useRef<number>()
-
-    //
-    const trackWithMoat = async () => {
-        await moadLoader
-        moatAdNumber.current = moat.startTracking(container.current!, {})
-    }
+    // are we displaying an ad
+    const isAd = Object.keys(bottleData).length > 0
 
     const onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
         clearTimeout(hoverTimeout.current!)
@@ -146,6 +140,9 @@ const Gif = ({
             // observe img for full gif view
             fullGifObserver.current.observe(container.current)
         }
+        if (isAd && moatAdNumber.current === undefined) {
+            moatAdNumber.current = moat.startTracking(container.current!, {})
+        }
         onGifVisible(gif, e) // gif is visible, perhaps just partially
     }
 
@@ -161,14 +158,21 @@ const Gif = ({
         setHasFiredSeen(false)
     }, [gif.id])
 
-    const isAd = Object.keys(bottleData).length > 0
-    useEffect(() => {
-        if (isAd) {
-            trackWithMoat()
-        } else if (moatAdNumber.current) {
+    const stopTracking = () => {
+        // if we have a moat ad number
+        if (moatAdNumber.current !== undefined) {
+            // stop tracking
             moat.stopTracking(moatAdNumber.current)
+            // remove the moat ad number
+            moatAdNumber.current = undefined
         }
+    }
+
+    // if this component goes from showing an ad to not an ad
+    useEffect(() => {
+        if (!isAd) stopTracking()
     }, [isAd])
+
     useEffect(() => {
         checkForWebP()
 
@@ -187,7 +191,7 @@ const Gif = ({
             if (showGifObserver.current) showGifObserver.current.disconnect()
             if (fullGifObserver.current) fullGifObserver.current.disconnect()
             if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
-            if (moatAdNumber.current) moat.stopTracking(moatAdNumber.current)
+            stopTracking()
         }
     }, [])
     const height = getGifHeight(gif, width)
