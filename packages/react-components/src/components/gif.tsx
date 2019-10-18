@@ -9,6 +9,7 @@ import moat from 'moat-display-loader-combined'
 
 const gifCss = css`
     display: block;
+    position: relative;
 `
 
 export const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow]
@@ -46,7 +47,7 @@ type Props = GifProps & EventProps
 
 const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
-const noop = () => {}
+const noop = () => { }
 
 const Gif = ({
     gif,
@@ -138,7 +139,14 @@ const Gif = ({
             fullGifObserver.current.observe(container.current)
         }
         if (isAd && moatAdNumber.current === undefined) {
-            moatAdNumber.current = moat.startTracking(container.current!, {})
+            const mBd = bottleData as any // override with bottle_data
+            const dummyMoatData = {
+                level1: mBd.level1 || '_ADVERTISER_',
+                level2: mBd.level2 || '_CAMPAIGN_',
+                level3: mBd.level3 || '_LINE_ITEM_',
+                level4: mBd.level4 || '_CREATIVE_',
+            }
+            moatAdNumber.current = moat.startTracking(container.current!, dummyMoatData)
         }
         onGifVisible(gif, e) // gif is visible, perhaps just partially
     }
@@ -221,7 +229,7 @@ const Gif = ({
                     width={width}
                     height={height}
                     alt={getAltText(gif)}
-                    onLoad={showGif ? onImageLoad : () => {}}
+                    onLoad={showGif ? onImageLoad : () => { }}
                 />
                 {showGif ? <AdPill bottleData={bottleData} /> : null}
                 {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
