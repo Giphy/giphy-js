@@ -9,9 +9,11 @@ import moat from 'moat-display-loader-combined'
 
 const gifCss = css`
     display: block;
+    position: relative;
 `
 const stickerCss = css`
     display: block;
+    position: relative;
     background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AQMAAACSSKldAAAABlBMVEUhIiIWFhYoSqvJAAAAGElEQVQY02MAAv7///8PWxqIPwDZw5UGABtgwz2xhFKxAAAAAElFTkSuQmCC')
         0 0;
 `
@@ -141,7 +143,14 @@ const Gif = ({
             fullGifObserver.current.observe(container.current)
         }
         if (isAd && moatAdNumber.current === undefined) {
-            moatAdNumber.current = moat.startTracking(container.current!, {})
+            const mBd = bottleData as any // override with bottle_data
+            const dummyMoatData = {
+                level1: mBd.level1 || '_ADVERTISER_',
+                level2: mBd.level2 || '_CAMPAIGN_',
+                level3: mBd.level3 || '_LINE_ITEM_',
+                level4: mBd.level4 || '_CREATIVE_',
+            }
+            moatAdNumber.current = moat.startTracking(container.current!, dummyMoatData)
         }
         onGifVisible(gif, e) // gif is visible, perhaps just partially
     }
