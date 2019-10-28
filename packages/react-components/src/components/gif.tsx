@@ -94,7 +94,7 @@ const Gif = ({
         }, hoverTimeoutDelay)
     }
 
-    const onMouseOut = () => {
+    const onMouseLeave = () => {
         clearTimeout(hoverTimeout.current!)
         setHovered(false)
     }
@@ -186,7 +186,7 @@ const Gif = ({
             }}
             className={cx(Gif.className, gif.is_sticker ? stickerCss : gifCss, className)}
             onMouseOver={onMouseOver}
-            onMouseOut={onMouseOut}
+            onMouseLeave={onMouseLeave}
             onClick={onClick}
             onContextMenu={(e: SyntheticEvent<HTMLElement, Event>) => onGifRightClick(gif, e)}
             ref={container}
