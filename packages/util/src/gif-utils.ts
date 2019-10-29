@@ -1,8 +1,8 @@
 import { take, pick, without } from './collections'
 import bestfit from './bestfit'
-import { IGif, ImageAllTypes, IRendition } from '@giphy/js-types'
-import { IImages } from '@giphy/js-types/dist/gif'
+import { IGif, ImageAllTypes, IRendition, IImages } from '@giphy/js-types'
 import { SUPPORTS_WEBP } from './webp-check'
+import IVideo from '@giphy/js-types/dist/video'
 
 export const getSpecificRendition = (
     { images, is_sticker: isSticker }: IGif,
@@ -30,6 +30,9 @@ interface IRenditionWithName extends IRendition {
     renditionName: keyof IImages
 }
 
+const getRenditions = (type: 'video' | 'gif', images: IImages, video?: IVideo) =>
+    type === 'video' && video && video.previews ? video.previews : images
+
 export const getBestRendition = (
     images: IImages,
     gifWidth: number,
@@ -56,19 +59,22 @@ type Options = {
     scaleUpMaxPixels?: number
 }
 export const getBestRenditionUrl = (
-    { images }: IGif,
+    { images, video, type }: IGif,
     gifWidth: number,
     gifHeight: number,
     options: Options = { isStill: false, useVideo: false },
 ): keyof IImages | '' => {
     if (!gifWidth || !gifHeight || !images) return ''
     const { useVideo, isStill, scaleUpMaxPixels } = options
-    const { renditionName } = getBestRendition(images, gifWidth, gifHeight, scaleUpMaxPixels)
-    const key = `${renditionName}${isStill && !useVideo ? '_still' : ''}`
-    // @ts-ignore come back to this
-    const rendition = images[key]
+    const renditions = getRenditions(type, images, video)
+    const { renditionName } = getBestRendition(renditions, gifWidth, gifHeight, scaleUpMaxPixels)
+
+    // still, video, webp or gif
+    const key = `${renditionName}${isStill && !useVideo ? '_still' : ''}` as keyof IImages
+    const rendition = renditions[key] as ImageAllTypes
+
     const match = useVideo ? rendition.mp4 : SUPPORTS_WEBP && rendition.webp ? rendition.webp : rendition.url
-    return match || ''
+    return (match || '') as keyof IImages
 }
 
 export const getGifHeight = ({ images }: IGif, gifWidth: number) => {
