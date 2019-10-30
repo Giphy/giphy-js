@@ -39,6 +39,7 @@ export type GifOverlayProps = {
 type GifProps = {
     gif: IGif
     width: number
+    height?: number
     backgroundColor?: string
     className?: string
     user?: Partial<IUser>
@@ -55,6 +56,7 @@ const Gif = ({
     gif,
     gif: { bottle_data: bottleData },
     width,
+    height: forcedHeight,
     onGifRightClick = noop,
     className,
     onGifClick = noop,
@@ -169,7 +171,7 @@ const Gif = ({
             if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
         }
     }, [])
-    const height = getGifHeight(gif, width)
+    const height = forcedHeight || getGifHeight(gif, width)
     const fit = ready ? getBestRenditionUrl(gif, width, height) : placeholder
     const bgColor =
         backgroundColor || // <- specified background prop
