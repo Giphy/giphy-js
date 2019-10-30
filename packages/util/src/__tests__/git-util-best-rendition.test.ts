@@ -35,6 +35,10 @@ describe('gif util', () => {
         expect(getBestRenditionUrl(testGifPortrait, 1, 1)).toEqual('/media/56x100.gif')
         expect(getBestRenditionUrl(testGifPortrait, 0, 1)).toEqual('')
     })
+    test('getBestRenditionUrl type video ', () => {
+        expect(getBestRenditionUrl(testGifVideo, 450, 350)).toEqual('/media/600x338.gif')
+        expect(getBestRenditionUrl(testGifVideo, 400, 300)).toEqual('/media/600x338.gif')
+    })
 })
 
 const testGifLandscape: any = {
@@ -197,4 +201,10 @@ const testGifPortrait: any = {
             webp_size: '129066',
         },
     },
+}
+
+const testGifVideo: any = {
+    type: 'video',
+    images: {},
+    video: { previews: testGifLandscape.images },
 }

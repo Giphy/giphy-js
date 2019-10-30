@@ -53,7 +53,6 @@ describe('response parsing', () => {
             width: 10,
             height: 10,
             url: 'fixed_width url',
-            size: '129',
             webp: 'fixed_width webp',
             mp4: 'fixed_width mp4',
         }
@@ -61,7 +60,6 @@ describe('response parsing', () => {
             width: 10,
             height: 10,
             url: 'fixed_width url still',
-            size: '129',
             webp: 'fixed_width_still webp',
             mp4: 'fixed_width mp4?',
         }
@@ -85,7 +83,6 @@ describe('response parsing', () => {
             width: 10,
             height: 10,
             url: 'fixed_width url',
-            size: '129',
             webp: 'fixed_width webp',
             mp4: 'fixed_width mp4',
         }
@@ -93,7 +90,6 @@ describe('response parsing', () => {
             width: 10,
             height: 10,
             url: 'fixed_width url still',
-            size: '129',
             webp: 'fixed_width_still webp',
             mp4: 'fixed_width mp4?',
         }
@@ -166,5 +162,8 @@ describe('collections', () => {
         const o = Object.freeze({ one: 1, two: 2 })
         const res = pick(o, ['one'])
         expect(res).toEqual({ one: 1 })
+        // @ts-ignore
+        const unmatchedProperty = pick({ g: 123 }, ['b'])
+        expect(unmatchedProperty).toEqual({})
     })
 })

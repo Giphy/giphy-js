@@ -1,14 +1,18 @@
-import IUser from './user'
 import { PingbackEventType } from './pingback-event'
+import IUser from './user'
+import IVideo from './video'
 
 export interface IRendition {
     width: number
     height: number
 }
+
 export interface IImage extends IRendition {
     url: string
-    size: string
+    size?: string
 }
+
+export interface IURLAsset extends IImage {}
 
 export interface IMP4 {
     mp4: string
@@ -53,7 +57,7 @@ interface IBottleData {
     tags?: string[]
 }
 export default interface IGif {
-    type: string
+    type: 'video' | 'gif'
     id: string | number
     slug: string
     url: string
@@ -80,4 +84,5 @@ export default interface IGif {
     bottle_data: IBottleData
     response_id: string
     pingback_event_type: PingbackEventType
+    video?: IVideo
 }
