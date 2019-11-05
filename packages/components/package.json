@@ -13,7 +13,7 @@
         "typescript": "^3.5.2"
     },
     "name": "@giphy/js-components",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -27,7 +27,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@giphy/js-analytics": "^1.3.1",
+        "@giphy/js-analytics": "^1.3.2",
         "@giphy/js-brand": "^1.1.6",
         "@giphy/js-fetch-api": "^1.4.1",
         "@giphy/js-types": "^2.0.0",
