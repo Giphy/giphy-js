@@ -42,6 +42,20 @@ describe('pingback', () => {
         })
     })
     const position = { top: 0, left: 20 } as ClientRect
+    test('no response id', () => {
+        pingback({
+            gif: gif as IGif,
+            user,
+            // @ts-ignore
+            responseId: undefined,
+            type: 'GIF_RELATED',
+            actionType: 'CLICK',
+            position,
+        })
+
+        // @ts-ignore
+        expect(fetch.mock.calls.length).toEqual(0)
+    })
     test('request', () => {
         sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(['a', 'b', 'c']))
         pingback({
