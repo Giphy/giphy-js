@@ -3,7 +3,7 @@ import { createSession } from './session'
 import { Pingback, PingbackRequestAction } from './types'
 import { getAction } from './util'
 import { PingbackEventType } from '@giphy/js-types'
-import { forEach } from '@giphy/js-util'
+import { forEach, Logger } from '@giphy/js-util'
 import { sendPingback } from './send-pingback'
 
 type ActionMap = { [key: string]: PingbackRequestAction[] }
@@ -31,6 +31,11 @@ function fetchPingbackRequest() {
 const debouncedPingbackEvent = debounce(1000, fetchPingbackRequest)
 
 const pingback = ({ gif, user, responseId, type: pingbackType, actionType, position }: Pingback) => {
+    // not all endpoints provide a response_id
+    if (!responseId) {
+        Logger.debug(`Pingback aborted for ${gif.id}, no responseId`)
+        return
+    }
     const { id, bottle_data = {} } = gif
     const { tid } = bottle_data
 
