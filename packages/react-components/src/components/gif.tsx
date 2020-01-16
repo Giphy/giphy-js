@@ -182,7 +182,6 @@ const Gif = ({
         <a
             href={gif.url}
             style={{
-                backgroundColor: bgColor,
                 width,
                 height,
             }}
@@ -193,9 +192,14 @@ const Gif = ({
             onContextMenu={(e: SyntheticEvent<HTMLElement, Event>) => onGifRightClick(gif, e)}
             ref={container}
         >
-            {showGif ? (
-                <img src={fit} width={width} height={height} alt={getAltText(gif)} onLoad={onImageLoad} />
-            ) : null}
+            <img
+                src={showGif ? fit : placeholder}
+                style={{ backgroundColor: bgColor }}
+                width={width}
+                height={height}
+                alt={getAltText(gif)}
+                onLoad={showGif ? onImageLoad : () => {}}
+            />
             {showGif ? <AdPill bottleData={bottleData} /> : null}
             {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
         </a>
