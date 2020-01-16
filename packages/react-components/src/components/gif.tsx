@@ -1,4 +1,4 @@
-import { giphyBlack, giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
+import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, IUser } from '@giphy/js-types'
 import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight, Logger } from '@giphy/js-util'
 import { css, cx } from 'emotion'
@@ -8,11 +8,6 @@ import AdPill from './ad-pill'
 
 const gifCss = css`
     display: block;
-`
-const stickerCss = css`
-    display: block;
-    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AQMAAACSSKldAAAABlBMVEUhIiIWFhYoSqvJAAAAGElEQVQY02MAAv7///8PWxqIPwDZw5UGABtgwz2xhFKxAAAAAElFTkSuQmCC')
-        0 0;
 `
 
 export const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow]
@@ -173,10 +168,12 @@ const Gif = ({
     }, [])
     const height = forcedHeight || getGifHeight(gif, width)
     const fit = ready ? getBestRenditionUrl(gif, width, height) : placeholder
-    const bgColor =
+    const background =
         backgroundColor || // <- specified background prop
-        // ensure sticker has black
-        (gif.is_sticker ? giphyBlack : defaultBgColor.current)
+        // sticker has black if no backgroundColor is specified
+        (gif.is_sticker
+            ? `url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AQMAAACSSKldAAAABlBMVEUhIiIWFhYoSqvJAAAAGElEQVQY02MAAv7///8PWxqIPwDZw5UGABtgwz2xhFKxAAAAAElFTkSuQmCC') 0 0`
+            : defaultBgColor.current)
 
     return (
         <a
@@ -185,7 +182,7 @@ const Gif = ({
                 width,
                 height,
             }}
-            className={cx(Gif.className, gif.is_sticker ? stickerCss : gifCss, className)}
+            className={cx(Gif.className, gifCss, className)}
             onMouseOver={onMouseOver}
             onMouseLeave={onMouseLeave}
             onClick={onClick}
@@ -194,7 +191,7 @@ const Gif = ({
         >
             <img
                 src={showGif ? fit : placeholder}
-                style={{ backgroundColor: bgColor }}
+                style={{ background }}
                 width={width}
                 height={height}
                 alt={getAltText(gif)}
