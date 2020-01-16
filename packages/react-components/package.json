@@ -27,7 +27,7 @@
         "typescript": "^3.5.2"
     },
     "name": "@giphy/react-components",
-    "version": "0.3.5",
+    "version": "0.3.6",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
