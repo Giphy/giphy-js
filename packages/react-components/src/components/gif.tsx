@@ -189,16 +189,18 @@ const Gif = ({
             onContextMenu={(e: SyntheticEvent<HTMLElement, Event>) => onGifRightClick(gif, e)}
             ref={container}
         >
-            <img
-                src={showGif ? fit : placeholder}
-                style={{ background }}
-                width={width}
-                height={height}
-                alt={getAltText(gif)}
-                onLoad={showGif ? onImageLoad : () => {}}
-            />
-            {showGif ? <AdPill bottleData={bottleData} /> : null}
-            {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
+            <div style={{ width, height, position: 'relative' }}>
+                <img
+                    src={showGif ? fit : placeholder}
+                    style={{ background }}
+                    width={width}
+                    height={height}
+                    alt={getAltText(gif)}
+                    onLoad={showGif ? onImageLoad : () => {}}
+                />
+                {showGif ? <AdPill bottleData={bottleData} /> : null}
+                {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
+            </div>
         </a>
     )
 }
