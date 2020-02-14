@@ -27,7 +27,7 @@
         "typescript": "^3.5.2"
     },
     "name": "@giphy/react-components",
-    "version": "0.4.1-alpha.3",
+    "version": "0.3.2-alpha.4",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -53,7 +53,7 @@
         "bricks.js": "^1.8.0",
         "emotion": "10.0.9",
         "intersection-observer": "^0.7.0",
-        "moat": "@giphy/moat-loader",
+        "@giphy/moat-loader": "^1.1.1",
         "throttle-debounce": "^2.1.0"
     }
 }
