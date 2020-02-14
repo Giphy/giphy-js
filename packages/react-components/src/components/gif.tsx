@@ -5,7 +5,7 @@ import { css, cx } from 'emotion'
 import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
-import moat from 'moat-display-loader-combined'
+import moat from '@giphy/moat-loader'
 
 const gifCss = css`
     display: block;
