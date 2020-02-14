@@ -27,11 +27,7 @@
         "typescript": "^3.5.2"
     },
     "name": "@giphy/react-components",
-<<<<<<< HEAD
-    "version": "0.3.8-alpha.0",
-=======
-    "version": "0.3.1-alpha.3",
->>>>>>> Publish
+    "version": "0.4.1-alpha.3",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
