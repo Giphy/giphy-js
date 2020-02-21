@@ -5,7 +5,7 @@ import { css, cx } from 'emotion'
 import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
-
+import moat from '@giphy/moat-loader'
 const gifCss = css`
     display: block;
 `
@@ -40,6 +40,15 @@ type GifProps = {
     user?: Partial<IUser>
     overlay?: ReactType<GifOverlayProps>
 }
+
+// type MoatData = {
+//     moatClientLevel1: string
+//     moatClientLevel2: string
+//     moatClientLevel3: string
+//     moatClientLevel4: string
+//     moatClientSlicer1: string
+//     moatClientSlicer2: string
+// }
 
 type Props = GifProps & EventProps
 
@@ -80,7 +89,10 @@ const Gif = ({
     // fire hover pingback after this timeout
     const hoverTimeout = useRef<number>()
     // fire onseen ref (changes per gif, so need a ref)
+    const moatAdNumber = useRef<number>()
+
     const sendOnSeen = useRef<(_: IntersectionObserverEntry) => void>(noop)
+    const isAd = Object.keys(bottleData).length > 0
 
     const onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
         clearTimeout(hoverTimeout.current!)
@@ -132,7 +144,38 @@ const Gif = ({
             // observe img for full gif view
             fullGifObserver.current.observe(container.current)
         }
+
+        if (isAd && moatAdNumber.current === undefined) {
+            const moatCompatibleData = constructMoatData(bottleData as any)
+            moatAdNumber.current = moat.startTracking(container.current!, moatCompatibleData)
+        }
+
         onGifVisible(gif, e) // gif is visible, perhaps just partially
+    }
+
+    const constructMoatData = (moatData: any) => {
+        const moatTrackerData =
+            (moatData.tdata.web && moatData.tdata.web.filter((tracker: any) => tracker.vendor === 'Moat')[0]) || {}
+        if (moatTrackerData.verificationParameters) {
+            const {
+                moatClientLevel1 = '_ADVERTISER_',
+                moatClientLevel2 = '_CAMPAIGN_',
+                moatClientLevel3 = '_LINE_ITEM_',
+                moatClientLevel4 = '_CREATIVE_',
+                moatClientSlicer1 = '_SITE_',
+                moatClientSlicer2 = '_PLACEMENT_',
+            } = moatTrackerData.verificationParameters
+
+            return {
+                moatClientLevel1,
+                moatClientLevel2,
+                moatClientLevel3,
+                moatClientLevel4,
+                moatClientSlicer1,
+                moatClientSlicer2,
+            }
+        }
+        return {}
     }
 
     const checkForWebP = async () => {
@@ -166,6 +209,22 @@ const Gif = ({
             if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
         }
     }, [])
+
+    const stopTracking = () => {
+        // if we have a moat ad number
+        if (moatAdNumber.current !== undefined) {
+            // stop tracking
+            moat.stopTracking(moatAdNumber.current)
+            // remove the moat ad number
+            moatAdNumber.current = undefined
+        }
+    }
+
+    // if this component goes from showing an ad to not an ad
+    useEffect(() => {
+        if (!isAd) stopTracking()
+    }, [isAd])
+
     const height = forcedHeight || getGifHeight(gif, width)
     const fit = ready ? getBestRenditionUrl(gif, width, height) : placeholder
     const background =

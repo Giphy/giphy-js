@@ -44,6 +44,7 @@
         "react": "^16.8.3"
     },
     "dependencies": {
+        "@giphy/moat-loader": "^1.2.0",
         "@giphy/js-analytics": "^1.3.2",
         "@giphy/js-brand": "^1.1.6",
         "@giphy/js-fetch-api": "^1.4.1",
