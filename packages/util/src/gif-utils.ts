@@ -31,7 +31,7 @@ interface IRenditionWithName extends IRendition {
 }
 
 const getRenditions = (type: 'video' | 'gif', images: IImages, video?: IVideo) =>
-    type === 'video' && video && video.previews && !images.length ? video.previews : images
+    type === 'video' && video && video.previews && !Object.keys(images).length ? video.previews : images
 
 export const getBestRendition = (
     images: IImages,
