@@ -15,7 +15,9 @@
     "plugins": ["@typescript-eslint", "import"],
     "extends": ["standard", "plugin:import/errors", "plugin:import/warnings"],
     "rules": {
-        "@typescript-eslint/no-unused-vars": [2, { "args": "after-used" }],
+        "no-unused-expressions": 0,
+        "@typescript-eslint/no-unused-expressions": [2, { "allowTernary": true, "allowShortCircuit": true }],
+        "@typescript-eslint/no-unused-vars": [2, { "args": "after-used", "argsIgnorePattern": "^_" }],
         "react/prop-types": 0,
         "react/no-unknown-property": 0,
         "handle-callback-err": 0,
@@ -52,7 +54,7 @@
                 "objects": "always-multiline",
                 "imports": "always-multiline",
                 "exports": "always-multiline",
-                "functions": "always-multiline"
+                "functions": "never"
             }
         ],
         "space-before-function-paren": ["error", { "anonymous": "never", "named": "never", "asyncArrow": "always" }]

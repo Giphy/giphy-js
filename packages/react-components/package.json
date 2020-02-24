@@ -24,7 +24,7 @@
         "react": "^16.8.3",
         "react-dom": "^16.8.3",
         "storybook-addon-jsx": "^7.1.6",
-        "typescript": "^3.5.2"
+        "typescript": "^3.8.2"
     },
     "name": "@giphy/react-components",
     "version": "0.3.8",

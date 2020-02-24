@@ -1,5 +1,6 @@
 import { css, cx, injectGlobal } from 'emotion'
 
+// eslint-disable-next-line
 injectGlobal`
 @font-face {
     font-family: 'interface';
@@ -65,19 +66,19 @@ const title = cx(
     css`
         font-size: ${fontSize.title};
     `,
-    sharedTitle,
+    sharedTitle
 )
 const titleLarge = cx(
     css`
         font-size: ${fontSize.titleLarge};
     `,
-    sharedTitle,
+    sharedTitle
 )
 const titleSmall = cx(
     css`
         font-size: ${fontSize.titleSmall};
     `,
-    sharedTitle,
+    sharedTitle
 )
 
 const sharedSubheader = css`
@@ -89,13 +90,13 @@ const subheader = cx(
     css`
         font-size: ${fontSize.subheader};
     `,
-    sharedSubheader,
+    sharedSubheader
 )
 const subheaderSmall = cx(
     css`
         font-size: ${fontSize.subheaderSmall};
     `,
-    sharedSubheader,
+    sharedSubheader
 )
 
 const sectionHeader = css`
