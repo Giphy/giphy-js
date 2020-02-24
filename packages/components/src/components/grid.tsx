@@ -135,7 +135,7 @@ class Grid extends Component<Props, State> {
             onGifSeen,
             user,
         }: Props,
-        { gifWidth, gifs, isError, isDoneFetching }: State,
+        { gifWidth, gifs, isError, isDoneFetching }: State
     ) {
         const showLoader = fetchGifs && gifs.length > 0 && !isDoneFetching
         return (

@@ -133,7 +133,7 @@ export class GiphyFetch {
         return request(
             `gifs/related?${this.getQS({ gif_id: id, ...options })}`,
             normalizeGifs,
-            'GIF_RELATED',
+            'GIF_RELATED'
         ) as Promise<GifsResult>
     }
 }

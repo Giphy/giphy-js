@@ -10,7 +10,7 @@ const requestMap: { [key: string]: Promise<Result> } = {}
 function request(
     url: string,
     normalizer: (a: any, pingbackType?: PingbackEventType) => any = identity,
-    pingbackType?: PingbackEventType,
+    pingbackType?: PingbackEventType
 ) {
     if (!requestMap[url]) {
         const makeRequest = async (): Promise<Result> => {

@@ -7,7 +7,7 @@ export function getAction(
     action_type: PingbackActionType,
     gif_id: string,
     tid?: string,
-    position?: ClientRect,
+    position?: ClientRect
 ): PingbackRequestAction {
     const attributes: Attribute[] = []
     if (position) {

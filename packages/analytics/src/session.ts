@@ -47,7 +47,7 @@ export const createSession = (
     event_type: PingbackEventType,
     actions: PingbackRequestAction[],
     responseId: string = '',
-    loggedInUserId: string = '',
+    loggedInUserId: string = ''
 ): Session => ({
     user: {
         user_id: cookie.parse(document.cookie).giphy_pbid,

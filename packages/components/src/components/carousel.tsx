@@ -109,7 +109,7 @@ class Carousel extends Component<Props, State> {
             onGifSeen,
             user,
         }: Props,
-        { gifs }: State,
+        { gifs }: State
     ) {
         const showLoader = fetchGifs && gifs.length > 0
         const marginCss = css`
