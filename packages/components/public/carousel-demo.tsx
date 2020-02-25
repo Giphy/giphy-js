@@ -31,6 +31,6 @@ export const vanillaJSCarousel = (mountNode: HTMLElement) => {
             fetchGifs,
             gutter: 6,
         },
-        mountNode,
+        mountNode
     )
 }

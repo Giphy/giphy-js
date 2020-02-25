@@ -8,7 +8,7 @@ export const getSpecificRendition = (
     { images, is_sticker: isSticker }: IGif,
     renditionLabel: string,
     isStill = false,
-    useVideo = false,
+    useVideo = false
 ) => {
     if (!images || !renditionLabel) return ''
     isStill = isStill && !useVideo
@@ -37,7 +37,7 @@ export const getBestRendition = (
     images: IImages,
     gifWidth: number,
     gifHeight: number,
-    scaleUpMaxPixels?: number,
+    scaleUpMaxPixels?: number
 ): IRenditionWithName => {
     const checkRenditions = pick(images, [
         'original',
@@ -62,7 +62,7 @@ export const getBestRenditionUrl = (
     { images, video, type }: IGif,
     gifWidth: number,
     gifHeight: number,
-    options: Options = { isStill: false, useVideo: false },
+    options: Options = { isStill: false, useVideo: false }
 ): keyof IImages | '' => {
     if (!gifWidth || !gifHeight || !images) return ''
     const { useVideo, isStill, scaleUpMaxPixels } = options

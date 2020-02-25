@@ -55,7 +55,7 @@ export class VanillaJSGrid {
                 columns: width < 500 ? 2 : 3,
                 gutter: 6,
             },
-            this.mountNode,
+            this.mountNode
         ) as HTMLElement
     }
 
@@ -75,7 +75,7 @@ export const vanillaJSGrid = (mountNode: HTMLElement) => {
                 gutter: 6,
                 onGifsFetchError: error => console.error(`Gif Grid fetch error`, error),
             },
-            mountNode,
+            mountNode
         ) as HTMLElement
     }
     const resizeRender = throttle(500, render)

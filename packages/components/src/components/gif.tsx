@@ -110,7 +110,7 @@ class Gif extends Component<Props, State> {
                     fullGifObserver.disconnect()
                 }
             },
-            { threshold: [1] },
+            { threshold: [1] }
         )
         this.fullGifObserver = fullGifObserver
     }
@@ -152,7 +152,7 @@ class Gif extends Component<Props, State> {
 
     render(
         { gif, gif: { bottle_data: bottleData }, width, onGifRightClick = noop, className }: Props,
-        { ready, backgroundColor, showGif }: State,
+        { ready, backgroundColor, showGif }: State
     ) {
         const height = getGifHeight(gif, width)
         const fit = ready ? getBestRenditionUrl(gif, width, height) : placeholder

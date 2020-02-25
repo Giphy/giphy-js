@@ -110,7 +110,7 @@ const Gif = ({
         // fire pingback
         pingback.onGifSeen(gif, user, entry.boundingClientRect)
         // fire custom onGifSeen
-        onGifSeen(gif, entry.boundingClientRect)
+        onGifSeen?.(gif, entry.boundingClientRect)
         // disconnect
         if (fullGifObserver.current) {
             fullGifObserver.current.disconnect()
@@ -125,7 +125,7 @@ const Gif = ({
                         sendOnSeen.current(entry)
                     }
                 },
-                { threshold: [1] },
+                { threshold: [1] }
             )
         }
         if (!hasFiredSeen && container.current && fullGifObserver.current) {

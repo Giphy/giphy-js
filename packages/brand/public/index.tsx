@@ -18,7 +18,7 @@ render(
         <LoaderGuide />
     </div>,
     mountNode,
-    mountNode.lastChild as Element,
+    mountNode.lastChild as Element
 )
 
 // Hot Module Replacement

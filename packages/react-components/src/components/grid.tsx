@@ -50,7 +50,7 @@ class Grid extends PureComponent<Props, State> {
     paginator = gifPaginator(this.props.fetchGifs)
     static getDerivedStateFromProps: GetDerivedStateFromProps<Props, State> = (
         { columns, gutter, width }: Props,
-        prevState: State,
+        prevState: State
     ) => {
         const gutterOffset = gutter * (columns - 1)
         const gifWidth = Math.floor((width - gutterOffset) / columns)

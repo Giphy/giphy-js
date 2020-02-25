@@ -10,7 +10,7 @@
         "@types/bricks.js": "^1.8.0",
         "@types/throttle-debounce": "^1.1.1",
         "parcel-bundler": "^1.12.3",
-        "typescript": "^3.5.2"
+        "typescript": "^3.8.2"
     },
     "name": "@giphy/js-components",
     "version": "2.1.3",

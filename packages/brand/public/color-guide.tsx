@@ -9,7 +9,7 @@ const colorsCss = cx(
         display: flex;
         flex-wrap: wrap;
         color: ${colors.giphyLightestGrey};
-    `,
+    `
 )
 const item = css`
     display: flex;
@@ -33,7 +33,7 @@ const Color = ({ color, name }) => (
 )
 
 const Colors = Object.keys(colors).map(color =>
-    color !== '__esModule' ? <Color color={colors[color]} name={color} /> : null,
+    color !== '__esModule' ? <Color color={colors[color]} name={color} /> : null
 )
 
 const ColorsGuide = () => (
