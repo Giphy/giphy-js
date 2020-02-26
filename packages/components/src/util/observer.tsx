@@ -11,7 +11,7 @@ type Props = {
 
 class Observer extends Component<Props, State> {
     io: any
-    container?: HTMLElement
+    container: HTMLElement | null = null
     componentDidMount() {
         this.io = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
             this.setState({ isVisible: entry.isIntersecting })
