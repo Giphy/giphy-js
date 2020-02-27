@@ -29,7 +29,10 @@ const gifResponse = {
     pagination,
     meta,
 }
-
+const okResponseWithError = {
+    ...gifsResponse,
+    message: "response was okay, but here's a message",
+}
 const gifResponseWithUser = {
     ...gifResponse,
     data: {
@@ -139,6 +142,14 @@ describe('response parsing', () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.trending({ type: 'text' })
         testDummyGif(data[0], 'TEXT_TRENDING')
+    })
+    test('response ok with message', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(okResponseWithError), { status: 403 })
+        try {
+            await gf.related('d')
+        } catch (error) {
+            expect(error.message).toBe(`${ERROR_PREFIX}${okResponseWithError.message}`)
+        }
     })
     test('error', async () => {
         fetchMock.mockResponses([JSON.stringify({}), { status: 400 }])

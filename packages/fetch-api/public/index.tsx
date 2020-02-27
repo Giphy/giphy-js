@@ -50,6 +50,14 @@ const search = async () => {
         console.error('search', error)
     }
 }
+const searchChannel = async () => {
+    try {
+        const result = await gf.search('dogs', { sort: 'recent', channel: 'reactions' })
+        console.log('search channel', result)
+    } catch (error) {
+        console.error('search', error)
+    }
+}
 const subcategories = async () => {
     try {
         const result = await gf.subcategories('tv')
@@ -105,6 +113,7 @@ const textTrending = async () => {
 }
 categories()
 search()
+searchChannel()
 gif()
 gifs()
 gifByCategory()
