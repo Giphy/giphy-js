@@ -43,7 +43,7 @@ class Grid extends Component<Props, State> {
     static readonly defaultProps = defaultProps
     readonly state = initialState
     bricks?: any
-    el?: HTMLElement
+    el: HTMLElement | null = null
     paginator = gifPaginator(this.props.fetchGifs)
     static getDerivedStateFromProps({ columns, gutter, width }: Readonly<Props>, prevState: Readonly<State>) {
         const gutterOffset = gutter * (columns - 1)

@@ -47,7 +47,7 @@ class Gif extends Component<Props, State> {
     static className = 'giphy-gif'
     observer?: IntersectionObserver
     fullGifObserver?: IntersectionObserver
-    container?: HTMLElement
+    container: HTMLAnchorElement | null = null
     hasFiredSeen = false
     hoverTimeout?: any
     constructor(props: Props) {
