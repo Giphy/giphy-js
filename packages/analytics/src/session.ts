@@ -1,6 +1,7 @@
 import cookie from 'cookie'
 import { PingbackEventType } from '@giphy/js-types'
 import { PingbackRequestAction } from './types'
+import { v4 as uuid } from 'uuid'
 
 type SessionEvent = {
     event_type: PingbackEventType
@@ -13,6 +14,7 @@ export type Session = {
     user: {
         user_id: string
         logged_in_user_id: string
+        random_id: string
     }
     events: SessionEvent[]
 }
@@ -42,6 +44,28 @@ export function addLastSearchResponseId(responseId: string) {
         }
     } catch (_) {}
 }
+
+const gl = (window || global || {}) as any
+gl.giphyRandomId = ''
+const getRandomId = () => {
+    // it exists in memory
+    if (!gl.giphyRandomId) {
+        try {
+            // it exists in storage
+            gl.giphyRandomId = localStorage.get('giphyRandomId')
+        } catch (_) {}
+        if (!gl.giphyRandomId) {
+            // we need to create it
+            gl.giphyRandomId = uuid()
+            try {
+                // save in storage
+                localStorage.set('giphyRandomId', gl.giphyRandomId)
+            } catch (_) {}
+        }
+    }
+    return gl.giphyRandomId
+}
+
 // the session is the request payload of a pingback request
 export const createSession = (
     event_type: PingbackEventType,
@@ -52,6 +76,7 @@ export const createSession = (
     user: {
         user_id: cookie.parse(document.cookie).giphy_pbid,
         logged_in_user_id: loggedInUserId || '',
+        random_id: getRandomId(),
     },
     events: [
         {

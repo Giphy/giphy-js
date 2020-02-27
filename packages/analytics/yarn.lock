@@ -2,6 +2,18 @@
 # yarn lockfile v1
 
 
+"@giphy/js-types@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@giphy/js-types/-/js-types-2.0.0.tgz#e71ce5bb419be598d550754535aad1bde2990e3f"
+  integrity sha512-Y7F24BH5dBz47aMhPFumY+Fr43DsUoZWehQho8sXDZQ6qt0qQ7IVf80SIYIJG1oMMHrWTvj45wmpR2IqG1NtQA==
+
+"@giphy/js-util@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@giphy/js-util/-/js-util-1.5.2.tgz#0d0f85ecb47f78702609d9d8314e2d6aa907795c"
+  integrity sha512-tpG6M865on9fj5m4zUJcHjWuc7NCetnoKBEHd56uqfLErTuteBmzPTNflA8f+RnrM7JDdS9XOqyQUKvk25PnpA==
+  dependencies:
+    "@giphy/js-types" "^2.0.0"
+
 "@types/append-query@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/append-query/-/append-query-2.0.0.tgz#ed93e5adb9d865a1896ccdff8a2a32f28ef313de"
@@ -21,6 +33,11 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/throttle-debounce/-/throttle-debounce-1.1.1.tgz#4a78636c36a4534b76d85ee244fce238d435f22a"
   integrity sha512-VhX9p0l8p3TS27XU+CnDfhdnzW7HpVgtKiYDh/lfucSAz8s9uTt0q4aPwcYIr+q+3/NghlU3smXBW6ItvfJKYQ==
+
+"@types/uuid@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-7.0.0.tgz#9f6993ccc8210efa90bda7e1afabbb06a9f860cd"
+  integrity sha512-RiX1I0lK9WFLFqy2xOxke396f0wKIzk5sAll0tL4J4XDYJXURI7JOs96XQb3nP+2gEpQ/LutBb66jgiT5oQshQ==
 
 append-query@^2.1.0:
   version "2.1.0"
@@ -79,6 +96,11 @@ typescript@^3.8.2:
   version "3.8.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.2.tgz#91d6868aaead7da74f493c553aeff76c0c0b1d5a"
   integrity sha512-EgOVgL/4xfVrCMbhYKUQTdF37SQn4Iw73H5BgCrF1Abdun7Kwy/QZsE/ssAy0y4LxBbvua3PIbFsbRczWWnDdQ==
+
+uuid@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.1.tgz#95ed6ff3d8c881cbf85f0f05cc3915ef994818ef"
+  integrity sha512-yqjRXZzSJm9Dbl84H2VDHpM3zMjzSJQ+hn6C4zqd5ilW+7P4ZmLEEqwho9LjP+tGuZlF4xrHQXT0h9QZUS/pWA==
 
 whatwg-fetch@2.0.4:
   version "2.0.4"

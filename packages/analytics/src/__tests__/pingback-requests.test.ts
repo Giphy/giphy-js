@@ -2,6 +2,8 @@ import { IGif, IUser } from '@giphy/js-types'
 import pingback from '../pingback'
 import { SESSION_STORAGE_KEY, addLastSearchResponseId } from '../session'
 
+const gl = (window || global || {}) as any
+
 describe('pingback', () => {
     afterEach(() => {
         sessionStorage.clear()
@@ -39,6 +41,7 @@ describe('pingback', () => {
         } = JSON.parse(options.body)
         expect(sessionsNoUser.user).toEqual({
             logged_in_user_id: '',
+            random_id: gl.giphyRandomId,
         })
     })
     const position = { top: 0, left: 20 } as ClientRect
@@ -85,6 +88,7 @@ describe('pingback', () => {
         expect(url).toContain('https://pingback.giphy.com/pingback?apikey=l0HlIwPWyBBUDAUgM')
         expect(session.user).toEqual({
             logged_in_user_id: String(user.id),
+            random_id: gl.giphyRandomId,
         })
         const [event] = session.events
         const { actions } = event
@@ -115,6 +119,7 @@ describe('pingback', () => {
         expect(sessionsNoUser.user).toEqual({
             // but there's still a user bc we save it
             logged_in_user_id: String(user.id),
+            random_id: gl.giphyRandomId,
         })
     })
 })

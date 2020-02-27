@@ -22,10 +22,12 @@
     "dependencies": {
         "@giphy/js-types": "^2.0.0",
         "@giphy/js-util": "^1.5.2",
+        "@types/uuid": "^7.0.0",
         "append-query": "^2.1.0",
         "cookie": "0.4.0",
         "dompurify": "^1.0.10",
-        "throttle-debounce": "^2.1.0"
+        "throttle-debounce": "^2.1.0",
+        "uuid": "^7.0.1"
     },
     "devDependencies": {
         "@types/append-query": "^2.0.0",
