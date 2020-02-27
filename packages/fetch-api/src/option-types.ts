@@ -39,4 +39,5 @@ export interface SearchOptions extends PaginationOptions, TypeOption {
     sort?: SortTypes
     rating?: Rating
     lang?: string
+    channel?: string
 }
