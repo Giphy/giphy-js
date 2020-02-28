@@ -1,7 +1,7 @@
 import cookie from 'cookie'
 import { PingbackEventType } from '@giphy/js-types'
 import { PingbackRequestAction } from './types'
-import { v4 as uuid } from 'uuid'
+import { v1 as uuid } from 'uuid'
 
 type SessionEvent = {
     event_type: PingbackEventType
@@ -52,14 +52,14 @@ const getRandomId = () => {
     if (!gl.giphyRandomId) {
         try {
             // it exists in storage
-            gl.giphyRandomId = localStorage.get('giphyRandomId')
+            gl.giphyRandomId = localStorage.getItem('giphyRandomId')
         } catch (_) {}
         if (!gl.giphyRandomId) {
             // we need to create it
             gl.giphyRandomId = uuid()
             try {
                 // save in storage
-                localStorage.set('giphyRandomId', gl.giphyRandomId)
+                localStorage.setItem('giphyRandomId', gl.giphyRandomId)
             } catch (_) {}
         }
     }
