@@ -9,7 +9,7 @@
         "test:watch": "jest --config ./jestconfig.js --watchAll"
     },
     "name": "@giphy/js-fetch-api",
-    "version": "1.4.2",
+    "version": "1.4.3",
     "main": "dist/index.js",
     "description": "Javascript API to fetch gifs and stickers from the GIPHY API.",
     "types": "dist/index.d.ts",
@@ -22,8 +22,8 @@
         "access": "public"
     },
     "dependencies": {
-        "@giphy/js-types": "^2.0.0",
-        "@giphy/js-util": "^1.5.2",
+        "@giphy/js-types": "^2.0.1",
+        "@giphy/js-util": "^1.5.3",
         "cookie": "0.4.0",
         "qs": "^6.7.0"
     },
