@@ -1,8 +1,8 @@
-![GIPHY for developers](./header.gif)
+![GIPHY for developers](./docs/header.gif)
 
 The GIPHY SDKs let you and your users easily access the world’s largest GIF library anywhere on your website. Whether it’s via a comment, forum post, review, chatbot or messenger, adding GIFs to your product is a simple and easy way to boost engagement and user experience.
 
-## GIPHY-JS
+# GIPHY-JS SDKs
 
 [![Build Status](https://travis-ci.com/Giphy/giphy-js.svg?token=jJjbVBEbrqabxuHRjdmS&branch=master)](https://travis-ci.com/Giphy/giphy-js)
 
@@ -14,11 +14,17 @@ Choose your flavor!
 
 ### [@giphy/js-components](packages/components/README.md)
 
-> lightweight UI components
+> lightweight UI components, no framework reqiuired
 
 ### [@giphy/js-fetch-api](packages/fetch-api/README.md)
 
-> fetch gifs, stickers, categories and more and build your own UI
+> fetch gifs, stickers, categories and more (build your own UI)
+
+## _Now go build something!_
+
+![Go do it](./docs/cat.gif)
+
+## GIPHY-JS Developer Section
 
 ### Install
 
