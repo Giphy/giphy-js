@@ -16,18 +16,6 @@
 
 > lightweight UI components
 
-#### [@giphy/js-types](packages/types/README.md)
-
-> shared data types
-
-#### [@giphy/js-util](packages/util/README.md)
-
-> shared js utils
-
-#### [@giphy/js-brand](packages/brand/README.md)
-
-> giphy brand colors and fonts
-
 ### Install
 
 ```sh
