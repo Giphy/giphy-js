@@ -1,6 +1,5 @@
 /* eslint-disable no-dupe-class-members */
 import qs from 'qs'
-import { getGiphySDKRequestParams } from '@giphy/js-util'
 import { normalizeGif, normalizeGifs } from './normalize/gif'
 import {
     CategoriesOptions,
@@ -33,8 +32,7 @@ export class GiphyFetch {
     /**
      * @hidden
      */
-    private getQS = (options: any = {}) =>
-        qs.stringify({ ...options, api_key: this.apiKey, ...getGiphySDKRequestParams() })
+    private getQS = (options: any = {}) => qs.stringify({ ...options, api_key: this.apiKey })
 
     /**
      * A list of categories
