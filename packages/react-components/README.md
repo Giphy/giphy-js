@@ -2,24 +2,24 @@
 
 _React components, focused on ease-of-use and performance._
 
-The GIPHY React SDK lets you and your users easily access the world’s largest GIF library anywhere on your website. Whether it’s via a comment, forum post, review, chatbot or messenger, adding GIFs to your product is a simple and easy way to boost engagement and user experience. 
+The GIPHY React SDK lets you and your users easily access the world’s largest GIF library anywhere on your website. Whether it’s via a comment, forum post, review, chatbot or messenger, adding GIFs to your product is a simple and easy way to boost engagement and user experience.
 
 ### GIPHY React SDK includes all the same endpoints listed in our Javascript Fetch API:
-* **Search:** Search all Giphy GIFs for a word or phrase. Punctuation will be stripped and ignored.
-* **Trending:** Fetch GIFs currently trending online. Hand curated by the Giphy editorial team. The data returned mirrors the GIFs showcased on the Giphy homepage.
-* **GIF by ID:** Fetch detailed information about a GIF by ID
-* **GIFs category and subcategory:** Fetch GIFs category and subcategory
-* **Related:** Fetch related GIFs based on the ID of a GIF
-* **Random:** Returns a random single GIF
+
+-   [Search](../packages/fetch-api#search): Search all Giphy GIFs for a word or phrase. Punctuation will be stripped and ignored.
+-   [Trending](../packages/fetch-api#trending) Fetch GIFs currently trending online. Hand curated by the Giphy editorial team. The data returned mirrors the GIFs showcased on the Giphy homepage.
+-   [GIF by ID](../packages/fetch-api#gif) Fetch detailed information about a GIF by ID
+-   [GIFs category and subcategory](../packages/fetch-api#category) Fetch GIFs category and subcategory
+-   [Related](../packages/fetch-api#related) Fetch related GIFs based on the ID of a GIF
+-   [Random](../packages/fetch-api#random) Returns a random single GIF
 
 To try out it out before integrating, click on the code sandbox below. You may have also seen it in action on Google Chrome extention or Facebook Messenger bot.
 
 ### If React isn’t right for you, check out our other SDK repos that may be a better fit:
 
-* [GIPHY JS SDK](https://github.com/Giphy/giphy-js/blob/master/packages/components/README.md)
-* [GIPHY SDK for iOS](https://github.com/Giphy/giphy-ios-sdk)
-* [GIPHY SDK for Android](https://github.com/Giphy/giphy-android-sdk)
-
+-   [GIPHY JS SDK](https://github.com/Giphy/giphy-js/blob/master/packages/components/README.md)
+-   [GIPHY SDK for iOS](https://github.com/Giphy/giphy-ios-sdk)
+-   [GIPHY SDK for Android](https://github.com/Giphy/giphy-android-sdk)
 
 ## Try it out:
 

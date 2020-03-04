@@ -1,32 +1,30 @@
-## GIPHY-JS
+![GIPHY for developers](./docs/header.gif)
+
+The GIPHY SDKs let you and your users easily access the world’s largest GIF library anywhere on your website. Whether it’s via a comment, forum post, review, chatbot or messenger, adding GIFs to your product is a simple and easy way to boost engagement and user experience.
+
+# GIPHY-JS SDKs
 
 [![Build Status](https://travis-ci.com/Giphy/giphy-js.svg?token=jJjbVBEbrqabxuHRjdmS&branch=master)](https://travis-ci.com/Giphy/giphy-js)
 
-[lerna](https://github.com/lerna/lerna) monorepo containing GIPHY's public javascript packages.
+Choose your flavor!
 
-#### [@giphy/js-fetch-api](packages/fetch-api/README.md)
-
-> fetch gifs, stickers, categories and more
-
-#### [@giphy/react-components](packages/react-components/README.md)
+### [@giphy/react-components](packages/react-components/README.md)
 
 > React components focused on ease-of-use and performance
 
-#### [@giphy/js-components](packages/components/README.md)
+### [@giphy/js-components](packages/components/README.md)
 
-> lightweight UI components
+> lightweight UI components, no framework reqiuired
 
-#### [@giphy/js-types](packages/types/README.md)
+### [@giphy/js-fetch-api](packages/fetch-api/README.md)
 
-> shared data types
+> fetch gifs, stickers, categories and more (build your own UI)
 
-#### [@giphy/js-util](packages/util/README.md)
+## _Now go build something!_
 
-> shared js utils
+![Go do it](./docs/cat.gif)
 
-#### [@giphy/js-brand](packages/brand/README.md)
-
-> giphy brand colors and fonts
+## GIPHY-JS Developer Section
 
 ### Install
 
