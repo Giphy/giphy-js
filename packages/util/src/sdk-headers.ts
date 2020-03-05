@@ -12,3 +12,6 @@ export const getGiphySDKRequestHeaders = () => gl._GIPHY_SDK_HEADERS_
 
 export const appendGiphySDKRequestHeader = (key: GiphySDKRequestHeader, value: string) =>
     getGiphySDKRequestHeaders().set(key, value)
+
+export const appendGiphySDKRequestParam = (key: GiphySDKRequestHeader, value: string) =>
+    getGiphySDKRequestHeaders().set(key, value)
