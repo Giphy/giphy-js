@@ -1,11 +1,12 @@
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, IUser } from '@giphy/js-types'
 import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight, Logger } from '@giphy/js-util'
+import moat from '@giphy/moat-loader'
 import { css, cx } from 'emotion'
 import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
+import constructMoatData from '../util/construct-moat-data'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
-import moat from '@giphy/moat-loader'
 
 const moatLoader = moat.loadMoatTag('giphydisplay879451385633')
 
@@ -125,8 +126,14 @@ const Gif = ({
     }
 
     const trackWithMoat = async () => {
-        await moatLoader
-        moatAdNumber.current = moat.startTracking(container.current!, {})
+        if (showGif && container.current) {
+            await moatLoader
+            const { bottle_data: bottleData } = gif
+            const moatCompatibleData = constructMoatData(bottleData as any)
+            if (moatCompatibleData) {
+                moatAdNumber.current = moat.startTracking(container.current, {})
+            }
+        }
     }
 
     const onImageLoad = (e: SyntheticEvent<HTMLElement, Event>) => {
@@ -174,8 +181,10 @@ const Gif = ({
 
     // if this component goes from showing an ad to not an ad
     useEffect(() => {
-        if (!isAd) stopTracking()
-    }, [isAd])
+        if (!showGif) {
+            stopTracking()
+        }
+    }, [showGif])
 
     useEffect(() => {
         checkForWebP()
