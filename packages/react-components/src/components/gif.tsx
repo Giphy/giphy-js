@@ -5,7 +5,9 @@ import { css, cx } from 'emotion'
 import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
-import moat from 'moat-display-loader-combined'
+import moat from '@giphy/moat-loader'
+
+const moatLoader = moat.loadMoatTag('giphydisplay879451385633')
 
 const gifCss = css`
     display: block;
@@ -122,6 +124,11 @@ const Gif = ({
         }
     }
 
+    const trackWithMoat = async () => {
+        await moatLoader
+        moatAdNumber.current = moat.startTracking(container.current!, {})
+    }
+
     const onImageLoad = (e: SyntheticEvent<HTMLElement, Event>) => {
         if (!fullGifObserver.current) {
             fullGifObserver.current = new IntersectionObserver(
@@ -138,7 +145,7 @@ const Gif = ({
             fullGifObserver.current.observe(container.current)
         }
         if (isAd && moatAdNumber.current === undefined) {
-            moatAdNumber.current = moat.startTracking(container.current!, {})
+            trackWithMoat()
         }
         onGifVisible(gif, e) // gif is visible, perhaps just partially
     }
