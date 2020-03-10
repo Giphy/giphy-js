@@ -53,7 +53,7 @@ const noop = () => {}
 
 const Gif = ({
     gif,
-    gif: { bottle_data: bottleData },
+    gif: { bottle_data: bottleData = {} },
     width,
     height: forcedHeight,
     onGifRightClick = noop,
