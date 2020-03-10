@@ -41,6 +41,7 @@ const initialState = Object.freeze({
 class Grid extends Component<Props, State> {
     static className = 'giphy-grid'
     static readonly defaultProps = defaultProps
+    static fetchDebounce = 250
     readonly state = initialState
     bricks?: any
     el: HTMLElement | null = null
@@ -99,7 +100,7 @@ class Grid extends Component<Props, State> {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
 
-    onFetch = debounce(100, async () => {
+    onFetch = debounce(Grid.fetchDebounce, async () => {
         const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
         if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true, isError: false })

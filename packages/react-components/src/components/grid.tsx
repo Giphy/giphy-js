@@ -43,6 +43,7 @@ const initialState = Object.freeze({
 class Grid extends PureComponent<Props, State> {
     static className = 'giphy-grid'
     static loaderClassName = 'loader'
+    static fetchDebounce = 250
     static readonly defaultProps = defaultProps
     readonly state = initialState
     bricks?: any
@@ -105,7 +106,7 @@ class Grid extends PureComponent<Props, State> {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
 
-    onFetch = debounce(100, async () => {
+    onFetch = debounce(Grid.fetchDebounce, async () => {
         const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
         if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true, isError: false })
