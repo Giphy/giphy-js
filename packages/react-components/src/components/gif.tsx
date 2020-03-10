@@ -1,10 +1,9 @@
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, IUser } from '@giphy/js-types'
-import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight, Logger } from '@giphy/js-util'
+import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight, Logger, constructMoatData } from '@giphy/js-util'
 import moat from '@giphy/moat-loader'
 import { css, cx } from 'emotion'
 import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
-import constructMoatData from '../util/construct-moat-data'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
 
