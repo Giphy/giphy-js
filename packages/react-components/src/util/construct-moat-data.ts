@@ -17,7 +17,7 @@ type TData = {
 }
 
 function constructMoatData({ tdata }: { tdata: TData }): MoatData | undefined {
-    const [moatTrackerData] = tdata.web?.filter(tracker => tracker.vendor === 'Moat') || []
+    const [moatTrackerData] = tdata?.web?.filter(tracker => tracker.vendor === 'Moat') || []
     if (moatTrackerData?.verificationParameters) {
         const {
             moatClientLevel1 = '_ADVERTISER_',

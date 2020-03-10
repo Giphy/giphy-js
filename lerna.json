@@ -3,7 +3,7 @@
     "command": {
         "publish": {
             "ignoreChanges": ["ignored-file", "*.md"],
-            "allowBranch": ["master", "moat-loader"]
+            "allowBranch": ["master"]
         }
     },
     "version": "independent",
