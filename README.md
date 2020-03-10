@@ -1,4 +1,4 @@
-![GIPHY for developers](./docs/header.gif)
+![GIPHY for developers](https://giphy.com/static/img/sdk/header.gif)
 
 The GIPHY SDKs let you and your users easily access the world’s largest GIF library anywhere on your website. Whether it’s via a comment, forum post, review, chatbot or messenger, adding GIFs to your product is a simple and easy way to boost engagement and user experience.
 
@@ -22,7 +22,7 @@ Choose your flavor!
 
 ## _Now go build something!_
 
-![Go do it](./docs/cat.gif)
+![Go do it](https://giphy.com/static/img/sdk/cat.gif)
 
 ## GIPHY-JS Developer Section
 
