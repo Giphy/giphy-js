@@ -16,7 +16,7 @@ type TData = {
     web?: Tracker[]
 }
 
-function constructMoatData({ tdata }: { tdata: TData }): MoatData | undefined {
+export const constructMoatData = ({ tdata }: { tdata: TData }): MoatData | undefined => {
     const [moatTrackerData] = tdata?.web?.filter(tracker => tracker.vendor === 'Moat') || []
     if (moatTrackerData?.verificationParameters) {
         const {
@@ -38,5 +38,3 @@ function constructMoatData({ tdata }: { tdata: TData }): MoatData | undefined {
         }
     }
 }
-
-export default constructMoatData
