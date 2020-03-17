@@ -18,6 +18,7 @@ type Props = {
     onGifsFetched?: (gifs: IGif[]) => void
     onGifsFetchError?: (e: Error) => void
     overlay?: ReactType<GifOverlayProps>
+    hideAttribution?: boolean
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {} })
@@ -143,6 +144,7 @@ class Grid extends PureComponent<Props, State> {
             onGifClick,
             user,
             overlay,
+            hideAttribution,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = fetchGifs && gifs.length > 0 && !isDoneFetching
@@ -160,6 +162,7 @@ class Grid extends PureComponent<Props, State> {
                             onGifRightClick={onGifRightClick}
                             user={user}
                             overlay={overlay}
+                            hideAttribution={hideAttribution}
                         />
                     ))}
                 </div>

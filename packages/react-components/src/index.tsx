@@ -2,6 +2,7 @@ import 'intersection-observer'
 import { appendGiphySDKRequestHeader } from '@giphy/js-util'
 
 export { default as Carousel } from './components/carousel'
+export { default as Attribution } from './components/attribution'
 export { default as Gif, GifOverlayProps } from './components/gif'
 export { default as Grid } from './components/grid'
 

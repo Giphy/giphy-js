@@ -6,9 +6,9 @@ import { css, cx } from 'emotion'
 import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
+import AttributionInGif from './attribution/in-gif'
 
 const moatLoader = moat.loadMoatTag('giphydisplay879451385633')
-
 const gifCss = css`
     display: block;
 `
@@ -42,6 +42,7 @@ type GifProps = {
     className?: string
     user?: Partial<IUser>
     overlay?: ReactType<GifOverlayProps>
+    hideAttribution?: boolean
 }
 
 type Props = GifProps & EventProps
@@ -63,6 +64,7 @@ const Gif = ({
     user = {},
     backgroundColor,
     overlay: Overlay,
+    hideAttribution = false,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -231,6 +233,7 @@ const Gif = ({
         >
             <div style={{ width, height, position: 'relative' }}>
                 <img
+                    className={Gif.imgClassName}
                     src={showGif ? fit : placeholder}
                     style={{ background }}
                     width={width}
@@ -238,13 +241,19 @@ const Gif = ({
                     alt={getAltText(gif)}
                     onLoad={showGif ? onImageLoad : () => {}}
                 />
-                {showGif ? <AdPill bottleData={bottleData} /> : null}
-                {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
+                {showGif ? (
+                    <>
+                        <AdPill bottleData={bottleData} />
+                        {!hideAttribution && <AttributionInGif gif={gif} isVisible={isHovered} />}
+                        {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
+                    </>
+                ) : null}
             </div>
         </a>
     )
 }
 
 Gif.className = 'giphy-gif'
+Gif.imgClassName = 'giphy-gif-img'
 
 export default Gif
