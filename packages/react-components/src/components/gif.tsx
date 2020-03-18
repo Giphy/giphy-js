@@ -6,7 +6,7 @@ import { css, cx } from 'emotion'
 import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
-import AttributionInGif from './attribution/in-gif'
+import AttributionOverlay from './attribution/overlay'
 
 const moatLoader = moat.loadMoatTag('giphydisplay879451385633')
 const gifCss = css`
@@ -63,7 +63,7 @@ const Gif = ({
     onGifVisible = noop,
     user = {},
     backgroundColor,
-    overlay: Overlay,
+    overlay,
     hideAttribution = false,
 }: Props) => {
     // only fire seen once per gif id
@@ -90,6 +90,12 @@ const Gif = ({
     const moatAdNumber = useRef<number>()
     // are we displaying an ad
     const isAd = Object.keys(bottleData).length > 0
+    // user's overlay
+    let Overlay = overlay
+    if (!Overlay && !hideAttribution) {
+        // no user overlay, and no force hide of the attribution
+        Overlay = AttributionOverlay
+    }
 
     const onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
         clearTimeout(hoverTimeout.current!)
@@ -244,7 +250,6 @@ const Gif = ({
                 {showGif ? (
                     <>
                         <AdPill bottleData={bottleData} />
-                        {!hideAttribution && <AttributionInGif gif={gif} isVisible={isHovered} />}
                         {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
                     </>
                 ) : null}

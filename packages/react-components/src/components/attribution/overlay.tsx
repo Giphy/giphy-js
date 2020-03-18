@@ -1,7 +1,7 @@
-import { IGif } from '@giphy/js-types'
 import { css } from 'emotion'
 import React from 'react'
 import Attribution from '.'
+import { GifOverlayProps } from '../gif'
 const backgroundCss = css`
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(18, 18, 18, 0.6));
     cursor: default;
@@ -26,15 +26,13 @@ const containerCss = css`
     transition: opacity 150ms ease-in;
 `
 
-type Props = { gif: IGif; isVisible: boolean }
-
-const AttributionInGif = ({ gif, isVisible }: Props) => {
+const AttributionOverlay = ({ gif, isHovered }: GifOverlayProps) => {
     return gif.user ? (
-        <div className={containerCss} style={{ opacity: isVisible ? 1 : 0 }}>
+        <div className={containerCss} style={{ opacity: isHovered ? 1 : 0 }}>
             <div className={backgroundCss} />
-            {isVisible && <Attribution gif={gif} className={attributionCss} />}
+            {isHovered && <Attribution gif={gif} className={attributionCss} />}
         </div>
     ) : null
 }
 
-export default AttributionInGif
+export default AttributionOverlay
