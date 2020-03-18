@@ -249,7 +249,7 @@ const Gif = ({
                 />
                 {showGif ? (
                     <>
-                        <AdPill bottleData={bottleData} />
+                        <AdPill bottleData={bottleData} isHovered={isHovered} />
                         {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
                     </>
                 ) : null}
