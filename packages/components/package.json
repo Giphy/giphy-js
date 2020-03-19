@@ -32,10 +32,11 @@
         "@giphy/js-fetch-api": "^1.5.0",
         "@giphy/js-types": "^2.0.1",
         "@giphy/js-util": "^1.7.0",
+        "@giphy/moat-loader": "^2.0.1",
         "bricks.js": "^1.8.0",
         "emotion": "10.0.9",
         "intersection-observer": "^0.7.0",
-        "preact": "10.3.2",
+        "preact": "10.3.4",
         "throttle-debounce": "^2.1.0"
     }
 }

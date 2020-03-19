@@ -2,7 +2,7 @@ import 'intersection-observer'
 import { h, render } from 'preact'
 import Carousel from './components/carousel'
 import Grid from './components/grid'
-import Gif from './components/gif'
+import Gif, { Props as GifProps } from './components/gif'
 import { appendGiphySDKRequestHeader } from '@giphy/js-util'
 
 export { default as Carousel } from './components/carousel'
@@ -43,7 +43,7 @@ export const renderCarousel = (carouselProps: Carousel['props'], target: HTMLEle
  * @param gif Gif props
  * @param target the node to render into it
  */
-export const renderGif = (gifProps: Gif['props'], target: HTMLElement): Element => {
+export const renderGif = (gifProps: GifProps, target: HTMLElement): Element => {
     render(<Gif {...gifProps} />, target)
     return target.querySelector(`.${gifProps.className || Gif.className}`)!
 }
