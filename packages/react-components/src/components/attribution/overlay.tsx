@@ -1,5 +1,5 @@
 import { css } from 'emotion'
-import React from 'react'
+import React, { useRef } from 'react'
 import Attribution from '.'
 import { GifOverlayProps } from '../gif'
 const backgroundCss = css`
@@ -20,17 +20,20 @@ const attributionCss = css`
     right: 5px;
 `
 
-// minor fade in
-// don't want to load the avatar until hover and keeping this simple
 const containerCss = css`
     transition: opacity 150ms ease-in;
 `
 
 const AttributionOverlay = ({ gif, isHovered }: GifOverlayProps) => {
-    return gif.user ? (
+    const hasHovered = useRef(isHovered)
+    if (isHovered) {
+        // not rendering to avoid loading the avatar until hover
+        hasHovered.current = true
+    }
+    return gif.user && hasHovered.current ? (
         <div className={containerCss} style={{ opacity: isHovered ? 1 : 0 }}>
             <div className={backgroundCss} />
-            {isHovered && <Attribution gif={gif} className={attributionCss} />}
+            <Attribution gif={gif} className={attributionCss} />
         </div>
     ) : null
 }
