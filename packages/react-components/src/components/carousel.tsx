@@ -23,7 +23,7 @@ const carouselItemCss = css`
     &:first-of-type {
         margin-left: 0;
     }
-    img {
+    .${Gif.imgClassName} {
         position: absolute;
         top: 0;
         left: 0;
@@ -47,6 +47,7 @@ type Props = {
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
     overlay?: ReactType<GifOverlayProps>
+    hideAttribution?: boolean
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {} })
@@ -111,6 +112,7 @@ class Carousel extends PureComponent<Props, State> {
             onGifClick,
             user,
             overlay,
+            hideAttribution,
         } = this.props
         const { gifs, isDoneFetching } = this.state
         const showLoader = fetchGifs && gifs.length > 0 && !isDoneFetching
@@ -138,6 +140,7 @@ class Carousel extends PureComponent<Props, State> {
                             onGifRightClick={onGifRightClick}
                             user={user}
                             overlay={overlay}
+                            hideAttribution={hideAttribution}
                         />
                     )
                 })}

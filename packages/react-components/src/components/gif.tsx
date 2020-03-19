@@ -6,9 +6,9 @@ import { css, cx } from 'emotion'
 import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
+import AttributionOverlay from './attribution/overlay'
 
 const moatLoader = moat.loadMoatTag('giphydisplay879451385633')
-
 const gifCss = css`
     display: block;
 `
@@ -42,6 +42,7 @@ type GifProps = {
     className?: string
     user?: Partial<IUser>
     overlay?: ReactType<GifOverlayProps>
+    hideAttribution?: boolean
 }
 
 type Props = GifProps & EventProps
@@ -62,7 +63,8 @@ const Gif = ({
     onGifVisible = noop,
     user = {},
     backgroundColor,
-    overlay: Overlay,
+    overlay,
+    hideAttribution = false,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -88,6 +90,12 @@ const Gif = ({
     const moatAdNumber = useRef<number>()
     // are we displaying an ad
     const isAd = Object.keys(bottleData).length > 0
+    // user's overlay
+    let Overlay = overlay
+    if (!Overlay && !hideAttribution) {
+        // no user overlay, and no force hide of the attribution
+        Overlay = AttributionOverlay
+    }
 
     const onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
         clearTimeout(hoverTimeout.current!)
@@ -231,6 +239,7 @@ const Gif = ({
         >
             <div style={{ width, height, position: 'relative' }}>
                 <img
+                    className={Gif.imgClassName}
                     src={showGif ? fit : placeholder}
                     style={{ background }}
                     width={width}
@@ -238,13 +247,18 @@ const Gif = ({
                     alt={getAltText(gif)}
                     onLoad={showGif ? onImageLoad : () => {}}
                 />
-                {showGif ? <AdPill bottleData={bottleData} /> : null}
-                {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
+                {showGif ? (
+                    <>
+                        <AdPill bottleData={bottleData} isHovered={isHovered} />
+                        {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
+                    </>
+                ) : null}
             </div>
         </a>
     )
 }
 
 Gif.className = 'giphy-gif'
+Gif.imgClassName = 'giphy-gif-img'
 
 export default Gif
