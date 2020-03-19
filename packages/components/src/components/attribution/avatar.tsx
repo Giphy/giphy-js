@@ -1,6 +1,7 @@
 import { css, cx } from 'emotion'
-import React, { useRef } from 'react'
+import { h } from 'preact'
 import { IUser } from '@giphy/js-types'
+import { useRef } from 'preact/hooks'
 
 const getSmallAvatar = (avatar: string) => {
     if (!avatar) return ''

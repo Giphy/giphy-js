@@ -25,13 +25,14 @@ renderGrid({ width: 800, fetchGifs }, targetEl)
 
 _renderGrid options_
 
-| _prop_                    | _type_                                   | _default_ | _description_                                                            |
-| ------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------ |
-| width                     | `number`                                 | undefined | The width of the grid                                                    |
-| fetchGifs                 | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
-| columns                   | `number`                                 | 3         | The number of columns in the grid                                        |
-| gutter                    | `number`                                 | 6         | The space between columns and rows                                       |
-| [Gif Events](#gif-events) | \*                                       | \*        | see below                                                                |
+| _prop_                                  | _type_                                   | _default_ | _description_                                                            |
+| --------------------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------ |
+| width                                   | `number`                                 | undefined | The width of the grid                                                    |
+| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
+| columns                                 | `number`                                 | 3         | The number of columns in the grid                                        |
+| gutter                                  | `number`                                 | 6         | The space between columns and rows                                       |
+| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a                            |
+| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                |
 
 ### Thorough Example
 
@@ -84,12 +85,13 @@ grid.remove()
 
 _renderCarousel options_
 
-| property                  | type                                     | default   | description                                                              |
-| ------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------ |
-| gifHeight                 | `number`                                 | undefined | The height of the gifs and the carousel                                  |
-| fetchGifs                 | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
-| gutter                    | `number`                                 | 6         | The space between columns and rows                                       |
-| [Gif Events](#gif-events) | \*                                       | \*        | see below                                                                |
+| property                                | type                                     | default   | description                                                              |
+| --------------------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------ |
+| gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                  |
+| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
+| gutter                                  | `number`                                 | 6         | The space between columns and rows                                       |
+| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a                            |
+| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                |
 
 ```typescript
 import { renderCarousel } from '@giphy/js-components'
@@ -107,6 +109,10 @@ export const vanillaJSCarousel = (mountNode: HTMLElement) => {
     )
 }
 ```
+
+### Attribution Overlay
+
+If a GIF has an associated user, an overlay with their avatar and display name will appear. This can be hidden with `hideAttribution` on any of the components.
 
 ### Gif Events
 

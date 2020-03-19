@@ -1,7 +1,9 @@
 import { css } from 'emotion'
-import React, { useRef } from 'react'
+import { h } from 'preact'
 import Attribution from '.'
-import { GifOverlayProps } from '../gif'
+import { IGif } from '@giphy/js-types'
+import { useRef } from 'preact/hooks'
+
 const backgroundCss = css`
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(18, 18, 18, 0.6));
     cursor: default;
@@ -24,7 +26,7 @@ const containerCss = css`
     transition: opacity 150ms ease-in;
 `
 
-const AttributionOverlay = ({ gif, isHovered }: GifOverlayProps) => {
+const AttributionOverlay = ({ gif, isHovered }: { gif: IGif; isHovered: boolean }) => {
     const hasHovered = useRef(isHovered)
     if (isHovered) {
         // not rendering to avoid loading the avatar until hover
