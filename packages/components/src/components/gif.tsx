@@ -228,7 +228,7 @@ const Gif = ({
 
     return (
         <Container
-            href={noLink ? '' : gif.url}
+            href={noLink ? undefined : gif.url}
             style={{
                 width,
                 height,
