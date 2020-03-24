@@ -19,6 +19,8 @@ export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLOR
 
 const hoverTimeoutDelay = 200
 
+const Container = (props: any) => (props.href ? <a href={props.href} {...props} /> : <div {...props} />)
+
 export type EventProps = {
     // fired on desktop when hovered for
     onGifHover?: (gif: IGif, e: Event) => void
@@ -50,6 +52,7 @@ type GifProps = {
     className?: string
     user?: Partial<IUser>
     hideAttribution?: boolean
+    noLink?: boolean
 }
 
 export type Props = GifProps & EventProps
@@ -71,6 +74,7 @@ const Gif = ({
     user = {},
     backgroundColor,
     hideAttribution = false,
+    noLink = false,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -83,7 +87,7 @@ const Gif = ({
     // the background color shouldn't change unless it comes from a prop or we have a sticker
     const defaultBgColor = useRef(getColor())
     // the a tag the media is rendered into
-    const container = useRef<HTMLAnchorElement | null>(null)
+    const container = useRef<HTMLDivElement | null>(null)
     // intersection observer with no threshold
     const showGifObserver = useMutableRef<IntersectionObserver>()
     // intersection observer with a threshold of 1 (full element is on screen)
@@ -223,8 +227,8 @@ const Gif = ({
             : defaultBgColor.current)
 
     return (
-        <a
-            href={gif.url}
+        <Container
+            href={noLink ? '' : gif.url}
             style={{
                 width,
                 height,
@@ -234,9 +238,8 @@ const Gif = ({
             onMouseLeave={onMouseLeave}
             onClick={onClick}
             onContextMenu={(e: Event) => onGifRightClick(gif, e)}
-            ref={container}
         >
-            <div style={{ width, height, position: 'relative' }}>
+            <div style={{ width, height, position: 'relative' }} ref={container}>
                 <img
                     className={Gif.imgClassName}
                     src={showGif ? fit : placeholder}
@@ -253,7 +256,7 @@ const Gif = ({
                     </div>
                 ) : null}
             </div>
-        </a>
+        </Container>
     )
 }
 

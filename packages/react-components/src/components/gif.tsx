@@ -3,7 +3,7 @@ import { IGif, IUser } from '@giphy/js-types'
 import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight, Logger, constructMoatData } from '@giphy/js-util'
 import moat from '@giphy/moat-loader'
 import { css, cx } from 'emotion'
-import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
+import React, { ReactType, SyntheticEvent, useEffect, useRef, useState, HTMLProps } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
 import AttributionOverlay from './attribution/overlay'
@@ -17,6 +17,10 @@ export const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyY
 export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLORS.length - 1))]
 
 const hoverTimeoutDelay = 200
+
+type ContainerProps = HTMLProps<HTMLElement> & { href: string }
+const Container = (props: ContainerProps) =>
+    props.href ? <a {...(props as HTMLProps<HTMLAnchorElement>)} /> : <div {...(props as HTMLProps<HTMLDivElement>)} />
 
 export type EventProps = {
     // fired every time the gif is show
@@ -43,6 +47,7 @@ type GifProps = {
     user?: Partial<IUser>
     overlay?: ReactType<GifOverlayProps>
     hideAttribution?: boolean
+    noLink?: boolean
 }
 
 type Props = GifProps & EventProps
@@ -65,6 +70,7 @@ const Gif = ({
     backgroundColor,
     overlay,
     hideAttribution = false,
+    noLink = false,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -77,7 +83,7 @@ const Gif = ({
     // the background color shouldn't change unless it comes from a prop or we have a sticker
     const defaultBgColor = useRef(getColor())
     // the a tag the media is rendered into
-    const container = useRef<HTMLAnchorElement | null>(null)
+    const container = useRef<HTMLDivElement | null>(null)
     // intersection observer with no threshold
     const showGifObserver = useRef<IntersectionObserver>()
     // intersection observer with a threshold of 1 (full element is on screen)
@@ -224,8 +230,8 @@ const Gif = ({
             : defaultBgColor.current)
 
     return (
-        <a
-            href={gif.url}
+        <Container
+            href={noLink ? '' : gif.url}
             style={{
                 width,
                 height,
@@ -235,9 +241,8 @@ const Gif = ({
             onMouseLeave={onMouseLeave}
             onClick={onClick}
             onContextMenu={(e: SyntheticEvent<HTMLElement, Event>) => onGifRightClick(gif, e)}
-            ref={container}
         >
-            <div style={{ width, height, position: 'relative' }}>
+            <div style={{ width, height, position: 'relative' }} ref={container}>
                 <img
                     className={Gif.imgClassName}
                     src={showGif ? fit : placeholder}
@@ -254,7 +259,7 @@ const Gif = ({
                     </>
                 ) : null}
             </div>
-        </a>
+        </Container>
     )
 }
 
