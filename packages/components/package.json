@@ -13,7 +13,7 @@
         "typescript": "^3.8.2"
     },
     "name": "@giphy/js-components",
-    "version": "2.3.0",
+    "version": "2.4.0",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
