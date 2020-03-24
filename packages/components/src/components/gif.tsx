@@ -1,6 +1,14 @@
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, IUser } from '@giphy/js-types'
-import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight, Logger, constructMoatData } from '@giphy/js-util'
+import {
+    checkIfWebP,
+    getAltText,
+    getBestRenditionUrl,
+    getGifHeight,
+    Logger,
+    constructMoatData,
+    injectTrackingPixel,
+} from '@giphy/js-util'
 import moat from '@giphy/moat-loader'
 import { css, cx } from 'emotion'
 import { h } from 'preact'
@@ -161,8 +169,11 @@ const Gif = ({
             // observe img for full gif view
             fullGifObserver.current.observe(container.current)
         }
-        if (isAd && moatAdNumber.current === undefined) {
-            trackWithMoat()
+        if (isAd) {
+            if (moatAdNumber.current === undefined) {
+                trackWithMoat()
+            }
+            injectTrackingPixel(bottleData.tags)
         }
         onGifVisible(gif, e) // gif is visible, perhaps just partially
     }
