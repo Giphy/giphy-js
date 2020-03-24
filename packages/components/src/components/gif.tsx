@@ -19,6 +19,8 @@ export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLOR
 
 const hoverTimeoutDelay = 200
 
+const WithLink = (props: any) => (props.href ? <a href={props.href} {...props} /> : <div {...props} />)
+
 export type EventProps = {
     // fired on desktop when hovered for
     onGifHover?: (gif: IGif, e: Event) => void
@@ -44,6 +46,7 @@ export type GifOverlayProps = {
 
 type GifProps = {
     gif: IGif
+    as?: 'a' | 'div'
     width: number
     height?: number
     backgroundColor?: string
@@ -59,6 +62,7 @@ const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAAL
 const noop = () => {}
 
 const Gif = ({
+    as = 'a',
     gif,
     gif: { bottle_data: bottleData = {} },
     width,
@@ -83,7 +87,7 @@ const Gif = ({
     // the background color shouldn't change unless it comes from a prop or we have a sticker
     const defaultBgColor = useRef(getColor())
     // the a tag the media is rendered into
-    const container = useRef<HTMLAnchorElement | null>(null)
+    const container = useRef<HTMLDivElement | null>(null)
     // intersection observer with no threshold
     const showGifObserver = useMutableRef<IntersectionObserver>()
     // intersection observer with a threshold of 1 (full element is on screen)
@@ -223,8 +227,8 @@ const Gif = ({
             : defaultBgColor.current)
 
     return (
-        <a
-            href={gif.url}
+        <WithLink
+            href={as === 'a' ? gif.url : ''}
             style={{
                 width,
                 height,
@@ -234,9 +238,8 @@ const Gif = ({
             onMouseLeave={onMouseLeave}
             onClick={onClick}
             onContextMenu={(e: Event) => onGifRightClick(gif, e)}
-            ref={container}
         >
-            <div style={{ width, height, position: 'relative' }}>
+            <div style={{ width, height, position: 'relative' }} ref={container}>
                 <img
                     className={Gif.imgClassName}
                     src={showGif ? fit : placeholder}
@@ -253,7 +256,7 @@ const Gif = ({
                     </div>
                 ) : null}
             </div>
-        </a>
+        </WithLink>
     )
 }
 
