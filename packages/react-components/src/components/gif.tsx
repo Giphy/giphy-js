@@ -26,7 +26,7 @@ export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLOR
 
 const hoverTimeoutDelay = 200
 
-type ContainerProps = HTMLProps<HTMLElement> & { href: string }
+type ContainerProps = HTMLProps<HTMLElement> & { href?: string }
 const Container = (props: ContainerProps) =>
     props.href ? <a {...(props as HTMLProps<HTMLAnchorElement>)} /> : <div {...(props as HTMLProps<HTMLDivElement>)} />
 
@@ -242,7 +242,7 @@ const Gif = ({
 
     return (
         <Container
-            href={noLink ? '' : gif.url}
+            href={noLink ? undefined : gif.url}
             style={{
                 width,
                 height,
