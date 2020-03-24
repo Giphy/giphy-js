@@ -19,7 +19,7 @@ export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLOR
 
 const hoverTimeoutDelay = 200
 
-const WithLink = (props: any) => (props.href ? <a href={props.href} {...props} /> : <div {...props} />)
+const Container = (props: any) => (props.href ? <a href={props.href} {...props} /> : <div {...props} />)
 
 export type EventProps = {
     // fired on desktop when hovered for
@@ -46,13 +46,13 @@ export type GifOverlayProps = {
 
 type GifProps = {
     gif: IGif
-    as?: 'a' | 'div'
     width: number
     height?: number
     backgroundColor?: string
     className?: string
     user?: Partial<IUser>
     hideAttribution?: boolean
+    noLink?: boolean
 }
 
 export type Props = GifProps & EventProps
@@ -62,7 +62,6 @@ const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAAL
 const noop = () => {}
 
 const Gif = ({
-    as = 'a',
     gif,
     gif: { bottle_data: bottleData = {} },
     width,
@@ -75,6 +74,7 @@ const Gif = ({
     user = {},
     backgroundColor,
     hideAttribution = false,
+    noLink = false,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -227,8 +227,8 @@ const Gif = ({
             : defaultBgColor.current)
 
     return (
-        <WithLink
-            href={as === 'a' ? gif.url : ''}
+        <Container
+            href={noLink ? '' : gif.url}
             style={{
                 width,
                 height,
@@ -256,7 +256,7 @@ const Gif = ({
                     </div>
                 ) : null}
             </div>
-        </WithLink>
+        </Container>
     )
 }
 

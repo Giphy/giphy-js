@@ -3,7 +3,7 @@ import { IGif, IUser } from '@giphy/js-types'
 import { checkIfWebP, getAltText, getBestRenditionUrl, getGifHeight, Logger, constructMoatData } from '@giphy/js-util'
 import moat from '@giphy/moat-loader'
 import { css, cx } from 'emotion'
-import React, { ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
+import React, { ReactType, SyntheticEvent, useEffect, useRef, useState, HTMLProps } from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
 import AttributionOverlay from './attribution/overlay'
@@ -18,7 +18,9 @@ export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLOR
 
 const hoverTimeoutDelay = 200
 
-const WithLink = (props: any) => (props.href ? <a href={props.href} {...props} /> : <div {...props} />)
+type ContainerProps = HTMLProps<HTMLElement> & { href: string }
+const Container = (props: ContainerProps) =>
+    props.href ? <a {...(props as HTMLProps<HTMLAnchorElement>)} /> : <div {...(props as HTMLProps<HTMLDivElement>)} />
 
 export type EventProps = {
     // fired every time the gif is show
@@ -38,7 +40,6 @@ export type GifOverlayProps = {
 
 type GifProps = {
     gif: IGif
-    as?: 'a' | 'div'
     width: number
     height?: number
     backgroundColor?: string
@@ -46,6 +47,7 @@ type GifProps = {
     user?: Partial<IUser>
     overlay?: ReactType<GifOverlayProps>
     hideAttribution?: boolean
+    noLink?: boolean
 }
 
 type Props = GifProps & EventProps
@@ -55,7 +57,6 @@ const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAAL
 const noop = () => {}
 
 const Gif = ({
-    as = 'a',
     gif,
     gif: { bottle_data: bottleData = {} },
     width,
@@ -69,6 +70,7 @@ const Gif = ({
     backgroundColor,
     overlay,
     hideAttribution = false,
+    noLink = false,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -228,8 +230,8 @@ const Gif = ({
             : defaultBgColor.current)
 
     return (
-        <WithLink
-            href={as === 'a' ? gif.url : null}
+        <Container
+            href={noLink ? '' : gif.url}
             style={{
                 width,
                 height,
@@ -257,7 +259,7 @@ const Gif = ({
                     </>
                 ) : null}
             </div>
-        </WithLink>
+        </Container>
     )
 }
 
