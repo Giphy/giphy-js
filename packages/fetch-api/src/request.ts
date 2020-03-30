@@ -1,6 +1,5 @@
 import { PingbackEventType } from '@giphy/js-types'
 import FetchError from './fetch-error'
-import { getGiphySDKRequestHeaders } from '@giphy/js-util'
 import { ErrorResult, Result } from './result-types'
 export const ERROR_PREFIX = `@giphy/js-fetch-api: `
 export const DEFAULT_ERROR = 'Error fetching'
@@ -19,7 +18,6 @@ function request(
             try {
                 const response = await fetch(`${serverUrl}${url}`, {
                     method: 'get',
-                    headers: getGiphySDKRequestHeaders(),
                 })
                 if (response.ok) {
                     const result = (await response.json()) as Result
