@@ -13,7 +13,7 @@
         "typescript": "^3.8.2"
     },
     "name": "@giphy/js-components",
-    "version": "2.4.2",
+    "version": "2.4.3",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -29,7 +29,7 @@
     "dependencies": {
         "@giphy/js-analytics": "^1.5.2",
         "@giphy/js-brand": "^1.1.7",
-        "@giphy/js-fetch-api": "^1.5.2",
+        "@giphy/js-fetch-api": "^1.5.3",
         "@giphy/js-types": "^2.0.1",
         "@giphy/js-util": "^1.8.0",
         "@giphy/moat-loader": "^2.0.1",
