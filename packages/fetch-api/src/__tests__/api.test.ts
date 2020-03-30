@@ -138,6 +138,11 @@ describe('response parsing', () => {
         const { data } = await gf.search('pasta', { type: 'text' })
         testDummyGif(data[0], 'TEXT_SEARCH')
     })
+    test('explore', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
+        const { data } = await gf.search('pasta', { explore: true })
+        testDummyGif(data[0], 'GIF_EXPLORE')
+    })
     test('text trending', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.trending({ type: 'text' })
