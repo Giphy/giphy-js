@@ -1,5 +1,6 @@
 /* eslint-disable no-dupe-class-members */
 import qs from 'qs'
+import cookie from 'cookie'
 import { normalizeGif, normalizeGifs } from './normalize/gif'
 import {
     CategoriesOptions,
@@ -32,7 +33,10 @@ export class GiphyFetch {
     /**
      * @hidden
      */
-    private getQS = (options: any = {}) => qs.stringify({ ...options, api_key: this.apiKey })
+    private getQS = (options: any = {}) => {
+        const { giphy_pbid: pingback_id } = cookie.parse(document.cookie)
+        return qs.stringify({ ...options, api_key: this.apiKey, pingback_id })
+    }
 
     /**
      * A list of categories
@@ -86,7 +90,7 @@ export class GiphyFetch {
     search(term: string, options: SearchOptions = {}): Promise<GifsResult> {
         const q = options.channel ? `@${options.channel} ${term}` : term
         const qsParams = this.getQS({ ...options, q })
-        const pingbackType = options.type === 'text' ? 'TEXT_SEARCH' : 'GIF_SEARCH'
+        const pingbackType = options.type === 'text' ? 'TEXT_SEARCH' : options.explore ? 'GIF_EXPLORE' : 'GIF_SEARCH'
         return request(`${getType(options)}/search?${qsParams}`, normalizeGifs, pingbackType) as Promise<GifsResult>
     }
 

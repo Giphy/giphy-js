@@ -40,4 +40,5 @@ export interface SearchOptions extends PaginationOptions, TypeOption {
     rating?: Rating
     lang?: string
     channel?: string
+    explore?: boolean
 }
