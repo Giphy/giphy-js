@@ -6,7 +6,7 @@
         "prepublish": "npm run clean && tsc -d --emitDeclarationOnly -declarationDir ./dist"
     },
     "name": "@giphy/js-types",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "main": "dist/index.d.ts",
     "types": "dist/index.d.ts",
     "publishConfig": {
