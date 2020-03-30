@@ -149,7 +149,7 @@ const Gif = ({
             const { bottle_data: bottleData } = gif
             const moatCompatibleData = constructMoatData(bottleData as any)
             if (moatCompatibleData) {
-                moatAdNumber.current = moat.startTracking(container.current, {})
+                moatAdNumber.current = moat.startTracking(container.current, moatCompatibleData)
             }
         }
     }
