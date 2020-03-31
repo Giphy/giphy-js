@@ -22,8 +22,7 @@
     },
     "dependencies": {
         "@giphy/js-types": "^2.0.2",
-        "dompurify": "^2.0.8",
-        "unfetch": "4.1.0"
+        "dompurify": "^2.0.8"
     },
     "devDependencies": {
         "@types/dompurify": "^2.0.1",
