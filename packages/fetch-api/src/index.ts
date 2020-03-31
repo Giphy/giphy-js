@@ -9,7 +9,7 @@ const { version } = require('../package.json')
 // since we have multiple SDKs, we're defining a hieracrchy
 // Fetch API is lowest
 
-if (!getGiphySDKRequestHeaders().get(`X-GIPHY-SDK-NAME`)) {
+if (!getGiphySDKRequestHeaders()?.get(`X-GIPHY-SDK-NAME`)) {
     // send headers with library type and version
     appendGiphySDKRequestHeader(`X-GIPHY-SDK-NAME`, 'FetchAPI')
     appendGiphySDKRequestHeader(`X-GIPHY-SDK-VERSION`, version)

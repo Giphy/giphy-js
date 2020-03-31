@@ -6,7 +6,7 @@ const pingBackUrl = 'https://pingback.giphy.com/pingback?apikey=l0HlIwPWyBBUDAUg
 
 export const sendPingback = (session: Session) => {
     const headers = getGiphySDKRequestHeaders()
-    headers.set('Content-Type', 'application/json')
+    headers?.set('Content-Type', 'application/json')
     Logger.debug(`Pingback session`, session)
     return fetch(pingBackUrl, {
         method: 'POST',
