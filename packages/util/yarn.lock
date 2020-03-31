@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@giphy/js-types@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@giphy/js-types/-/js-types-2.0.1.tgz#cc061fd409b76ff8013b559c6e2a66d1709144a7"
-  integrity sha512-P+aLgNScCK5Pr6FoiqfV0UYqkz8W+dCHA7Pm93oVXlJhL3AHV1FD0YGxAPDp87F5XBmhhPTA2Ibu4L6meA1nXA==
+"@giphy/js-types@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@giphy/js-types/-/js-types-2.0.2.tgz#31e06cf407f276cbd64da5e892080f23b70a94bc"
+  integrity sha512-wPKdGoiAWtA7UoFGeae0y/Z5YSQPbWr8C5K4CUumNtA78sh0SWFvrhMq4OWmGJGAOTcMybsXXIclKp1bvwM1PA==
 
 "@types/dompurify@^2.0.1":
   version "2.0.1"
@@ -28,3 +28,8 @@ typescript@^3.8.2:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
   integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
+
+unfetch@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/unfetch/-/unfetch-4.1.0.tgz#6ec2dd0de887e58a4dee83a050ded80ffc4137db"
+  integrity sha512-crP/n3eAPUJxZXM9T80/yv0YhkTEx2K1D3h7D1AJM6fzsWZrxdyRuLN0JH/dkZh1LNH8LxCnBzoPFCPbb2iGpg==
