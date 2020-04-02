@@ -13,7 +13,7 @@
         "typescript": "^3.8.2"
     },
     "name": "@giphy/js-components",
-    "version": "2.4.5",
+    "version": "2.4.6",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -27,11 +27,11 @@
         "access": "public"
     },
     "dependencies": {
-        "@giphy/js-analytics": "^1.6.1",
+        "@giphy/js-analytics": "^1.6.2",
         "@giphy/js-brand": "^1.1.7",
-        "@giphy/js-fetch-api": "^1.5.5",
+        "@giphy/js-fetch-api": "^1.5.6",
         "@giphy/js-types": "^2.0.2",
-        "@giphy/js-util": "^1.8.2",
+        "@giphy/js-util": "^1.8.3",
         "@giphy/moat-loader": "^2.0.1",
         "bricks.js": "^1.8.0",
         "emotion": "10.0.9",
