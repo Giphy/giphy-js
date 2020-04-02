@@ -1,5 +1,5 @@
 type GiphySDKRequestHeader = 'X-GIPHY-SDK-NAME' | 'X-GIPHY-SDK-VERSION' | 'X-GIPHY-SDK-PLATFORM'
-const gl = (window || global || {}) as any
+const gl = ((typeof window !== 'undefined' ? window : global) || {}) as any
 // define _GIPHY_SDK_HEADERS_ if they don't exist
 gl._GIPHY_SDK_HEADERS_ =
     gl._GIPHY_SDK_HEADERS_ ||

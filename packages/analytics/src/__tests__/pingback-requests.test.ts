@@ -2,7 +2,7 @@ import { IGif, IUser } from '@giphy/js-types'
 import pingback from '../pingback'
 import { SESSION_STORAGE_KEY, addLastSearchResponseId } from '../session'
 
-const gl = (window || global || {}) as any
+const gl = ((typeof window !== 'undefined' ? window : global) || {}) as any
 
 describe('pingback', () => {
     afterEach(() => {
