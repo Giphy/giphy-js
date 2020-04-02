@@ -37,7 +37,7 @@ export function addLastSearchResponseId(responseId: string) {
         if (existing) {
             var searchResponseIds = JSON.parse(existing)
             if (searchResponseIds[searchResponseIds.length - 1] !== responseId) {
-                window.sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify([...searchResponseIds, responseId]))
+                sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify([...searchResponseIds, responseId]))
             }
         } else {
             sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify([responseId]))
@@ -45,7 +45,7 @@ export function addLastSearchResponseId(responseId: string) {
     } catch (_) {}
 }
 
-const gl = (window || global || {}) as any
+const gl = ((typeof window !== 'undefined' ? window : global) || {}) as any
 gl.giphyRandomId = ''
 const getRandomId = () => {
     // it exists in memory

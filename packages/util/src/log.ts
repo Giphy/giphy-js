@@ -7,7 +7,7 @@ export enum LogLevel {
 }
 /* istanbul ignore next */
 export const Logger = {
-    ENABLED: window && location && location.search.indexOf('giphy-debug') !== -1,
+    ENABLED: typeof window !== 'undefined' && location && location.search.indexOf('giphy-debug') !== -1,
     LEVEL: 0,
     PREFIX: 'GiphyJS',
     debug: function(...msg: any) {

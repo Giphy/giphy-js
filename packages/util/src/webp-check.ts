@@ -1,6 +1,9 @@
 export let SUPPORTS_WEBP: null | boolean = null
 /* istanbul ignore next */
 export const checkIfWebP = new Promise(resolve => {
+    if (typeof Image === 'undefined') {
+        resolve(false)
+    }
     const webp = new Image()
     webp.onload = () => {
         SUPPORTS_WEBP = true

@@ -34,7 +34,8 @@ export class GiphyFetch {
      * @hidden
      */
     private getQS = (options: any = {}) => {
-        const { giphy_pbid: pingback_id } = cookie.parse(document.cookie)
+        const { giphy_pbid: pingback_id } =
+            typeof document !== 'undefined' ? cookie.parse(document.cookie) : ({} as any)
         return qs.stringify({ ...options, api_key: this.apiKey, pingback_id })
     }
 
