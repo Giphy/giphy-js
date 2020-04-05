@@ -15,15 +15,16 @@ const { version } = require('../package.json')
 appendGiphySDKRequestHeader(`X-GIPHY-SDK-NAME`, 'JavascriptSDK')
 appendGiphySDKRequestHeader(`X-GIPHY-SDK-VERSION`, version)
 
+type RemoveCallback = () => void
 /**
  * render a grid
  *
  * @param gridProps grid props
  * @param target the node to render into it
  */
-export const renderGrid = (gridProps: Grid['props'], target: HTMLElement): Element => {
+export const renderGrid = (gridProps: Grid['props'], target: HTMLElement): RemoveCallback => {
     render(<Grid {...gridProps} />, target)
-    return target.querySelector(`.${gridProps.className || Grid.className}`)!
+    return () => render(null, target)
 }
 
 /**
@@ -32,9 +33,9 @@ export const renderGrid = (gridProps: Grid['props'], target: HTMLElement): Eleme
  * @param carouselProps Carousel props
  * @param target the node to render into it
  */
-export const renderCarousel = (carouselProps: Carousel['props'], target: HTMLElement): Element => {
+export const renderCarousel = (carouselProps: Carousel['props'], target: HTMLElement): RemoveCallback => {
     render(<Carousel {...carouselProps} />, target)
-    return target.querySelector(`.${carouselProps.className || Carousel.className}`)!
+    return () => render(null, target)
 }
 
 /**
@@ -43,7 +44,7 @@ export const renderCarousel = (carouselProps: Carousel['props'], target: HTMLEle
  * @param gif Gif props
  * @param target the node to render into it
  */
-export const renderGif = (gifProps: GifProps, target: HTMLElement): Element => {
+export const renderGif = (gifProps: GifProps, target: HTMLElement): RemoveCallback => {
     render(<Gif {...gifProps} />, target)
-    return target.querySelector(`.${gifProps.className || Gif.className}`)!
+    return () => render(null, target)
 }
