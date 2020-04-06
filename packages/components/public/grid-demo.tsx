@@ -48,7 +48,7 @@ export class VanillaJSGrid {
 
     render = () => {
         const width = getWidth()
-        this.el = renderGrid(
+        this.remove = renderGrid(
             {
                 width,
                 fetchGifs,
@@ -56,11 +56,11 @@ export class VanillaJSGrid {
                 gutter: 6,
             },
             this.mountNode
-        ) as HTMLElement
+        )
     }
 
     remove() {
-        this.el.parentNode.removeChild(this.el)
+        this.remove()
     }
 }
 
@@ -76,13 +76,13 @@ export const vanillaJSGrid = (mountNode: HTMLElement) => {
                 onGifsFetchError: error => console.error(`Gif Grid fetch error`, error),
             },
             mountNode
-        ) as HTMLElement
+        )
     }
     const resizeRender = throttle(500, render)
     window.addEventListener('resize', resizeRender, false)
-    const el = render()
+    const remove = render()
     return () => {
-        el.parentNode.removeChild(el)
+        remove()
         window.removeEventListener('resize', resizeRender, false)
     }
 }

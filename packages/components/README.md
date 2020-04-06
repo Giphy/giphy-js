@@ -67,9 +67,9 @@ const makeGrid = (targetEl: HTMLElement) => {
     }
     const resizeRender = throttle(500, render)
     window.addEventListener('resize', resizeRender, false)
-    const el = render()
+    const remove = render()
     return () => {
-        el.parentNode.removeChild(el)
+        remove()
         window.removeEventListener('resize', resizeRender, false)
     }
 }

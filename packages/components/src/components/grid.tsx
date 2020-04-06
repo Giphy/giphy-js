@@ -11,7 +11,7 @@ import FetchError from './fetch-error'
 type Props = {
     className?: string
     width: number
-    user: Partial<IUser>
+    user?: Partial<IUser>
     columns: number
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
