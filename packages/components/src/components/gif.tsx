@@ -2,12 +2,12 @@ import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giph
 import { IGif, IUser } from '@giphy/js-types'
 import {
     checkIfWebP,
+    constructMoatData,
     getAltText,
     getBestRenditionUrl,
     getGifHeight,
-    Logger,
-    constructMoatData,
     injectTrackingPixel,
+    Logger,
 } from '@giphy/js-util'
 import moat from '@giphy/moat-loader'
 import { css, cx } from 'emotion'
@@ -133,6 +133,10 @@ const Gif = ({
         // flag so we don't observe any more
         setHasFiredSeen(true)
         Logger.debug(`GIF ${gif.id} seen. ${gif.title}`)
+        // third party here
+        if (gif.bottle_data && gif.bottle_data.tags) {
+            injectTrackingPixel(gif.bottle_data.tags)
+        }
         // fire pingback
         pingback.onGifSeen(gif, user, entry.boundingClientRect)
         // fire custom onGifSeen

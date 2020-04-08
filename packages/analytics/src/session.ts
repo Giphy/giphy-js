@@ -1,7 +1,7 @@
 import cookie from 'cookie'
 import { PingbackEventType } from '@giphy/js-types'
 import { PingbackRequestAction } from './types'
-import { v1 as uuid } from 'uuid'
+import { v1 as uuid } from 'uuid' // v1 only for pingback verfication
 
 type SessionEvent = {
     event_type: PingbackEventType
@@ -74,7 +74,7 @@ export const createSession = (
     loggedInUserId: string = ''
 ): Session => ({
     user: {
-        user_id: cookie.parse(document.cookie).giphy_pbid,
+        user_id: cookie.parse(document ? document.cookie : ({} as any)).giphy_pbid,
         logged_in_user_id: loggedInUserId || '',
         random_id: getRandomId(),
     },

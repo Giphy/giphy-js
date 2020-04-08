@@ -1,15 +1,12 @@
-import { PingbackRequestAction, PingbackActionType } from './types'
-export type Attribute = {
-    key: string
-    value: string
-}
+import { PingbackRequestAction, PingbackActionType, PingbackAttribute } from './types'
+
 export function getAction(
     action_type: PingbackActionType,
     gif_id: string,
     tid?: string,
-    position?: ClientRect
+    position?: ClientRect,
+    attributes: PingbackAttribute[] = []
 ): PingbackRequestAction {
-    const attributes: Attribute[] = []
     if (position) {
         attributes.push({
             key: `position`,
