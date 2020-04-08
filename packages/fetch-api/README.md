@@ -41,7 +41,7 @@ search(term: string, options?: SearchOptions): Promise<GifsResult>
 ##### Example:
 
 ```typescript
-const { data: gifs } = await gf.search('dogs', { sort: 'relevant', lang: 'es', limit: 10, type: 'sticker' })
+const { data: gifs } = await gf.search('dogs', { sort: 'relevant', lang: 'es', limit: 10, type: 'stickers' })
 ```
 
 ## _trending_
@@ -155,7 +155,7 @@ random(options?: RandomOptions): Promise<GifResult>
 ##### Example:
 
 ```typescript
-const { data: gif } = await gf.random({ tag: 'beer', type: 'sticker' })
+const { data: gif } = await gf.random({ tag: 'beer', type: 'stickers' })
 ```
 
 # Fetch Categories and Subcategories
