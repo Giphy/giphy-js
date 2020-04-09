@@ -167,11 +167,13 @@ const Gif = ({
 
     const trackWithMoat = async () => {
         if (showGif && container.current) {
-            await moatLoader
             const { bottle_data: bottleData } = gif
             const moatCompatibleData = constructMoatData(bottleData as any)
             if (moatCompatibleData) {
-                moatAdNumber.current = moat.startTracking(container.current, moatCompatibleData)
+                await moatLoader
+                if (container.current) {
+                    moatAdNumber.current = moat.startTracking(container.current, moatCompatibleData)
+                }
             }
         }
     }
