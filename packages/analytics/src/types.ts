@@ -1,5 +1,10 @@
 import { IGif, IUser, PingbackEventType } from '@giphy/js-types'
 
+export type PingbackAttribute = {
+    key: string
+    value: string
+}
+
 export type Pingback = {
     gif: IGif
     user: Partial<IUser>
@@ -7,6 +12,7 @@ export type Pingback = {
     responseId: string
     actionType: PingbackActionType
     position?: ClientRect
+    attributes?: PingbackAttribute[]
 }
 
 export type PingbackActionType = 'CLICK' | 'SEEN' | 'HOVER'

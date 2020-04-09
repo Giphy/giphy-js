@@ -1,3 +1,4 @@
+import { PingbackAttribute } from '@giphy/js-analytics'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, IUser } from '@giphy/js-types'
 import {
@@ -6,15 +7,27 @@ import {
     getAltText,
     getBestRenditionUrl,
     getGifHeight,
-    Logger,
     injectTrackingPixel,
+    Logger,
 } from '@giphy/js-util'
 import moat from '@giphy/moat-loader'
 import { css, cx } from 'emotion'
-import React, { HTMLProps, ReactType, SyntheticEvent, useEffect, useRef, useState } from 'react'
+import React, {
+    createContext,
+    HTMLProps,
+    ReactType,
+    SyntheticEvent,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
 import * as pingback from '../util/pingback'
 import AdPill from './ad-pill'
 import AttributionOverlay from './attribution/overlay'
+
+type PingbackContextProps = { attributes: PingbackAttribute[] }
+export const PingbackContext = createContext({} as PingbackContextProps)
 
 const moatLoader = moat.loadMoatTag('giphydisplay879451385633')
 const gifCss = css`
@@ -100,6 +113,8 @@ const Gif = ({
     const hoverTimeout = useRef<number>()
     // fire onseen ref (changes per gif, so need a ref)
     const sendOnSeen = useRef<(_: IntersectionObserverEntry) => void>(noop)
+    // custom pingback
+    const { attributes } = useContext(PingbackContext)
     // moat ad number
     const moatAdNumber = useRef<number>()
     // are we displaying an ad
@@ -116,7 +131,7 @@ const Gif = ({
         e.persist()
         setHovered(true)
         hoverTimeout.current = window.setTimeout(() => {
-            pingback.onGifHover(gif, user, e.target as HTMLElement)
+            pingback.onGifHover(gif, user, e.target as HTMLElement, attributes)
         }, hoverTimeoutDelay)
     }
 
@@ -136,6 +151,10 @@ const Gif = ({
         // flag so we don't observe any more
         setHasFiredSeen(true)
         Logger.debug(`GIF ${gif.id} seen. ${gif.title}`)
+        // third party here
+        if (gif.bottle_data && gif.bottle_data.tags) {
+            injectTrackingPixel(gif.bottle_data.tags)
+        }
         // fire pingback
         pingback.onGifSeen(gif, user, entry.boundingClientRect)
         // fire custom onGifSeen
@@ -176,7 +195,6 @@ const Gif = ({
             if (moatAdNumber.current === undefined) {
                 trackWithMoat()
             }
-            injectTrackingPixel(bottleData.tags)
         }
         onGifVisible(gif, e) // gif is visible, perhaps just partially
     }

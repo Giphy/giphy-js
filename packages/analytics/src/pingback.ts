@@ -30,7 +30,7 @@ function fetchPingbackRequest() {
 
 const debouncedPingbackEvent = debounce(1000, fetchPingbackRequest)
 
-const pingback = ({ gif, user, responseId, type: pingbackType, actionType, position }: Pingback) => {
+const pingback = ({ gif, user, responseId, type: pingbackType, actionType, position, attributes }: Pingback) => {
     // not all endpoints provide a response_id
     if (!responseId) {
         Logger.debug(`Pingback aborted for ${gif.id}, no responseId`)
@@ -52,7 +52,7 @@ const pingback = ({ gif, user, responseId, type: pingbackType, actionType, posit
     if (!actionMap[responseId]) actionMap[responseId] = []
 
     // add the action
-    actionMap[responseId].push(getAction(actionType, String(id), tid, position))
+    actionMap[responseId].push(getAction(actionType, String(id), tid, position, attributes))
 
     // if there's a tid, skip the queue
     tid ? fetchPingbackRequest() : debouncedPingbackEvent()
