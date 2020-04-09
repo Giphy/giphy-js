@@ -208,8 +208,8 @@ Options: [Pagination Options](#pagination-options)
 
 ### Type Option
 
-| option | type   | description          | default |
-| :----- | :----- | :------------------- | :-----: |
-| _type_ | string | gif / sticker / text |   gif   |
+| option | type   | description            | default |
+| :----- | :----- | :--------------------- | :-----: |
+| _type_ | string | gifs / stickers / text |  gifs   |
 
 [lang]: https://developers.giphy.com/docs/#language-support
