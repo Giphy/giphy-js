@@ -1,6 +1,6 @@
 import { IGif, IUser } from '@giphy/js-types'
 import pingback from '../pingback'
-import { SESSION_STORAGE_KEY, addLastSearchResponseId } from '../session'
+import { addLastSearchResponseId, SESSION_STORAGE_KEY } from '../session'
 
 const gl = ((typeof window !== 'undefined' ? window : global) || {}) as any
 
@@ -76,7 +76,6 @@ describe('pingback', () => {
             responseId,
             actionType: 'CLICK',
         })
-
         // @ts-ignore
         expect(fetch.mock.calls.length).toEqual(2)
         // @ts-ignore
@@ -120,6 +119,41 @@ describe('pingback', () => {
             // but there's still a user bc we save it
             logged_in_user_id: String(user.id),
             random_id: gl.giphyRandomId,
+        })
+    })
+    test('request custom attributes', () => {
+        sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(['a', 'b', 'c']))
+        pingback({
+            gif: gif as IGif,
+            user: {},
+            type: 'GIF_RELATED',
+            responseId,
+            actionType: 'CLICK',
+            attributes: [{ key: 'position', value: `1` }],
+            position,
+        })
+        // @ts-ignore
+        expect(fetch.mock.calls.length).toEqual(1)
+        // @ts-ignore
+        const [[, options]] = fetch.mock.calls
+        const {
+            sessions: [session],
+        } = JSON.parse(options.body)
+        const [event] = session.events
+        const { actions } = event
+        delete event.actions
+        const [action] = actions
+        delete action.ts
+        expect(action).toEqual({
+            action_type: 'CLICK',
+            gif_id: '9870',
+            tid: 'tid!',
+            attributes: [
+                {
+                    key: 'position',
+                    value: `1`,
+                },
+            ],
         })
     })
 })
