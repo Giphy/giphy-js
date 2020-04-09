@@ -5,6 +5,7 @@ type MoatData = {
     moatClientLevel4: string
     moatClientSlicer1: string
     moatClientSlicer2: string
+    response_id?: string
 }
 
 type Tracker = {
