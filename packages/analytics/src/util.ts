@@ -1,4 +1,4 @@
-import { PingbackRequestAction, PingbackActionType, PingbackAttribute } from './types'
+import { PingbackActionType, PingbackAttribute, PingbackRequestAction } from './types'
 
 export function getAction(
     action_type: PingbackActionType,
@@ -7,7 +7,11 @@ export function getAction(
     position?: ClientRect,
     attributes: PingbackAttribute[] = []
 ): PingbackRequestAction {
-    if (position) {
+    if (
+        position &&
+        // apppend position only if it's not passed as a custom attribute
+        !attributes.some(attributes => attributes.key === 'position')
+    ) {
         attributes.push({
             key: `position`,
             value: JSON.stringify(position),
