@@ -27,7 +27,7 @@
         "typescript": "^3.8.2"
     },
     "name": "@giphy/react-components",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -44,7 +44,7 @@
         "react": "^16.8.3"
     },
     "dependencies": {
-        "@giphy/js-analytics": "^1.6.2",
+        "@giphy/js-analytics": "^1.7.0",
         "@giphy/js-brand": "^1.1.7",
         "@giphy/js-fetch-api": "^1.5.6",
         "@giphy/js-types": "^2.0.2",
