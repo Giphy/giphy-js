@@ -15,6 +15,7 @@ const tdata = {
                 moatClientLevel4: 'SVrp0BVItzp9mjBLAO',
                 moatClientSlicer1: 'ecb949ed-a624-4297-93cd-a70fb3450df3',
                 moatClientSlicer2: 'giphytrending',
+                zMoatPosition: '0',
             },
         },
     ],
@@ -29,6 +30,7 @@ describe('parsing of moat data', () => {
             moatClientLevel4: ref.moatClientLevel4,
             moatClientSlicer1: ref.moatClientSlicer1,
             moatClientSlicer2: ref.moatClientSlicer2,
+            zMoatPosition: ref.zMoatPosition,
         })
     })
     test('constructMoatData defaults', () => {
@@ -50,6 +52,7 @@ describe('parsing of moat data', () => {
             moatClientLevel4: '_CREATIVE_',
             moatClientSlicer1: '_SITE_',
             moatClientSlicer2: '_PLACEMENT_',
+            zMoatPosition: '_POSITION_',
         })
     })
     test('constructMoatData undefined', () => {
