@@ -5,6 +5,7 @@ type MoatData = {
     moatClientLevel4: string
     moatClientSlicer1: string
     moatClientSlicer2: string
+    zMoatPosition: string
     response_id?: string
 }
 
@@ -27,6 +28,7 @@ export const constructMoatData = ({ tdata }: { tdata: TData }): MoatData | undef
             moatClientLevel4 = '_CREATIVE_',
             moatClientSlicer1 = '_SITE_',
             moatClientSlicer2 = '_PLACEMENT_',
+            zMoatPosition = '_POSITION_',
         } = moatTrackerData.verificationParameters
 
         return {
@@ -36,6 +38,7 @@ export const constructMoatData = ({ tdata }: { tdata: TData }): MoatData | undef
             moatClientLevel4,
             moatClientSlicer1,
             moatClientSlicer2,
+            zMoatPosition,
         }
     }
 }
