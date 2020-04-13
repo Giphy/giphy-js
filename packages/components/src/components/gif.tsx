@@ -20,6 +20,9 @@ import AttributionOverlay from './attribution/overlay'
 const moatLoader = moat.loadMoatTag('giphydisplay879451385633', 'https://giphyscripts.s3.amazonaws.com/moat/moatad.js')
 const gifCss = css`
     display: block;
+    img {
+        display: block;
+    }
 `
 
 export const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow]
@@ -168,7 +171,7 @@ const Gif = ({
                         sendOnSeen.current(entry)
                     }
                 },
-                { threshold: [1] }
+                { threshold: [0.99] }
             )
         }
         if (!hasFiredSeen && container.current && fullGifObserver.current) {
