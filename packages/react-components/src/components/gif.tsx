@@ -32,6 +32,9 @@ export const PingbackContext = createContext({} as PingbackContextProps)
 const moatLoader = moat.loadMoatTag('giphydisplay879451385633')
 const gifCss = css`
     display: block;
+    img {
+        display: block;
+    }
 `
 
 export const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow]
@@ -186,7 +189,7 @@ const Gif = ({
                         sendOnSeen.current(entry)
                     }
                 },
-                { threshold: [1] }
+                { threshold: [0.99] }
             )
         }
         if (!hasFiredSeen && container.current && fullGifObserver.current) {
