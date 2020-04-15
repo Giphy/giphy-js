@@ -1,4 +1,5 @@
 import { IRendition } from '@giphy/js-types'
+import { Logger } from './log'
 
 const closestArea = (width: number, height: number, renditions: IRendition[]) => {
     let currentBest = Infinity
@@ -19,6 +20,11 @@ const closestArea = (width: number, height: number, renditions: IRendition[]) =>
     return result!
 }
 
+let SCALE_UP_MAX_PIXELS = 50
+export const setRenditionScaleUpMaxPixels = (pixels: number) => {
+    Logger.debug(`@giphy/js-util set rendition selection scale up max pixels to ${pixels}`)
+    SCALE_UP_MAX_PIXELS = pixels
+}
 /**
  * Finds image rendition that best fits a given container preferring images
  * ##### Note: all renditions are assumed to have the same aspect ratio
@@ -33,7 +39,12 @@ const closestArea = (width: number, height: number, renditions: IRendition[]) =>
  * @param {Number} height
  * @param {Number} scaleUpMaxPixels the maximum pixels an asset should be scaled up
  */
-function bestfit(renditions: Array<IRendition>, width: number, height: number, scaleUpMaxPixels: number = 20) {
+function bestfit(
+    renditions: Array<IRendition>,
+    width: number,
+    height: number,
+    scaleUpMaxPixels: number = SCALE_UP_MAX_PIXELS
+) {
     let [largestRendition] = renditions
     // filter out renditions that are smaller than the target width and height by scaleUpMaxPixels value
     const testRenditions = renditions.filter(rendition => {
