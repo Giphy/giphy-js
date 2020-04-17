@@ -1,12 +1,17 @@
-import React, { PureComponent, ReactType, GetDerivedStateFromProps } from 'react'
-import { debounce } from 'throttle-debounce'
-import Gif, { EventProps, GifOverlayProps } from './gif'
-import Bricks from 'bricks.js'
-import Observer from '../util/observer'
+import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
-import { GifsResult, gifPaginator } from '@giphy/js-fetch-api'
-import Loader from './loader'
+import Bricks from 'bricks.js'
+import { css, cx } from 'emotion'
+import React, { GetDerivedStateFromProps, PureComponent, ReactType } from 'react'
+import { debounce } from 'throttle-debounce'
+import Observer from '../util/observer'
 import FetchError from './fetch-error'
+import Gif, { EventProps, GifOverlayProps } from './gif'
+import Loader from './loader'
+
+const loaderHiddenCss = css`
+    opacity: 0;
+`
 
 type Props = {
     className?: string
@@ -37,7 +42,7 @@ const initialState = Object.freeze({
     isError: false,
     gifWidth: 0,
     gifs: [] as IGif[],
-    isLoaderVisible: true,
+    isLoaderVisible: false,
     isDoneFetching: false,
 })
 
@@ -147,7 +152,8 @@ class Grid extends PureComponent<Props, State> {
             hideAttribution,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
-        const showLoader = fetchGifs && gifs.length > 0 && !isDoneFetching
+        const showLoader = fetchGifs && !isDoneFetching
+        const isFirstLoad = gifs.length === 0
         return (
             <div className={className}>
                 <div ref={c => (this.el = c)}>
@@ -171,7 +177,7 @@ class Grid extends PureComponent<Props, State> {
                 ) : (
                     showLoader && (
                         <Observer onVisibleChange={this.onLoaderVisible}>
-                            <Loader className={Grid.loaderClassName} />
+                            <Loader className={cx(Grid.loaderClassName, isFirstLoad ? loaderHiddenCss : '')} />
                         </Observer>
                     )
                 )}
