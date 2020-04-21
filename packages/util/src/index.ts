@@ -1,16 +1,16 @@
+export { default as bestfit, setRenditionScaleUpMaxPixels } from './bestfit'
+export * from './collections'
+export * from './construct-moat-data'
+export { default as getClientRect } from './get-client-rect-from-el'
 export {
     getAltText,
-    getBestRenditionUrl,
     getBestRendition,
+    getBestRenditionUrl,
     getGifHeight,
-    getSpecificRendition,
     getGifWidth,
+    getSpecificRendition,
 } from './gif-utils'
-export { checkIfWebP } from './webp-check'
-export { default as bestfit } from './bestfit'
-export { default as injectTrackingPixel } from './tracking-pixel'
-export { default as getClientRect } from './get-client-rect-from-el'
-export * from './collections'
 export * from './log'
 export * from './sdk-headers'
-export * from './construct-moat-data'
+export { default as injectTrackingPixel } from './tracking-pixel'
+export { checkIfWebP } from './webp-check'
