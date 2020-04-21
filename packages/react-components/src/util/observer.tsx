@@ -1,36 +1,29 @@
-import React, { PureComponent, ReactNode } from 'react'
+import React, { FC, ReactNode, useEffect, useRef } from 'react'
 
 type Props = {
+    // can't get FC<Props> to pass eslintreact/prop-types warning :/
     children: ReactNode
     onVisibleChange: (isVisible: boolean) => void
     className?: string
 }
 
-class Observer extends PureComponent<Props> {
-    io: any
-    container?: HTMLDivElement | null
-    componentDidMount() {
-        this.io = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
-            const { onVisibleChange } = this.props
-            if (onVisibleChange) onVisibleChange(entry.isIntersecting)
-        })
-        this.io.observe(this.container)
-    }
-
-    componentWillUnmount() {
-        if (this.io) {
-            this.io.disconnect()
+const Observer: FC<Props> = ({ children, className, onVisibleChange }: Props) => {
+    const container = useRef<HTMLDivElement | null>(null)
+    useEffect(() => {
+        let io: IntersectionObserver | undefined
+        if (container.current) {
+            io = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
+                if (onVisibleChange) onVisibleChange(entry.isIntersecting)
+            })
+            io.observe(container.current)
         }
-    }
-
-    render() {
-        const { children, className } = this.props
-        return (
-            <div ref={div => (this.container = div)} className={className}>
-                {children}
-            </div>
-        )
-    }
+        return () => io?.disconnect()
+    }, [onVisibleChange, container])
+    return (
+        <div ref={container} className={className}>
+            {children}
+        </div>
+    )
 }
 
 export default Observer
