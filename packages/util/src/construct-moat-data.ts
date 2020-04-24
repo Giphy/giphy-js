@@ -6,7 +6,7 @@ type MoatData = {
     moatClientSlicer1: string
     moatClientSlicer2: string
     zMoatPosition: string
-    response_id?: string
+    zMoatSession?: string
 }
 
 type Tracker = {
