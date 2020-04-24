@@ -1,22 +1,17 @@
-import { take, pick, without } from './collections'
-import bestfit from './bestfit'
-import { IGif, ImageAllTypes, IRendition, IImages } from '@giphy/js-types'
-import { SUPPORTS_WEBP } from './webp-check'
+import { IGif, IImages, ImageAllTypes, IRendition } from '@giphy/js-types'
 import IVideo from '@giphy/js-types/dist/video'
+import bestfit from './bestfit'
+import { pick, take, without } from './collections'
+import { SUPPORTS_WEBP } from './webp-check'
 
-export const getSpecificRendition = (
-    { images, is_sticker: isSticker }: IGif,
-    renditionLabel: string,
-    isStill = false,
-    useVideo = false
-) => {
+export const getSpecificRendition = ({ images }: IGif, renditionLabel: string, isStill = false, useVideo = false) => {
     if (!images || !renditionLabel) return ''
     isStill = isStill && !useVideo
     // @ts-ignore come back to this
     const rendition = images[`${renditionLabel}${isStill ? '_still' : ''}`] as ImageAllTypes
 
     if (rendition) {
-        if (isSticker || isStill) {
+        if (isStill) {
             return rendition.url
         }
         const webP = SUPPORTS_WEBP && rendition.webp
