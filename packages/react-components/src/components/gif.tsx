@@ -173,7 +173,7 @@ const Gif = ({
             const { bottle_data: bottleData, response_id } = gif
             const moatCompatibleData = constructMoatData(bottleData as any)
             if (moatCompatibleData) {
-                moatCompatibleData.response_id = response_id
+                moatCompatibleData.zMoatSession = response_id
                 await moatLoader
                 if (container.current) {
                     moatAdNumber.current = moat.startTracking(container.current, moatCompatibleData)
