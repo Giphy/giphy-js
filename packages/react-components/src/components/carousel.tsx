@@ -1,9 +1,9 @@
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
-import { debounce } from 'throttle-debounce'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifWidth } from '@giphy/js-util'
 import { css, cx } from 'emotion'
 import React, { PureComponent, ReactType } from 'react'
+import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'
 import Gif, { EventProps, GifOverlayProps } from './gif'
 
@@ -14,6 +14,11 @@ const carouselCss = css`
     white-space: nowrap;
     position: relative;
 `
+
+const loaderHiddenCss = css`
+    opacity: 0;
+`
+
 const carouselItemCss = css`
     position: relative;
     display: inline-block;
@@ -60,7 +65,7 @@ type State = {
 const initialState = Object.freeze({
     isFetching: false,
     gifs: [] as IGif[],
-    isLoaderVisible: true,
+    isLoaderVisible: false,
     isDoneFetching: false,
 })
 class Carousel extends PureComponent<Props, State> {
@@ -115,7 +120,6 @@ class Carousel extends PureComponent<Props, State> {
             hideAttribution,
         } = this.props
         const { gifs, isDoneFetching } = this.state
-        const showLoader = fetchGifs && gifs.length > 0 && !isDoneFetching
         const marginCss = css`
             margin-left: ${gutter}px;
         `
@@ -124,6 +128,8 @@ class Carousel extends PureComponent<Props, State> {
         `
         const containerCss = cx(className, carouselCss)
         const gifCss = cx(carouselItemCss, marginCss)
+        const showLoader = fetchGifs && !isDoneFetching
+        const isFirstLoad = gifs.length === 0
         return (
             <div className={containerCss}>
                 {gifs.map(gif => {
@@ -146,7 +152,7 @@ class Carousel extends PureComponent<Props, State> {
                 })}
                 {showLoader && (
                     <Observer className={loaderContainerCss} onVisibleChange={this.onLoaderVisible}>
-                        <div className={cx(loaderCss, gifHeightCss)} />
+                        <div className={cx(loaderCss, gifHeightCss, isFirstLoad ? loaderHiddenCss : '')} />
                     </Observer>
                 )}
             </div>
