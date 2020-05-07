@@ -54,6 +54,7 @@ class Grid extends PureComponent<Props, State> {
     readonly state = initialState
     bricks?: any
     el?: HTMLDivElement | null
+    unmounted: boolean = false
     paginator = gifPaginator(this.props.fetchGifs)
     static getDerivedStateFromProps: GetDerivedStateFromProps<Props, State> = (
         { columns, gutter, width }: Props,
@@ -80,6 +81,10 @@ class Grid extends PureComponent<Props, State> {
     componentDidMount() {
         this.setBricks()
         this.onFetch()
+    }
+
+    componentWillUnmount() {
+        this.unmounted = true
     }
 
     componentDidUpdate(prevProps: Props, prevState: State) {
@@ -109,10 +114,12 @@ class Grid extends PureComponent<Props, State> {
     }
 
     onLoaderVisible = (isVisible: boolean) => {
+        if (this.unmounted) return
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
 
     onFetch = debounce(Grid.fetchDebounce, async () => {
+        if (this.unmounted) return
         const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
         if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true, isError: false })

@@ -73,16 +73,23 @@ class Carousel extends PureComponent<Props, State> {
     static readonly defaultProps = defaultProps
     readonly state = initialState
     el?: HTMLElement
+    unmounted: boolean = false
     paginator = gifPaginator(this.props.fetchGifs)
     componentDidMount() {
         this.onFetch()
     }
 
+    componentWillUnmount() {
+        this.unmounted = true
+    }
+
     onLoaderVisible = (isVisible: boolean) => {
+        if (this.unmounted) return
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
 
     onFetch = debounce(100, async () => {
+        if (this.unmounted) return
         const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
         if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true })
