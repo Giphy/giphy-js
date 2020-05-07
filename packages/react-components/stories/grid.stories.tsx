@@ -28,6 +28,7 @@ const overlayCss = css`
 const Overlay = ({ gif, isHovered }: GifOverlayProps) => <div className={overlayCss}>{isHovered ? gif.id : ''}</div>
 
 export const Grid = () => {
+    const [term, setTerm] = useState('dogs')
     const [width, setWidth] = useState(innerWidth)
     const onResize = throttle(500, () => setWidth(innerWidth))
     useEffect(() => {
@@ -38,12 +39,21 @@ export const Grid = () => {
     const gutter = number('gutter', 6)
     const limit = number('limit', 5)
     return (
-        <GridComponent
-            width={width}
-            columns={columns}
-            gutter={gutter}
-            fetchGifs={(offset: number) => gf.trending({ offset, limit })}
-            overlay={boolean('show overlay', true) ? Overlay : undefined}
-        />
+        <>
+            <input
+                style={{ margin: 10 }}
+                placeholder="type to search"
+                onChange={({ target: { value } }) => setTerm(value)}
+                value={term}
+            />
+            <GridComponent
+                key={term}
+                width={width}
+                columns={columns}
+                gutter={gutter}
+                fetchGifs={(offset: number) => gf.search(term, { offset, limit })}
+                overlay={boolean('show overlay', true) ? Overlay : undefined}
+            />
+        </>
     )
 }
