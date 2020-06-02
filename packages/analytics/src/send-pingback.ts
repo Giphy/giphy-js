@@ -12,5 +12,7 @@ export const sendPingback = (session: Session) => {
         method: 'POST',
         body: JSON.stringify({ sessions: [session] }),
         headers,
+    }).catch(_ => {
+        // Call failed, probably due to adblock.
     })
 }
