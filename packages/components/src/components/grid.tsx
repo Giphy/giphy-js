@@ -17,8 +17,9 @@ type Props = {
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
     onGifsFetchError?: (e: Error) => void
+    noResultMessage?: string | HTMLElement
 } & EventProps
-const defaultProps = Object.freeze({ gutter: 6, user: {} })
+const defaultProps = Object.freeze({ gutter: 6, user: {}, noResultMessage: 'No results' })
 
 type State = {
     gifWidth: number
@@ -135,6 +136,7 @@ class Grid extends Component<Props, State> {
             onGifHover,
             onGifSeen,
             user,
+            noResultMessage,
         }: Props,
         { gifWidth, gifs, isError, isDoneFetching }: State
     ) {
@@ -155,6 +157,7 @@ class Grid extends Component<Props, State> {
                             user={user}
                         />
                     ))}
+                    {!showLoader && gifs.length === 0 && noResultMessage}
                 </div>
                 {isError ? (
                     <FetchError onClick={this.onFetch} />

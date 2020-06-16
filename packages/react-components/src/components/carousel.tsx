@@ -53,9 +53,10 @@ type Props = {
     onGifsFetched?: (gifs: IGif[]) => void
     overlay?: ReactType<GifOverlayProps>
     hideAttribution?: boolean
+    noResultMessage?: string | JSX.Element
 } & EventProps
 
-const defaultProps = Object.freeze({ gutter: 6, user: {} })
+const defaultProps = Object.freeze({ gutter: 6, user: {}, noResultMessage: 'No results' })
 type State = {
     isFetching: boolean
     gifs: IGif[]
@@ -125,6 +126,7 @@ class Carousel extends PureComponent<Props, State> {
             user,
             overlay,
             hideAttribution,
+            noResultMessage,
         } = this.props
         const { gifs, isDoneFetching } = this.state
         const marginCss = css`
@@ -157,6 +159,7 @@ class Carousel extends PureComponent<Props, State> {
                         />
                     )
                 })}
+                {!showLoader && gifs.length === 0 && noResultMessage}
                 {showLoader && (
                     <Observer className={loaderContainerCss} onVisibleChange={this.onLoaderVisible}>
                         <div className={cx(loaderCss, gifHeightCss, isFirstLoad ? loaderHiddenCss : '')} />

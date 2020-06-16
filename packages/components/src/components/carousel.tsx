@@ -40,9 +40,10 @@ type Props = {
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
+    noResultMessage?: string | HTMLElement
 } & EventProps
 
-const defaultProps = Object.freeze({ gutter: 6, user: {} })
+const defaultProps = Object.freeze({ gutter: 6, user: {}, noResultMessage: 'No results' })
 
 type State = {
     isFetching: boolean
@@ -108,6 +109,7 @@ class Carousel extends Component<Props, State> {
             onGifHover,
             onGifSeen,
             user,
+            noResultMessage,
         }: Props,
         { gifs }: State
     ) {
@@ -139,6 +141,7 @@ class Carousel extends Component<Props, State> {
                         />
                     )
                 })}
+                {!showLoader && gifs.length === 0 && noResultMessage}
                 {showLoader && (
                     <Observer className={loaderContainerCss} onVisibleChange={this.onLoaderVisible}>
                         <div className={cx(loaderCss, gifHeightCss)} />
