@@ -24,10 +24,10 @@ type Props = {
     onGifsFetchError?: (e: Error) => void
     overlay?: ReactType<GifOverlayProps>
     hideAttribution?: boolean
-    noResultMessage?: string | JSX.Element
+    noResultsMessage?: string | JSX.Element
 } & EventProps
 
-const defaultProps = Object.freeze({ gutter: 6, user: {}, noResultMessage: 'No results' })
+const defaultProps = Object.freeze({ gutter: 6, user: {}, noResultsMessage: 'No results' })
 
 type State = {
     gifWidth: number
@@ -158,7 +158,7 @@ class Grid extends PureComponent<Props, State> {
             user,
             overlay,
             hideAttribution,
-            noResultMessage,
+            noResultsMessage,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = fetchGifs && !isDoneFetching
@@ -180,7 +180,7 @@ class Grid extends PureComponent<Props, State> {
                             hideAttribution={hideAttribution}
                         />
                     ))}
-                    {!showLoader && gifs.length === 0 && noResultMessage}
+                    {!showLoader && gifs.length === 0 && noResultsMessage}
                 </div>
                 {isError ? (
                     <FetchError onClick={this.onFetch} />

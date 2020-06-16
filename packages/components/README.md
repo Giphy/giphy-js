@@ -31,7 +31,7 @@ _renderGrid options_
 | fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined  | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
 | columns                                 | `number`                                 | 3          | The number of columns in the grid                                        |
 | gutter                                  | `number`                                 | 6          | The space between columns and rows                                       |
-| noResultMessage                         | `string || element`                      | No results | Customise the "No results" message                                       |
+| noResultsMessage                        | `string || element`                      | No results | Customise the "No results" message                                       |
 | [hideAttribution](#attribution-overlay) | `boolean`                                | false      | Hide the user attribution that appears over a                            |
 | [Gif Events](#gif-events)               | \*                                       | \*         | see below                                                                |
 
@@ -91,7 +91,7 @@ _renderCarousel options_
 | gifHeight                               | `number`                                 | undefined  | The height of the gifs and the carousel                                  |
 | fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined  | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
 | gutter                                  | `number`                                 | 6          | The space between columns and rows                                       |
-| noResultMessage                         | `string || element`                      | No results | Customise the "No results" message                                       |
+| noResultsMessage                        | `string || element`                      | No results | Customise the "No results" message                                       |
 | [hideAttribution](#attribution-overlay) | `boolean`                                | false      | Hide the user attribution that appears over a                            |
 | [Gif Events](#gif-events)               | \*                                       | \*         | see below                                                                |
 

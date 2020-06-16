@@ -3,7 +3,7 @@ import { debounce } from 'throttle-debounce'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifWidth } from '@giphy/js-util'
 import { css, cx } from 'emotion'
-import { Component, h } from 'preact'
+import { Component, h, JSX } from 'preact'
 import Observer from '../util/observer'
 import Gif, { EventProps } from './gif'
 
@@ -40,10 +40,10 @@ type Props = {
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
-    noResultMessage?: string | HTMLElement
+    noResultsMessage?: string | JSX.Element
 } & EventProps
 
-const defaultProps = Object.freeze({ gutter: 6, user: {}, noResultMessage: 'No results' })
+const defaultProps = Object.freeze({ gutter: 6, user: {}, noResultsMessage: 'No results' })
 
 type State = {
     isFetching: boolean
@@ -109,7 +109,7 @@ class Carousel extends Component<Props, State> {
             onGifHover,
             onGifSeen,
             user,
-            noResultMessage,
+            noResultsMessage,
         }: Props,
         { gifs }: State
     ) {
@@ -141,7 +141,7 @@ class Carousel extends Component<Props, State> {
                         />
                     )
                 })}
-                {!showLoader && gifs.length === 0 && noResultMessage}
+                {!showLoader && gifs.length === 0 && noResultsMessage}
                 {showLoader && (
                     <Observer className={loaderContainerCss} onVisibleChange={this.onLoaderVisible}>
                         <div className={cx(loaderCss, gifHeightCss)} />

@@ -1,4 +1,4 @@
-import { h, Component } from 'preact'
+import { h, Component, JSX } from 'preact'
 import { debounce } from 'throttle-debounce'
 import Gif, { EventProps } from './gif'
 import Bricks from 'bricks.js'
@@ -17,9 +17,9 @@ type Props = {
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
     onGifsFetchError?: (e: Error) => void
-    noResultMessage?: string | HTMLElement
+    noResultsMessage?: string | JSX.Element
 } & EventProps
-const defaultProps = Object.freeze({ gutter: 6, user: {}, noResultMessage: 'No results' })
+const defaultProps = Object.freeze({ gutter: 6, user: {}, noResultsMessage: 'No results' })
 
 type State = {
     gifWidth: number
@@ -136,7 +136,7 @@ class Grid extends Component<Props, State> {
             onGifHover,
             onGifSeen,
             user,
-            noResultMessage,
+            noResultsMessage,
         }: Props,
         { gifWidth, gifs, isError, isDoneFetching }: State
     ) {
@@ -157,7 +157,7 @@ class Grid extends Component<Props, State> {
                             user={user}
                         />
                     ))}
-                    {!showLoader && gifs.length === 0 && noResultMessage}
+                    {!showLoader && gifs.length === 0 && noResultsMessage}
                 </div>
                 {isError ? (
                     <FetchError onClick={this.onFetch} />
