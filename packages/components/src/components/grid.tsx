@@ -1,12 +1,17 @@
-import { h, Component, JSX } from 'preact'
-import { debounce } from 'throttle-debounce'
-import Gif, { EventProps } from './gif'
-import Bricks from 'bricks.js'
-import Observer from '../util/observer'
+import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
-import { GifsResult, gifPaginator } from '@giphy/js-fetch-api'
-import Loader from './loader'
+import Bricks from 'bricks.js'
+import { css, cx } from 'emotion'
+import { Component, h, JSX } from 'preact'
+import { debounce } from 'throttle-debounce'
+import Observer from '../util/observer'
 import FetchError from './fetch-error'
+import Gif, { EventProps } from './gif'
+import Loader from './loader'
+
+const loaderHiddenCss = css`
+    opacity: 0;
+`
 
 type Props = {
     className?: string
@@ -41,6 +46,7 @@ const initialState = Object.freeze({
 })
 class Grid extends Component<Props, State> {
     static className = 'giphy-grid'
+    static loaderClassName = 'giphy-loader'
     static readonly defaultProps = defaultProps
     static fetchDebounce = 250
     readonly state = initialState
@@ -140,7 +146,8 @@ class Grid extends Component<Props, State> {
         }: Props,
         { gifWidth, gifs, isError, isDoneFetching }: State
     ) {
-        const showLoader = fetchGifs && gifs.length > 0 && !isDoneFetching
+        const showLoader = fetchGifs && !isDoneFetching
+        const isFirstLoad = gifs.length === 0
         return (
             <div class={className}>
                 <div ref={c => (this.el = c)}>
@@ -164,7 +171,7 @@ class Grid extends Component<Props, State> {
                 ) : (
                     showLoader && (
                         <Observer onVisibleChange={this.onLoaderVisible}>
-                            <Loader />
+                            <Loader className={cx(Grid.loaderClassName, isFirstLoad ? loaderHiddenCss : '')} />
                         </Observer>
                     )
                 )}
