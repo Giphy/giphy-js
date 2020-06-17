@@ -24,7 +24,7 @@ type Props = {
     onGifsFetchError?: (e: Error) => void
     noResultsMessage?: string | JSX.Element
 } & EventProps
-const defaultProps = Object.freeze({ gutter: 6, user: {}, noResultsMessage: 'No results' })
+const defaultProps = Object.freeze({ gutter: 6, user: {} })
 
 type State = {
     gifWidth: number
