@@ -1,9 +1,9 @@
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
-import { debounce } from 'throttle-debounce'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifWidth } from '@giphy/js-util'
 import { css, cx } from 'emotion'
 import { Component, h, JSX } from 'preact'
+import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'
 import Gif, { EventProps } from './gif'
 
@@ -43,7 +43,7 @@ type Props = {
     noResultsMessage?: string | JSX.Element
 } & EventProps
 
-const defaultProps = Object.freeze({ gutter: 6, user: {}, noResultsMessage: 'No results' })
+const defaultProps = Object.freeze({ gutter: 6, user: {} })
 
 type State = {
     isFetching: boolean

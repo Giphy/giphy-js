@@ -1,21 +1,22 @@
-import { throttle } from 'throttle-debounce'
-import { renderGrid, Grid } from '../src'
-import { h, render as preactRender, Component } from 'preact'
 import { GiphyFetch } from '@giphy/js-fetch-api'
+import { h, Component, render as preactRender } from 'preact' // eslint-disable-line no-unused-vars
+import { throttle } from 'throttle-debounce'
+import { Grid, renderGrid } from '../src'
 
 const getWidth = () => innerWidth
-
-const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
+const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
 export namespace PreactGrid {
     type State = {
         width: number
+        term: string
     }
     type Props = {}
     class Test extends Component<Props, State> {
         state = {
             width: getWidth(),
+            term: '',
         }
 
         offset = 0
@@ -28,8 +29,30 @@ export namespace PreactGrid {
             window.removeEventListener('resize', this.setWidth, false)
         }
 
-        render(_: Props, { width }) {
-            return <Grid width={width} columns={width < 500 ? 2 : 3} gutter={6} fetchGifs={fetchGifs} />
+        render(_: Props, { width, term }) {
+            const NoResults = <div>No results for {term}</div>
+            const fetchGifs = (offset: number) => gf.search(term, { offset, limit: 10 })
+            return (
+                <div>
+                    <input
+                        style={{ margin: 10 }}
+                        placeholder="type to search"
+                        onInput={({ target: { value } }) => this.setState({ term: value })}
+                        value={term}
+                    />
+                    {term && (
+                        <div key={term}>
+                            <Grid
+                                width={width}
+                                columns={width < 500 ? 2 : 3}
+                                gutter={6}
+                                noResultsMessage={NoResults}
+                                fetchGifs={fetchGifs}
+                            />
+                        </div>
+                    )}
+                </div>
+            )
         }
     }
 

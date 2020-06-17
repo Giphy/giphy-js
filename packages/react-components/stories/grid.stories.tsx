@@ -25,6 +25,10 @@ const overlayCss = css`
     align-items: center;
 `
 
+const noResultsCss = css`
+    color: white;
+`
+
 const Overlay = ({ gif, isHovered }: GifOverlayProps) => <div className={overlayCss}>{isHovered ? gif.id : ''}</div>
 
 export const Grid = () => {
@@ -38,6 +42,7 @@ export const Grid = () => {
     const columns = number('columns', width < 500 ? 2 : 3)
     const gutter = number('gutter', 6)
     const limit = number('limit', 5)
+    const NoResults = <div className={noResultsCss}>No results for {term}</div>
     return (
         <>
             <input
@@ -46,14 +51,17 @@ export const Grid = () => {
                 onChange={({ target: { value } }) => setTerm(value)}
                 value={term}
             />
-            <GridComponent
-                key={term}
-                width={width}
-                columns={columns}
-                gutter={gutter}
-                fetchGifs={(offset: number) => gf.search(term, { offset, limit })}
-                overlay={boolean('show overlay', true) ? Overlay : undefined}
-            />
+            {term && (
+                <GridComponent
+                    key={term}
+                    width={width}
+                    columns={columns}
+                    gutter={gutter}
+                    noResultsMessage={NoResults}
+                    fetchGifs={(offset: number) => gf.search(term, { offset, limit })}
+                    overlay={boolean('show overlay', true) ? Overlay : undefined}
+                />
+            )}
         </>
     )
 }
