@@ -32,7 +32,6 @@ export namespace PreactGrid {
         render(_: Props, { width, term }) {
             const NoResults = <div>No results for {term}</div>
             const fetchGifs = (offset: number) => gf.search(term, { offset, limit: 10 })
-            console.log(`grid-demo.tsx:35`, term, `term`)
             return (
                 <div>
                     <input
