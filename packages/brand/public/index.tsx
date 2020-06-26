@@ -1,8 +1,11 @@
 import { h, render } from 'preact'
-import Header from './header'
-import IconsGuide from './icons-guide'
 import ColorsGuide from './color-guide'
+import Header from './header'
 import LoaderGuide from './loader-guide'
+
+// reference h so vscode doesn't remove it with organize imports
+// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+h
 
 declare const module: any
 
@@ -14,7 +17,6 @@ render(
             <h1>GIPHY Brand</h1>
         </Header>
         <ColorsGuide />
-        <IconsGuide />
         <LoaderGuide />
     </div>,
     mountNode,
