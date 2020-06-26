@@ -23,7 +23,6 @@ import React, {
     useState,
 } from 'react'
 import * as pingback from '../util/pingback'
-import AdPill from './ad-pill'
 import AttributionOverlay from './attribution/overlay'
 
 type PingbackContextProps = { attributes: PingbackAttribute[] }
@@ -287,12 +286,7 @@ const Gif = ({
                     alt={getAltText(gif)}
                     onLoad={showGif ? onImageLoad : () => {}}
                 />
-                {showGif ? (
-                    <>
-                        <AdPill bottleData={bottleData} isHovered={isHovered} />
-                        {Overlay && <Overlay gif={gif} isHovered={isHovered} />}
-                    </>
-                ) : null}
+                {showGif ? Overlay && <Overlay gif={gif} isHovered={isHovered} /> : null}
             </div>
         </Container>
     )

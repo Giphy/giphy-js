@@ -14,7 +14,6 @@ import { css, cx } from 'emotion'
 import { h } from 'preact'
 import { useEffect, useRef, useState } from 'preact/hooks'
 import * as pingback from '../util/pingback'
-import AdPill from './ad-pill'
 import AttributionOverlay from './attribution/overlay'
 
 const moatLoader = moat.loadMoatTag('giphydisplay879451385633', 'https://giphyscripts.s3.amazonaws.com/moat/moatad.js')
@@ -271,10 +270,7 @@ const Gif = ({
                     onLoad={showGif ? onImageLoad : () => {}}
                 />
                 {showGif ? (
-                    <div>
-                        <AdPill bottleData={bottleData} isHovered={isHovered} />
-                        {!hideAttribution && <AttributionOverlay gif={gif} isHovered={isHovered} />}
-                    </div>
+                    <div>{!hideAttribution && <AttributionOverlay gif={gif} isHovered={isHovered} />}</div>
                 ) : null}
             </div>
         </Container>
