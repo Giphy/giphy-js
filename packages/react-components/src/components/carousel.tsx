@@ -54,9 +54,10 @@ type Props = {
     overlay?: ReactType<GifOverlayProps>
     hideAttribution?: boolean
     noResultsMessage?: string | JSX.Element
+    initialGifs?: IGif[]
 } & EventProps
 
-const defaultProps = Object.freeze({ gutter: 6, user: {} })
+const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
 type State = {
     isFetching: boolean
     gifs: IGif[]
@@ -72,7 +73,7 @@ const initialState = Object.freeze({
 class Carousel extends PureComponent<Props, State> {
     static className = 'giphy-carousel'
     static readonly defaultProps = defaultProps
-    readonly state = initialState
+    readonly state = { ...initialState, gifs: this.props.initialGifs || [] }
     el?: HTMLElement
     unmounted: boolean = false
     paginator = gifPaginator(this.props.fetchGifs)
