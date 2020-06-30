@@ -1,17 +1,13 @@
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
-import Bricks from 'bricks.js'
 import { css, cx } from 'emotion'
 import React, { GetDerivedStateFromProps, PureComponent, ReactType } from 'react'
 import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'
+import Bricks from './bricks'
 import FetchError from './fetch-error'
 import Gif, { EventProps, GifOverlayProps } from './gif'
 import Loader from './loader'
-
-const loaderHiddenCss = css`
-    opacity: 0;
-`
 
 type Props = {
     className?: string
@@ -75,7 +71,8 @@ class Grid extends PureComponent<Props, State> {
         this.bricks = Bricks({
             container: this.el!,
             packed: `data-packed-${columns}`,
-            sizes: [{ columns, gutter }],
+            columns,
+            gutter,
         })
     }
 
@@ -195,5 +192,9 @@ class Grid extends PureComponent<Props, State> {
         )
     }
 }
+
+const loaderHiddenCss = css`
+    opacity: 0;
+`
 
 export default Grid
