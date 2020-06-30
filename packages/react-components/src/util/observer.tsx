@@ -1,26 +1,65 @@
-import React, { FC, ReactNode, useEffect, useRef } from 'react'
+import 'intersection-observer'
+import React, { ReactNode, useEffect, useRef, useState } from 'react'
 
-type Props = {
-    // can't get FC<Props> to pass eslintreact/prop-types warning :/
-    children: ReactNode
-    onVisibleChange: (isVisible: boolean) => void
-    className?: string
+function usePrevious<T>(value: T) {
+    const ref = useRef<T>(value)
+    useEffect(() => {
+        ref.current = value
+    })
+    return ref.current
 }
 
-const Observer: FC<Props> = ({ children, className, onVisibleChange }: Props) => {
-    const container = useRef<HTMLDivElement | null>(null)
+type Props = {
+    children: ReactNode
+    onVisibleChange?: (isVisible: boolean) => void
+    onVisible?: () => void
+    onHidden?: () => void
+    className?: string
+    style?: object
+    fireOnce?: boolean // fire once when visible
+}
+
+const noop = () => {}
+const Observer = ({
+    className,
+    children,
+    onVisibleChange = noop,
+    onVisible = noop,
+    onHidden = noop,
+    style,
+    fireOnce = false,
+}: Props) => {
+    const observerRef = useRef<HTMLDivElement>(null)
+    const [isIntersecting, setIntersecting] = useState<boolean>(false)
+    const lastIntersecting = usePrevious(isIntersecting)
     useEffect(() => {
-        let io: IntersectionObserver | undefined
-        if (container.current) {
-            io = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
-                if (onVisibleChange) onVisibleChange(entry.isIntersecting)
-            })
-            io.observe(container.current)
+        if (lastIntersecting !== isIntersecting) {
+            onVisibleChange(isIntersecting)
+            isIntersecting ? onVisible() : onHidden()
         }
-        return () => io?.disconnect()
-    }, [onVisibleChange, container])
+    }, [isIntersecting])
+
+    useEffect(() => {
+        if (!observerRef.current) return
+        const io = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
+            if (fireOnce) {
+                if (entry.isIntersecting) {
+                    setIntersecting(true)
+                    io.disconnect()
+                }
+            } else {
+                setIntersecting(entry.isIntersecting)
+            }
+        })
+        io.observe(observerRef.current)
+
+        return () => {
+            io.disconnect()
+        }
+    }, [observerRef])
+
     return (
-        <div ref={container} className={className}>
+        <div ref={observerRef} className={className} style={style}>
             {children}
         </div>
     )

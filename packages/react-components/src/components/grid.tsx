@@ -1,22 +1,63 @@
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
-import Bricks from 'bricks.js'
-import { css, cx } from 'emotion'
-import React, { GetDerivedStateFromProps, PureComponent, ReactType } from 'react'
+import { getGifHeight } from '@giphy/js-util'
+import React, { ReactType, useEffect, useMemo, useRef, useState } from 'react'
+import styled, { css } from 'styled-components'
 import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'
 import FetchError from './fetch-error'
 import Gif, { EventProps, GifOverlayProps } from './gif'
 import Loader from './loader'
 
-const loaderHiddenCss = css`
-    opacity: 0;
+// PROTOTYPE
+// https://tobiasahlin.com/blog/masonry-with-css/
+// fails when columns grow too long and the items
+// are supposed to shuffle (they don't but if they did, it wouldn't work)
+
+function chunk<T>(a: T[], l: number): T[][] {
+    return a.length === 0 ? [] : [a.slice(0, l)].concat(chunk(a.slice(l), l))
+}
+
+const LoaderStyled = styled(Loader)<{ isFirstLoad: boolean }>`
+    ${props =>
+        props.isFirstLoad &&
+        css`
+            opacity: 0;
+        `}
+`
+
+const Container = styled.div<{ width: number; gifWidth: number; gutter: number }>`
+    display: flex;
+    flex-flow: column wrap;
+    align-content: space-between;
+    width: ${props => props.width}px;
+    :before,
+    :after {
+        content: '';
+        flex-basis: 100%;
+        width: 0;
+        order: 2;
+    }
+    ${'.' + Gif.className} {
+        width: ${props => props.gifWidth}px;
+        margin-bottom: ${props => props.gutter}px;
+    }
+    /* Re-order items into rows TODO HARD CODED*/
+    ${'.' + Gif.className}:nth-child(3n+1) {
+        order: 1;
+    }
+    ${'.' + Gif.className}:nth-child(3n+2) {
+        order: 2;
+    }
+    ${'.' + Gif.className}:nth-child(3n) {
+        order: 3;
+    }
 `
 
 type Props = {
     className?: string
     width: number
-    user: Partial<IUser>
+    user?: Partial<IUser>
     columns: number
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
@@ -25,175 +66,148 @@ type Props = {
     overlay?: ReactType<GifOverlayProps>
     hideAttribution?: boolean
     noResultsMessage?: string | JSX.Element
+    initialGifs?: IGif[]
 } & EventProps
 
-const defaultProps = Object.freeze({ gutter: 6, user: {} })
-
-type State = {
-    gifWidth: number
-    isFetching: boolean
-    isError: boolean
-    gifs: IGif[]
-    isLoaderVisible: boolean
-    isDoneFetching: boolean
-}
-
-const initialState = Object.freeze({
-    isFetching: false,
-    isError: false,
-    gifWidth: 0,
-    gifs: [] as IGif[],
-    isLoaderVisible: false,
-    isDoneFetching: false,
-})
-
-class Grid extends PureComponent<Props, State> {
-    static className = 'giphy-grid'
-    static loaderClassName = 'loader'
-    static fetchDebounce = 250
-    static readonly defaultProps = defaultProps
-    readonly state = initialState
-    bricks?: any
-    el?: HTMLDivElement | null
-    unmounted: boolean = false
-    paginator = gifPaginator(this.props.fetchGifs)
-    static getDerivedStateFromProps: GetDerivedStateFromProps<Props, State> = (
-        { columns, gutter, width }: Props,
-        prevState: State
-    ) => {
-        const gutterOffset = gutter * (columns - 1)
-        const gifWidth = Math.floor((width - gutterOffset) / columns)
-        if (prevState.gifWidth !== gifWidth) {
-            return { gifWidth }
+const Grid = ({
+    initialGifs = [],
+    fetchGifs,
+    onGifVisible,
+    onGifRightClick,
+    className,
+    onGifSeen,
+    onGifClick,
+    user = {},
+    overlay,
+    hideAttribution,
+    noResultsMessage,
+    width,
+    columns,
+    gutter = 30,
+    onGifsFetchError,
+    onGifsFetched,
+}: Props) => {
+    const [gifs, setGifs] = useState(initialGifs)
+    const paginator = useRef(gifPaginator(fetchGifs))
+    const [isLoaderVisible, setLoaderVisible] = useState(false)
+    const [isDoneFetching, setDoneFetching] = useState(false)
+    const [isFetching, setFetching] = useState(false)
+    const [isError, setError] = useState(false)
+    const gutterOffset = gutter * (columns - 1)
+    const gifWidth = Math.floor((width - gutterOffset) / columns)
+    const showLoader = fetchGifs && !isDoneFetching
+    const isFirstLoad = gifs.length === 0
+    const unmounted = useRef(false)
+    useEffect(() => {
+        return () => {
+            unmounted.current = true
         }
-        return null
-    }
+    }, [])
 
-    setBricks() {
-        const { columns, gutter } = this.props
-        // bricks
-        this.bricks = Bricks({
-            container: this.el!,
-            packed: `data-packed-${columns}`,
-            sizes: [{ columns, gutter }],
-        })
-    }
-
-    componentDidMount() {
-        this.setBricks()
-        this.onFetch()
-    }
-
-    componentWillUnmount() {
-        this.unmounted = true
-    }
-
-    componentDidUpdate(prevProps: Props, prevState: State) {
-        const { gifs } = this.state
-        const { gifWidth } = this.state
-
-        const numberOfOldGifs = prevState.gifs.length
-        const numberOfNewGifs = gifs.length
-
-        if (prevState.gifWidth !== gifWidth && numberOfOldGifs > 0) {
-            const { columns } = this.props
-            if (columns !== prevProps.columns) {
-                this.setBricks()
-            }
-            this.bricks.pack()
-        }
-
-        if (prevState.gifs !== gifs) {
-            if (numberOfNewGifs > numberOfOldGifs && numberOfOldGifs > 0) {
-                // we just added new gifs
-                this.bricks.update()
-            } else {
-                // we changed existing gifs or removed a gif
-                this.bricks.pack()
-            }
-        }
-    }
-
-    onLoaderVisible = (isVisible: boolean) => {
-        if (this.unmounted) return
-        this.setState({ isLoaderVisible: isVisible }, this.onFetch)
-    }
-
-    onFetch = debounce(Grid.fetchDebounce, async () => {
-        if (this.unmounted) return
-        const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
+    const onFetch = useRef(debounce(Grid.fetchDebounce, async () => {}))
+    onFetch.current = debounce(Grid.fetchDebounce, async () => {
+        if (unmounted.current) return
         if (!isFetching && isLoaderVisible) {
-            this.setState({ isFetching: true, isError: false })
-            let gifs
+            setFetching(true)
+            setError(false)
+            let nextGifs
             try {
-                gifs = await this.paginator()
+                nextGifs = await paginator.current()
             } catch (error) {
-                this.setState({ isFetching: false, isError: true })
-                const { onGifsFetchError } = this.props
-                if (onGifsFetchError) onGifsFetchError(error)
+                setFetching(true)
+                setError(true)
+                onGifsFetchError?.(error)
             }
-            if (gifs) {
+            if (nextGifs) {
                 // if we've just fetched and we don't have
                 // any more gifs, we're done fetching
-                if (existingGifs.length === gifs.length) {
-                    this.setState({ isDoneFetching: true })
+                if (gifs.length === nextGifs.length) {
+                    setDoneFetching(true)
                 } else {
-                    this.setState({ gifs, isFetching: false })
-                    const { onGifsFetched } = this.props
-                    if (onGifsFetched) onGifsFetched(gifs)
-                    this.onFetch()
+                    setGifs(nextGifs)
+                    setFetching(false)
+                    onGifsFetched?.(nextGifs)
+                    onFetch.current()
                 }
             }
         }
     })
 
-    render() {
-        const {
-            fetchGifs,
-            onGifVisible,
-            onGifRightClick,
-            className = Grid.className,
-            onGifSeen,
-            onGifClick,
-            user,
-            overlay,
-            hideAttribution,
-            noResultsMessage,
-        } = this.props
-        const { gifWidth, gifs, isError, isDoneFetching } = this.state
-        const showLoader = fetchGifs && !isDoneFetching
-        const isFirstLoad = gifs.length === 0
-        return (
-            <div className={className}>
-                <div ref={c => (this.el = c)}>
-                    {gifs.map(gif => (
-                        <Gif
-                            gif={gif}
-                            key={gif.id}
-                            width={gifWidth}
-                            onGifClick={onGifClick}
-                            onGifSeen={onGifSeen}
-                            onGifVisible={onGifVisible}
-                            onGifRightClick={onGifRightClick}
-                            user={user}
-                            overlay={overlay}
-                            hideAttribution={hideAttribution}
-                        />
-                    ))}
-                    {!showLoader && gifs.length === 0 && noResultsMessage}
-                </div>
-                {isError ? (
-                    <FetchError onClick={this.onFetch} />
-                ) : (
-                    showLoader && (
-                        <Observer onVisibleChange={this.onLoaderVisible}>
-                            <Loader className={cx(Grid.loaderClassName, isFirstLoad ? loaderHiddenCss : '')} />
-                        </Observer>
-                    )
-                )}
-            </div>
-        )
+    const onLoaderVisible = (isVisible: boolean) => {
+        if (unmounted.current) return
+        setLoaderVisible(isVisible)
     }
+
+    useEffect(() => {
+        onFetch.current()
+    }, [])
+    useEffect(() => {
+        if (isLoaderVisible) {
+            onFetch.current()
+        }
+    }, [isLoaderVisible])
+
+    const tallestCollumn = useMemo(() => {
+        // TODO this is where it falls apart,
+        // I can't actuall know what's in each row
+        // and we need to measure the height so that's it
+        const rows = chunk<IGif>(gifs, 3)
+        let result = 0
+        const columns: IGif[][] = []
+        rows.forEach(gifs => {
+            gifs.forEach((gif, index: number) => {
+                columns[index] = [...(columns[index] || []), gif]
+            })
+        })
+        columns.forEach(gifs => {
+            const test = gifs.reduce((acc, gif) => {
+                return acc + getGifHeight(gif, gifWidth) + gutter + 2
+            }, 0)
+            if (test > result) result = test
+        })
+        return result
+    }, [gifs, columns])
+
+    return (
+        <>
+            <Container
+                className={className}
+                style={{ height: tallestCollumn }}
+                width={width}
+                gutter={gutter}
+                gifWidth={gifWidth}
+            >
+                {gifs.map(gif => (
+                    <Gif
+                        gif={gif}
+                        key={gif.id}
+                        width={gifWidth}
+                        onGifClick={onGifClick}
+                        onGifSeen={onGifSeen}
+                        onGifVisible={onGifVisible}
+                        onGifRightClick={onGifRightClick}
+                        user={user}
+                        overlay={overlay}
+                        hideAttribution={hideAttribution}
+                    />
+                ))}
+                {!showLoader && gifs.length === 0 && noResultsMessage}
+            </Container>
+            {isError ? (
+                <FetchError onClick={onFetch.current} />
+            ) : (
+                showLoader && (
+                    <Observer onVisibleChange={onLoaderVisible}>
+                        <LoaderStyled isFirstLoad={isFirstLoad} className={Grid.loaderClassName} />
+                    </Observer>
+                )
+            )}
+        </>
+    )
 }
+
+Grid.className = 'giphy-grid'
+Grid.loaderClassName = 'loader'
+Grid.fetchDebounce = 1000
 
 export default Grid
