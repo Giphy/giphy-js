@@ -61,6 +61,7 @@ type GifProps = {
     overlay?: ReactType<GifOverlayProps>
     hideAttribution?: boolean
     noLink?: boolean
+    style?: any
 }
 
 type Props = GifProps & EventProps
@@ -86,6 +87,7 @@ const Gif = ({
     overlay,
     hideAttribution = false,
     noLink = false,
+    style,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -220,6 +222,7 @@ const Gif = ({
             style={{
                 width,
                 height,
+                ...style,
             }}
             className={cx(Gif.className, gifCss, className)}
             onMouseOver={onMouseOver}
