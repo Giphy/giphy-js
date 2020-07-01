@@ -5,10 +5,10 @@ import { css, cx } from 'emotion'
 import React, { GetDerivedStateFromProps, PureComponent, ReactType } from 'react'
 import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'
-import BricksComponent from './bricks-component'
 import FetchError from './fetch-error'
 import Gif, { EventProps, GifOverlayProps } from './gif'
 import Loader from './loader'
+import MasonryGrid from './masonry-grid'
 
 type Props = {
     className?: string
@@ -125,13 +125,10 @@ class Grid extends PureComponent<Props, State> {
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = fetchGifs && !isDoneFetching
         const isFirstLoad = gifs.length === 0
-        const items = gifs.map(gif => ({
-            width: gifWidth,
-            height: getGifHeight(gif, gifWidth),
-        }))
+        const itemHeights = gifs.map(gif => getGifHeight(gif, gifWidth))
         return (
             <div className={className}>
-                <BricksComponent items={items} columns={columns} gutter={gutter}>
+                <MasonryGrid itemHeights={itemHeights} itemWidth={gifWidth} columns={columns} gutter={gutter}>
                     {gifs.map(gif => (
                         <Gif
                             gif={gif}
@@ -146,7 +143,7 @@ class Grid extends PureComponent<Props, State> {
                             hideAttribution={hideAttribution}
                         />
                     ))}
-                </BricksComponent>
+                </MasonryGrid>
                 {!showLoader && gifs.length === 0 && noResultsMessage}
                 {isError ? (
                     <FetchError onClick={this.onFetch} />
