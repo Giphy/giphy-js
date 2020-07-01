@@ -4,12 +4,12 @@ import { css } from 'emotion'
 import React, { useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { throttle } from 'throttle-debounce'
-import { GifOverlayProps, GridBricks as GridComponent } from '../src'
+import { GifOverlayProps, Grid as GridComponent } from '../src'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
 export default {
-    title: 'React Components|Grid Bricks',
+    title: 'React Components|Legacy Grid',
     decorators: [withKnobs, jsxDecorator],
 }
 

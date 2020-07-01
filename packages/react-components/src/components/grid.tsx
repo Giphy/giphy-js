@@ -1,6 +1,6 @@
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
-import Bricks from 'bricks.js'
+import { getGifHeight } from '@giphy/js-util'
 import { css, cx } from 'emotion'
 import React, { GetDerivedStateFromProps, PureComponent, ReactType } from 'react'
 import { debounce } from 'throttle-debounce'
@@ -8,10 +8,7 @@ import Observer from '../util/observer'
 import FetchError from './fetch-error'
 import Gif, { EventProps, GifOverlayProps } from './gif'
 import Loader from './loader'
-
-const loaderHiddenCss = css`
-    opacity: 0;
-`
+import MasonryGrid from './masonry-grid'
 
 type Props = {
     className?: string
@@ -25,9 +22,10 @@ type Props = {
     overlay?: ReactType<GifOverlayProps>
     hideAttribution?: boolean
     noResultsMessage?: string | JSX.Element
+    initialGifs?: IGif[]
 } & EventProps
 
-const defaultProps = Object.freeze({ gutter: 6, user: {} })
+const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
 
 type State = {
     gifWidth: number
@@ -52,7 +50,7 @@ class Grid extends PureComponent<Props, State> {
     static loaderClassName = 'loader'
     static fetchDebounce = 250
     static readonly defaultProps = defaultProps
-    readonly state = initialState
+    readonly state = { ...initialState, gifs: this.props.initialGifs || [] }
     bricks?: any
     el?: HTMLDivElement | null
     unmounted: boolean = false
@@ -69,49 +67,12 @@ class Grid extends PureComponent<Props, State> {
         return null
     }
 
-    setBricks() {
-        const { columns, gutter } = this.props
-        // bricks
-        this.bricks = Bricks({
-            container: this.el!,
-            packed: `data-packed-${columns}`,
-            sizes: [{ columns, gutter }],
-        })
-    }
-
     componentDidMount() {
-        this.setBricks()
         this.onFetch()
     }
 
     componentWillUnmount() {
         this.unmounted = true
-    }
-
-    componentDidUpdate(prevProps: Props, prevState: State) {
-        const { gifs } = this.state
-        const { gifWidth } = this.state
-
-        const numberOfOldGifs = prevState.gifs.length
-        const numberOfNewGifs = gifs.length
-
-        if (prevState.gifWidth !== gifWidth && numberOfOldGifs > 0) {
-            const { columns } = this.props
-            if (columns !== prevProps.columns) {
-                this.setBricks()
-            }
-            this.bricks.pack()
-        }
-
-        if (prevState.gifs !== gifs) {
-            if (numberOfNewGifs > numberOfOldGifs && numberOfOldGifs > 0) {
-                // we just added new gifs
-                this.bricks.update()
-            } else {
-                // we changed existing gifs or removed a gif
-                this.bricks.pack()
-            }
-        }
     }
 
     onLoaderVisible = (isVisible: boolean) => {
@@ -159,13 +120,17 @@ class Grid extends PureComponent<Props, State> {
             overlay,
             hideAttribution,
             noResultsMessage,
+            columns,
+            gutter,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = fetchGifs && !isDoneFetching
         const isFirstLoad = gifs.length === 0
+        // get the height of each grid item
+        const itemHeights = gifs.map(gif => getGifHeight(gif, gifWidth))
         return (
             <div className={className}>
-                <div ref={c => (this.el = c)}>
+                <MasonryGrid itemHeights={itemHeights} itemWidth={gifWidth} columns={columns} gutter={gutter}>
                     {gifs.map(gif => (
                         <Gif
                             gif={gif}
@@ -180,8 +145,8 @@ class Grid extends PureComponent<Props, State> {
                             hideAttribution={hideAttribution}
                         />
                     ))}
-                    {!showLoader && gifs.length === 0 && noResultsMessage}
-                </div>
+                </MasonryGrid>
+                {!showLoader && gifs.length === 0 && noResultsMessage}
                 {isError ? (
                     <FetchError onClick={this.onFetch} />
                 ) : (
@@ -195,5 +160,9 @@ class Grid extends PureComponent<Props, State> {
         )
     }
 }
+
+const loaderHiddenCss = css`
+    opacity: 0;
+`
 
 export default Grid
