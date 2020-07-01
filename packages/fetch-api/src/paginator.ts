@@ -4,11 +4,11 @@ import { GifsResult } from './result-types'
 /**
  * @hidden
  */
-export const gifPaginator = (fetchGifs: (offset: number) => Promise<GifsResult>) => {
-    const gifs: IGif[] = []
+export const gifPaginator = (fetchGifs: (offset: number) => Promise<GifsResult>, initialGifs: IGif[] = []) => {
+    const gifs: IGif[] = [...initialGifs]
     // for deduping
-    const gifIds: (string | number)[] = []
-    let offset = 0
+    const gifIds: (string | number)[] = initialGifs.map(g => g.id)
+    let offset = initialGifs.length
     let isDoneFetching = false
     return async () => {
         if (isDoneFetching) {

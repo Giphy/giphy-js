@@ -54,7 +54,7 @@ class Grid extends PureComponent<Props, State> {
     bricks?: any
     el?: HTMLDivElement | null
     unmounted: boolean = false
-    paginator = gifPaginator(this.props.fetchGifs)
+    paginator = gifPaginator(this.props.fetchGifs, this.state.gifs)
     static getDerivedStateFromProps: GetDerivedStateFromProps<Props, State> = (
         { columns, gutter, width }: Props,
         prevState: State
@@ -82,7 +82,8 @@ class Grid extends PureComponent<Props, State> {
 
     onFetch = debounce(Grid.fetchDebounce, async () => {
         if (this.unmounted) return
-        const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
+        const { isFetching, isLoaderVisible, gifs } = this.state
+        const prefetchCount = gifs.length
         if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true, isError: false })
             let gifs
@@ -96,7 +97,7 @@ class Grid extends PureComponent<Props, State> {
             if (gifs) {
                 // if we've just fetched and we don't have
                 // any more gifs, we're done fetching
-                if (existingGifs.length === gifs.length) {
+                if (prefetchCount === gifs.length) {
                     this.setState({ isDoneFetching: true })
                 } else {
                     this.setState({ gifs, isFetching: false })
@@ -121,6 +122,7 @@ class Grid extends PureComponent<Props, State> {
             hideAttribution,
             noResultsMessage,
             columns,
+            width,
             gutter,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
@@ -129,7 +131,7 @@ class Grid extends PureComponent<Props, State> {
         // get the height of each grid item
         const itemHeights = gifs.map(gif => getGifHeight(gif, gifWidth))
         return (
-            <div className={className}>
+            <div className={className} style={{ width }}>
                 <MasonryGrid itemHeights={itemHeights} itemWidth={gifWidth} columns={columns} gutter={gutter}>
                     {gifs.map(gif => (
                         <Gif

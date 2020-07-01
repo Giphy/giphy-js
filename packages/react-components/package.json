@@ -50,10 +50,8 @@
         "@giphy/js-types": "^2.0.2",
         "@giphy/js-util": "^1.9.1",
         "bricks.js": "^1.8.0",
-        "knot.js": "1.1.5",
         "emotion": "10.0.9",
         "intersection-observer": "^0.7.0",
-        "throttle-debounce": "^2.1.0",
-        "react-masonry-css": "1.0.14"
+        "throttle-debounce": "^2.1.0"
     }
 }

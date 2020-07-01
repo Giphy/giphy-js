@@ -76,7 +76,7 @@ class Carousel extends PureComponent<Props, State> {
     readonly state = { ...initialState, gifs: this.props.initialGifs || [] }
     el?: HTMLElement
     unmounted: boolean = false
-    paginator = gifPaginator(this.props.fetchGifs)
+    paginator = gifPaginator(this.props.fetchGifs, this.state.gifs)
     componentDidMount() {
         this.onFetch()
     }

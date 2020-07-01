@@ -4,7 +4,7 @@ import { css } from 'emotion'
 import React, { useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { throttle } from 'throttle-debounce'
-import { GifOverlayProps, Grid as GridComponent } from '../src'
+import { GifOverlayProps, LegacyGrid as GridComponent } from '../src'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
