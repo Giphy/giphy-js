@@ -17,10 +17,10 @@ const bricks = (options: Options) => {
     let columnTarget
     let columnHeights: number[]
 
-    let nodeTop
-    let nodeLeft
+    let nodeTop: string
+    let nodeLeft: string
     let nodeWidth: number
-    let nodeHeight
+    let nodeHeight: number
 
     let nodes: any[]
     let nodesWidths: { [x: string]: any }
@@ -148,7 +148,7 @@ const bricks = (options: Options) => {
 
     function resizeFrame() {
         if (!ticking) {
-            window.requestAnimationFrame(resizeHandler)
+            window?.requestAnimationFrame(resizeHandler)
             ticking = true
         }
     }
