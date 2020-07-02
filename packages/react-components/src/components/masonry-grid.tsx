@@ -11,8 +11,17 @@ type Props = {
     children: ReactNode
     itemHeights: number[]
     itemWidth: number
+    columnOffsets?: number[]
 }
-const MasonryGrid = ({ columns, gutter, useTransform = true, itemWidth, itemHeights, children }: Props) => {
+const MasonryGrid = ({
+    columns,
+    gutter,
+    useTransform = true,
+    itemWidth,
+    itemHeights,
+    children,
+    columnOffsets = [],
+}: Props) => {
     const containerStyle: any = {}
     function getChildren() {
         let columnTarget: number
@@ -22,7 +31,8 @@ const MasonryGrid = ({ columns, gutter, useTransform = true, itemWidth, itemHeig
                 position: 'absolute',
             }
             columnTarget = columnHeights.indexOf(Math.min.apply(Math, columnHeights))
-            const top = `${columnHeights[columnTarget]}px`
+            const topOffset = columnOffsets[columnTarget] || 0
+            const top = `${columnHeights[columnTarget] + topOffset}px`
             const left = `${columnTarget * itemWidth + columnTarget * gutter}px`
             if (useTransform) {
                 style.transform = `translate3d(${left}, ${top}, 0)`
