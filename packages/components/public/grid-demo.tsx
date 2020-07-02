@@ -1,11 +1,14 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
-import { h, Component, render as preactRender } from 'preact' // eslint-disable-line no-unused-vars
+import { Component, h, render as preactRender } from 'preact' // eslint-disable-line no-unused-vars
 import { throttle } from 'throttle-debounce'
 import { Grid, renderGrid } from '../src'
 
 const getWidth = () => innerWidth
 const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
+
+// eslint-disable-next-line @typescript-eslint/no-unused-expressions
+h
 
 export namespace PreactGrid {
     type State = {
