@@ -18,7 +18,7 @@ Choose your flavor!
 
 ### [@giphy/js-fetch-api](packages/fetch-api/README.md)
 
-> fetch gifs, stickers, categories and more (build your own UI)
+> fetch gifs, stickers, categories and more (build your own UI, no SDK analytics)
 
 ## _Now go build something!_
 

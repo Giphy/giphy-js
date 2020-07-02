@@ -42,7 +42,9 @@ const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 ReactDOM.render(<Grid width={800} columns={3} gutter={6} fetchGifs={fetchGifs} />, target)
 ```
 
-<!-- The grid uses [bricks.js]() to render a grid with fixed width items. -->
+### SSR example with next.js
+
+See this [codesanbox](https://codesandbox.io/s/giphy-web-sdk-ssr-with-nextjs-irv19) for an example of SSR with next.js
 
 | _prop_                                  | _type_                                   | _default_ | _description_                                                            |
 | --------------------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------ |
