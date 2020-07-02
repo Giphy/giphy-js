@@ -41,6 +41,7 @@ type Props = {
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
     noResultsMessage?: string | JSX.Element
+    hideAttribution?: boolean
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {} })
@@ -110,6 +111,7 @@ class Carousel extends Component<Props, State> {
             onGifSeen,
             user,
             noResultsMessage,
+            hideAttribution,
         }: Props,
         { gifs }: State
     ) {
@@ -138,6 +140,7 @@ class Carousel extends Component<Props, State> {
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}
                             user={user}
+                            hideAttribution={hideAttribution}
                         />
                     )
                 })}
