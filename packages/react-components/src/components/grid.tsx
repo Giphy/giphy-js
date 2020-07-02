@@ -24,6 +24,7 @@ type Props = {
     noResultsMessage?: string | JSX.Element
     initialGifs?: IGif[]
     useTransform?: boolean
+    columnOffsets?: number[]
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
@@ -126,6 +127,7 @@ class Grid extends PureComponent<Props, State> {
             width,
             gutter,
             useTransform,
+            columnOffsets,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = fetchGifs && !isDoneFetching
@@ -140,6 +142,7 @@ class Grid extends PureComponent<Props, State> {
                     itemWidth={gifWidth}
                     columns={columns}
                     gutter={gutter}
+                    columnOffsets={columnOffsets}
                 >
                     {gifs.map(gif => (
                         <Gif
