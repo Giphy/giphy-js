@@ -7,12 +7,12 @@ function fillArray(length: any) {
 type Props = {
     columns: number
     gutter: number
-    position?: boolean
+    useTransform?: boolean
     children: ReactNode
     itemHeights: number[]
     itemWidth: number
 }
-const MasonryGrid = ({ columns, gutter, position: useTransform = true, itemWidth, itemHeights, children }: Props) => {
+const MasonryGrid = ({ columns, gutter, useTransform = true, itemWidth, itemHeights, children }: Props) => {
     const containerStyle: any = {}
     function getChildren() {
         let columnTarget: number
