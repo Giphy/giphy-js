@@ -19,6 +19,10 @@
             "pre-commit": "lint-staged"
         }
     },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:Giphy/giphy-js.git"
+    },
     "private": false,
     "devDependencies": {
         "@types/jest": "^24.0.20",
@@ -36,6 +40,7 @@
         "husky": "^2.4.0",
         "jest": "^24.9.0",
         "lerna": "^3.15.0",
+        "lerna-changelog": "^1.0.1",
         "lint-staged": "^8.1.7",
         "prettier": "^1.19.1",
         "prettier-eslint-cli": "^5.0.0",
