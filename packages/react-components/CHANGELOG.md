@@ -5,6 +5,20 @@
 -   `react-components`
     -   [#102](https://github.com/Giphy/giphy-js/pull/102) feat(react-components): grid column offsets from top ([@giannif](https://github.com/giannif))
 
+## @giphy/react-components@1.3.0 (2020-07-02)
+
+#### :rocket: Enhancement
+
+-   `react-components`
+    -   [#100](https://github.com/Giphy/giphy-js/pull/100) feat(react-components): rewrite masonry in React (was bricks.js) to support SSR in Grid ([@giannif](https://github.com/giannif))
+
+## @giphy/react-components@1.2.0 (2020-06-29)
+
+#### :rocket: Enhancement
+
+-   `react-components`
+    -   [#98](https://github.com/Giphy/giphy-js/pull/100) feat(react-components): SSR support for GIF component / remove moat / use picture for webp detection ([@giannif](https://github.com/giannif))
+
 ## @giphy/react-components@1.1.0 (2020-06-17)
 
 #### :rocket: Enhancement
