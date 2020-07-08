@@ -1,3 +1,10 @@
+## @giphy/js-components@3.2.0 (2020-07-08)
+
+#### :rocket: Enhancement
+
+-   `components`, `react-components`
+    -   [#104](https://github.com/Giphy/giphy-js/pull/104) Redesign attribution component ([@giannif](https://github.com/giannif))
+
 ## @giphy/js-components@3.1.0 (2020-06-17)
 
 #### :rocket: Enhancement
