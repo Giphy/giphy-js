@@ -7,18 +7,19 @@ import VerifiedBadge from './verified-badge'
 const containerCss = css`
     display: flex;
     align-items: center;
-    font-family: helvetica, arial;
+    font-family: interface, helvetica, arial;
 `
 const avatarCss = css`
     flex-shrink: 0;
 `
 const userName = css`
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 14px;
+    color: white;
+    font-size: 17px;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    -webkit-font-smoothing: antialiased;
 `
 const verifiedBadge = css`
     margin: 0 4px;

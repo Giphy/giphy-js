@@ -1,6 +1,6 @@
+import { IUser } from '@giphy/js-types'
 import { css, cx } from 'emotion'
 import { h } from 'preact'
-import { IUser } from '@giphy/js-types'
 import { useRef } from 'preact/hooks'
 
 const getSmallAvatar = (avatar: string) => {
@@ -14,8 +14,8 @@ const getSmallAvatar = (avatar: string) => {
 
 const avatarCss = css`
     object-fit: cover;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     margin-right: 8px;
 `
 type Props = { user: IUser; className?: string }

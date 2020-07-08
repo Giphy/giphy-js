@@ -1,8 +1,8 @@
+import { IGif } from '@giphy/js-types'
 import { css } from 'emotion'
 import { h } from 'preact'
-import Attribution from '.'
-import { IGif } from '@giphy/js-types'
 import { useRef } from 'preact/hooks'
+import Attribution from '.'
 
 const backgroundCss = css`
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(18, 18, 18, 0.6));
@@ -11,15 +11,15 @@ const backgroundCss = css`
     bottom: 0;
     left: 0;
     right: 0;
-    height: 70px;
+    height: 75px;
     pointer-events: none;
 `
 
 const attributionCss = css`
     position: absolute;
-    bottom: 5px;
-    left: 5px;
-    right: 5px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
 `
 
 const containerCss = css`

@@ -15,7 +15,7 @@ export default {
 const makeDummy = (gif: IGif) => {
     gif.user = {
         ...gif.user,
-        display_name: text('Display Name', 'Looooong Nameeed Disply Name Property Still going'),
+        display_name: text('Display Name', 'Lorem ipsum dolor sit amet consectetur adipiscing elit'),
         is_verified: boolean('Verified', true),
     }
     if (!boolean('Avatar', true)) {
@@ -27,7 +27,7 @@ export const Attribution = () => {
     const [gif, setGif] = useState<IGif | undefined>()
     useEffect(() => {
         const f = async () => {
-            const { data } = await gf.gif(text('gif id', 'U7JDsNfbGF6p6ho6Mm'))
+            const { data } = await gf.gif(text('gif id', 'l0HlyLQsbvhciAuKA'))
             setGif(data)
         }
         f()
@@ -40,7 +40,9 @@ export const Attribution = () => {
             <AttributionComponent gif={makeDummy({ ...gif })} />
             <hr />
             <h5> In GIF Component</h5>
-            <Gif gif={makeDummy({ ...gif })} width={400} />
+            <Gif gif={makeDummy({ ...gif })} width={248} />
+            <br />
+            <Gif gif={makeDummy({ ...gif })} width={448} />
         </div>
     ) : (
         <div>Loading...</div>
