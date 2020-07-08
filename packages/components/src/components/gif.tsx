@@ -6,11 +6,17 @@ import { h } from 'preact'
 import { useEffect, useRef, useState } from 'preact/hooks'
 import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
+import VerifiedBadge from './attribution/verified-badge'
 
 const gifCss = css`
     display: block;
     img {
         display: block;
+    }
+    .${VerifiedBadge.className} {
+        g {
+            fill: white;
+        }
     }
 `
 
