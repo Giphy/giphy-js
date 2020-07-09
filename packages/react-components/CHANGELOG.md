@@ -1,3 +1,10 @@
+## @giphy/react-components@1.5.1 (2020-07-09)
+
+#### :bug: Bug Fix
+
+-   `react-components`
+    -   [#105](https://github.com/Giphy/giphy-js/pull/105) fix(react-components): column offsets in masonry ([@giannif](https://github.com/giannif))
+
 ## @giphy/react-components@1.5.0 (2020-07-08)
 
 #### :rocket: Enhancement
