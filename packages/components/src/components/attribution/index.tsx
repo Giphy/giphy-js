@@ -28,7 +28,7 @@ const verifiedBadge = css`
 type Props = { gif: IGif; className?: string }
 const Attribution = ({ gif, className }: Props) => {
     const { user } = gif
-    if (!user) {
+    if (!user?.username && !user?.display_name) {
         return null
     }
     const { display_name, username } = user
