@@ -1,6 +1,6 @@
-import React from 'react'
 import { loader } from '@giphy/js-brand'
 import { cx } from 'emotion'
+import React from 'react'
 
 // trying to share css from brand, but this has an element structure
 // so it's ugly. will probably move the css in here

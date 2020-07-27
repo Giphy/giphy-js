@@ -35,7 +35,7 @@ const Attribution = ({ gif, className }: Props) => {
     return (
         <div
             className={cx(containerCss, Attribution.className, className)}
-            onClick={e => {
+            onClick={(e) => {
                 e.preventDefault()
                 const url = (user as IProfileUser).profile_url
                 if (url) window.open(url, '_blank')

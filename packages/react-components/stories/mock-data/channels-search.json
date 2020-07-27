@@ -1,0 +1,1431 @@
+{
+    "data": [
+        {
+            "id": 1121,
+            "url": "/nba",
+            "display_name": "NBA",
+            "parent": null,
+            "slug": "nba",
+            "type": "community",
+            "content_type": "gif",
+            "user": {
+                "id": 9055,
+                "avatar": "https://media2.giphy.com/avatars/nba/GPeEGlo2uy2Z.jpg",
+                "avatar_url": "https://media2.giphy.com/avatars/nba/GPeEGlo2uy2Z.jpg",
+                "banner_image": "https://media2.giphy.com/channel_assets/nba/NFir0YzR4xTg.GIF",
+                "banner_url": "https://media2.giphy.com/channel_assets/nba/NFir0YzR4xTg.GIF",
+                "profile_url": "https://giphy.com/nba/",
+                "username": "nba",
+                "display_name": "NBA",
+                "attribution_display_name": "NBA",
+                "name": "NBA",
+                "description": "This is the official NBA channel on GIPHY. All of the basketball GIFS!!",
+                "suppress_chrome": false,
+                "user_type": "partner",
+                "is_public": true,
+                "is_staff": false,
+                "is_superuser": false,
+                "is_verified": true,
+                "website_url": "",
+                "website_display_url": "",
+                "facebook_url": "http://facebook.com/nba",
+                "twitter": "@nba",
+                "twitter_url": "https://twitter.com/nba",
+                "instagram_url": "https://instagram.com/nba",
+                "tumblr_url": "",
+                "last_login": "2020-08-10 23:15:45",
+                "date_joined": "2014-05-12 21:35:43"
+            },
+            "banner_image": "https://media.giphy.com/channel_assets/nba/NFir0YzR4xTg.GIF",
+            "short_display_name": "NBA",
+            "description": "This is the official NBA channel on GIPHY. All of the basketball GIFS!",
+            "metadata_description": "GIFs directly from the National Basketball Association.",
+            "has_children": true,
+            "is_visible": true,
+            "is_private": false,
+            "is_live": false,
+            "featured_gif": {
+                "type": "gif",
+                "id": "VzxNh46QIoGsya0xSg",
+                "index_id": 101866380,
+                "url": "https://giphy.com/gifs/nba-VzxNh46QIoGsya0xSg",
+                "slug": "nba-VzxNh46QIoGsya0xSg",
+                "bitly_gif_url": "https://gph.is/g/Zy6QpAW",
+                "bitly_url": "https://gph.is/g/Zy6QpAW",
+                "embed_url": "https://giphy.com/embed/VzxNh46QIoGsya0xSg",
+                "username": "nba",
+                "source": "",
+                "title": "GIF by NBA",
+                "rating": "",
+                "content_url": "",
+                "tags": [],
+                "featured_tags": [],
+                "source_tld": "",
+                "source_post_url": "",
+                "is_hidden": 0,
+                "is_removed": 0,
+                "is_community": 0,
+                "is_anonymous": 0,
+                "is_featured": 0,
+                "is_realtime": 0,
+                "is_sticker": 0,
+                "import_datetime": "2020-08-20 19:31:08",
+                "trending_datetime": "0000-00-00 00:00:00",
+                "create_datetime": "2020-08-20 19:31:10",
+                "update_datetime": "2020-08-20 19:31:10",
+                "images": {
+                    "downsized_large": {
+                        "height": "169",
+                        "size": "676696",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "300"
+                    },
+                    "fixed_height_small_still": {
+                        "height": "100",
+                        "size": "11821",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/100_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100_s.gif",
+                        "width": "178"
+                    },
+                    "original": {
+                        "frames": "31",
+                        "hash": "8e2323c2dc70784247061794674d3f39",
+                        "height": "169",
+                        "mp4": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.mp4",
+                        "mp4_size": "236963",
+                        "size": "676696",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "webp": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.webp",
+                        "webp_size": "358866",
+                        "width": "300"
+                    },
+                    "fixed_height_downsampled": {
+                        "height": "200",
+                        "size": "187223",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/200_d.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_d.gif",
+                        "webp": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/200_d.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_d.webp",
+                        "webp_size": "112696",
+                        "width": "355"
+                    },
+                    "downsized_still": {
+                        "height": "169",
+                        "size": "676696",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy_s.gif",
+                        "width": "300"
+                    },
+                    "fixed_height_still": {
+                        "height": "200",
+                        "size": "31559",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/200_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_s.gif",
+                        "width": "355"
+                    },
+                    "downsized_medium": {
+                        "height": "169",
+                        "size": "676696",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "300"
+                    },
+                    "downsized": {
+                        "height": "169",
+                        "size": "676696",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "300"
+                    },
+                    "original_mp4": {
+                        "height": "270",
+                        "mp4": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.mp4",
+                        "mp4_size": "236963",
+                        "width": "480"
+                    },
+                    "fixed_height_small": {
+                        "height": "100",
+                        "mp4": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/100.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.mp4",
+                        "mp4_size": "50735",
+                        "size": "279189",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/100.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.gif",
+                        "webp": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/100.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.webp",
+                        "webp_size": "164178",
+                        "width": "178"
+                    },
+                    "fixed_height": {
+                        "height": "200",
+                        "mp4": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/200.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.mp4",
+                        "mp4_size": "140314",
+                        "size": "819458",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/200.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.gif",
+                        "webp": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/200.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.webp",
+                        "webp_size": "425130",
+                        "width": "355"
+                    },
+                    "downsized_small": {
+                        "height": "168",
+                        "mp4": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy-downsized-small.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-downsized-small.mp4",
+                        "mp4_size": "129097",
+                        "width": "300"
+                    },
+                    "preview": {
+                        "height": "134",
+                        "mp4": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy-preview.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-preview.mp4",
+                        "mp4_size": "37275",
+                        "width": "239"
+                    },
+                    "fixed_width_downsampled": {
+                        "height": "113",
+                        "size": "71906",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/200w_d.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_d.gif",
+                        "webp": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/200w_d.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_d.webp",
+                        "webp_size": "44768",
+                        "width": "200"
+                    },
+                    "fixed_width_small_still": {
+                        "height": "57",
+                        "size": "4331",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/100w_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w_s.gif",
+                        "width": "100"
+                    },
+                    "fixed_width_small": {
+                        "height": "57",
+                        "mp4": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/100w.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.mp4",
+                        "mp4_size": "20504",
+                        "size": "101991",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/100w.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.gif",
+                        "webp": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/100w.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.webp",
+                        "webp_size": "67188",
+                        "width": "100"
+                    },
+                    "original_still": {
+                        "height": "169",
+                        "size": "41215",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy_s.gif",
+                        "width": "300"
+                    },
+                    "fixed_width_still": {
+                        "height": "113",
+                        "size": "15330",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/200w_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_s.gif",
+                        "width": "200"
+                    },
+                    "looping": {
+                        "mp4": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy-loop.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-loop.mp4",
+                        "mp4_size": "1429475"
+                    },
+                    "fixed_width": {
+                        "height": "113",
+                        "mp4": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/200w.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.mp4",
+                        "mp4_size": "57112",
+                        "size": "313979",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/200w.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.gif",
+                        "webp": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/200w.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.webp",
+                        "webp_size": "187408",
+                        "width": "200"
+                    },
+                    "preview_gif": {
+                        "height": "56",
+                        "size": "48574",
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/giphy-preview.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-preview.gif",
+                        "width": "99"
+                    },
+                    "480w_still": {
+                        "url": "https://media3.giphy.com/media/VzxNh46QIoGsya0xSg/480w_s.jpg?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=480w_s.jpg",
+                        "width": "480",
+                        "height": "270"
+                    }
+                },
+                "user": {
+                    "id": 9055,
+                    "avatar": "https://media2.giphy.com/avatars/nba/GPeEGlo2uy2Z.jpg",
+                    "avatar_url": "https://media2.giphy.com/avatars/nba/GPeEGlo2uy2Z.jpg",
+                    "banner_image": "https://media2.giphy.com/channel_assets/nba/NFir0YzR4xTg.GIF",
+                    "banner_url": "https://media2.giphy.com/channel_assets/nba/NFir0YzR4xTg.GIF",
+                    "profile_url": "https://giphy.com/nba/",
+                    "username": "nba",
+                    "display_name": "NBA",
+                    "attribution_display_name": "NBA",
+                    "name": "NBA",
+                    "description": "This is the official NBA channel on GIPHY. All of the basketball GIFS!!",
+                    "suppress_chrome": false,
+                    "user_type": "partner",
+                    "is_public": true,
+                    "is_staff": false,
+                    "is_superuser": false,
+                    "is_verified": true,
+                    "website_url": "",
+                    "website_display_url": "",
+                    "facebook_url": "http://facebook.com/nba",
+                    "twitter": "@nba",
+                    "twitter_url": "https://twitter.com/nba",
+                    "instagram_url": "https://instagram.com/nba",
+                    "tumblr_url": "",
+                    "last_login": "2020-08-10 23:15:45",
+                    "date_joined": "2014-05-12 21:35:43"
+                }
+            },
+            "screensaver_gif": null,
+            "tags": [],
+            "live_since_datetime": null,
+            "live_until_datetime": null,
+            "ancestors": [],
+            "syncable_tags": [{ "id": 122, "tag": "giphynba", "channel": 1121 }]
+        },
+        {
+            "id": 8192,
+            "url": "/nbaontnt",
+            "display_name": "NBA on TNT",
+            "parent": null,
+            "slug": "nbaontnt",
+            "type": "community",
+            "content_type": "gif",
+            "user": {
+                "id": 175184,
+                "avatar": "https://media2.giphy.com/avatars/nbaontnt/XHS7mgXmpr1D.gif",
+                "avatar_url": "https://media2.giphy.com/avatars/nbaontnt/XHS7mgXmpr1D.gif",
+                "banner_image": "https://media2.giphy.com/headers/nbaontnt/bUUUeULFmbzg.jpg",
+                "banner_url": "https://media2.giphy.com/headers/nbaontnt/bUUUeULFmbzg.jpg",
+                "profile_url": "https://giphy.com/nbaontnt/",
+                "username": "nbaontnt",
+                "display_name": "NBA on TNT",
+                "attribution_display_name": "NBA on TNT",
+                "name": "NBA on TNT",
+                "description": "Home of @TheJetonTNT, @Shaq, @TurnerSportsEJ, and Charles.",
+                "suppress_chrome": false,
+                "user_type": "partner",
+                "is_public": true,
+                "is_staff": false,
+                "is_superuser": false,
+                "is_verified": true,
+                "website_url": "https://www.facebook.com/NBAONTNT",
+                "website_display_url": "www.facebook.com",
+                "facebook_url": "https://www.facebook.com/NBAONTNT",
+                "twitter": "@nbaontnt",
+                "twitter_url": "https://twitter.com/nbaontnt",
+                "instagram_url": "https://instagram.com/nbaontnt",
+                "tumblr_url": "",
+                "last_login": "2017-12-22 04:59:46",
+                "date_joined": "2015-07-21 21:47:46"
+            },
+            "banner_image": "https://media.giphy.com/headers/nbaontnt/bUUUeULFmbzg.jpg",
+            "short_display_name": "",
+            "description": "",
+            "metadata_description": "Home of @TheJetonTNT, @Shaq, @TurnerSportsEJ, and Charles.",
+            "has_children": true,
+            "is_visible": true,
+            "is_private": false,
+            "is_live": false,
+            "featured_gif": {
+                "type": "gif",
+                "id": "URjnBPEfhW71DwbFwK",
+                "index_id": 79601229,
+                "url": "https://giphy.com/stickers/nbaontnt-nba-shaq-shaquille-o-neal-URjnBPEfhW71DwbFwK",
+                "slug": "nbaontnt-nba-shaq-shaquille-o-neal-URjnBPEfhW71DwbFwK",
+                "bitly_gif_url": "https://gph.is/st/Mx4aq1M",
+                "bitly_url": "https://gph.is/st/Mx4aq1M",
+                "embed_url": "https://giphy.com/embed/URjnBPEfhW71DwbFwK",
+                "username": "nbaontnt",
+                "source": "",
+                "title": "nba awards basketball Sticker by NBA on TNT",
+                "rating": "g",
+                "content_url": "",
+                "tags": [
+                    "transparent",
+                    "sports",
+                    "sport",
+                    "basketball",
+                    "nba",
+                    "shaq",
+                    "nba on tnt",
+                    "nba awards",
+                    "shaquille o neal"
+                ],
+                "featured_tags": [],
+                "source_tld": "",
+                "source_post_url": "",
+                "is_hidden": 0,
+                "is_removed": 0,
+                "is_community": 0,
+                "is_anonymous": 0,
+                "is_featured": 0,
+                "is_realtime": 0,
+                "is_sticker": 1,
+                "import_datetime": "2019-06-24 21:07:13",
+                "trending_datetime": "0000-00-00 00:00:00",
+                "create_datetime": "2019-06-24 21:07:12",
+                "update_datetime": "2019-06-24 21:08:52",
+                "images": {
+                    "downsized_large": {
+                        "height": "480",
+                        "size": "2758081",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "480"
+                    },
+                    "fixed_height_small_still": {
+                        "height": "100",
+                        "size": "3938",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/100_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100_s.gif",
+                        "width": "100"
+                    },
+                    "original": {
+                        "frames": "51",
+                        "hash": "900d927e915055448fcad750113ec1c7",
+                        "height": "480",
+                        "mp4": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.mp4",
+                        "mp4_size": "444172",
+                        "size": "2758081",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "webp": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.webp",
+                        "webp_size": "543852",
+                        "width": "480"
+                    },
+                    "fixed_height_downsampled": {
+                        "height": "200",
+                        "size": "59107",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/200_d.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_d.gif",
+                        "webp": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/200_d.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_d.webp",
+                        "webp_size": "38928",
+                        "width": "200"
+                    },
+                    "downsized_still": {
+                        "height": "480",
+                        "size": "34543",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy-downsized_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-downsized_s.gif",
+                        "width": "480"
+                    },
+                    "fixed_height_still": {
+                        "height": "200",
+                        "size": "13081",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/200_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_s.gif",
+                        "width": "200"
+                    },
+                    "downsized_medium": {
+                        "height": "480",
+                        "size": "2758081",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "480"
+                    },
+                    "downsized": {
+                        "height": "480",
+                        "size": "1709550",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy-downsized.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-downsized.gif",
+                        "width": "480"
+                    },
+                    "original_mp4": {
+                        "height": "480",
+                        "mp4": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.mp4",
+                        "mp4_size": "444172",
+                        "width": "480"
+                    },
+                    "fixed_height_small": {
+                        "height": "100",
+                        "mp4": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/100.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.mp4",
+                        "mp4_size": "37600",
+                        "size": "195888",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/100.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.gif",
+                        "webp": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/100.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.webp",
+                        "webp_size": "106070",
+                        "width": "100"
+                    },
+                    "fixed_height": {
+                        "height": "200",
+                        "mp4": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/200.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.mp4",
+                        "mp4_size": "103341",
+                        "size": "542226",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/200.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.gif",
+                        "webp": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/200.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.webp",
+                        "webp_size": "251000",
+                        "width": "200"
+                    },
+                    "downsized_small": {
+                        "height": "314",
+                        "mp4": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy-downsized-small.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-downsized-small.mp4",
+                        "mp4_size": "104630",
+                        "width": "314"
+                    },
+                    "preview": {
+                        "height": "256",
+                        "mp4": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy-preview.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-preview.mp4",
+                        "mp4_size": "39924",
+                        "width": "256"
+                    },
+                    "fixed_width_downsampled": {
+                        "height": "200",
+                        "size": "59107",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/200w_d.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_d.gif",
+                        "webp": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/200w_d.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_d.webp",
+                        "webp_size": "38928",
+                        "width": "200"
+                    },
+                    "fixed_width_small_still": {
+                        "height": "100",
+                        "size": "3938",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/100w_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w_s.gif",
+                        "width": "100"
+                    },
+                    "fixed_width_small": {
+                        "height": "100",
+                        "mp4": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/100w.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.mp4",
+                        "mp4_size": "37600",
+                        "size": "195888",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/100w.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.gif",
+                        "webp": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/100w.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.webp",
+                        "webp_size": "106070",
+                        "width": "100"
+                    },
+                    "original_still": {
+                        "height": "480",
+                        "size": "78457",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy_s.gif",
+                        "width": "480"
+                    },
+                    "fixed_width_still": {
+                        "height": "200",
+                        "size": "13081",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/200w_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_s.gif",
+                        "width": "200"
+                    },
+                    "looping": {
+                        "mp4": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy-loop.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-loop.mp4",
+                        "mp4_size": "3382796"
+                    },
+                    "fixed_width": {
+                        "height": "200",
+                        "mp4": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/200w.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.mp4",
+                        "mp4_size": "103341",
+                        "size": "542226",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/200w.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.gif",
+                        "webp": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/200w.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.webp",
+                        "webp_size": "251000",
+                        "width": "200"
+                    },
+                    "preview_gif": {
+                        "height": "115",
+                        "size": "49715",
+                        "url": "https://media3.giphy.com/media/URjnBPEfhW71DwbFwK/giphy-preview.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-preview.gif",
+                        "width": "115"
+                    },
+                    "480w_still": {
+                        "url": "https://media1.giphy.com/media/URjnBPEfhW71DwbFwK/480w_s.jpg?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=480w_s.jpg",
+                        "width": "480",
+                        "height": "480"
+                    }
+                },
+                "user": {
+                    "id": 175184,
+                    "avatar": "https://media2.giphy.com/avatars/nbaontnt/XHS7mgXmpr1D.gif",
+                    "avatar_url": "https://media2.giphy.com/avatars/nbaontnt/XHS7mgXmpr1D.gif",
+                    "banner_image": "https://media2.giphy.com/headers/nbaontnt/bUUUeULFmbzg.jpg",
+                    "banner_url": "https://media2.giphy.com/headers/nbaontnt/bUUUeULFmbzg.jpg",
+                    "profile_url": "https://giphy.com/nbaontnt/",
+                    "username": "nbaontnt",
+                    "display_name": "NBA on TNT",
+                    "attribution_display_name": "NBA on TNT",
+                    "name": "NBA on TNT",
+                    "description": "Home of @TheJetonTNT, @Shaq, @TurnerSportsEJ, and Charles.",
+                    "suppress_chrome": false,
+                    "user_type": "partner",
+                    "is_public": true,
+                    "is_staff": false,
+                    "is_superuser": false,
+                    "is_verified": true,
+                    "website_url": "https://www.facebook.com/NBAONTNT",
+                    "website_display_url": "www.facebook.com",
+                    "facebook_url": "https://www.facebook.com/NBAONTNT",
+                    "twitter": "@nbaontnt",
+                    "twitter_url": "https://twitter.com/nbaontnt",
+                    "instagram_url": "https://instagram.com/nbaontnt",
+                    "tumblr_url": "",
+                    "last_login": "2017-12-22 04:59:46",
+                    "date_joined": "2015-07-21 21:47:46"
+                }
+            },
+            "screensaver_gif": null,
+            "tags": [],
+            "live_since_datetime": null,
+            "live_until_datetime": null,
+            "ancestors": [],
+            "syncable_tags": []
+        },
+        {
+            "id": 10751,
+            "url": "/nbaonespn",
+            "display_name": "NBA on ESPN",
+            "parent": null,
+            "slug": "nbaonespn",
+            "type": "community",
+            "content_type": "gif",
+            "user": {
+                "id": 2100526,
+                "avatar_url": "https://media0.giphy.com/avatars/nbasanta/hA04UCFMRqKd.jpg",
+                "avatar": "https://media0.giphy.com/avatars/nbasanta/hA04UCFMRqKd.jpg",
+                "banner_url": "https://media0.giphy.com/headers/nbasanta/MmUwG7hwNle7.jpg",
+                "banner_image": "https://media0.giphy.com/headers/nbasanta/MmUwG7hwNle7.jpg",
+                "profile_url": "https://giphy.com/nbaonespn/",
+                "username": "nbaonespn",
+                "display_name": "NBA on ESPN",
+                "attribution_display_name": "NBA on ESPN",
+                "name": "NBA on ESPN",
+                "description": "",
+                "suppress_chrome": false,
+                "user_type": "partner",
+                "is_public": true,
+                "is_staff": false,
+                "is_superuser": false,
+                "is_verified": true,
+                "website_url": "http://www.espn.com/nba",
+                "website_display_url": "www.espn.com",
+                "facebook_url": "https://www.facebook.com/NBAonESPN",
+                "twitter": "@ESPNNBA",
+                "twitter_url": "https://twitter.com/ESPNNBA",
+                "instagram_url": "https://instagram.com/nbaonespn",
+                "tumblr_url": "",
+                "last_login": "2017-01-09 17:31:54",
+                "date_joined": "2016-12-14 18:18:47"
+            },
+            "banner_image": "https://media.giphy.com/headers/nbasanta/MmUwG7hwNle7.jpg",
+            "short_display_name": "",
+            "description": "",
+            "metadata_description": "",
+            "has_children": true,
+            "is_visible": true,
+            "is_private": false,
+            "is_live": false,
+            "featured_gif": null,
+            "screensaver_gif": null,
+            "tags": [],
+            "live_since_datetime": null,
+            "live_until_datetime": null,
+            "ancestors": [],
+            "syncable_tags": []
+        },
+        {
+            "id": 13874096,
+            "url": "/nba2kleague",
+            "display_name": "NBA 2K League",
+            "parent": null,
+            "slug": "nba2kleague",
+            "type": "community",
+            "content_type": "gif",
+            "user": {
+                "id": 13885173,
+                "avatar": "https://media3.giphy.com/avatars/nba2kleague/u1lGuZNbUEbA.jpg",
+                "avatar_url": "https://media3.giphy.com/avatars/nba2kleague/u1lGuZNbUEbA.jpg",
+                "banner_image": "https://media3.giphy.com/headers/nba2kleague/BKws5TGpuEsC.jpg",
+                "banner_url": "https://media3.giphy.com/headers/nba2kleague/BKws5TGpuEsC.jpg",
+                "profile_url": "https://giphy.com/nba2kleague/",
+                "username": "nba2kleague",
+                "display_name": "NBA 2K League",
+                "attribution_display_name": "NBA 2K League",
+                "name": "NBA 2K League",
+                "description": "This is the official NBA 2K League channel on GIPHY!",
+                "suppress_chrome": false,
+                "user_type": "partner",
+                "is_public": true,
+                "is_staff": false,
+                "is_superuser": false,
+                "is_verified": true,
+                "website_url": "https://2kleague.nba.com",
+                "website_display_url": "2kleague.nba.com",
+                "facebook_url": "https://www.facebook.com/nba2kleague",
+                "twitter": "nba2kleague",
+                "twitter_url": "https://twitter.com/nba2kleague",
+                "instagram_url": "https://instagram.com/nba2kleague",
+                "tumblr_url": "",
+                "last_login": "2020-05-13 01:23:09",
+                "date_joined": "2019-06-13 17:27:22"
+            },
+            "banner_image": "https://media.giphy.com/headers/nba2kleague/BKws5TGpuEsC.jpg",
+            "short_display_name": "",
+            "description": "",
+            "metadata_description": "",
+            "has_children": true,
+            "is_visible": true,
+            "is_private": false,
+            "is_live": false,
+            "featured_gif": {
+                "type": "gif",
+                "id": "QYYd7TWZVt1qJKQyiR",
+                "index_id": 99384332,
+                "url": "https://giphy.com/gifs/nba2kleague-jazz-gaming-splashy-QYYd7TWZVt1qJKQyiR",
+                "slug": "nba2kleague-jazz-gaming-splashy-QYYd7TWZVt1qJKQyiR",
+                "bitly_gif_url": "https://gph.is/g/aQKdV3B",
+                "bitly_url": "https://gph.is/g/aQKdV3B",
+                "embed_url": "https://giphy.com/embed/QYYd7TWZVt1qJKQyiR",
+                "username": "nba2kleague",
+                "source": "",
+                "title": "Jazz Gaming GIF by NBA 2K League",
+                "rating": "g",
+                "content_url": "",
+                "tags": [
+                    "jazz gaming",
+                    "splashy",
+                    "splashy nba 2k league",
+                    "splashy jazz gaming",
+                    "jazz gaming nba 2k league"
+                ],
+                "featured_tags": [],
+                "source_tld": "",
+                "source_post_url": "",
+                "is_hidden": 0,
+                "is_removed": 0,
+                "is_community": 0,
+                "is_anonymous": 0,
+                "is_featured": 0,
+                "is_realtime": 0,
+                "is_sticker": 0,
+                "import_datetime": "2020-07-09 15:26:25",
+                "trending_datetime": "0000-00-00 00:00:00",
+                "create_datetime": "2020-07-09 15:26:25",
+                "update_datetime": "2020-07-09 15:30:48",
+                "images": {
+                    "downsized_large": {
+                        "height": "264",
+                        "size": "572802",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "470"
+                    },
+                    "fixed_height_small_still": {
+                        "height": "100",
+                        "size": "13483",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/100_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100_s.gif",
+                        "width": "178"
+                    },
+                    "original": {
+                        "frames": "8",
+                        "hash": "105f2eb7b539c468f6f4093df81f62d2",
+                        "height": "264",
+                        "mp4": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.mp4",
+                        "mp4_size": "162797",
+                        "size": "572802",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "webp": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.webp",
+                        "webp_size": "259028",
+                        "width": "470"
+                    },
+                    "fixed_height_downsampled": {
+                        "height": "200",
+                        "size": "193013",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/200_d.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_d.gif",
+                        "webp": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/200_d.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_d.webp",
+                        "webp_size": "131576",
+                        "width": "356"
+                    },
+                    "downsized_still": {
+                        "height": "264",
+                        "size": "572802",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy_s.gif",
+                        "width": "470"
+                    },
+                    "fixed_height_still": {
+                        "height": "200",
+                        "size": "36910",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/200_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_s.gif",
+                        "width": "356"
+                    },
+                    "downsized_medium": {
+                        "height": "264",
+                        "size": "572802",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "470"
+                    },
+                    "downsized": {
+                        "height": "264",
+                        "size": "572802",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "470"
+                    },
+                    "original_mp4": {
+                        "height": "268",
+                        "mp4": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.mp4",
+                        "mp4_size": "162797",
+                        "width": "480"
+                    },
+                    "fixed_height_small": {
+                        "height": "100",
+                        "mp4": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/100.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.mp4",
+                        "mp4_size": "26872",
+                        "size": "82902",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/100.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.gif",
+                        "webp": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/100.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.webp",
+                        "webp_size": "46482",
+                        "width": "178"
+                    },
+                    "fixed_height": {
+                        "height": "200",
+                        "mp4": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/200.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.mp4",
+                        "mp4_size": "80691",
+                        "size": "255501",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/200.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.gif",
+                        "webp": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/200.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.webp",
+                        "webp_size": "138612",
+                        "width": "356"
+                    },
+                    "downsized_small": {
+                        "height": "264",
+                        "mp4": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy-downsized-small.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-downsized-small.mp4",
+                        "mp4_size": "184544",
+                        "width": "470"
+                    },
+                    "preview": {
+                        "height": "136",
+                        "mp4": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy-preview.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-preview.mp4",
+                        "mp4_size": "27474",
+                        "width": "242"
+                    },
+                    "fixed_width_downsampled": {
+                        "height": "112",
+                        "size": "71760",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/200w_d.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_d.gif",
+                        "webp": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/200w_d.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_d.webp",
+                        "webp_size": "47736",
+                        "width": "200"
+                    },
+                    "fixed_width_small_still": {
+                        "height": "56",
+                        "size": "4781",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/100w_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w_s.gif",
+                        "width": "100"
+                    },
+                    "fixed_width_small": {
+                        "height": "56",
+                        "mp4": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/100w.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.mp4",
+                        "mp4_size": "10986",
+                        "size": "30111",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/100w.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.gif",
+                        "webp": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/100w.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.webp",
+                        "webp_size": "18370",
+                        "width": "100"
+                    },
+                    "original_still": {
+                        "height": "264",
+                        "size": "105173",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy_s.gif",
+                        "width": "470"
+                    },
+                    "fixed_width_still": {
+                        "height": "112",
+                        "size": "16459",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/200w_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_s.gif",
+                        "width": "200"
+                    },
+                    "looping": {
+                        "mp4": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy-loop.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-loop.mp4",
+                        "mp4_size": "2089175"
+                    },
+                    "fixed_width": {
+                        "height": "112",
+                        "mp4": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/200w.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.mp4",
+                        "mp4_size": "30943",
+                        "size": "99987",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/200w.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.gif",
+                        "webp": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/200w.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.webp",
+                        "webp_size": "54768",
+                        "width": "200"
+                    },
+                    "preview_gif": {
+                        "height": "61",
+                        "size": "48868",
+                        "url": "https://media1.giphy.com/media/QYYd7TWZVt1qJKQyiR/giphy-preview.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-preview.gif",
+                        "width": "109"
+                    },
+                    "480w_still": {
+                        "url": "https://media4.giphy.com/media/QYYd7TWZVt1qJKQyiR/480w_s.jpg?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=480w_s.jpg",
+                        "width": "480",
+                        "height": "270"
+                    }
+                },
+                "user": {
+                    "id": 13885173,
+                    "avatar": "https://media3.giphy.com/avatars/nba2kleague/u1lGuZNbUEbA.jpg",
+                    "avatar_url": "https://media3.giphy.com/avatars/nba2kleague/u1lGuZNbUEbA.jpg",
+                    "banner_image": "https://media3.giphy.com/headers/nba2kleague/BKws5TGpuEsC.jpg",
+                    "banner_url": "https://media3.giphy.com/headers/nba2kleague/BKws5TGpuEsC.jpg",
+                    "profile_url": "https://giphy.com/nba2kleague/",
+                    "username": "nba2kleague",
+                    "display_name": "NBA 2K League",
+                    "attribution_display_name": "NBA 2K League",
+                    "name": "NBA 2K League",
+                    "description": "This is the official NBA 2K League channel on GIPHY!",
+                    "suppress_chrome": false,
+                    "user_type": "partner",
+                    "is_public": true,
+                    "is_staff": false,
+                    "is_superuser": false,
+                    "is_verified": true,
+                    "website_url": "https://2kleague.nba.com",
+                    "website_display_url": "2kleague.nba.com",
+                    "facebook_url": "https://www.facebook.com/nba2kleague",
+                    "twitter": "nba2kleague",
+                    "twitter_url": "https://twitter.com/nba2kleague",
+                    "instagram_url": "https://instagram.com/nba2kleague",
+                    "tumblr_url": "",
+                    "last_login": "2020-05-13 01:23:09",
+                    "date_joined": "2019-06-13 17:27:22"
+                }
+            },
+            "screensaver_gif": null,
+            "tags": [],
+            "live_since_datetime": null,
+            "live_until_datetime": null,
+            "ancestors": [],
+            "syncable_tags": []
+        },
+        {
+            "id": 7115714,
+            "url": "/cp3",
+            "display_name": "Chris Paul, NBA Point Guard",
+            "parent": null,
+            "slug": "cp3",
+            "type": "community",
+            "content_type": "gif",
+            "user": {
+                "id": 7127624,
+                "avatar_url": "https://media0.giphy.com/avatars/cp3/8KBRbFaEij47.jpg",
+                "avatar": "https://media0.giphy.com/avatars/cp3/8KBRbFaEij47.jpg",
+                "banner_url": "https://media0.giphy.com/headers/cp3/PNMaxUXhQeFR.png",
+                "banner_image": "https://media0.giphy.com/headers/cp3/PNMaxUXhQeFR.png",
+                "profile_url": "https://giphy.com/cp3/",
+                "username": "cp3",
+                "display_name": "Chris Paul, NBA Point Guard",
+                "attribution_display_name": "Chris Paul, NBA Point Guard",
+                "name": "Chris Paul, NBA Point Guard",
+                "description": "On the court, Chris Paul is a force to be reckoned with, a fierce competitor, and one of the most talented, respected NBA players of all time. Off the court, he\u2019s a father, husband, compassionate philanthropist and businessman, who has built a robust brand and made a huge difference in his community, all while creating a powerful legacy.",
+                "suppress_chrome": true,
+                "user_type": "partner",
+                "is_public": true,
+                "is_staff": false,
+                "is_superuser": false,
+                "is_verified": true,
+                "website_url": "http://chrispaul3.com",
+                "website_display_url": "chrispaul3.com",
+                "facebook_url": "https://www.facebook.com/CP3",
+                "twitter": "CP3",
+                "twitter_url": "https://twitter.com/CP3",
+                "instagram_url": "https://instagram.com/CP3",
+                "tumblr_url": "",
+                "last_login": "2018-06-21 19:53:56",
+                "date_joined": "2018-06-21 17:10:36"
+            },
+            "banner_image": "https://media.giphy.com/headers/cp3/PNMaxUXhQeFR.png",
+            "short_display_name": "",
+            "description": "",
+            "metadata_description": "",
+            "has_children": true,
+            "is_visible": true,
+            "is_private": false,
+            "is_live": false,
+            "featured_gif": {
+                "type": "gif",
+                "id": "OT6ScY0uh4GCOtcZEy",
+                "index_id": 63986637,
+                "url": "https://giphy.com/stickers/cp3-nba-OT6ScY0uh4GCOtcZEy",
+                "slug": "cp3-nba-OT6ScY0uh4GCOtcZEy",
+                "bitly_gif_url": "https://gph.is/2JW7BiR",
+                "bitly_url": "https://gph.is/2JW7BiR",
+                "embed_url": "https://giphy.com/embed/OT6ScY0uh4GCOtcZEy",
+                "username": "cp3",
+                "source": "",
+                "title": "basketball ball Sticker by Chris Paul, NBA Point Guard",
+                "rating": "g",
+                "content_url": "",
+                "tags": [
+                    "transparent",
+                    "basketball",
+                    "ball",
+                    "hoop",
+                    "fiba",
+                    "ghd",
+                    "hoopin",
+                    "gohoopday",
+                    "go hoop day"
+                ],
+                "featured_tags": [],
+                "source_tld": "",
+                "source_post_url": "",
+                "is_hidden": 0,
+                "is_removed": 0,
+                "is_community": 0,
+                "is_anonymous": 0,
+                "is_featured": 0,
+                "is_realtime": 0,
+                "is_sticker": 1,
+                "import_datetime": "2018-06-21 20:20:55",
+                "trending_datetime": "0000-00-00 00:00:00",
+                "create_datetime": "2018-06-21 20:21:31",
+                "update_datetime": "2018-06-25 15:15:39",
+                "images": {
+                    "downsized_large": {
+                        "height": "500",
+                        "size": "208169",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "500"
+                    },
+                    "fixed_height_small_still": {
+                        "height": "100",
+                        "size": "2857",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/100_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100_s.gif",
+                        "width": "100"
+                    },
+                    "original": {
+                        "frames": "20",
+                        "hash": "547c6779ecd14487d0403dd1490f5edf",
+                        "height": "500",
+                        "mp4": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.mp4",
+                        "mp4_size": "175629",
+                        "size": "208169",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "webp": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.webp",
+                        "webp_size": "295866",
+                        "width": "500"
+                    },
+                    "fixed_height_downsampled": {
+                        "height": "200",
+                        "size": "21815",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/200_d.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_d.gif",
+                        "webp": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/200_d.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_d.webp",
+                        "webp_size": "26398",
+                        "width": "200"
+                    },
+                    "downsized_still": {
+                        "height": "500",
+                        "size": "208169",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy_s.gif",
+                        "width": "500"
+                    },
+                    "fixed_height_still": {
+                        "height": "200",
+                        "size": "6027",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/200_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_s.gif",
+                        "width": "200"
+                    },
+                    "downsized_medium": {
+                        "height": "500",
+                        "size": "208169",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "500"
+                    },
+                    "downsized": {
+                        "height": "500",
+                        "size": "208169",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "500"
+                    },
+                    "original_mp4": {
+                        "height": "480",
+                        "mp4": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.mp4",
+                        "mp4_size": "175629",
+                        "width": "480"
+                    },
+                    "fixed_height_small": {
+                        "height": "100",
+                        "mp4": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/100.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.mp4",
+                        "mp4_size": "16180",
+                        "size": "23377",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/100.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.gif",
+                        "webp": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/100.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.webp",
+                        "webp_size": "33740",
+                        "width": "100"
+                    },
+                    "fixed_height": {
+                        "height": "200",
+                        "mp4": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/200.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.mp4",
+                        "mp4_size": "44692",
+                        "size": "57451",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/200.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.gif",
+                        "webp": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/200.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.webp",
+                        "webp_size": "79104",
+                        "width": "200"
+                    },
+                    "downsized_small": {
+                        "height": "450",
+                        "mp4": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy-downsized-small.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-downsized-small.mp4",
+                        "mp4_size": "90621",
+                        "width": "450"
+                    },
+                    "preview": {
+                        "height": "244",
+                        "mp4": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy-preview.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-preview.mp4",
+                        "mp4_size": "36242",
+                        "width": "244"
+                    },
+                    "fixed_width_downsampled": {
+                        "height": "200",
+                        "size": "21815",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/200w_d.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_d.gif",
+                        "webp": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/200w_d.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_d.webp",
+                        "webp_size": "26398",
+                        "width": "200"
+                    },
+                    "fixed_width_small_still": {
+                        "height": "100",
+                        "size": "2857",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/100w_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w_s.gif",
+                        "width": "100"
+                    },
+                    "fixed_width_small": {
+                        "height": "100",
+                        "mp4": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/100w.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.mp4",
+                        "mp4_size": "16180",
+                        "size": "23377",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/100w.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.gif",
+                        "webp": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/100w.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.webp",
+                        "webp_size": "33740",
+                        "width": "100"
+                    },
+                    "original_still": {
+                        "height": "500",
+                        "size": "24407",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy_s.gif",
+                        "width": "500"
+                    },
+                    "fixed_width_still": {
+                        "height": "200",
+                        "size": "6027",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/200w_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_s.gif",
+                        "width": "200"
+                    },
+                    "looping": {
+                        "mp4": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy-loop.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-loop.mp4",
+                        "mp4_size": "1103287"
+                    },
+                    "fixed_width": {
+                        "height": "200",
+                        "mp4": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/200w.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.mp4",
+                        "mp4_size": "44692",
+                        "size": "57451",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/200w.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.gif",
+                        "webp": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/200w.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.webp",
+                        "webp_size": "79104",
+                        "width": "200"
+                    },
+                    "preview_gif": {
+                        "height": "314",
+                        "size": "49183",
+                        "url": "https://media1.giphy.com/media/OT6ScY0uh4GCOtcZEy/giphy-preview.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-preview.gif",
+                        "width": "314"
+                    },
+                    "480w_still": {
+                        "url": "https://media4.giphy.com/media/OT6ScY0uh4GCOtcZEy/480w_s.jpg?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=480w_s.jpg",
+                        "width": "480",
+                        "height": "480"
+                    }
+                },
+                "user": {
+                    "id": 7127624,
+                    "avatar": "https://media0.giphy.com/avatars/cp3/8KBRbFaEij47.jpg",
+                    "avatar_url": "https://media0.giphy.com/avatars/cp3/8KBRbFaEij47.jpg",
+                    "banner_image": "https://media0.giphy.com/headers/cp3/PNMaxUXhQeFR.png",
+                    "banner_url": "https://media0.giphy.com/headers/cp3/PNMaxUXhQeFR.png",
+                    "profile_url": "https://giphy.com/cp3/",
+                    "username": "cp3",
+                    "display_name": "Chris Paul, NBA Point Guard",
+                    "attribution_display_name": "Chris Paul, NBA Point Guard",
+                    "name": "Chris Paul, NBA Point Guard",
+                    "description": "On the court, Chris Paul is a force to be reckoned with, a fierce competitor, and one of the most talented, respected NBA players of all time. Off the court, he\u2019s a father, husband, compassionate philanthropist and businessman, who has built a robust brand and made a huge difference in his community, all while creating a powerful legacy.",
+                    "suppress_chrome": true,
+                    "user_type": "partner",
+                    "is_public": true,
+                    "is_staff": false,
+                    "is_superuser": false,
+                    "is_verified": true,
+                    "website_url": "http://chrispaul3.com",
+                    "website_display_url": "chrispaul3.com",
+                    "facebook_url": "https://www.facebook.com/CP3",
+                    "twitter": "CP3",
+                    "twitter_url": "https://twitter.com/CP3",
+                    "instagram_url": "https://instagram.com/CP3",
+                    "tumblr_url": "",
+                    "last_login": "2018-06-21 19:53:56",
+                    "date_joined": "2018-06-21 17:10:36"
+                }
+            },
+            "screensaver_gif": null,
+            "tags": [],
+            "live_since_datetime": null,
+            "live_until_datetime": null,
+            "ancestors": [],
+            "syncable_tags": []
+        },
+        {
+            "id": 679,
+            "url": "/sports",
+            "display_name": "Sports GIFs",
+            "parent": null,
+            "slug": "sports",
+            "type": "editorial",
+            "content_type": "channel,gif",
+            "user": {
+                "id": 3464723,
+                "avatar": "https://media3.giphy.com/channel_assets/sports/P658KMA9mwy4.gif",
+                "avatar_url": "https://media3.giphy.com/channel_assets/sports/P658KMA9mwy4.gif",
+                "banner_image": "",
+                "banner_url": "",
+                "profile_url": "https://giphy.com/sports/",
+                "username": "sports",
+                "display_name": "Sports GIFs",
+                "attribution_display_name": "Sports GIFs",
+                "name": "Sports GIFs",
+                "description": "Your go-to for any and all sports GIFs! LeBron, Ronaldo, Gronk, Serena...We\u2019ve got them all!",
+                "suppress_chrome": false,
+                "user_type": "partner",
+                "is_public": true,
+                "is_staff": true,
+                "is_superuser": false,
+                "is_verified": true,
+                "website_url": "",
+                "website_display_url": "",
+                "facebook_url": "http://facebook.com/giphysports",
+                "twitter": "@giphysports",
+                "twitter_url": "https://twitter.com/giphysports",
+                "instagram_url": "https://instagram.com/giphy",
+                "tumblr_url": "",
+                "last_login": "2018-08-16 20:56:58",
+                "date_joined": "2017-05-15 19:22:31"
+            },
+            "banner_image": null,
+            "short_display_name": "Sports",
+            "description": "Your go-to for any and all sports GIFs! LeBron, Ronaldo, Gronk, Serena...We\u2019ve got them all!",
+            "metadata_description": "Search, discover & share your favorite Sports GIFs. Find the latest in football GIFs, basketball GIFs, baseball GIFs, and more. The best GIFs are on Giphy.",
+            "has_children": true,
+            "is_visible": true,
+            "is_private": false,
+            "is_live": false,
+            "featured_gif": {
+                "type": "gif",
+                "id": "dVo6XieZ0LyAV3gzzg",
+                "index_id": 101809134,
+                "url": "https://giphy.com/gifs/nba-dVo6XieZ0LyAV3gzzg",
+                "slug": "nba-dVo6XieZ0LyAV3gzzg",
+                "bitly_gif_url": "https://gph.is/g/4DN6kLp",
+                "bitly_url": "https://gph.is/g/4DN6kLp",
+                "embed_url": "https://giphy.com/embed/dVo6XieZ0LyAV3gzzg",
+                "username": "nba",
+                "source": "",
+                "title": "High Five Well Done GIF by NBA",
+                "rating": "g",
+                "content_url": "",
+                "tags": [
+                    "fun",
+                    "basketball",
+                    "nba",
+                    "high five",
+                    "well done",
+                    "denver",
+                    "nuggets",
+                    "denver nuggets",
+                    "nice play",
+                    "good play",
+                    "paul millsap"
+                ],
+                "featured_tags": [],
+                "source_tld": "",
+                "source_post_url": "",
+                "is_hidden": 0,
+                "is_removed": 0,
+                "is_community": 0,
+                "is_anonymous": 0,
+                "is_featured": 0,
+                "is_realtime": 0,
+                "is_sticker": 0,
+                "import_datetime": "2020-08-19 21:13:57",
+                "trending_datetime": "0000-00-00 00:00:00",
+                "create_datetime": "2020-08-19 21:14:04",
+                "update_datetime": "2020-08-19 21:15:56",
+                "images": {
+                    "downsized_large": {
+                        "height": "169",
+                        "size": "955899",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "300"
+                    },
+                    "fixed_height_small_still": {
+                        "height": "100",
+                        "size": "8995",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/100_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100_s.gif",
+                        "width": "178"
+                    },
+                    "original": {
+                        "frames": "46",
+                        "hash": "fc0b4ffc6453949032cff4ee3ea8f20a",
+                        "height": "169",
+                        "mp4": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.mp4",
+                        "mp4_size": "440229",
+                        "size": "955899",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "webp": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.webp",
+                        "webp_size": "370100",
+                        "width": "300"
+                    },
+                    "fixed_height_downsampled": {
+                        "height": "200",
+                        "size": "141286",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/200_d.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_d.gif",
+                        "webp": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/200_d.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_d.webp",
+                        "webp_size": "80264",
+                        "width": "355"
+                    },
+                    "downsized_still": {
+                        "height": "169",
+                        "size": "955899",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy_s.gif",
+                        "width": "300"
+                    },
+                    "fixed_height_still": {
+                        "height": "200",
+                        "size": "21673",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/200_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200_s.gif",
+                        "width": "355"
+                    },
+                    "downsized_medium": {
+                        "height": "169",
+                        "size": "955899",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "300"
+                    },
+                    "downsized": {
+                        "height": "169",
+                        "size": "955899",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.gif",
+                        "width": "300"
+                    },
+                    "original_mp4": {
+                        "height": "270",
+                        "mp4": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy.mp4",
+                        "mp4_size": "440229",
+                        "width": "480"
+                    },
+                    "fixed_height_small": {
+                        "height": "100",
+                        "mp4": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/100.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.mp4",
+                        "mp4_size": "106004",
+                        "size": "350512",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/100.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.gif",
+                        "webp": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/100.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100.webp",
+                        "webp_size": "193804",
+                        "width": "178"
+                    },
+                    "fixed_height": {
+                        "height": "200",
+                        "mp4": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/200.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.mp4",
+                        "mp4_size": "264801",
+                        "size": "1003285",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/200.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.gif",
+                        "webp": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/200.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200.webp",
+                        "webp_size": "439758",
+                        "width": "355"
+                    },
+                    "downsized_small": {
+                        "height": "150",
+                        "mp4": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy-downsized-small.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-downsized-small.mp4",
+                        "mp4_size": "106349",
+                        "width": "267"
+                    },
+                    "preview": {
+                        "height": "130",
+                        "mp4": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy-preview.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-preview.mp4",
+                        "mp4_size": "42360",
+                        "width": "232"
+                    },
+                    "fixed_width_downsampled": {
+                        "height": "113",
+                        "size": "57691",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/200w_d.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_d.gif",
+                        "webp": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/200w_d.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_d.webp",
+                        "webp_size": "34984",
+                        "width": "200"
+                    },
+                    "fixed_width_small_still": {
+                        "height": "57",
+                        "size": "3792",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/100w_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w_s.gif",
+                        "width": "100"
+                    },
+                    "fixed_width_small": {
+                        "height": "57",
+                        "mp4": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/100w.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.mp4",
+                        "mp4_size": "49851",
+                        "size": "142427",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/100w.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.gif",
+                        "webp": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/100w.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=100w.webp",
+                        "webp_size": "90858",
+                        "width": "100"
+                    },
+                    "original_still": {
+                        "height": "169",
+                        "size": "26796",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy_s.gif",
+                        "width": "300"
+                    },
+                    "fixed_width_still": {
+                        "height": "113",
+                        "size": "11492",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/200w_s.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w_s.gif",
+                        "width": "200"
+                    },
+                    "looping": {
+                        "mp4": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy-loop.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-loop.mp4",
+                        "mp4_size": "1895425"
+                    },
+                    "fixed_width": {
+                        "height": "113",
+                        "mp4": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/200w.mp4?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.mp4",
+                        "mp4_size": "118352",
+                        "size": "443307",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/200w.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.gif",
+                        "webp": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/200w.webp?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=200w.webp",
+                        "webp_size": "217636",
+                        "width": "200"
+                    },
+                    "preview_gif": {
+                        "height": "53",
+                        "size": "46763",
+                        "url": "https://media0.giphy.com/media/dVo6XieZ0LyAV3gzzg/giphy-preview.gif?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=giphy-preview.gif",
+                        "width": "94"
+                    },
+                    "480w_still": {
+                        "url": "https://media3.giphy.com/media/dVo6XieZ0LyAV3gzzg/480w_s.jpg?cid=8ccdd949a0625c54978b6d0804b382c0347cdd7a51fca656&rid=480w_s.jpg",
+                        "width": "480",
+                        "height": "270"
+                    }
+                },
+                "user": {
+                    "id": 9055,
+                    "avatar": "https://media2.giphy.com/avatars/nba/GPeEGlo2uy2Z.jpg",
+                    "avatar_url": "https://media2.giphy.com/avatars/nba/GPeEGlo2uy2Z.jpg",
+                    "banner_image": "https://media2.giphy.com/channel_assets/nba/NFir0YzR4xTg.GIF",
+                    "banner_url": "https://media2.giphy.com/channel_assets/nba/NFir0YzR4xTg.GIF",
+                    "profile_url": "https://giphy.com/nba/",
+                    "username": "nba",
+                    "display_name": "NBA",
+                    "attribution_display_name": "NBA",
+                    "name": "NBA",
+                    "description": "This is the official NBA channel on GIPHY. All of the basketball GIFS!!",
+                    "suppress_chrome": false,
+                    "user_type": "partner",
+                    "is_public": true,
+                    "is_staff": false,
+                    "is_superuser": false,
+                    "is_verified": true,
+                    "website_url": "",
+                    "website_display_url": "",
+                    "facebook_url": "http://facebook.com/nba",
+                    "twitter": "@nba",
+                    "twitter_url": "https://twitter.com/nba",
+                    "instagram_url": "https://instagram.com/nba",
+                    "tumblr_url": "",
+                    "last_login": "2020-08-10 23:15:45",
+                    "date_joined": "2014-05-12 21:35:43"
+                }
+            },
+            "screensaver_gif": null,
+            "tags": [
+                { "id": 2474, "channel": 679, "tag": "nfl", "rank": 0 },
+                { "id": 2170, "channel": 679, "tag": "mlb", "rank": 1 },
+                { "id": 2522, "channel": 679, "tag": "nhl", "rank": 2 },
+                { "id": 2573, "channel": 679, "tag": "nba", "rank": 3 }
+            ],
+            "live_since_datetime": null,
+            "live_until_datetime": null,
+            "ancestors": [],
+            "syncable_tags": [{ "id": 53, "tag": "giphysports", "channel": 679 }]
+        }
+    ],
+    "pagination": { "total_count": 6, "count": 6, "offset": 0 },
+    "meta": { "status": 200, "msg": "OK", "response_id": "a0625c54978b6d0804b382c0347cdd7a51fca656" }
+}

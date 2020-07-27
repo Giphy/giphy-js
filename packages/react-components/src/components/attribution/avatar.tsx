@@ -4,10 +4,7 @@ import React, { useRef } from 'react'
 
 const getSmallAvatar = (avatar: string) => {
     if (!avatar) return ''
-    const ext = avatar
-        ?.split('.')
-        ?.pop()
-        ?.toLowerCase()
+    const ext = avatar?.split('.')?.pop()?.toLowerCase()
     return avatar.replace(`.${ext}`, `/80h.${ext}`)
 }
 

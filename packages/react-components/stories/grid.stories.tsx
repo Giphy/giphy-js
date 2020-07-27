@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
-import mockGifsResult from './gifs.json'
+import mockGifsResult from './mock-data/gifs.json'
 
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
 const gf = new GiphyFetch(apiKey)

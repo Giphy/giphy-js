@@ -1,6 +1,6 @@
-import React, { SyntheticEvent } from 'react'
-import { giphyBlue, giphyLightGrey, fontFamily } from '@giphy/js-brand'
+import { fontFamily, giphyBlue, giphyLightGrey } from '@giphy/js-brand'
 import { css } from 'emotion'
+import React, { SyntheticEvent } from 'react'
 const fetchError = css`
     color: ${giphyLightGrey};
     display: flex;
