@@ -10,9 +10,10 @@ const requestMap: { [key: string]: Promise<Result> } = {}
 function request(
     url: string,
     normalizer: (a: any, pingbackType?: PingbackEventType) => any = identity,
-    pingbackType?: PingbackEventType
+    pingbackType?: PingbackEventType,
+    noCache: boolean = false
 ) {
-    if (!requestMap[url]) {
+    if (!requestMap[url] || noCache) {
         const makeRequest = async (): Promise<Result> => {
             let fetchError: FetchError
             try {

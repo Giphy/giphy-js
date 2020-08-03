@@ -1,6 +1,6 @@
 /* eslint-disable no-dupe-class-members */
-import qs from 'qs'
 import cookie from 'cookie'
+import qs from 'qs'
 import { normalizeGif, normalizeGifs } from './normalize/gif'
 import {
     CategoriesOptions,
@@ -124,7 +124,9 @@ export class GiphyFetch {
      * @returns {Promise<GifResult>}
      **/
     random(options?: RandomOptions): Promise<GifResult> {
-        return request(`${getType(options)}/random?${this.getQS(options)}`, normalizeGif) as Promise<GifResult>
+        return request(`${getType(options)}/random?${this.getQS(options)}`, normalizeGif, undefined, true) as Promise<
+            GifResult
+        >
     }
 
     /**
