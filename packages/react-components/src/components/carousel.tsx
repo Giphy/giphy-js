@@ -53,6 +53,7 @@ type Props = {
     onGifsFetched?: (gifs: IGif[]) => void
     overlay?: ReactType<GifOverlayProps>
     hideAttribution?: boolean
+    noLink?: boolean
     noResultsMessage?: string | JSX.Element
     initialGifs?: IGif[]
 } & EventProps
@@ -127,6 +128,7 @@ class Carousel extends PureComponent<Props, State> {
             user,
             overlay,
             hideAttribution,
+            noLink,
             noResultsMessage,
         } = this.props
         const { gifs, isDoneFetching } = this.state
@@ -157,6 +159,7 @@ class Carousel extends PureComponent<Props, State> {
                             user={user}
                             overlay={overlay}
                             hideAttribution={hideAttribution}
+                            noLink={noLink}
                         />
                     )
                 })}

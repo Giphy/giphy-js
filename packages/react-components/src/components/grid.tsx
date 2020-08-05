@@ -21,6 +21,7 @@ type Props = {
     onGifsFetchError?: (e: Error) => void
     overlay?: ReactType<GifOverlayProps>
     hideAttribution?: boolean
+    noLink?: boolean
     noResultsMessage?: string | JSX.Element
     initialGifs?: IGif[]
     useTransform?: boolean
@@ -122,6 +123,7 @@ class Grid extends PureComponent<Props, State> {
             user,
             overlay,
             hideAttribution,
+            noLink,
             noResultsMessage,
             columns,
             width,
@@ -156,6 +158,7 @@ class Grid extends PureComponent<Props, State> {
                             user={user}
                             overlay={overlay}
                             hideAttribution={hideAttribution}
+                            noLink={noLink}
                         />
                     ))}
                 </MasonryGrid>

@@ -24,6 +24,7 @@ type Props = {
     onGifsFetchError?: (e: Error) => void
     noResultsMessage?: string | JSX.Element
     hideAttribution?: boolean
+    noLink?: boolean
 } & EventProps
 const defaultProps = Object.freeze({ gutter: 6, user: {} })
 
@@ -145,6 +146,7 @@ class Grid extends Component<Props, State> {
             user,
             noResultsMessage,
             hideAttribution,
+            noLink,
         }: Props,
         { gifWidth, gifs, isError, isDoneFetching }: State
     ) {
@@ -165,6 +167,7 @@ class Grid extends Component<Props, State> {
                             onGifRightClick={onGifRightClick}
                             user={user}
                             hideAttribution={hideAttribution}
+                            noLink={noLink}
                         />
                     ))}
                     {!showLoader && gifs.length === 0 && noResultsMessage}
