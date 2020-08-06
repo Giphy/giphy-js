@@ -42,6 +42,7 @@ type Props = {
     onGifsFetched?: (gifs: IGif[]) => void
     noResultsMessage?: string | JSX.Element
     hideAttribution?: boolean
+    noLink?: boolean
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {} })
@@ -112,6 +113,7 @@ class Carousel extends Component<Props, State> {
             user,
             noResultsMessage,
             hideAttribution,
+            noLink,
         }: Props,
         { gifs }: State
     ) {
@@ -141,6 +143,7 @@ class Carousel extends Component<Props, State> {
                             onGifRightClick={onGifRightClick}
                             user={user}
                             hideAttribution={hideAttribution}
+                            noLink={noLink}
                         />
                     )
                 })}

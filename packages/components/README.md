@@ -25,15 +25,16 @@ renderGrid({ width: 800, fetchGifs }, targetEl)
 
 _renderGrid options_
 
-| _prop_                                  | _type_                                   | _default_ | _description_                                                            |
-| --------------------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------ |
-| width                                   | `number`                                 | undefined | The width of the grid                                                    |
-| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
-| columns                                 | `number`                                 | 3         | The number of columns in the grid                                        |
-| gutter                                  | `number`                                 | 6         | The space between columns and rows                                       |
-| noResultsMessage                        | `string || element`                      | undefined | Customise the "No results" message                                       |
-| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a                            |
-| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                |
+| _prop_                                  | _type_                                   | _default_ | _description_                                                                                         |
+| --------------------------------------- | ---------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------- |
+| width                                   | `number`                                 | undefined | The width of the grid                                                                                 |
+| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                              |
+| columns                                 | `number`                                 | 3         | The number of columns in the grid                                                                     |
+| gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                    |
+| noResultsMessage                        | `string || element`                      | undefined | Customise the "No results" message                                                                    |
+| noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
+| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a                                                         |
+| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                             |
 
 ### Thorough Example
 
@@ -73,7 +74,7 @@ const makeGrid = (targetEl: HTMLElement) => {
         remove: () => {
             remove()
             window.removeEventListener('resize', resizeRender, false)
-        }
+        },
     }
 }
 
@@ -88,20 +89,25 @@ grid.remove()
 
 _renderCarousel options_
 
-| property                                | type                                     | default   | description                                                              |
-| --------------------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------ |
-| gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                  |
-| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api` |
-| gutter                                  | `number`                                 | 6         | The space between columns and rows                                       |
-| noResultsMessage                        | `string || element`                      | undefined | Customise the "No results" message                                       |
-| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a                            |
-| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                |
+| property                                | type                                     | default   | description                                                                                           |
+| --------------------------------------- | ---------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------- |
+| gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                                               |
+| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                              |
+| gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                    |
+| noResultsMessage                        | `string || element`                      | undefined | Customise the "No results" message                                                                    |
+| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a                                                         |
+| noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
+| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                             |
 
 ```typescript
 import { renderCarousel } from '@giphy/js-components'
+import { GiphyFetch } from '@giphy/js-fetch-api'
+
+// create a GiphyFetch with your api key
+const gf = new GiphyFetch('your api key')
 
 // Creating a grid with window resizing and remove-ability
-export const vanillaJSCarousel = (mountNode: HTMLElement) => {
+const vanillaJSCarousel = (mountNode: HTMLElement) => {
     renderCarousel(
         {
             gifHeight: 200,
@@ -111,6 +117,33 @@ export const vanillaJSCarousel = (mountNode: HTMLElement) => {
         },
         mountNode
     )
+}
+```
+
+## Gif
+
+_Gif props_
+
+| _prop_                                  | _type_    | _default_          | _description_                                                                                         |
+| --------------------------------------- | --------- | ------------------ | ----------------------------------------------------------------------------------------------------- |
+| gif                                     | `IGif`    | undefined          | The gif to display                                                                                    |
+| width                                   | `number`  | undefined          | The width of the gif                                                                                  |
+| backgroundColor                         | `string`  | random giphy color | The background of the gif before it loads                                                             |
+| [hideAttribution](#attribution-overlay) | `boolean` | false              | Hide the user attribution that appears over a GIF                                                     |
+| noLink                                  | `boolean` | false              | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
+| [Gif Events](#gif-events)               | \*        | \*                 | see below                                                                                             |
+
+```typescript
+import { renderGif } from '@giphy/js-components'
+import { GiphyFetch } from '@giphy/js-fetch-api'
+
+// create a GiphyFetch with your api key
+const gf = new GiphyFetch('your api key')
+
+const vanillaJSGif = async (mountNode: HTMLElement) => {
+    // render a single gif
+    const { data: gif1 } = await gf.gif('fpXxIjftmkk9y')
+    renderGif({ gif: gif1, width: 300 }, mountNode)
 }
 ```
 
