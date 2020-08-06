@@ -1,3 +1,10 @@
+## @giphy/react-components@1.5.1 (2020-08-06)
+
+#### :rocket: Enhancement
+
+-   `components`, `react-components`
+    -   [#119](https://github.com/Giphy/giphy-js/pull/119) feat(no-link): grid and carousel components accept the noLink prop ([@giannif](https://github.com/giannif))
+
 ## @giphy/react-components@1.5.1 (2020-07-09)
 
 #### :bug: Bug Fix
