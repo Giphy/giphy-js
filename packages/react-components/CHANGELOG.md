@@ -1,4 +1,4 @@
-## @giphy/react-components@1.5.1 (2020-08-06)
+## @giphy/react-components@1.6.0 (2020-08-06)
 
 #### :rocket: Enhancement
 
