@@ -4,10 +4,12 @@
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
         "dev": "start-storybook -p 4001",
         "build": "tsc",
-        "prepublish": "npm run clean && tsc"
+        "prepublish": "npm run clean && tsc",
+        "deploy-storybook": "storybook-to-ghpages"
     },
     "devDependencies": {
         "@babel/core": "^7.6.0",
+        "@storybook/storybook-deployer": "^2.8.6",
         "@storybook/addon-actions": "^5.3.17",
         "@storybook/addon-info": "^5.3.17",
         "@storybook/addon-knobs": "^5.3.17",

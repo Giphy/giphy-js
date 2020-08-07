@@ -8,11 +8,11 @@ import { Carousel as CarouselComponent } from '../src'
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
 export default {
-    title: 'React Components|Carousel',
+    title: 'React Components/Carousel',
     decorators: [withKnobs, jsxDecorator],
 }
 
-export const Carousel = () => {
+export const SearchExample = () => {
     const [term, setTerm] = useState('dogs')
     const fetchGifs = (offset: number) => gf.search(term, { offset, limit: number('limit', 4) })
     return (
@@ -23,13 +23,7 @@ export const Carousel = () => {
                 onChange={({ target: { value } }) => setTerm(value)}
                 value={term}
             />
-            <CarouselComponent
-                key={term}
-                gifHeight={number('gif height', 200)}
-                user={{}}
-                gutter={6}
-                fetchGifs={fetchGifs}
-            />
+            <CarouselComponent key={term} gifHeight={number('gif height', 200)} gutter={6} fetchGifs={fetchGifs} />
         </>
     )
 }

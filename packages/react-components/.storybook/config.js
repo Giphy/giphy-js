@@ -1,4 +1,4 @@
-import { configure, addParameters } from '@storybook/react'
+import { addParameters, configure } from '@storybook/react'
 import { themes } from '@storybook/theming'
 
 addParameters({
