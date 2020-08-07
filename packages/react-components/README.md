@@ -67,7 +67,9 @@ See this [codesanbox](https://codesandbox.io/s/giphy-web-sdk-ssr-with-nextjs-irv
 | [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF                        |
 | [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                |
 
-See [codesandbox](https://codesandbox.io/s/giphyreact-components-hbmcf?from-embed) for runnable code
+See [codesandbox](https://codesandbox.io/s/giphyreact-components-hbmcf?from-embed) for runnable code.
+
+Or see our [storybook](https://giphy.github.io/giphy-js) UI component explorer.
 
 ```tsx
 import { Carousel } from '@giphy/react-components'
