@@ -9,7 +9,7 @@ import { GifOverlayProps, Grid as GridComponent } from '../src'
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
 export default {
-    title: 'React Components|Grid',
+    title: 'React Components/Grid',
     decorators: [withKnobs, jsxDecorator],
 }
 

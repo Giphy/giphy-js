@@ -1,10 +1,9 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { action } from '@storybook/addon-actions'
-import { withKnobs, text, number, boolean } from '@storybook/addon-knobs'
-import { jsxDecorator } from 'storybook-addon-jsx'
-
+import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
 import React, { useEffect, useState } from 'react'
+import { jsxDecorator } from 'storybook-addon-jsx'
 import { Gif as GifComponent, PingbackContext } from '../src'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
@@ -39,7 +38,7 @@ const GifDemo = ({ id, width, noLink }: { id: string; width: number; noLink?: bo
 }
 
 export default {
-    title: 'React Components|Gif',
+    title: 'React Components/Gif',
     decorators: [withKnobs, jsxDecorator],
 }
 
