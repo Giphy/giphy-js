@@ -8,25 +8,25 @@
         "deploy-storybook": "storybook-to-ghpages"
     },
     "devDependencies": {
-        "@babel/core": "^7.6.0",
+        "@babel/core": "^7.11.1",
         "@storybook/storybook-deployer": "^2.8.6",
-        "@storybook/addon-actions": "^5.3.17",
-        "@storybook/addon-info": "^5.3.17",
-        "@storybook/addon-knobs": "^5.3.17",
-        "@storybook/addons": "^5.3.17",
-        "@storybook/react": "^5.3.17",
-        "@types/bricks.js": "^1.8.0",
-        "@types/react": "^16.9.34",
-        "@types/react-dom": "^16.9.6",
-        "@types/storybook__react": "^4.0.2",
-        "@types/throttle-debounce": "^1.1.1",
+        "@storybook/addon-actions": "^6.0.2",
+        "@storybook/addon-info": "^5.3.19",
+        "@storybook/addon-knobs": "^6.0.2",
+        "@storybook/addons": "^6.0.2",
+        "@storybook/react": "^6.0.2",
+        "@types/bricks.js": "^1.8.1",
+        "@types/react": "^16.9.46",
+        "@types/react-dom": "^16.9.8",
+        "@types/storybook__react": "^5.2.1",
+        "@types/throttle-debounce": "^2.1.0",
         "awesome-typescript-loader": "^5.2.1",
-        "babel-loader": "^8.0.6",
-        "parcel-bundler": "^1.12.3",
-        "react": "^16.8.3",
-        "react-dom": "^16.8.3",
-        "storybook-addon-jsx": "^7.1.15",
-        "typescript": "^3.9.5"
+        "babel-loader": "^8.1.0",
+        "parcel-bundler": "^1.12.4",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "storybook-addon-jsx": "^7.3.3",
+        "typescript": "^3.9.7"
     },
     "name": "@giphy/react-components",
     "version": "1.6.0",
@@ -43,7 +43,7 @@
         "access": "public"
     },
     "peerDependencies": {
-        "react": "^16.8.3"
+        "react": "^16.10.2"
     },
     "dependencies": {
         "@giphy/js-analytics": "^1.7.4",
@@ -52,8 +52,8 @@
         "@giphy/js-types": "^2.0.2",
         "@giphy/js-util": "^1.9.1",
         "bricks.js": "^1.8.0",
-        "emotion": "10.0.9",
-        "intersection-observer": "^0.7.0",
-        "throttle-debounce": "^2.1.0"
+        "emotion": "10.0.27",
+        "intersection-observer": "^0.11.0",
+        "throttle-debounce": "^2.2.1"
     }
 }

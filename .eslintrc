@@ -66,6 +66,9 @@
         "import/ignore": "node_modules",
         "import/resolver": {
             "typescript": {}
+        },
+        "react": {
+            "version": "16.10.2"
         }
     }
 }
