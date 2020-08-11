@@ -24,16 +24,16 @@
     "dependencies": {
         "@giphy/js-types": "^2.0.2",
         "@giphy/js-util": "^1.9.1",
-        "cookie": "0.4.0",
-        "qs": "^6.7.0"
+        "cookie": "0.4.1",
+        "qs": "^6.9.4"
     },
     "devDependencies": {
-        "@types/cookie": "^0.3.3",
-        "@types/qs": "^6.5.3",
-        "jest-fetch-mock": "^2.1.2",
-        "parcel-bundler": "^1.12.3",
-        "typedoc": "^0.14.2",
+        "@types/cookie": "^0.4.0",
+        "@types/qs": "^6.9.4",
+        "jest-fetch-mock": "^3.0.3",
+        "parcel-bundler": "^1.12.4",
+        "typedoc": "^0.18.0",
         "typedoc-thunder-theme": "^0.0.2",
-        "typescript": "^3.8.2"
+        "typescript": "^3.9.7"
     }
 }

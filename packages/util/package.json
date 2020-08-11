@@ -22,10 +22,10 @@
     },
     "dependencies": {
         "@giphy/js-types": "^2.0.2",
-        "dompurify": "^2.0.8"
+        "dompurify": "^2.0.12"
     },
     "devDependencies": {
-        "@types/dompurify": "^2.0.1",
-        "typescript": "^3.8.2"
+        "@types/dompurify": "^2.0.3",
+        "typescript": "^3.9.7"
     }
 }
