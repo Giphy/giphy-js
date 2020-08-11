@@ -10,8 +10,7 @@
     "lint-staged": {
         "**/*.{ts,tsx}": [
             "prettier-eslint --write --print-width 120 --tab-width 4",
-            "eslint --rule 'import/no-duplicates: 0' --rule 'import/namespace: 0' --rule 'import/no-unresolved: 0' --rule 'import/named: 0' --rule 'import/default: 0' --rule 'import/no-named-as-default: 0' --rule 'import/no-named-as-default-member: 0'",
-            "git add"
+            "eslint --rule 'import/no-duplicates: 0' --rule 'import/namespace: 0' --rule 'import/no-unresolved: 0' --rule 'import/named: 0' --rule 'import/default: 0' --rule 'import/no-named-as-default: 0' --rule 'import/no-named-as-default-member: 0'"
         ]
     },
     "husky": {
