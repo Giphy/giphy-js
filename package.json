@@ -3,6 +3,7 @@
     "scripts": {
         "lint": "eslint --ext .ts,.tsx ./packages --config ./.eslintrc --ignore-path ./.eslintignore",
         "test": "lerna exec -- npm test",
+        "snapshot": "lerna run snapshot",
         "test:watch": "lerna run test:watch --stream",
         "lerna:publish": "lerna publish from-git --yes",
         "format": "prettier-eslint \"$(pwd)/**/*.{js,ts,tsx}\" --write --print-width 120 --tab-width 4"

@@ -5,10 +5,12 @@
         "dev": "start-storybook -p 4001",
         "build": "tsc",
         "prepublish": "npm run clean && tsc",
-        "deploy-storybook": "storybook-to-ghpages"
+        "deploy-storybook": "storybook-to-ghpages",
+        "snapshot": "build-storybook && percy-storybook --widths=320,1280"
     },
     "devDependencies": {
         "@babel/core": "^7.11.1",
+        "@percy/storybook": "3.3.0",
         "@storybook/storybook-deployer": "^2.8.6",
         "@storybook/addon-actions": "^6.0.2",
         "@storybook/addon-info": "^5.3.19",
