@@ -42,7 +42,7 @@ export const Grid = () => {
     }, [])
     const columns = number('columns', width < 500 ? 2 : 3)
     const gutter = number('gutter', 6)
-    const limit = number('limit', 5)
+    const limit = number('limit', 10)
     const NoResults = <div className={noResultsCss}>No results for {term}</div>
     return (
         <>
