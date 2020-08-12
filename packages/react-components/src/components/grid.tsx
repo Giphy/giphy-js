@@ -26,6 +26,7 @@ type Props = {
     initialGifs?: IGif[]
     useTransform?: boolean
     columnOffsets?: number[]
+    backgroundColor?: string
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
@@ -130,12 +131,13 @@ class Grid extends PureComponent<Props, State> {
             gutter,
             useTransform,
             columnOffsets,
+            backgroundColor,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = fetchGifs && !isDoneFetching
         const isFirstLoad = gifs.length === 0
         // get the height of each grid item
-        const itemHeights = gifs.map(gif => getGifHeight(gif, gifWidth))
+        const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
         return (
             <div className={className} style={{ width }}>
                 <MasonryGrid
@@ -146,7 +148,7 @@ class Grid extends PureComponent<Props, State> {
                     gutter={gutter}
                     columnOffsets={columnOffsets}
                 >
-                    {gifs.map(gif => (
+                    {gifs.map((gif) => (
                         <Gif
                             gif={gif}
                             key={gif.id}
@@ -157,6 +159,7 @@ class Grid extends PureComponent<Props, State> {
                             onGifRightClick={onGifRightClick}
                             user={user}
                             overlay={overlay}
+                            backgroundColor={backgroundColor}
                             hideAttribution={hideAttribution}
                             noLink={noLink}
                         />

@@ -1,4 +1,5 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
+import isPercy from '@percy-io/in-percy'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 import { css } from 'emotion'
 import React, { useEffect, useState } from 'react'
@@ -57,6 +58,7 @@ export const Grid = () => {
                     width={width}
                     columns={columns}
                     gutter={gutter}
+                    backgroundColor={isPercy() ? 'white' : undefined}
                     noResultsMessage={NoResults}
                     fetchGifs={(offset: number) => gf.search(term, { offset, limit })}
                     overlay={boolean('show overlay', true) ? Overlay : undefined}

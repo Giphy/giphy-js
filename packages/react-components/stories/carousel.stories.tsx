@@ -1,4 +1,5 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
+import isPercy from '@percy-io/in-percy'
 import { number, withKnobs } from '@storybook/addon-knobs'
 import { useState } from '@storybook/addons'
 import * as React from 'react'
@@ -23,7 +24,13 @@ export const SearchExample = () => {
                 onChange={({ target: { value } }) => setTerm(value)}
                 value={term}
             />
-            <CarouselComponent key={term} gifHeight={number('gif height', 200)} gutter={6} fetchGifs={fetchGifs} />
+            <CarouselComponent
+                key={term}
+                gifHeight={number('gif height', 200)}
+                backgroundColor={isPercy() ? 'white' : undefined}
+                gutter={6}
+                fetchGifs={fetchGifs}
+            />
         </>
     )
 }

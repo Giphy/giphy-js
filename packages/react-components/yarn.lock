@@ -1674,6 +1674,11 @@
     "@parcel/utils" "^1.11.0"
     physical-cpu-count "^2.0.0"
 
+"@percy-io/in-percy@0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@percy-io/in-percy/-/in-percy-0.1.11.tgz#551f17599ded62a7970fc0277f6cdffc21da89ac"
+  integrity sha512-HSTM01S2lCXb92MU9P5g3ZTr5wLabdHZs9b8jyf0b1TS8ndwCcUBIc3wE2Ne5ScU6p5BOTgVAtOXyAOGuVbDaQ==
+
 "@percy/react-percy-api-client@^0.4.6":
   version "0.4.6"
   resolved "https://registry.yarnpkg.com/@percy/react-percy-api-client/-/react-percy-api-client-0.4.6.tgz#e2b907c39bc0b53ce2da856aad8cec7ab03dac46"
@@ -1721,7 +1726,7 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@storybook/addon-actions@^6.0.2":
+"@storybook/addon-actions@6.0.2":
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-6.0.2.tgz#91538ba5612c87c1152f7775fa06382e1bbccbd4"
   integrity sha512-lAaz7gYIJJIK1TP2y/j9aA/madwvuoo1MiRUU7hHYgaR6sLLcCBPo5+FfyIUoL4seaq7AdjUctY+rfl3y6BeCA==
@@ -1766,7 +1771,7 @@
     react-lifecycles-compat "^3.0.4"
     util-deprecate "^1.0.2"
 
-"@storybook/addon-knobs@^6.0.2":
+"@storybook/addon-knobs@6.0.2":
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@storybook/addon-knobs/-/addon-knobs-6.0.2.tgz#33b76d8a98a159aed10d867d26f26c93b7c937f0"
   integrity sha512-ALM2RQzrXW6KA3xokjfMa+rr1h0zIRZkV+487SElMNomcUoiRwLXnJryowp8EgkKBvUzwHILNXjSnD5GVk0sSg==
@@ -1804,7 +1809,7 @@
     global "^4.3.2"
     util-deprecate "^1.0.2"
 
-"@storybook/addons@6.0.2", "@storybook/addons@^6.0.2":
+"@storybook/addons@6.0.2":
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@storybook/addons/-/addons-6.0.2.tgz#ca224cdd0aab600ce54d362344a5e530e5ff2a14"
   integrity sha512-NslECO/A+Gts4ECDZglHa9jB/F3FsNNkkJsTL0L3wpbJMEh93/hAsXwy4S2TMpwH8tvEaTWCoJ4qMFp0eWMRFw==
@@ -2128,7 +2133,7 @@
     npmlog "^4.1.2"
     pretty-hrtime "^1.0.3"
 
-"@storybook/react@*", "@storybook/react@^6.0.2":
+"@storybook/react@*", "@storybook/react@6.0.2":
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-6.0.2.tgz#150dff1d89e2b4910b0f2c07b324f39eb0dfa3d2"
   integrity sha512-brG7ApoEH+DUxwm/WSaynJEYhdBrFmBvglbaKi1CZFUamkN173HeSXqSpZPmquPdQU3JxG3Y+0f90vfTF2KnJw==

@@ -56,6 +56,7 @@ type Props = {
     noLink?: boolean
     noResultsMessage?: string | JSX.Element
     initialGifs?: IGif[]
+    backgroundColor?: string
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
@@ -130,6 +131,7 @@ class Carousel extends PureComponent<Props, State> {
             hideAttribution,
             noLink,
             noResultsMessage,
+            backgroundColor,
         } = this.props
         const { gifs, isDoneFetching } = this.state
         const marginCss = css`
@@ -144,7 +146,7 @@ class Carousel extends PureComponent<Props, State> {
         const isFirstLoad = gifs.length === 0
         return (
             <div className={containerCss}>
-                {gifs.map(gif => {
+                {gifs.map((gif) => {
                     const gifWidth = getGifWidth(gif, gifHeight)
                     return (
                         <Gif
@@ -160,6 +162,7 @@ class Carousel extends PureComponent<Props, State> {
                             overlay={overlay}
                             hideAttribution={hideAttribution}
                             noLink={noLink}
+                            backgroundColor={backgroundColor}
                         />
                     )
                 })}
