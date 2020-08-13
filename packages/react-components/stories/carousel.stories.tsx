@@ -2,11 +2,14 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 import isPercy from '@percy-io/in-percy'
 import { number, withKnobs } from '@storybook/addon-knobs'
 import { useState } from '@storybook/addons'
+import fetchMock from 'fetch-mock'
 import * as React from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { Carousel as CarouselComponent } from '../src'
+import mockGifsResult from './gifs.json'
 
-const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
+const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
+const gf = new GiphyFetch(apiKey)
 
 export default {
     title: 'React Components/Carousel',
@@ -15,7 +18,22 @@ export default {
 
 export const SearchExample = () => {
     const [term, setTerm] = useState('dogs')
-    const fetchGifs = (offset: number) => gf.search(term, { offset, limit: number('limit', 4) })
+    const limit = number('limit', 5)
+    const fetchGifs = async (offset: number) => {
+        if (isPercy()) {
+            fetchMock
+                .restore()
+                .getOnce(
+                    `https://api.giphy.com/v1/gifs/search?offset=0&limit=${limit}&q=${encodeURIComponent(
+                        term
+                    )}&api_key=${apiKey}`,
+                    { body: mockGifsResult }
+                )
+        }
+        const result = await gf.search(term, { offset, limit })
+        fetchMock.restore()
+        return result
+    }
     return (
         <>
             <input

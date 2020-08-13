@@ -1,13 +1,16 @@
-import { GifsResult, GiphyFetch } from '@giphy/js-fetch-api'
+import { GiphyFetch } from '@giphy/js-fetch-api'
 import isPercy from '@percy-io/in-percy'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 import { css } from 'emotion'
+import fetchMock from 'fetch-mock'
 import React, { useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
+import mockGifsResult from './gifs.json'
 
-const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
+const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
+const gf = new GiphyFetch(apiKey)
 
 export default {
     title: 'React Components/Grid',
@@ -33,7 +36,7 @@ const noResultsCss = css`
 const Overlay = ({ gif, isHovered }: GifOverlayProps) => <div className={overlayCss}>{isHovered ? gif.id : ''}</div>
 
 export const Grid = () => {
-    const [term, setTerm] = useState('dogs')
+    const [term, setTerm] = useState('always sunny')
     const [width, setWidth] = useState(innerWidth)
     const onResize = throttle(500, () => setWidth(innerWidth))
     useEffect(() => {
@@ -44,10 +47,22 @@ export const Grid = () => {
     const gutter = number('gutter', 6)
     const limit = number('limit', 5)
     const NoResults = <div className={noResultsCss}>No results for {term}</div>
-    const fetchGifs = isPercy() // our search results don't change right now, use it for testing
-        ? (offset: number) =>
-              offset === 0 ? gf.search('spaghetti', { offset, limit }) : new Promise<GifsResult>(() => {})
-        : (offset: number) => gf.search(term, { offset, limit })
+
+    const fetchGifs = async (offset: number) => {
+        if (isPercy()) {
+            fetchMock
+                .restore()
+                .getOnce(
+                    `https://api.giphy.com/v1/gifs/search?offset=0&limit=${limit}&q=${encodeURIComponent(
+                        term
+                    )}&api_key=${apiKey}`,
+                    { body: mockGifsResult }
+                )
+        }
+        const result = await gf.search(term, { offset, limit })
+        fetchMock.restore()
+        return result
+    }
     return (
         <>
             <input
