@@ -11,6 +11,7 @@ before_script:
 script:
     - yarn run lint
     - yarn test
+    - yarn run snapshot
 before_deploy:
     - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc
 deploy:

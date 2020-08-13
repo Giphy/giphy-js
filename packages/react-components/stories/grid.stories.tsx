@@ -1,4 +1,5 @@
-import { GiphyFetch } from '@giphy/js-fetch-api'
+import { GifsResult, GiphyFetch } from '@giphy/js-fetch-api'
+import isPercy from '@percy-io/in-percy'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 import { css } from 'emotion'
 import React, { useEffect, useState } from 'react'
@@ -43,6 +44,10 @@ export const Grid = () => {
     const gutter = number('gutter', 6)
     const limit = number('limit', 5)
     const NoResults = <div className={noResultsCss}>No results for {term}</div>
+    const fetchGifs = isPercy() // our search results don't change right now, use it for testing
+        ? (offset: number) =>
+              offset === 0 ? gf.search('spaghetti', { offset, limit }) : new Promise<GifsResult>(() => {})
+        : (offset: number) => gf.search(term, { offset, limit })
     return (
         <>
             <input
@@ -58,7 +63,7 @@ export const Grid = () => {
                     columns={columns}
                     gutter={gutter}
                     noResultsMessage={NoResults}
-                    fetchGifs={(offset: number) => gf.search(term, { offset, limit })}
+                    fetchGifs={fetchGifs}
                     overlay={boolean('show overlay', true) ? Overlay : undefined}
                 />
             )}

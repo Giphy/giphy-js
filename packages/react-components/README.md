@@ -1,5 +1,7 @@
 # @giphy/react-components
 
+[![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/d6f633d1/giphy-js)
+
 _React components, focused on ease-of-use and performance._
 
 The GIPHY React SDK lets you and your users easily access the world’s largest GIF library anywhere on your website. Whether it’s via a comment, forum post, review, chatbot or messenger, adding GIFs to your product is a simple and easy way to boost engagement and user experience.
