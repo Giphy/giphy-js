@@ -13,6 +13,7 @@ type SearchContextProps = {
     fetchChannelSearch: (offset: number) => Promise<IChannel[]>
     trendingSearches: string[]
     theme: SearchTheme
+    searchKey: string
 }
 
 export const SearchContext = createContext({} as SearchContextProps)
@@ -24,11 +25,20 @@ const SearchContextManager = ({ children, options = {}, apiKey }: Props) => {
     //
     const [[term, channelSearch], setOptions] = useState<[string, string]>(['', ''])
     // active channel we're searching and displaying in the search bar
-    const [activeChannel, setActiveChannel] = useState<IChannel | undefined>()
+    const [activeChannel, _setActiveChannel] = useState<IChannel | undefined>()
+
+    const setActiveChannel = (activeChannel: IChannel | undefined) => {
+        _setActiveChannel(activeChannel)
+        setOptions(['', '']) // clear this here
+    }
+
     // fetched list of trending search terms
     const [trendingSearches, setTrendingSearches] = useState<string[]>([])
     // do a search for a term and optionally a channel
     const setSearch = (term: string, channel: string) => setOptions([term, channel])
+
+    const searchKey = `${channelSearch} ${term} ${activeChannel?.user.username || ''}`
+
     // search fetch
     const fetchGifs = (offset: number) => gf.search(term, { ...options, offset, channel: activeChannel?.user.username })
     const fetchChannelSearch = async (offset: number) => {
@@ -57,6 +67,7 @@ const SearchContextManager = ({ children, options = {}, apiKey }: Props) => {
                 trendingSearches,
                 setSearch,
                 fetchGifs,
+                searchKey,
                 theme: { searchbarHeight: 42 },
             }}
         >

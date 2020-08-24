@@ -46,14 +46,14 @@ export default {
 }
 
 const Components = () => {
-    const { fetchGifs, term, channelSearch, activeChannel } = useContext(SearchContext)
+    const { fetchGifs, searchKey } = useContext(SearchContext)
     const { innerWidth } = useWindowSize()
     return (
         <>
             <SearchBarComponent />
             <SuggestionBar />
             <Grid
-                key={`${channelSearch} ${term} ${activeChannel?.user.username}`}
+                key={searchKey}
                 columns={innerWidth < 400 ? 2 : 4}
                 width={innerWidth - 16 * 2}
                 fetchGifs={fetchGifs}
