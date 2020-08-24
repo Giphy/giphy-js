@@ -1,5 +1,5 @@
+import styled from '@emotion/styled'
 import { IUser } from '@giphy/js-types'
-import { css, cx } from 'emotion'
 import React, { useRef } from 'react'
 
 const getSmallAvatar = (avatar: string) => {
@@ -8,19 +8,20 @@ const getSmallAvatar = (avatar: string) => {
     return avatar.replace(`.${ext}`, `/80h.${ext}`)
 }
 
-const avatarCss = css`
+const Img = styled.img`
     object-fit: cover;
     width: 32px;
     height: 32px;
     margin-right: 8px;
 `
+
 type Props = { user: IUser; className?: string }
 const Avatar = ({ user, className = '' }: Props) => {
     const defaultAvatarId = useRef<number>(Math.floor(Math.random() * 5) + 1)
     const url = user.avatar_url
         ? getSmallAvatar(user.avatar_url)
         : `https://media.giphy.com/avatars/default${defaultAvatarId.current}.gif`
-    return <img src={url} className={cx(avatarCss, className)} />
+    return <Img src={url} className={className} />
 }
 
 export default Avatar

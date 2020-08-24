@@ -1,13 +1,13 @@
+import styled from '@emotion/styled'
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
-import { css, cx } from 'emotion'
 import React, { GetDerivedStateFromProps, PureComponent, ReactType } from 'react'
 import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'
 import FetchError from './fetch-error'
 import Gif, { EventProps, GifOverlayProps } from './gif'
-import Loader from './loader'
+import DotsLoader from './loader'
 import MasonryGrid from './masonry-grid'
 
 type Props = {
@@ -28,6 +28,10 @@ type Props = {
     columnOffsets?: number[]
     backgroundColor?: string
 } & EventProps
+
+const Loader = styled(DotsLoader)<{ isFirstLoad: boolean }>`
+    opacity: ${(props) => (props.isFirstLoad ? 0 : 1)};
+`
 
 const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
 
@@ -171,7 +175,7 @@ class Grid extends PureComponent<Props, State> {
                 ) : (
                     showLoader && (
                         <Observer onVisibleChange={this.onLoaderVisible}>
-                            <Loader className={cx(Grid.loaderClassName, isFirstLoad ? loaderHiddenCss : '')} />
+                            <Loader isFirstLoad={isFirstLoad} className={Grid.loaderClassName} />
                         </Observer>
                     )
                 )}
@@ -179,9 +183,5 @@ class Grid extends PureComponent<Props, State> {
         )
     }
 }
-
-const loaderHiddenCss = css`
-    opacity: 0;
-`
 
 export default Grid

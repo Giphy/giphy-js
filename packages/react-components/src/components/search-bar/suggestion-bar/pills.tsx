@@ -1,14 +1,14 @@
+import styled from '@emotion/styled'
 import { giphyDarkestGrey } from '@giphy/js-brand'
 import { IChannel } from '@giphy/js-types'
-import { css } from 'emotion'
 import React, { useContext } from 'react'
-import Avatar from '../../attribution/avatar'
+import Avatar_ from '../../attribution/avatar'
 import VerifiedBadge from '../../attribution/verified-badge'
 import { SearchContext } from '../context'
-import TrendingIcon from './trending-icon'
+import TrendingIcon_ from './trending-icon'
 
 const margin = 9
-const channelPillCss = css`
+const ChannelPillContainer = styled.div`
     background: ${giphyDarkestGrey};
     display: flex;
     padding-right: 4px;
@@ -17,7 +17,7 @@ const channelPillCss = css`
     cursor: pointer;
 `
 
-const trendingSearchPillCss = css`
+const TrendingSearchPillContainer = styled.div`
     background: ${giphyDarkestGrey};
     display: flex;
     padding: 14px;
@@ -29,34 +29,32 @@ const trendingSearchPillCss = css`
     border-radius: 20px;
 `
 
+const Avatar = styled(Avatar_)<{ size: number }>`
+    width: ${(props) => props.size}px;
+    height: ${(props) => props.size}px;
+`
+
+const TrendingIcon = styled(TrendingIcon_)`
+    margin-right: 2px;
+`
+
 export const ChannelPill = ({ channel, size }: { channel: IChannel; size: number }) => {
     const { setActiveChannel } = useContext(SearchContext)
     return (
-        <div key={channel.id} className={channelPillCss} onClick={() => setActiveChannel(channel)}>
-            <Avatar
-                user={channel.user}
-                className={css`
-                    width: ${size}px;
-                    height: ${size}px;
-                `}
-            />
+        <ChannelPillContainer key={channel.id} onClick={() => setActiveChannel(channel)}>
+            <Avatar user={channel.user} size={size} />
             <div>@{channel.user.username}</div>
             {channel.user.is_verified && <VerifiedBadge size={14} />}
-        </div>
+        </ChannelPillContainer>
     )
 }
 
 export const TrendingSearchPill = ({ trendingSearch }: { trendingSearch: string }) => {
     const { setSearch } = useContext(SearchContext)
     return (
-        <div key={trendingSearch} className={trendingSearchPillCss} onClick={() => setSearch(trendingSearch, '')}>
-            <TrendingIcon
-                size={16}
-                className={css`
-                    margin-right: 2px;
-                `}
-            />
+        <TrendingSearchPillContainer key={trendingSearch} onClick={() => setSearch(trendingSearch, '')}>
+            <TrendingIcon size={16} />
             {trendingSearch}
-        </div>
+        </TrendingSearchPillContainer>
     )
 }

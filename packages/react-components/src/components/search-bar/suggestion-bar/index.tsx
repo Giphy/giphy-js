@@ -1,10 +1,10 @@
+import styled from '@emotion/styled'
 import { IChannel } from '@giphy/js-types'
-import { css, cx } from 'emotion'
 import React, { useContext, useEffect, useState } from 'react'
 import { SearchContext } from '../context'
 import { ChannelPill, TrendingSearchPill } from './pills'
 
-const containerCss = css`
+const Container = styled.div<{ searchbarHeight: number }>`
     display: flex;
     color: white;
     flex-direction: row;
@@ -15,6 +15,10 @@ const containerCss = css`
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 10px;
+    height: ${(props) => props.searchbarHeight}px;
+    @media (max-width: 480px) {
+        height: ${(props) => props.searchbarHeight - 10}px;
+    }
 `
 
 const SuggestionBar = () => {
@@ -30,17 +34,7 @@ const SuggestionBar = () => {
         }
     }, [channelSearch, activeChannel])
     return (
-        <div
-            className={cx(
-                containerCss,
-                css`
-                    height: ${theme.searchbarHeight}px;
-                    @media (max-width: 480px) {
-                        height: ${theme.searchbarHeight - 10}px;
-                    }
-                `
-            )}
-        >
+        <Container searchbarHeight={theme.searchbarHeight}>
             {channels.length > 0
                 ? channels.map((channel) => (
                       <ChannelPill key={channel.id} channel={channel} size={theme.searchbarHeight} />
@@ -48,7 +42,7 @@ const SuggestionBar = () => {
                 : trendingSearches.map((trendingSearch) => (
                       <TrendingSearchPill key={trendingSearch} trendingSearch={trendingSearch} />
                   ))}
-        </div>
+        </Container>
     )
 }
 export default SuggestionBar

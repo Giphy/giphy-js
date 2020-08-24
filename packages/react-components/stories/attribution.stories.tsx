@@ -1,20 +1,23 @@
+import styled from '@emotion/styled'
 import { giphyLightestGrey } from '@giphy/js-brand'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { boolean, text, withKnobs } from '@storybook/addon-knobs'
-import { css } from 'emotion'
 import React, { useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { Attribution as AttributionComponent, Gif } from '../src'
 
-const gifCss = css`
-    margin-right: 10px;
-`
-
-const containerCss = css`
+const Container = styled.div`
     font-family: interface;
     h3 {
         color: ${giphyLightestGrey};
+    }
+`
+
+const Gifs = styled.div`
+    display: flex;
+    .${Gif.className} {
+        margin-right: 10px;
     }
 `
 
@@ -46,15 +49,15 @@ export const Attribution = () => {
         f()
     }, [])
     return gif ? (
-        <div className={containerCss}>
+        <Container>
             <h3>Standalone attribution</h3>
             <AttributionComponent gif={makeDummy({ ...gif })} />
             <h3>Attribution in GIF component</h3>
-            <div style={{ display: 'flex' }}>
-                <Gif gif={makeDummy({ ...gif })} width={248} className={gifCss} />
+            <Gifs>
+                <Gif gif={makeDummy({ ...gif })} width={248} />
                 <Gif gif={makeDummy({ ...gif })} width={448} />
-            </div>
-        </div>
+            </Gifs>
+        </Container>
     ) : (
         <div>Loading...</div>
     )

@@ -55,7 +55,6 @@
         "@giphy/js-fetch-api": "^1.6.1",
         "@giphy/js-types": "^2.0.2",
         "@giphy/js-util": "^1.9.1",
-        "emotion": "10.0.27",
         "@emotion/styled": "10.0.27",
         "@emotion/core": "10.0.35",
         "intersection-observer": "^0.11.0",

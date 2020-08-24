@@ -1,20 +1,33 @@
+import { keyframes } from '@emotion/core'
+import styled from '@emotion/styled'
 import { giphyDarkCharcoal, giphyLightestGrey } from '@giphy/js-brand'
-import { css, cx, keyframes } from 'emotion'
 import React, { useContext } from 'react'
-import Avatar from '../attribution/avatar'
+import AvatarSDK from '../attribution/avatar'
 import VerifiedBadge from '../attribution/verified-badge'
 import { SearchContext } from './context'
 
 const channelMargin = 6
 
-const usernameCss = css`
+const animateAvatar = (h: number) => keyframes`
+to {
+    width: ${h}px;
+}
+`
+
+const Avatar = styled(AvatarSDK)<{ height: number }>`
+    height: ${(props) => props.height}px;
+    margin: 0;
+    width: 0;
+    animation: ${(props) => animateAvatar(props.height)} 100ms ease-in-out forwards;
+`
+const Username = styled.div`
     background: white;
     display: flex;
     align-items: center;
     padding-left: ${channelMargin}px;
 `
 
-const usernamePillCss = css`
+const UsernamePill = styled.div<{ height: number }>`
     background: ${giphyLightestGrey};
     display: flex;
     padding: 0 4px;
@@ -23,6 +36,7 @@ const usernamePillCss = css`
     font-weight: 600;
     font-size: 12px;
     align-items: center;
+    height: ${(props) => props.height}px;
 `
 
 type Props = {
@@ -32,36 +46,15 @@ type Props = {
 
 const SearchBarChannel = ({ className = '', height }: Props) => {
     const { activeChannel } = useContext(SearchContext)
-    const h = height - channelMargin * 2
-    const animateAvatar = keyframes`
-        to {
-            width: ${h}px;
-        }
-    `
+    const channelHeight = height - channelMargin * 2
     return activeChannel ? (
-        <div className={cx(usernameCss, className)}>
-            <Avatar
-                user={activeChannel.user}
-                className={css`
-                    height: ${h}px;
-                    margin: 0;
-                    width: 0;
-                    animation: ${animateAvatar} 100ms ease-in-out forwards;
-                `}
-            />
-            <div
-                key={activeChannel.id}
-                className={cx(
-                    usernamePillCss,
-                    css`
-                        height: ${h}px;
-                    `
-                )}
-            >
+        <Username className={className}>
+            <Avatar user={activeChannel.user} height={channelHeight} />
+            <UsernamePill height={channelHeight} key={activeChannel.id}>
                 <div>@{activeChannel.user.username}</div>
                 {activeChannel.user.is_verified && <VerifiedBadge size={14} />}
-            </div>
-        </div>
+            </UsernamePill>
+        </Username>
     ) : null
 }
 export default SearchBarChannel

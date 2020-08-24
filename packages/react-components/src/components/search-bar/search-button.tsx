@@ -1,7 +1,8 @@
-import { css, cx, keyframes } from 'emotion'
+import { keyframes } from '@emotion/core'
+import styled from '@emotion/styled'
 import React from 'react'
 import useThrottle from 'react-use/lib/useThrottle'
-import SearchIcon from './search-icon'
+import SearchIconSDK from './search-icon'
 
 const time = '2s'
 const purp = '#9933FF'
@@ -44,7 +45,7 @@ const gradientFade = keyframes`
     }
 `
 
-const containerCss = css`
+const Container = styled.div<{ size: number }>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -53,9 +54,11 @@ const containerCss = css`
     @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
         display: none;
     }
+    width: ${(props) => props.size}px;
+    height: ${(props) => props.size}px;
 `
 
-const gradientBoxCss = css`
+const GradientBox = styled.div`
     position: absolute;
     height: 100%;
     width: 100%;
@@ -74,7 +77,7 @@ const gradientBoxCss = css`
     }
 `
 
-const fxCss = css`
+const Fx = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
@@ -91,7 +94,7 @@ const fxCss = css`
     }
 `
 
-const scannerCss = css`
+const Scanner = styled.div`
     position: absolute;
     width: 200%;
     height: 20px;
@@ -101,7 +104,7 @@ const scannerCss = css`
     filter: blur(1px);
 `
 
-const iconCss = css`
+const SearchIcon = styled(SearchIconSDK)`
     z-index: 1;
     display: flex;
 `
@@ -115,23 +118,15 @@ const SearchButton = ({ isFetching, size = 40 }: Props) => {
     // let the animation run by throttling isFetching
     const throttledFetch = useThrottle(isFetching, 1000)
     return (
-        <div
-            className={cx(
-                containerCss,
-                css`
-                    width: ${size}px;
-                    height: ${size}px;
-                `
-            )}
-        >
-            <div className={gradientBoxCss} />
-            <SearchIcon className={iconCss} />
+        <Container size={size}>
+            <GradientBox />
+            <SearchIcon />
             {throttledFetch && (
-                <div className={fxCss}>
-                    <div className={scannerCss} />
-                </div>
+                <Fx>
+                    <Scanner />
+                </Fx>
             )}
-        </div>
+        </Container>
     )
 }
 

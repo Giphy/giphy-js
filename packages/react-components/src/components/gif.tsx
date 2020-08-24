@@ -230,7 +230,7 @@ const Gif = ({
                 height,
                 ...style,
             }}
-            className={`${Gif.className} ${className}`}
+            className={[Gif.className, className].join(' ')}
             onMouseOver={onMouseOver}
             onMouseLeave={onMouseLeave}
             onClick={onClick}

@@ -1,12 +1,12 @@
-import { cx } from 'emotion'
 import React from 'react'
 type Props = {
     className?: string
     size?: number
     fill?: string
 }
+
 const VerifiedBadge = ({ className = '', size = 17, fill = '#15CDFF' }: Props) => (
-    <svg className={cx(VerifiedBadge.className, className)} height={size} width="19px" viewBox="0 0 19 17">
+    <svg className={[VerifiedBadge.className, className].join(' ')} height={size} width="19px" viewBox="0 0 19 17">
         <g transform="translate(-532.000000, -466.000000)" fill={fill}>
             <g transform="translate(141.000000, 235.000000)">
                 <g transform="translate(264.000000, 0.000000)">

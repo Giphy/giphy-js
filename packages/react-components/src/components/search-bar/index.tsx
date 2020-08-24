@@ -24,7 +24,7 @@ type Props = {
     height?: number
 }
 
-const SearchBar = ({ className, initialValue = '', placeholder = 'Search GIPsssHY', height = 40 }: Props) => {
+const SearchBar = ({ className, initialValue = '', placeholder = 'Search GIPHY', height = 40 }: Props) => {
     const { setSearch, activeChannel, setActiveChannel, term: hoistedStateTerm } = useContext(SearchContext)
 
     // debounce local input
@@ -83,7 +83,7 @@ const SearchBar = ({ className, initialValue = '', placeholder = 'Search GIPsssH
     }
 
     return (
-        <Container className={className} height={height}>
+        <Container className={[SearchBar.className, className].join(' ')} height={height}>
             <SearchBarChannel height={height} />
             <Input
                 isUsernameSearch={!!usernameText}
@@ -127,5 +127,7 @@ const Input = styled.input<{ isUsernameSearch: boolean }>`
             color: ${giphyIndigo};
         `}
 `
+
+SearchBar.className = 'giphy-search-bar'
 
 export default SearchBar
