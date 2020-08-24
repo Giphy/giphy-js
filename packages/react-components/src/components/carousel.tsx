@@ -1,13 +1,13 @@
+import styled from '@emotion/styled'
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifWidth } from '@giphy/js-util'
-import { css, cx } from 'emotion'
 import React, { PureComponent, ReactType } from 'react'
 import { debounce } from 'throttle-debounce'
-import Observer from '../util/observer'
-import Gif, { EventProps, GifOverlayProps } from './gif'
+import ObserverShared from '../util/observer'
+import GifSDK, { EventProps, GifOverlayProps } from './gif'
 
-const carouselCss = css`
+const Container = styled.div`
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
     overflow-y: hidden;
@@ -15,33 +15,33 @@ const carouselCss = css`
     position: relative;
 `
 
-const loaderHiddenCss = css`
-    opacity: 0;
-`
-
-const carouselItemCss = css`
+const Gif = styled(GifSDK)<{ ml: number }>`
     position: relative;
     display: inline-block;
     list-style: none;
+    margin-left: ${(props) => props.ml}px;
     /* make sure gifs are fully visible with a scrollbar */
     margin-bottom: 1px;
+
     &:first-of-type {
         margin-left: 0;
     }
-    .${Gif.imgClassName} {
+    .${GifSDK.imgClassName} {
         position: absolute;
         top: 0;
         left: 0;
     }
 `
 
-const loaderContainerCss = css`
+const Observer = styled(ObserverShared)`
     display: inline-block;
 `
 
-const loaderCss = css`
+const Loader = styled.div<{ isFirstLoad: boolean; height: number }>`
     width: 30px;
     display: inline-block;
+    opacity: ${(props) => (props.isFirstLoad ? 0 : 1)};
+    height: ${(props) => props.height}px;
 `
 
 type Props = {
@@ -134,23 +134,14 @@ class Carousel extends PureComponent<Props, State> {
             backgroundColor,
         } = this.props
         const { gifs, isDoneFetching } = this.state
-        const marginCss = css`
-            margin-left: ${gutter}px;
-        `
-        const gifHeightCss = css`
-            height: ${gifHeight}px;
-        `
-        const containerCss = cx(className, carouselCss)
-        const gifCss = cx(carouselItemCss, marginCss)
         const showLoader = fetchGifs && !isDoneFetching
         const isFirstLoad = gifs.length === 0
         return (
-            <div className={containerCss}>
+            <Container className={className}>
                 {gifs.map((gif) => {
                     const gifWidth = getGifWidth(gif, gifHeight)
                     return (
                         <Gif
-                            className={gifCss}
                             gif={gif}
                             key={gif.id}
                             width={gifWidth}
@@ -159,6 +150,7 @@ class Carousel extends PureComponent<Props, State> {
                             onGifVisible={onGifVisible}
                             onGifRightClick={onGifRightClick}
                             user={user}
+                            ml={gutter}
                             overlay={overlay}
                             hideAttribution={hideAttribution}
                             noLink={noLink}
@@ -168,11 +160,11 @@ class Carousel extends PureComponent<Props, State> {
                 })}
                 {!showLoader && gifs.length === 0 && noResultsMessage}
                 {showLoader && (
-                    <Observer className={loaderContainerCss} onVisibleChange={this.onLoaderVisible}>
-                        <div className={cx(loaderCss, gifHeightCss, isFirstLoad ? loaderHiddenCss : '')} />
+                    <Observer onVisibleChange={this.onLoaderVisible}>
+                        <Loader isFirstLoad={isFirstLoad} height={gifHeight} />
                     </Observer>
                 )}
-            </div>
+            </Container>
         )
     }
 }

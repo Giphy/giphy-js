@@ -1,5 +1,6 @@
+import { css } from '@emotion/core'
+import styled from '@emotion/styled'
 import { giphyIndigo, giphyLightGrey } from '@giphy/js-brand'
-import { css, cx } from 'emotion'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import useDebounce from 'react-use/lib/useDebounce'
 import { SearchContext } from './context'
@@ -16,22 +17,6 @@ function usePrevious<T>(value: T) {
 
 const SEARCH_DEBOUNCE = 500
 
-const inputCss = css`
-    box-sizing: border-box;
-    border: 0;
-    appearance: none;
-    font-weight: normal;
-    outline: 0;
-    font-size: 15px;
-    padding: 0 0 0 15px;
-    border-radius: 0;
-    &::placeholder {
-        color: ${giphyLightGrey};
-    }
-    min-width: 150px;
-    flex: 1;
-`
-
 type Props = {
     className?: string
     initialValue?: string
@@ -39,7 +24,7 @@ type Props = {
     height?: number
 }
 
-const SearchBar = ({ className, initialValue = '', placeholder = 'Search GIPHY', height = 40 }: Props) => {
+const SearchBar = ({ className, initialValue = '', placeholder = 'Search GIPsssHY', height = 40 }: Props) => {
     const { setSearch, activeChannel, setActiveChannel, term: hoistedStateTerm } = useContext(SearchContext)
 
     // debounce local input
@@ -98,24 +83,10 @@ const SearchBar = ({ className, initialValue = '', placeholder = 'Search GIPHY',
     }
 
     return (
-        <div
-            className={cx(
-                css`
-                    display: flex;
-                    background: white;
-                    height: ${height}px;
-                `,
-                className
-            )}
-        >
+        <Container className={className} height={height}>
             <SearchBarChannel height={height} />
-            <input
-                className={cx(
-                    inputCss,
-                    css`
-                        ${usernameText && `color: ${giphyIndigo}`}
-                    `
-                )}
+            <Input
+                isUsernameSearch={!!usernameText}
                 onChange={({ target: { value } }) => setDebouncedInput(value)}
                 value={term}
                 placeholder={activeChannel ? `Search ${activeChannel.display_name}` : placeholder}
@@ -126,7 +97,35 @@ const SearchBar = ({ className, initialValue = '', placeholder = 'Search GIPHY',
                 onKeyUp={onKeyUp}
             />
             <SearchButton />
-        </div>
+        </Container>
     )
 }
+
+const Container = styled.div<{ height: number }>`
+    display: flex;
+    background: white;
+    height: ${(props) => props.height}px;
+`
+
+const Input = styled.input<{ isUsernameSearch: boolean }>`
+    box-sizing: border-box;
+    border: 0;
+    appearance: none;
+    font-weight: normal;
+    outline: 0;
+    font-size: 15px;
+    padding: 0 0 0 15px;
+    border-radius: 0;
+    &::placeholder {
+        color: ${giphyLightGrey};
+    }
+    min-width: 150px;
+    flex: 1;
+    ${(props) =>
+        props.isUsernameSearch &&
+        css`
+            color: ${giphyIndigo};
+        `}
+`
+
 export default SearchBar
