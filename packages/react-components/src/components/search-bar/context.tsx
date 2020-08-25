@@ -1,8 +1,9 @@
 import { GifsResult, GiphyFetch, SearchOptions } from '@giphy/js-fetch-api'
 import { IChannel } from '@giphy/js-types'
+import { ThemeProvider } from 'emotion-theming'
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
+import { SearchTheme } from './theme'
 
-type SearchTheme = { searchbarHeight: number }
 type SearchContextProps = {
     setSearch: (searchTerm: string, channel: string) => void
     term: string
@@ -12,15 +13,19 @@ type SearchContextProps = {
     fetchGifs: (offset: number) => Promise<GifsResult>
     fetchChannelSearch: (offset: number) => Promise<IChannel[]>
     trendingSearches: string[]
-    theme: SearchTheme
     searchKey: string
 }
 
 export const SearchContext = createContext({} as SearchContextProps)
 
-type Props = { children: ReactNode; options?: SearchOptions; apiKey: string }
+type Props = { children: ReactNode; options?: SearchOptions; apiKey: string; theme?: SearchTheme }
 
-const SearchContextManager = ({ children, options = {}, apiKey }: Props) => {
+const SearchContextManager = ({
+    children,
+    options = {},
+    apiKey,
+    theme = { searchbarHeight: 42, smallSearchbarHeight: 35 },
+}: Props) => {
     const gf = new GiphyFetch(apiKey)
     //
     const [[term, channelSearch], setOptions] = useState<[string, string]>(['', ''])
@@ -37,7 +42,7 @@ const SearchContextManager = ({ children, options = {}, apiKey }: Props) => {
     // do a search for a term and optionally a channel
     const setSearch = (term: string, channel: string) => setOptions([term, channel])
 
-    const searchKey = `${channelSearch} ${term} ${activeChannel?.user.username || ''}`
+    const searchKey = `${term} - ${options.type} ${activeChannel?.user.username || ''}: ${channelSearch}`
 
     // search fetch
     const fetchGifs = (offset: number) => gf.search(term, { ...options, offset, channel: activeChannel?.user.username })
@@ -68,10 +73,9 @@ const SearchContextManager = ({ children, options = {}, apiKey }: Props) => {
                 setSearch,
                 fetchGifs,
                 searchKey,
-                theme: { searchbarHeight: 42 },
             }}
         >
-            {children}
+            <ThemeProvider theme={theme}>{children}</ThemeProvider>
         </SearchContext.Provider>
     )
 }

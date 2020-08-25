@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import React from 'react'
 import useThrottle from 'react-use/lib/useThrottle'
 import SearchIconSDK from './search-icon'
+import { getSize, SearchTheme } from './theme'
 
 const time = '2s'
 const purp = '#9933FF'
@@ -54,8 +55,7 @@ const Container = styled.div<{ size: number }>`
     @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
         display: none;
     }
-    width: ${(props) => props.size}px;
-    height: ${(props) => props.size}px;
+    ${(props) => getSize(props.theme as SearchTheme)}
 `
 
 const GradientBox = styled.div`
@@ -107,6 +107,8 @@ const Scanner = styled.div`
 const SearchIcon = styled(SearchIconSDK)`
     z-index: 1;
     display: flex;
+    width: 60%;
+    height: 60%;
 `
 
 type Props = {

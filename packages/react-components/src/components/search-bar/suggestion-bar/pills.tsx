@@ -5,6 +5,7 @@ import React, { useContext } from 'react'
 import Avatar_ from '../../attribution/avatar'
 import VerifiedBadge from '../../attribution/verified-badge'
 import { SearchContext } from '../context'
+import { getSize, SearchTheme } from '../theme'
 import TrendingIcon_ from './trending-icon'
 
 const margin = 9
@@ -29,20 +30,19 @@ const TrendingSearchPillContainer = styled.div`
     border-radius: 20px;
 `
 
-const Avatar = styled(Avatar_)<{ size: number }>`
-    width: ${(props) => props.size}px;
-    height: ${(props) => props.size}px;
+const Avatar = styled(Avatar_)`
+    ${(props) => getSize(props.theme as SearchTheme)}
 `
 
 const TrendingIcon = styled(TrendingIcon_)`
     margin-right: 2px;
 `
 
-export const ChannelPill = ({ channel, size }: { channel: IChannel; size: number }) => {
+export const ChannelPill = ({ channel }: { channel: IChannel }) => {
     const { setActiveChannel } = useContext(SearchContext)
     return (
         <ChannelPillContainer key={channel.id} onClick={() => setActiveChannel(channel)}>
-            <Avatar user={channel.user} size={size} />
+            <Avatar user={channel.user} />
             <div>@{channel.user.username}</div>
             {channel.user.is_verified && <VerifiedBadge size={14} />}
         </ChannelPillContainer>

@@ -57,6 +57,7 @@
         "@giphy/js-util": "^1.9.1",
         "@emotion/styled": "10.0.27",
         "@emotion/core": "10.0.35",
+        "emotion-theming": "10.0.27",
         "intersection-observer": "^0.11.0",
         "throttle-debounce": "^2.3.0",
         "react-use": "15.3.3"

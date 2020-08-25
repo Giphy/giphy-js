@@ -46,11 +46,11 @@ export default {
 }
 
 const Components = () => {
-    const { fetchGifs, searchKey } = useContext(SearchContext)
+    const { fetchGifs, searchKey, term } = useContext(SearchContext)
     const { innerWidth } = useWindowSize()
     return (
         <>
-            <SearchBarComponent />
+            <SearchBarComponent clear={term === 'ghost'} />
             <SuggestionBar />
             <Grid
                 key={searchKey}

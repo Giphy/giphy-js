@@ -6,6 +6,7 @@ import useDebounce from 'react-use/lib/useDebounce'
 import { SearchContext } from './context'
 import SearchBarChannel from './search-bar-channel'
 import SearchButton from './search-button'
+import { getHeight, SearchTheme } from './theme'
 
 function usePrevious<T>(value: T) {
     const ref = useRef<T>(value)
@@ -22,9 +23,18 @@ type Props = {
     initialValue?: string
     placeholder?: string
     height?: number
+    // clears the input until the next entry,
+    // leaves the term in context unaffected
+    clear?: boolean
 }
 
-const SearchBar = ({ className, initialValue = '', placeholder = 'Search GIPHY', height = 40 }: Props) => {
+const SearchBar = ({
+    className,
+    initialValue = '',
+    placeholder = 'Search GIPHY',
+    height = 40,
+    clear = false,
+}: Props) => {
     const { setSearch, activeChannel, setActiveChannel, term: hoistedStateTerm } = useContext(SearchContext)
 
     // debounce local input
@@ -32,7 +42,6 @@ const SearchBar = ({ className, initialValue = '', placeholder = 'Search GIPHY',
 
     // used to see if the last term was a '' before clearing
     const lastTerm = usePrevious(term)
-
     // set the term when it changes
     useDebounce(() => setSearch?.(term, usernameText), SEARCH_DEBOUNCE, [term])
 
@@ -66,6 +75,12 @@ const SearchBar = ({ className, initialValue = '', placeholder = 'Search GIPHY',
         setDebouncedInput(hoistedStateTerm)
     }, [hoistedStateTerm])
 
+    const [isCleared, setCleared] = useState(clear)
+
+    useEffect(() => {
+        setCleared(clear)
+    }, [clear])
+
     // key ups to clear the active channel
     const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
         switch (e.keyCode) {
@@ -87,8 +102,13 @@ const SearchBar = ({ className, initialValue = '', placeholder = 'Search GIPHY',
             <SearchBarChannel height={height} />
             <Input
                 isUsernameSearch={!!usernameText}
-                onChange={({ target: { value } }) => setDebouncedInput(value)}
-                value={term}
+                onChange={({ target: { value } }) => {
+                    if (!isCleared || value !== '') {
+                        setCleared(false)
+                        setDebouncedInput(value)
+                    }
+                }}
+                value={isCleared ? '' : term}
                 placeholder={activeChannel ? `Search ${activeChannel.display_name}` : placeholder}
                 autoCapitalize="off"
                 autoCorrect="off"
@@ -104,7 +124,7 @@ const SearchBar = ({ className, initialValue = '', placeholder = 'Search GIPHY',
 const Container = styled.div<{ height: number }>`
     display: flex;
     background: white;
-    height: ${(props) => props.height}px;
+    ${(props) => getHeight(props.theme as SearchTheme)}
 `
 
 const Input = styled.input<{ isUsernameSearch: boolean }>`
