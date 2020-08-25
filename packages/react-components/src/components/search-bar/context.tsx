@@ -2,7 +2,7 @@ import { GifsResult, GiphyFetch, SearchOptions } from '@giphy/js-fetch-api'
 import { IChannel } from '@giphy/js-types'
 import { ThemeProvider } from 'emotion-theming'
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
-import { SearchTheme } from './theme'
+import { initTheme, SearchTheme } from './theme'
 
 type SearchContextProps = {
     setSearch: (searchTerm: string, channel: string) => void
@@ -18,17 +18,18 @@ type SearchContextProps = {
 
 export const SearchContext = createContext({} as SearchContextProps)
 
-type Props = { children: ReactNode; options?: SearchOptions; apiKey: string; theme?: SearchTheme }
+type Props = {
+    children: ReactNode
+    options?: SearchOptions
+    apiKey: string
+    theme?: Partial<SearchTheme>
+    initialTerm?: string
+}
 
-const SearchContextManager = ({
-    children,
-    options = {},
-    apiKey,
-    theme = { searchbarHeight: 42, smallSearchbarHeight: 35 },
-}: Props) => {
+const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTerm = '' }: Props) => {
     const gf = new GiphyFetch(apiKey)
     //
-    const [[term, channelSearch], setOptions] = useState<[string, string]>(['', ''])
+    const [[term, channelSearch], setOptions] = useState<[string, string]>([initialTerm, ''])
     // active channel we're searching and displaying in the search bar
     const [activeChannel, _setActiveChannel] = useState<IChannel | undefined>()
 
@@ -75,7 +76,7 @@ const SearchContextManager = ({
                 searchKey,
             }}
         >
-            <ThemeProvider theme={theme}>{children}</ThemeProvider>
+            <ThemeProvider theme={initTheme(theme)}>{children}</ThemeProvider>
         </SearchContext.Provider>
     )
 }

@@ -31,7 +31,7 @@ const TrendingSearchPillContainer = styled.div`
 `
 
 const Avatar = styled(Avatar_)`
-    ${(props) => getSize(props.theme as SearchTheme)}
+    ${(props) => getSize(props.theme as SearchTheme, true)}
 `
 
 const TrendingIcon = styled(TrendingIcon_)`

@@ -46,11 +46,11 @@ export default {
 }
 
 const Components = () => {
-    const { fetchGifs, searchKey, term } = useContext(SearchContext)
+    const { fetchGifs, searchKey } = useContext(SearchContext)
     const { innerWidth } = useWindowSize()
     return (
         <>
-            <SearchBarComponent clear={term === 'ghost'} />
+            <SearchBarComponent />
             <SuggestionBar />
             <Grid
                 key={searchKey}
@@ -64,7 +64,7 @@ const Components = () => {
 
 export const SearchExperience = () => {
     return (
-        <SearchContextManager apiKey={apiKey}>
+        <SearchContextManager apiKey={apiKey} initialTerm="@nba">
             <Components />
         </SearchContextManager>
     )

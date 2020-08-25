@@ -1,20 +1,40 @@
 import { css } from '@emotion/core'
 
-export type SearchTheme = { searchbarHeight: number; smallSearchbarHeight: number }
+export const mobileQuery = `max-width: 480px`
 
-const mobileQuery = `max-width: 480px`
-export const getHeight = (theme: SearchTheme) => css`
-    height: ${theme.searchbarHeight}px;
-    @media (${mobileQuery}) {
-        height: ${theme.smallSearchbarHeight}px;
+export type SearchTheme = {
+    searchbarHeight: number
+    smallSearchbarHeight: number
+    channelSearch: number
+    smallChannelSearch: number
+}
+
+const channelSearchSize = (size: number, margin = 6) => size - margin * 2
+export const initTheme = (theme?: Partial<SearchTheme>): SearchTheme => {
+    const defaultTheme = {
+        searchbarHeight: 42,
+        smallSearchbarHeight: 35,
+        ...theme,
     }
-`
+    return {
+        ...defaultTheme,
+        channelSearch: channelSearchSize(defaultTheme.searchbarHeight),
+        smallChannelSearch: channelSearchSize(defaultTheme.smallSearchbarHeight, 3),
+    }
+}
 
-export const getSize = (theme: SearchTheme) => css`
+// DRY but kinda ugly
+export const getSize = (theme: SearchTheme, includeWidth: boolean = false) => css`
     height: ${theme.searchbarHeight}px;
-    width: ${theme.searchbarHeight}px;
+    ${includeWidth &&
+    css`
+        width: ${theme.searchbarHeight}px;
+    `};
     @media (${mobileQuery}) {
         height: ${theme.smallSearchbarHeight}px;
-        width: ${theme.smallSearchbarHeight}px;
+        ${includeWidth &&
+        css`
+            width: ${theme.smallSearchbarHeight}px;
+        `};
     }
 `

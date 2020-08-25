@@ -5,6 +5,7 @@ import React, { useContext } from 'react'
 import AvatarSDK from '../attribution/avatar'
 import VerifiedBadge from '../attribution/verified-badge'
 import { SearchContext } from './context'
+import { mobileQuery, SearchTheme } from './theme'
 
 const channelMargin = 6
 
@@ -14,12 +15,18 @@ to {
 }
 `
 
-const Avatar = styled(AvatarSDK)<{ height: number }>`
-    height: ${(props) => props.height}px;
+const Avatar = styled(AvatarSDK)`
+    height: ${(props) => (props.theme as SearchTheme).channelSearch}px;
     margin: 0;
     width: 0;
-    animation: ${(props) => animateAvatar(props.height)} 100ms ease-in-out forwards;
+    animation: ${(props) => animateAvatar((props.theme as SearchTheme).channelSearch)} 100ms ease-in-out forwards;
+    @media (${mobileQuery}) {
+        height: ${(props) => (props.theme as SearchTheme).smallChannelSearch}px;
+        animation: ${(props) => animateAvatar((props.theme as SearchTheme).smallChannelSearch)} 100ms ease-in-out
+            forwards;
+    }
 `
+
 const Username = styled.div`
     background: white;
     display: flex;
@@ -27,7 +34,7 @@ const Username = styled.div`
     padding-left: ${channelMargin}px;
 `
 
-const UsernamePill = styled.div<{ height: number }>`
+const UsernamePill = styled.div`
     background: ${giphyLightestGrey};
     display: flex;
     padding: 0 4px;
@@ -36,21 +43,22 @@ const UsernamePill = styled.div<{ height: number }>`
     font-weight: 600;
     font-size: 12px;
     align-items: center;
-    height: ${(props) => props.height}px;
+    height: ${(props) => (props.theme as SearchTheme).channelSearch}px;
+    @media (${mobileQuery}) {
+        display: none;
+    }
 `
 
 type Props = {
     className?: string
-    height: number
 }
 
-const SearchBarChannel = ({ className = '', height }: Props) => {
+const SearchBarChannel = ({ className = '' }: Props) => {
     const { activeChannel } = useContext(SearchContext)
-    const channelHeight = height - channelMargin * 2
     return activeChannel ? (
         <Username className={className}>
-            <Avatar user={activeChannel.user} height={channelHeight} />
-            <UsernamePill height={channelHeight} key={activeChannel.id}>
+            <Avatar user={activeChannel.user} />
+            <UsernamePill key={activeChannel.id}>
                 <div>@{activeChannel.user.username}</div>
                 {activeChannel.user.is_verified && <VerifiedBadge size={14} />}
             </UsernamePill>

@@ -55,7 +55,7 @@ const Container = styled.div<{ size: number }>`
     @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
         display: none;
     }
-    ${(props) => getSize(props.theme as SearchTheme)}
+    ${(props) => getSize(props.theme as SearchTheme, true)}
 `
 
 const GradientBox = styled.div`

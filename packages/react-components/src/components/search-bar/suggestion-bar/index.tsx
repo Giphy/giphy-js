@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { IChannel } from '@giphy/js-types'
 import React, { useContext, useEffect, useState } from 'react'
 import { SearchContext } from '../context'
-import { getHeight, SearchTheme } from '../theme'
+import { getSize, SearchTheme } from '../theme'
 import { ChannelPill, TrendingSearchPill } from './pills'
 
 const Container = styled.div`
@@ -16,7 +16,7 @@ const Container = styled.div`
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 10px;
-    ${(props) => getHeight(props.theme as SearchTheme)}
+    ${(props) => getSize(props.theme as SearchTheme)}
 `
 
 const SuggestionBar = () => {
@@ -29,6 +29,10 @@ const SuggestionBar = () => {
         }
         if (!activeChannel && channelSearch) {
             fetchChannels()
+        }
+        if (!channelSearch && !activeChannel) {
+            // revert to trending...
+            setChannels([])
         }
     }, [channelSearch, activeChannel])
     return (

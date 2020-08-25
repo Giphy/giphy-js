@@ -6,7 +6,7 @@ import useDebounce from 'react-use/lib/useDebounce'
 import { SearchContext } from './context'
 import SearchBarChannel from './search-bar-channel'
 import SearchButton from './search-button'
-import { getHeight, SearchTheme } from './theme'
+import { getSize, SearchTheme } from './theme'
 
 function usePrevious<T>(value: T) {
     const ref = useRef<T>(value)
@@ -20,25 +20,17 @@ const SEARCH_DEBOUNCE = 500
 
 type Props = {
     className?: string
-    initialValue?: string
     placeholder?: string
-    height?: number
     // clears the input until the next entry,
     // leaves the term in context unaffected
     clear?: boolean
 }
 
-const SearchBar = ({
-    className,
-    initialValue = '',
-    placeholder = 'Search GIPHY',
-    height = 40,
-    clear = false,
-}: Props) => {
+const SearchBar = ({ className, placeholder = 'Search GIPHY', clear = false }: Props) => {
     const { setSearch, activeChannel, setActiveChannel, term: hoistedStateTerm } = useContext(SearchContext)
 
     // debounce local input
-    const [term, setDebouncedInput] = useState<string>(initialValue)
+    const [term, setDebouncedInput] = useState<string>(hoistedStateTerm)
 
     // used to see if the last term was a '' before clearing
     const lastTerm = usePrevious(term)
@@ -98,8 +90,8 @@ const SearchBar = ({
     }
 
     return (
-        <Container className={[SearchBar.className, className].join(' ')} height={height}>
-            <SearchBarChannel height={height} />
+        <Container className={[SearchBar.className, className].join(' ')}>
+            <SearchBarChannel />
             <Input
                 isUsernameSearch={!!usernameText}
                 onChange={({ target: { value } }) => {
@@ -121,10 +113,10 @@ const SearchBar = ({
     )
 }
 
-const Container = styled.div<{ height: number }>`
+const Container = styled.div`
     display: flex;
     background: white;
-    ${(props) => getHeight(props.theme as SearchTheme)}
+    ${(props) => getSize(props.theme as SearchTheme)}
 `
 
 const Input = styled.input<{ isUsernameSearch: boolean }>`
