@@ -5,7 +5,7 @@ import React, { createContext, ReactNode, useEffect, useState } from 'react'
 import { initTheme, SearchTheme } from './theme'
 
 type SearchContextProps = {
-    setSearch: (searchTerm: string, channel: string) => void
+    setSearch: (searchTerm: string) => void
     term: string
     channelSearch: string
     activeChannel: IChannel | undefined
@@ -28,22 +28,33 @@ type Props = {
 
 const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTerm = '' }: Props) => {
     const gf = new GiphyFetch(apiKey)
-    //
-    const [[term, channelSearch], setOptions] = useState<[string, string]>([initialTerm, ''])
+
+    // the search term
+    const [term, setTerm] = useState<string>(initialTerm)
+
+    // a user name search
+    let channelSearch = ''
+
+    if (term && term.indexOf('@') === 0) {
+        channelSearch = term.slice(1).split(' ')[0]
+    }
+
     // active channel we're searching and displaying in the search bar
     const [activeChannel, _setActiveChannel] = useState<IChannel | undefined>()
 
     const setActiveChannel = (activeChannel: IChannel | undefined) => {
         _setActiveChannel(activeChannel)
-        setOptions(['', '']) // clear this here
+        setTerm('') // clear this here
     }
 
     // fetched list of trending search terms
     const [trendingSearches, setTrendingSearches] = useState<string[]>([])
     // do a search for a term and optionally a channel
-    const setSearch = (term: string, channel: string) => setOptions([term, channel])
+    const setSearch = (term: string) => setTerm(term)
 
-    const searchKey = `${term} - ${options.type} ${activeChannel?.user.username || ''}: ${channelSearch}`
+    const searchKey = [term, options.type, channelSearch, activeChannel?.user.username || '']
+        .filter((val) => !!val)
+        .join(' / ')
 
     // search fetch
     const fetchGifs = (offset: number) => gf.search(term, { ...options, offset, channel: activeChannel?.user.username })

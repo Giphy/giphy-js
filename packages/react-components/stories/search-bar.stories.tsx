@@ -64,6 +64,22 @@ const Components = () => {
 
 export const SearchExperience = () => {
     return (
+        <SearchContextManager apiKey={apiKey}>
+            <Components />
+        </SearchContextManager>
+    )
+}
+
+export const SearchExperienceInitialTerm = () => {
+    return (
+        <SearchContextManager apiKey={apiKey} initialTerm="skateboard">
+            <Components />
+        </SearchContextManager>
+    )
+}
+
+export const SearchExperienceInitialChannelSearch = () => {
+    return (
         <SearchContextManager apiKey={apiKey} initialTerm="@nba">
             <Components />
         </SearchContextManager>

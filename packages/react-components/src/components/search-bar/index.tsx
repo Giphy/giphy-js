@@ -27,15 +27,15 @@ type Props = {
 }
 
 const SearchBar = ({ className, placeholder = 'Search GIPHY', clear = false }: Props) => {
-    const { setSearch, activeChannel, setActiveChannel, term: hoistedStateTerm } = useContext(SearchContext)
+    const { setSearch, activeChannel, setActiveChannel, term, channelSearch } = useContext(SearchContext)
 
     // debounce local input
-    const [term, setDebouncedInput] = useState<string>(hoistedStateTerm)
+    const [debouncedTerm, setDebouncedInput] = useState<string>(term)
 
     // used to see if the last term was a '' before clearing
-    const lastTerm = usePrevious(term)
+    const lastTerm = usePrevious(debouncedTerm)
     // set the term when it changes
-    useDebounce(() => setSearch?.(term, usernameText), SEARCH_DEBOUNCE, [term])
+    useDebounce(() => setSearch(debouncedTerm), SEARCH_DEBOUNCE, [debouncedTerm])
 
     // used only to focus the input
     const inputRef = useRef<HTMLInputElement | null>(null)
@@ -43,29 +43,19 @@ const SearchBar = ({ className, placeholder = 'Search GIPHY', clear = false }: P
     // we'll use this to see when we went from no channel to channel
     const previousActiveChannel = usePrevious(activeChannel)
 
-    // the current username text
-    const [usernameText, setUsernameText] = useState<string>('')
-
-    // manage username inputs
     useEffect(() => {
-        if (term && term.indexOf('@') === 0) {
-            setUsernameText(term.slice(1).split(' ')[0])
-        } else {
-            // clear channel
-            setUsernameText('')
-        }
         // if we know have a channel, focus and clear the input
         // so the user can search the channel
         if (activeChannel && !previousActiveChannel) {
             inputRef.current?.focus()
             setDebouncedInput('')
         }
-    }, [term, activeChannel])
+    }, [debouncedTerm, activeChannel])
 
     // a pill could have been clicked, update our local term state
     useEffect(() => {
-        setDebouncedInput(hoistedStateTerm)
-    }, [hoistedStateTerm])
+        setDebouncedInput(term)
+    }, [term])
 
     const [isCleared, setCleared] = useState(clear)
 
@@ -93,14 +83,14 @@ const SearchBar = ({ className, placeholder = 'Search GIPHY', clear = false }: P
         <Container className={[SearchBar.className, className].join(' ')}>
             <SearchBarChannel />
             <Input
-                isUsernameSearch={!!usernameText}
+                isUsernameSearch={!!channelSearch}
                 onChange={({ target: { value } }) => {
                     if (!isCleared || value !== '') {
                         setCleared(false)
                         setDebouncedInput(value)
                     }
                 }}
-                value={isCleared ? '' : term}
+                value={isCleared ? '' : debouncedTerm}
                 placeholder={activeChannel ? `Search ${activeChannel.display_name}` : placeholder}
                 autoCapitalize="off"
                 autoCorrect="off"

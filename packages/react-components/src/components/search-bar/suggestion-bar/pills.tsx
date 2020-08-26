@@ -52,7 +52,7 @@ export const ChannelPill = ({ channel }: { channel: IChannel }) => {
 export const TrendingSearchPill = ({ trendingSearch }: { trendingSearch: string }) => {
     const { setSearch } = useContext(SearchContext)
     return (
-        <TrendingSearchPillContainer key={trendingSearch} onClick={() => setSearch(trendingSearch, '')}>
+        <TrendingSearchPillContainer key={trendingSearch} onClick={() => setSearch(trendingSearch)}>
             <TrendingIcon size={16} />
             {trendingSearch}
         </TrendingSearchPillContainer>
