@@ -1,15 +1,15 @@
 import styled from '@emotion/styled'
 import { IGif, IProfileUser } from '@giphy/js-types'
 import React from 'react'
-import AvatarSDK from './avatar'
-import VerifiedBadgeSDK from './verified-badge'
+import Avatar_ from './avatar'
+import VerifiedBadge_ from './verified-badge'
 
 const Container = styled.div`
     display: flex;
     align-items: center;
     font-family: interface, helvetica, arial;
 `
-const Avatar = styled(AvatarSDK)`
+const Avatar = styled(Avatar_)`
     flex-shrink: 0;
 `
 const Username = styled.div`
@@ -21,8 +21,8 @@ const Username = styled.div`
     white-space: nowrap;
     -webkit-font-smoothing: antialiased;
 `
-const VerifiedBadge = styled(VerifiedBadgeSDK)`
-    margin: 0 4px;
+const VerifiedBadge = styled(VerifiedBadge_)`
+    margin-left: 4px;
     flex-shrink: 0;
 `
 type Props = { gif: IGif; className?: string }

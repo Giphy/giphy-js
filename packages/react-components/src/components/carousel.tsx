@@ -5,7 +5,7 @@ import { getGifWidth } from '@giphy/js-util'
 import React, { PureComponent, ReactType } from 'react'
 import { debounce } from 'throttle-debounce'
 import ObserverShared from '../util/observer'
-import GifSDK, { EventProps, GifOverlayProps } from './gif'
+import Gif_, { EventProps, GifOverlayProps } from './gif'
 
 const Container = styled.div`
     -webkit-overflow-scrolling: touch;
@@ -15,7 +15,7 @@ const Container = styled.div`
     position: relative;
 `
 
-const Gif = styled(GifSDK)<{ ml: number }>`
+const Gif = styled(Gif_)<{ ml: number }>`
     position: relative;
     display: inline-block;
     list-style: none;
@@ -26,7 +26,7 @@ const Gif = styled(GifSDK)<{ ml: number }>`
     &:first-of-type {
         margin-left: 0;
     }
-    .${GifSDK.imgClassName} {
+    .${Gif_.imgClassName} {
         position: absolute;
         top: 0;
         left: 0;

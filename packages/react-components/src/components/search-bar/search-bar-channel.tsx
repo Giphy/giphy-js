@@ -2,7 +2,7 @@ import { keyframes } from '@emotion/core'
 import styled from '@emotion/styled'
 import { giphyDarkCharcoal, giphyLightestGrey } from '@giphy/js-brand'
 import React, { useContext } from 'react'
-import AvatarSDK from '../attribution/avatar'
+import Avatar_ from '../attribution/avatar'
 import VerifiedBadge from '../attribution/verified-badge'
 import { SearchContext } from './context'
 import { mobileQuery, SearchTheme } from './theme'
@@ -15,7 +15,7 @@ to {
 }
 `
 
-const Avatar = styled(AvatarSDK)`
+const Avatar = styled(Avatar_)`
     height: ${(props) => (props.theme as SearchTheme).channelSearch}px;
     margin: 0;
     width: 0;

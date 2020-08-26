@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import React, { useRef } from 'react'
-import AttributionSDK from '.'
+import Attribution_ from '.'
 import { GifOverlayProps } from '../gif'
 const Background = styled.div`
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(18, 18, 18, 0.6));
@@ -13,7 +13,7 @@ const Background = styled.div`
     pointer-events: none;
 `
 
-const Attribution = styled(AttributionSDK)`
+const Attribution = styled(Attribution_)`
     position: absolute;
     bottom: 10px;
     left: 10px;

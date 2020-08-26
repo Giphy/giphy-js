@@ -20,7 +20,7 @@ import VerifiedBadge from './attribution/verified-badge'
 type PingbackContextProps = { attributes: PingbackAttribute[] }
 export const PingbackContext = createContext({} as PingbackContextProps)
 
-const GifDiv = styled.div`
+const GifContainer = styled.div`
     display: block;
     img {
         display: block;
@@ -39,7 +39,7 @@ const hoverTimeoutDelay = 200
 
 type ContainerProps = HTMLProps<HTMLElement> & { href?: string }
 const Container = (props: ContainerProps) => (
-    <GifDiv as={props.href ? 'a' : 'div'} {...(props as HTMLProps<HTMLDivElement>)} />
+    <GifContainer as={props.href ? 'a' : 'div'} {...(props as HTMLProps<HTMLDivElement>)} />
 )
 
 export type EventProps = {

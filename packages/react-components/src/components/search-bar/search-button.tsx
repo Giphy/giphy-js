@@ -2,7 +2,7 @@ import { keyframes } from '@emotion/core'
 import styled from '@emotion/styled'
 import React from 'react'
 import useThrottle from 'react-use/lib/useThrottle'
-import SearchIconSDK from './search-icon'
+import SearchIcon_ from './search-icon'
 import { getSize, SearchTheme } from './theme'
 
 const time = '2s'
@@ -104,7 +104,7 @@ const Scanner = styled.div`
     filter: blur(1px);
 `
 
-const SearchIcon = styled(SearchIconSDK)`
+const SearchIcon = styled(SearchIcon_)`
     z-index: 1;
     display: flex;
     width: 60%;
