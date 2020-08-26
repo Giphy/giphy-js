@@ -4,7 +4,7 @@ import { ThemeProvider } from 'emotion-theming'
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
 import { initTheme, SearchTheme } from './theme'
 
-type SearchContextProps = {
+export type SearchContextProps = {
     setSearch: (searchTerm: string) => void
     term: string
     channelSearch: string
@@ -24,9 +24,10 @@ type Props = {
     apiKey: string
     theme?: Partial<SearchTheme>
     initialTerm?: string
+    initialChannel?: IChannel
 }
 
-const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTerm = '' }: Props) => {
+const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTerm = '', initialChannel }: Props) => {
     const gf = new GiphyFetch(apiKey)
 
     // the search term
@@ -40,7 +41,7 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
     }
 
     // active channel we're searching and displaying in the search bar
-    const [activeChannel, _setActiveChannel] = useState<IChannel | undefined>()
+    const [activeChannel, _setActiveChannel] = useState<IChannel | undefined>(initialChannel)
 
     const setActiveChannel = (activeChannel: IChannel | undefined) => {
         _setActiveChannel(activeChannel)
