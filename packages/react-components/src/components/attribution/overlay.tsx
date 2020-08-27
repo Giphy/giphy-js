@@ -1,8 +1,8 @@
-import { css } from 'emotion'
+import styled from '@emotion/styled'
 import React, { useRef } from 'react'
-import Attribution from '.'
+import Attribution_ from '.'
 import { GifOverlayProps } from '../gif'
-const backgroundCss = css`
+const Background = styled.div`
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(18, 18, 18, 0.6));
     cursor: default;
     position: absolute;
@@ -13,14 +13,14 @@ const backgroundCss = css`
     pointer-events: none;
 `
 
-const attributionCss = css`
+const Attribution = styled(Attribution_)`
     position: absolute;
     bottom: 10px;
     left: 10px;
     right: 10px;
 `
 
-const containerCss = css`
+const Container = styled.div`
     transition: opacity 150ms ease-in;
 `
 
@@ -31,10 +31,10 @@ const AttributionOverlay = ({ gif, isHovered }: GifOverlayProps) => {
         hasHovered.current = true
     }
     return gif.user && hasHovered.current ? (
-        <div className={containerCss} style={{ opacity: isHovered ? 1 : 0 }}>
-            <div className={backgroundCss} />
-            <Attribution gif={gif} className={attributionCss} />
-        </div>
+        <Container style={{ opacity: isHovered ? 1 : 0 }}>
+            <Background />
+            <Attribution gif={gif} />
+        </Container>
     ) : null
 }
 

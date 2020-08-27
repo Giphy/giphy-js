@@ -1,7 +1,8 @@
+import styled from '@emotion/styled'
+import { fontFamily, giphyBlue, giphyLightGrey } from '@giphy/js-brand'
 import React, { SyntheticEvent } from 'react'
-import { giphyBlue, giphyLightGrey, fontFamily } from '@giphy/js-brand'
-import { css } from 'emotion'
-const fetchError = css`
+
+const Message = styled.div`
     color: ${giphyLightGrey};
     display: flex;
     justify-content: center;
@@ -19,8 +20,8 @@ const fetchError = css`
 `
 type Props = { onClick: (e: SyntheticEvent<HTMLElement, Event>) => void }
 const FetchError = ({ onClick }: Props) => (
-    <div className={fetchError}>
+    <Message>
         Error loading GIFs.&nbsp;<a onClick={onClick}>Try again?</a>
-    </div>
+    </Message>
 )
 export default FetchError

@@ -6,7 +6,7 @@ import fetchMock from 'fetch-mock'
 import * as React from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { Carousel as CarouselComponent } from '../src'
-import mockGifsResult from './gifs.json'
+import mockGifsResult from './mock-data/gifs.json'
 
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
 const gf = new GiphyFetch(apiKey)

@@ -1,13 +1,13 @@
+import styled from '@emotion/styled'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import isPercy from '@percy-io/in-percy'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
-import { css } from 'emotion'
 import fetchMock from 'fetch-mock'
 import React, { useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
-import mockGifsResult from './gifs.json'
+import mockGifsResult from './mock-data/gifs.json'
 
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
 const gf = new GiphyFetch(apiKey)
@@ -17,7 +17,7 @@ export default {
     decorators: [withKnobs, jsxDecorator],
 }
 
-const overlayCss = css`
+const OverlayContainer = styled.div`
     position: absolute;
     left: 0;
     top: 0;
@@ -29,11 +29,11 @@ const overlayCss = css`
     align-items: center;
 `
 
-const noResultsCss = css`
+const NoResultsContainer = styled.div`
     color: white;
 `
 
-const Overlay = ({ gif, isHovered }: GifOverlayProps) => <div className={overlayCss}>{isHovered ? gif.id : ''}</div>
+const Overlay = ({ gif, isHovered }: GifOverlayProps) => <OverlayContainer>{isHovered ? gif.id : ''}</OverlayContainer>
 
 export const Grid = () => {
     const [term, setTerm] = useState('always sunny')
@@ -46,7 +46,7 @@ export const Grid = () => {
     const columns = number('columns', width < 500 ? 2 : 3)
     const gutter = number('gutter', 6)
     const limit = number('limit', 5)
-    const NoResults = <div className={noResultsCss}>No results for {term}</div>
+    const NoResults = <NoResultsContainer>No results for {term}</NoResultsContainer>
 
     const fetchGifs = async (offset: number) => {
         if (isPercy()) {

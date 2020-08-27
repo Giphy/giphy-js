@@ -1,18 +1,18 @@
+import styled from '@emotion/styled'
 import { IGif, IProfileUser } from '@giphy/js-types'
-import { css, cx } from 'emotion'
 import React from 'react'
-import Avatar from './avatar'
-import VerifiedBadge from './verified-badge'
+import Avatar_ from './avatar'
+import VerifiedBadge_ from './verified-badge'
 
-const containerCss = css`
+const Container = styled.div`
     display: flex;
     align-items: center;
     font-family: interface, helvetica, arial;
 `
-const avatarCss = css`
+const Avatar = styled(Avatar_)`
     flex-shrink: 0;
 `
-const userName = css`
+const Username = styled.div`
     color: white;
     font-size: 17px;
     font-weight: 700;
@@ -21,8 +21,8 @@ const userName = css`
     white-space: nowrap;
     -webkit-font-smoothing: antialiased;
 `
-const verifiedBadge = css`
-    margin: 0 4px;
+const VerifiedBadge = styled(VerifiedBadge_)`
+    margin-left: 4px;
     flex-shrink: 0;
 `
 type Props = { gif: IGif; className?: string }
@@ -33,18 +33,18 @@ const Attribution = ({ gif, className }: Props) => {
     }
     const { display_name, username } = user
     return (
-        <div
-            className={cx(containerCss, Attribution.className, className)}
-            onClick={e => {
+        <Container
+            className={[Attribution.className, className].join(' ')}
+            onClick={(e) => {
                 e.preventDefault()
                 const url = (user as IProfileUser).profile_url
                 if (url) window.open(url, '_blank')
             }}
         >
-            <Avatar user={user} className={avatarCss} />
-            <div className={userName}>{display_name || `@${username}`}</div>
-            {user.is_verified ? <VerifiedBadge size={14} className={verifiedBadge} /> : null}
-        </div>
+            <Avatar user={user} />
+            <Username>{display_name || `@${username}`}</Username>
+            {user.is_verified ? <VerifiedBadge size={14} /> : null}
+        </Container>
     )
 }
 Attribution.className = 'giphy-attribution'

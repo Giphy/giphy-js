@@ -1,8 +1,8 @@
+import styled from '@emotion/styled'
 import { PingbackAttribute } from '@giphy/js-analytics'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
 import { getAltText, getBestRendition, getGifHeight, injectTrackingPixel, Logger } from '@giphy/js-util'
-import { css, cx } from 'emotion'
 import React, {
     createContext,
     HTMLProps,
@@ -20,7 +20,7 @@ import VerifiedBadge from './attribution/verified-badge'
 type PingbackContextProps = { attributes: PingbackAttribute[] }
 export const PingbackContext = createContext({} as PingbackContextProps)
 
-const gifCss = css`
+const GifContainer = styled.div`
     display: block;
     img {
         display: block;
@@ -38,8 +38,9 @@ export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLOR
 const hoverTimeoutDelay = 200
 
 type ContainerProps = HTMLProps<HTMLElement> & { href?: string }
-const Container = (props: ContainerProps) =>
-    props.href ? <a {...(props as HTMLProps<HTMLAnchorElement>)} /> : <div {...(props as HTMLProps<HTMLDivElement>)} />
+const Container = (props: ContainerProps) => (
+    <GifContainer as={props.href ? 'a' : 'div'} {...(props as HTMLProps<HTMLDivElement>)} />
+)
 
 export type EventProps = {
     // fired every time the gif is show
@@ -84,7 +85,7 @@ const Gif = ({
     width,
     height: forcedHeight,
     onGifRightClick = noop,
-    className,
+    className = '',
     onGifClick = noop,
     onGifSeen = noop,
     onGifVisible = noop,
@@ -221,7 +222,6 @@ const Gif = ({
         (gif.is_sticker
             ? `url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AQMAAACSSKldAAAABlBMVEUhIiIWFhYoSqvJAAAAGElEQVQY02MAAv7///8PWxqIPwDZw5UGABtgwz2xhFKxAAAAAElFTkSuQmCC') 0 0`
             : defaultBgColor.current)
-
     return (
         <Container
             href={noLink ? undefined : gif.url}
@@ -230,7 +230,7 @@ const Gif = ({
                 height,
                 ...style,
             }}
-            className={cx(Gif.className, gifCss, className)}
+            className={[Gif.className, className].join(' ')}
             onMouseOver={onMouseOver}
             onMouseLeave={onMouseLeave}
             onClick={onClick}
