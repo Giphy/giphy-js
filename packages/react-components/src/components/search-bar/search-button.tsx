@@ -1,7 +1,8 @@
 import { keyframes } from '@emotion/core'
 import styled from '@emotion/styled'
-import React from 'react'
+import React, { useContext } from 'react'
 import useThrottle from 'react-use/lib/useThrottle'
+import { SearchContext } from './context'
 import SearchIcon_ from './search-icon'
 import { getSize, SearchTheme } from './theme'
 
@@ -35,18 +36,18 @@ const plus = keyframes`
 const gradientFade = keyframes`
     0% {
       opacity: 0;
-      background-position: 0% 100%;
+      transform: translateX(-400px);
     }
     50% {
       opacity: 1;
     }
     100% {
       opacity: 0;
-      background-position: 100% 0%;
+      transform: translateX(0);
     }
 `
 
-const Container = styled.div<{ size: number }>`
+const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,6 +64,7 @@ const GradientBox = styled.div`
     height: 100%;
     width: 100%;
     background: linear-gradient(45deg, ${purp} 0%, ${pink} 100%);
+    overflow: hidden;
     &:before {
         animation: ${gradientFade} ${time} linear 0s infinite;
         background-image: linear-gradient(45deg, ${purp} 0%, ${pink} 50%, ${purp} 100%);
@@ -74,6 +76,7 @@ const GradientBox = styled.div`
         top: 0;
         right: 0;
         bottom: 0;
+        width: 400%;
     }
 `
 
@@ -111,16 +114,12 @@ const SearchIcon = styled(SearchIcon_)`
     height: 60%;
 `
 
-type Props = {
-    // onClick: () => void
-    isFetching?: boolean
-    size?: number
-}
-const SearchButton = ({ isFetching, size = 40 }: Props) => {
+const SearchButton = () => {
+    const { isFetching } = useContext(SearchContext)
     // let the animation run by throttling isFetching
     const throttledFetch = useThrottle(isFetching, 1000)
     return (
-        <Container size={size}>
+        <Container>
             <GradientBox />
             <SearchIcon />
             {throttledFetch && (

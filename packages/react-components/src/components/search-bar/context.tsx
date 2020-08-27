@@ -12,6 +12,7 @@ export type SearchContextProps = {
     setActiveChannel: (channel: IChannel | undefined) => void
     fetchGifs: (offset: number) => Promise<GifsResult>
     fetchChannelSearch: (offset: number) => Promise<IChannel[]>
+    isFetching: boolean
     trendingSearches: string[]
     searchKey: string
 }
@@ -32,6 +33,8 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
 
     // the search term
     const [term, setTerm] = useState<string>(initialTerm)
+
+    const [isFetching, setIsFetching] = useState(false)
 
     // a user name search
     let channelSearch = ''
@@ -58,7 +61,12 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
         .join(' / ')
 
     // search fetch
-    const fetchGifs = (offset: number) => gf.search(term, { ...options, offset, channel: activeChannel?.user.username })
+    const fetchGifs = async (offset: number) => {
+        setIsFetching(true)
+        const result = await gf.search(term, { ...options, offset, channel: activeChannel?.user.username })
+        setIsFetching(false)
+        return result
+    }
     const fetchChannelSearch = async (offset: number) => {
         const result = await fetch(
             `https://api.giphy.com/v1/channels/search?q=${channelSearch}&offset=${offset}&api_key=${apiKey}`
@@ -86,6 +94,7 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
                 setSearch,
                 fetchGifs,
                 searchKey,
+                isFetching,
             }}
         >
             <ThemeProvider theme={initTheme(theme)}>{children}</ThemeProvider>
