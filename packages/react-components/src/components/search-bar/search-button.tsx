@@ -36,7 +36,7 @@ const plus = keyframes`
 const gradientFade = keyframes`
     0% {
       opacity: 0;
-      transform: translateX(-400px);
+      transform: translateX(-400%);
     }
     50% {
       opacity: 1;
