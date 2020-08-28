@@ -116,8 +116,9 @@ const Input = styled.input<{ isUsernameSearch: boolean }>`
     font-weight: normal;
     outline: 0;
     font-size: 15px;
-    padding: 0 0 0 15px;
+    padding: 0 10px;
     border-radius: 0;
+    text-overflow: ellipsis;
     &::placeholder {
         color: ${giphyLightGrey};
     }
