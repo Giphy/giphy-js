@@ -121,8 +121,9 @@ ReactDOM.render(<Gif gif={data} width={300} />, target)
 
 ### Search Experience
 
-The search experience encompases a search bar and a UI component. The UI component can be the [Grid](#grid) or [#Carousel](#carousel), or a a custom component
-that can render an array of Gif objects. To connect the search bar to the UI component, we use `Context`
+The search experience is built on a search bar and a separate visual component that can display content, which can be a [Grid](#grid) or [Carousel](#carousel), or a custom component that can fetch and render an array of `IGif` objects. To create the search experience, we use `React.Context` to set up communication between the search bar and other components by defining them as children of a [SearchContextManager](#searchcontextmanager). We recommend using the [SuggestionBar](#suggestionbar) to display trending searches and enable username searches when a user searches by username (e.g. `@nba`).
+
+See [codesandbox](https://codesandbox.io/s/giphyreact-components-hbmcf?from-embed) for runnable code
 
 ```tsx
 import {
@@ -133,7 +134,7 @@ import {
     SuggestionBar, // an optional UI component that displays trending searches and channel / username results
 } from '@giphy/react-components'
 
-// see codesanbox for runnable code
+// the search experience consists of the manager and its child components that use SearchContext
 const SearchExperience = () => (
     <SearchContextManager apiKey={apiKey}>
         <Components />
@@ -141,7 +142,7 @@ const SearchExperience = () => (
 )
 
 // define the components in a separate function so we can
-// use the context hook
+// use the context hook. You could also use the render props pattern
 const Components = () => {
     const { fetchGifs, searchKey } = useContext(SearchContext)
     return (
@@ -156,12 +157,14 @@ const Components = () => {
 
 #### SearchContextManager
 
-Theme is passed to the [SearchContextManager](#searchcontextmanager)
+This component manages the [SearchContext](#searchcontext) that the child components access.
+
+It has a few initialization props:
 
 | _prop_      | _type_                                                                                                     | _default_     | _description_                                                                    |
 | ----------- | ---------------------------------------------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------- |
 | apiKey      | string                                                                                                     | undefined     | Your api key                                                                     |
-| initialTerm | string                                                                                                     | ''            | _Advanced Usage_ a search term to fetch and render when the component is mounted |
+| initialTerm | string                                                                                                     | ''            | _Advanced usage_ a search term to fetch and render when the component is mounted |
 | theme       | [SearchTheme](#searchtheme)                                                                                | default theme | A few theming options such as search bar height and dark or light mode           |
 | options     | [SearchOptions](https://github.com/Giphy/giphy-js/blob/master/packages/fetch-api/README.md#search-options) | undefined     | Search options that will be passed on to the search request                      |
 
@@ -169,21 +172,38 @@ Theme is passed to the [SearchContextManager](#searchcontextmanager)
 
 An input field used in the [Search Experience](#search-experience).
 
-| _prop_      | _type_        | _default_      | _description_                                                                |
-| ----------- | ------------- | -------------- | ---------------------------------------------------------------------------- |
-| placeholder | `string`      | `Search GIPHY` | The text displayed when no text is entered.                                  |
-| theme       | `SearchTheme` | default theme  | Some theme properties                                                        |
-| clear       | `boolean`     | false          | Advanced use - clears the input but will leave the term in the SearchContext |
+| _prop_      | _type_        | _default_      | _description_                                                                     |
+| ----------- | ------------- | -------------- | --------------------------------------------------------------------------------- |
+| placeholder | `string`      | `Search GIPHY` | The text displayed when no text is entered                                        |
+| theme       | `SearchTheme` | default theme  | See (SearchTheme)[#searchtheme]                                                   |
+| clear       | `boolean`     | false          | _Advanced useage_ - clears the input but will leave the term in the SearchContext |
 
-#### Search Theme
+#### SearchContext
+
+The `SearchContext` manages the state of the search experience. The props below are all you need to configure your UI component. See (Search Experience)[#search-experience].
+It should use `searchKey` as its key, so when we have a new search, the old content is removed. And it will need a `fetchGifs` to initiate the first fetch and for subsequent infinite scroll fetches
+
+| _prop_    | _type_                                    | _default_            | _description_                                                                       |
+| --------- | ----------------------------------------- | -------------------- | ----------------------------------------------------------------------------------- |
+| searchKey | string                                    | undefined            | A unique id of the current search, used as a React key to refresh the [Grid](#grid) |
+| fetchGifs | `(offset: number) => Promise<GifsResult>` | default search fetch | The search request passed to the UI component                                       |
+
+#### SearchTheme
 
 Theme is passed to the [SearchContextManager](#searchcontextmanager)
 
-| _prop_               | _type_         | _default_ | _description_                                   |
-| -------------------- | -------------- | --------- | ----------------------------------------------- |
-| mode                 | `dark | light` | `light`   | dark or light                                   |
-| searchbarHeight      | number         | 42        | Height of the search bar                        |
-| smallSearchbarHeight | number         | 35        | Height of the search bar for mobile media query |
+| _prop_               | _type_            | _default_ | _description_                                             |
+| -------------------- | ----------------- | --------- | --------------------------------------------------------- |
+| mode                 | `dark` \| `light` | `light`   | dark or light                                             |
+| searchbarHeight      | number            | 42        | Height of the search bar                                  |
+| smallSearchbarHeight | number            | 35        | Height of the search bar when matching mobile media query |
+
+#### SuggestionBar
+
+Display scrolling trending searches and username search. When clicking a trending search term, the search input will be
+populated with that term and the search will be fetched and rendered.
+
+If a user types a username into the search bar such as `@nba`, a username search will done and the all the channels that match will be displayed in the suggestion bar. When clicking a username, the search bar will go into username search mode.
 
 ### GifOverlay
 
