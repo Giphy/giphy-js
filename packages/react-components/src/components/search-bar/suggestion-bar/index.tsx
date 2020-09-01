@@ -1,8 +1,7 @@
-import styled from '@emotion/styled'
 import { IChannel } from '@giphy/js-types'
 import React, { useContext, useEffect, useState } from 'react'
 import { SearchContext } from '../context'
-import { getSize, SearchTheme } from '../theme'
+import styled, { getSize } from '../theme'
 import { ChannelPill, TrendingSearchPill } from './pills'
 
 const Container = styled.div`
@@ -16,7 +15,7 @@ const Container = styled.div`
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 10px;
-    ${(props) => getSize(props.theme as SearchTheme)}
+    ${(props) => getSize(props.theme)}
 `
 
 const SuggestionBar = () => {

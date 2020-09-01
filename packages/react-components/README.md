@@ -90,6 +90,9 @@ ReactDOM.render(<Carousel gifHeight={200} gutter={6} fetchGifs={fetchGifs} />, t
 
 ## Gif
 
+Displays a single GIF. The building block of the [Grid](#grid) and [Carousel](#carousel). If you want to build a custom layout component,
+using this will make it easy to do so.
+
 _Gif props_
 
 | _prop_                                  | _type_                                     | _default_          | _description_                                                                                         |
@@ -115,6 +118,72 @@ const { data } = await gf.gif('fpXxIjftmkk9y')
 // React Component
 ReactDOM.render(<Gif gif={data} width={300} />, target)
 ```
+
+### Search Experience
+
+The search experience encompases a search bar and a UI component. The UI component can be the [Grid](#grid) or [#Carousel](#carousel), or a a custom component
+that can render an array of Gif objects. To connect the search bar to the UI component, we use `Context`
+
+```tsx
+import {
+    Grid, // our UI Component to display the results
+    SearchBar, // the search bar the user will type into
+    SearchContext, // the context that wraps and connects our components
+    SearchContextManager, // the context manager, includes the Context.Provider
+    SuggestionBar, // an optional UI component that displays trending searches and channel / username results
+} from '@giphy/react-components'
+
+// see codesanbox for runnable code
+const SearchExperience = () => (
+    <SearchContextManager apiKey={apiKey}>
+        <Components />
+    </SearchContextManager>
+)
+
+// define the components in a separate function so we can
+// use the context hook
+const Components = () => {
+    const { fetchGifs, searchKey } = useContext(SearchContext)
+    return (
+        <>
+            <SearchBarComponent />
+            <SuggestionBar />
+            <Grid key={searchKey} columns={3} width={800} fetchGifs={fetchGifs} />
+        </>
+    )
+}
+```
+
+#### SearchContextManager
+
+Theme is passed to the [SearchContextManager](#searchcontextmanager)
+
+| _prop_      | _type_                                                                                                     | _default_     | _description_                                                                    |
+| ----------- | ---------------------------------------------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------- |
+| apiKey      | string                                                                                                     | undefined     | Your api key                                                                     |
+| initialTerm | string                                                                                                     | ''            | _Advanced Usage_ a search term to fetch and render when the component is mounted |
+| theme       | [SearchTheme](#searchtheme)                                                                                | default theme | A few theming options such as search bar height and dark or light mode           |
+| options     | [SearchOptions](https://github.com/Giphy/giphy-js/blob/master/packages/fetch-api/README.md#search-options) | undefined     | Search options that will be passed on to the search request                      |
+
+#### Searchbar
+
+An input field used in the [Search Experience](#search-experience).
+
+| _prop_      | _type_        | _default_      | _description_                                                                |
+| ----------- | ------------- | -------------- | ---------------------------------------------------------------------------- |
+| placeholder | `string`      | `Search GIPHY` | The text displayed when no text is entered.                                  |
+| theme       | `SearchTheme` | default theme  | Some theme properties                                                        |
+| clear       | `boolean`     | false          | Advanced use - clears the input but will leave the term in the SearchContext |
+
+#### Search Theme
+
+Theme is passed to the [SearchContextManager](#searchcontextmanager)
+
+| _prop_               | _type_         | _default_ | _description_                                   |
+| -------------------- | -------------- | --------- | ----------------------------------------------- |
+| mode                 | `dark | light` | `light`   | dark or light                                   |
+| searchbarHeight      | number         | 42        | Height of the search bar                        |
+| smallSearchbarHeight | number         | 35        | Height of the search bar for mobile media query |
 
 ### GifOverlay
 

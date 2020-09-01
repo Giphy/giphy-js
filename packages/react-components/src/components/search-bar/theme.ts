@@ -1,8 +1,10 @@
 import { css } from '@emotion/core'
+import styled, { CreateStyled } from '@emotion/styled'
 
 export const mobileQuery = `max-width: 480px`
 
 export type SearchTheme = {
+    mode: 'dark' | 'light'
     // the height of the search bar on desktop
     searchbarHeight: number
     // the height of the search bar on mobile
@@ -11,6 +13,7 @@ export type SearchTheme = {
 
 export const initTheme = (theme?: Partial<SearchTheme>): SearchTheme => {
     return {
+        mode: 'light',
         searchbarHeight: 42,
         smallSearchbarHeight: 35,
         ...theme,
@@ -32,3 +35,5 @@ export const getSize = (theme: SearchTheme, includeWidth: boolean = false) => cs
         `};
     }
 `
+
+export default styled as CreateStyled<SearchTheme>
