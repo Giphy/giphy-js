@@ -9,6 +9,9 @@ import { mobileQuery, SearchTheme } from './theme'
 
 const channelMargin = 6
 
+const channelSearchHeight = (theme: SearchTheme) => theme.searchbarHeight - channelMargin * 2
+const smallChannelSearchHeight = (theme: SearchTheme) => theme.smallSearchbarHeight - 3 * 2
+
 const animateAvatar = (h: number) => keyframes`
 to {
     width: ${h}px;
@@ -16,13 +19,13 @@ to {
 `
 
 const Avatar = styled(Avatar_)`
-    height: ${(props) => (props.theme as SearchTheme).channelSearch}px;
+    height: ${(props) => channelSearchHeight(props.theme as SearchTheme)}px;
     margin: 0;
     width: 0;
-    animation: ${(props) => animateAvatar((props.theme as SearchTheme).channelSearch)} 100ms ease-in-out forwards;
+    animation: ${(props) => animateAvatar(channelSearchHeight(props.theme as SearchTheme))} 100ms ease-in-out forwards;
     @media (${mobileQuery}) {
-        height: ${(props) => (props.theme as SearchTheme).smallChannelSearch}px;
-        animation: ${(props) => animateAvatar((props.theme as SearchTheme).smallChannelSearch)} 100ms ease-in-out
+        height: ${(props) => smallChannelSearchHeight(props.theme as SearchTheme)}px;
+        animation: ${(props) => animateAvatar(smallChannelSearchHeight(props.theme as SearchTheme))} 100ms ease-in-out
             forwards;
     }
 `
@@ -43,7 +46,7 @@ const UsernamePill = styled.div`
     font-weight: 600;
     font-size: 12px;
     align-items: center;
-    height: ${(props) => (props.theme as SearchTheme).channelSearch}px;
+    height: ${(props) => channelSearchHeight(props.theme as SearchTheme)}px;
     @media (${mobileQuery}) {
         display: none;
     }

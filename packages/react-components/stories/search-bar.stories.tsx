@@ -66,13 +66,11 @@ const Components = () => {
     )
 }
 
-export const SearchExperience = () => {
-    return (
-        <SearchContextManager apiKey={apiKey}>
-            <Components />
-        </SearchContextManager>
-    )
-}
+export const SearchExperience = () => (
+    <SearchContextManager apiKey={apiKey}>
+        <Components />
+    </SearchContextManager>
+)
 
 export const SearchExperienceInitialTerm = () => {
     return (

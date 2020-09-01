@@ -3,23 +3,17 @@ import { css } from '@emotion/core'
 export const mobileQuery = `max-width: 480px`
 
 export type SearchTheme = {
+    // the height of the search bar on desktop
     searchbarHeight: number
+    // the height of the search bar on mobile
     smallSearchbarHeight: number
-    channelSearch: number
-    smallChannelSearch: number
 }
 
-const channelSearchSize = (size: number, margin = 6) => size - margin * 2
 export const initTheme = (theme?: Partial<SearchTheme>): SearchTheme => {
-    const defaultTheme = {
+    return {
         searchbarHeight: 42,
         smallSearchbarHeight: 35,
         ...theme,
-    }
-    return {
-        ...defaultTheme,
-        channelSearch: channelSearchSize(defaultTheme.searchbarHeight),
-        smallChannelSearch: channelSearchSize(defaultTheme.smallSearchbarHeight, 3),
     }
 }
 
