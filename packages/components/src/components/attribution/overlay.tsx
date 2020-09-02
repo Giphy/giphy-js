@@ -26,7 +26,7 @@ const containerCss = css`
     transition: opacity 150ms ease-in;
 `
 
-const AttributionOverlay = ({ gif, isHovered }: { gif: IGif; isHovered: boolean }) => {
+const AttributionOverlay = ({ gif, isHovered, callback }: { gif: IGif; isHovered: boolean; callback?: () => void }) => {
     const hasHovered = useRef(isHovered)
     if (isHovered) {
         // not rendering to avoid loading the avatar until hover
@@ -35,7 +35,7 @@ const AttributionOverlay = ({ gif, isHovered }: { gif: IGif; isHovered: boolean 
     return gif.user && hasHovered.current ? (
         <div className={containerCss} style={{ opacity: isHovered ? 1 : 0 }}>
             <div className={backgroundCss} />
-            <Attribution gif={gif} className={attributionCss} />
+            <Attribution gif={gif} className={attributionCss} callback={callback} />
         </div>
     ) : null
 }
