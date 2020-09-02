@@ -43,7 +43,7 @@ const AttributionOverlay = ({
     return gif.user && hasHovered.current ? (
         <div className={containerCss} style={{ opacity: isHovered ? 1 : 0 }}>
             <div className={backgroundCss} />
-            <Attribution gif={gif} className={attributionCss} onClick={onClick ? onClick(gif) : undefined} />
+            <Attribution gif={gif} className={attributionCss} onClick={onClick} />
         </div>
     ) : null
 }
