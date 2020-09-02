@@ -25,8 +25,8 @@ const verifiedBadge = css`
     margin: 0 4px;
     flex-shrink: 0;
 `
-type Props = { gif: IGif; className?: string; callback?: () => void }
-const Attribution = ({ gif, className, callback }: Props) => {
+type Props = { gif: IGif; className?: string; onClick?: (gif: IGif) => void }
+const Attribution = ({ gif, className, onClick }: Props) => {
     const { user } = gif
     if (!user?.username && !user?.display_name) {
         return null
@@ -37,9 +37,12 @@ const Attribution = ({ gif, className, callback }: Props) => {
             className={cx(containerCss, Attribution.className, className)}
             onClick={e => {
                 e.preventDefault()
-                callback?.()
-                const url = (user as IProfileUser).profile_url
-                if (url) window.open(url, '_blank')
+                if (onClick) {
+                    onClick(gif)
+                } else {
+                    const url = (user as IProfileUser).profile_url
+                    if (url) window.open(url, '_blank')
+                }
             }}
         >
             <Avatar user={user} className={avatarCss} />
