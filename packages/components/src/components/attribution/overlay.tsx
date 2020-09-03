@@ -33,7 +33,7 @@ const AttributionOverlay = ({
 }: {
     gif: IGif
     isHovered: boolean
-    onClick?: (gif: IGif) => void | undefined
+    onClick?: (gif: IGif) => void
 }) => {
     const hasHovered = useRef(isHovered)
     if (isHovered) {
