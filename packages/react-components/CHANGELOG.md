@@ -1,3 +1,14 @@
+## @giphy/react-components@1.7.1 (2020-09-02)
+
+#### :rocket: Enhancement
+
+-   `react-components`
+    -   [#129](https://github.com/Giphy/giphy-js/pull/129) new search experience with search bar and suggestion bar ([@giannif](https://github.com/giannif))
+
+#### Committers: 1
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+
 ## @giphy/react-components@1.6.0 (2020-08-06)
 
 #### :rocket: Enhancement
