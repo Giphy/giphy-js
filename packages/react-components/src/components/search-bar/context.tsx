@@ -69,7 +69,9 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
     }
     const fetchChannelSearch = async (offset: number) => {
         const result = await fetch(
-            `https://api.giphy.com/v1/channels/search?q=${channelSearch}&offset=${offset}&api_key=${apiKey}`
+            `https://api.giphy.com/v1/channels/search?q=${encodeURIComponent(
+                channelSearch
+            )}&offset=${offset}&api_key=${apiKey}`
         )
         const { data } = await result.json()
         return data as IChannel[]

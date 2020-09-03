@@ -1,13 +1,15 @@
 import { keyframes } from '@emotion/core'
-import styled from '@emotion/styled'
-import { giphyDarkCharcoal, giphyLightestGrey } from '@giphy/js-brand'
+import { giphyCharcoal, giphyDarkCharcoal, giphyLightestGrey, giphyWhite } from '@giphy/js-brand'
 import React, { useContext } from 'react'
 import Avatar_ from '../attribution/avatar'
 import VerifiedBadge from '../attribution/verified-badge'
 import { SearchContext } from './context'
-import { mobileQuery, SearchTheme } from './theme'
+import styled, { mobileQuery, SearchTheme } from './theme'
 
 const channelMargin = 6
+
+const channelSearchHeight = (theme: SearchTheme) => theme.searchbarHeight - channelMargin * 2
+const smallChannelSearchHeight = (theme: SearchTheme) => theme.smallSearchbarHeight - 3 * 2
 
 const animateAvatar = (h: number) => keyframes`
 to {
@@ -16,19 +18,18 @@ to {
 `
 
 const Avatar = styled(Avatar_)`
-    height: ${(props) => (props.theme as SearchTheme).channelSearch}px;
+    height: ${(props) => channelSearchHeight(props.theme)}px;
     margin: 0;
     width: 0;
-    animation: ${(props) => animateAvatar((props.theme as SearchTheme).channelSearch)} 100ms ease-in-out forwards;
+    animation: ${(props) => animateAvatar(channelSearchHeight(props.theme))} 100ms ease-in-out forwards;
     @media (${mobileQuery}) {
-        height: ${(props) => (props.theme as SearchTheme).smallChannelSearch}px;
-        animation: ${(props) => animateAvatar((props.theme as SearchTheme).smallChannelSearch)} 100ms ease-in-out
-            forwards;
+        height: ${(props) => smallChannelSearchHeight(props.theme)}px;
+        animation: ${(props) => animateAvatar(smallChannelSearchHeight(props.theme))} 100ms ease-in-out forwards;
     }
 `
 
 const Username = styled.div`
-    background: white;
+    background: ${(props) => (props.theme.mode === 'dark' ? giphyCharcoal : giphyWhite)};
     display: flex;
     align-items: center;
     padding-left: ${channelMargin}px;
@@ -43,7 +44,7 @@ const UsernamePill = styled.div`
     font-weight: 600;
     font-size: 12px;
     align-items: center;
-    height: ${(props) => (props.theme as SearchTheme).channelSearch}px;
+    height: ${(props) => channelSearchHeight(props.theme)}px;
     @media (${mobileQuery}) {
         display: none;
     }

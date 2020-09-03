@@ -1,12 +1,11 @@
 import { css } from '@emotion/core'
-import styled from '@emotion/styled'
-import { giphyIndigo, giphyLightGrey } from '@giphy/js-brand'
+import { giphyBlack, giphyCharcoal, giphyIndigo, giphyLightGrey, giphyWhite } from '@giphy/js-brand'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import useDebounce from 'react-use/lib/useDebounce'
 import { SearchContext } from './context'
 import SearchBarChannel from './search-bar-channel'
 import SearchButton from './search-button'
-import { getSize, SearchTheme } from './theme'
+import styled, { getSize } from './theme'
 
 function usePrevious<T>(value: T) {
     const ref = useRef<T>(value)
@@ -106,10 +105,11 @@ const SearchBar = ({ className, placeholder = 'Search GIPHY', clear = false }: P
 const Container = styled.div`
     display: flex;
     background: white;
-    ${(props) => getSize(props.theme as SearchTheme)}
+    ${(props) => getSize(props.theme)}
 `
 
 const Input = styled.input<{ isUsernameSearch: boolean }>`
+    background: ${(props) => (props.theme.mode === 'dark' ? giphyCharcoal : giphyWhite)};
     box-sizing: border-box;
     border: 0;
     appearance: none;
@@ -119,8 +119,9 @@ const Input = styled.input<{ isUsernameSearch: boolean }>`
     padding: 0 10px;
     border-radius: 0;
     text-overflow: ellipsis;
+    color: ${(props) => (props.theme.mode === 'dark' ? giphyWhite : giphyBlack)};
     &::placeholder {
-        color: ${giphyLightGrey};
+        color: ${(props) => (props.theme.mode === 'dark' ? giphyLightGrey : giphyLightGrey)};
     }
     min-width: 150px;
     flex: 1;
