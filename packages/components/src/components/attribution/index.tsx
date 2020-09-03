@@ -25,7 +25,7 @@ const verifiedBadge = css`
     margin: 0 4px;
     flex-shrink: 0;
 `
-type Props = { gif: IGif; className?: string; onClick?: () => void }
+type Props = { gif: IGif; className?: string; onClick?: (gif: IGif) => void }
 const Attribution = ({ gif, className, onClick }: Props) => {
     const { user } = gif
     if (!user?.username && !user?.display_name) {
