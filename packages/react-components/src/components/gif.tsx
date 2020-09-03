@@ -55,6 +55,7 @@ export type EventProps = {
 export type GifOverlayProps = {
     gif: IGif
     isHovered: boolean
+    onClick?: () => void
 }
 
 type GifProps = {
