@@ -1,6 +1,6 @@
-import { h } from 'preact'
-import { giphyBlue, giphyLightGrey, fontFamily } from '@giphy/js-brand'
+import { fontFamily, giphyBlue, giphyLightGrey } from '@giphy/js-brand'
 import { css } from 'emotion'
+import { h } from 'preact'
 const fetchError = css`
     color: ${giphyLightGrey};
     display: flex;

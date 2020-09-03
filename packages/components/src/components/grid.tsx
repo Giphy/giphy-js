@@ -8,6 +8,7 @@ import Observer from '../util/observer'
 import FetchError from './fetch-error'
 import Gif, { EventProps } from './gif'
 import Loader from './loader'
+import PingbackContextManager from './pingback-context-manager'
 
 const loaderHiddenCss = css`
     opacity: 0;
@@ -153,35 +154,44 @@ class Grid extends Component<Props, State> {
         const showLoader = fetchGifs && !isDoneFetching
         const isFirstLoad = gifs.length === 0
         return (
-            <div class={className}>
-                <div ref={c => (this.el = c)}>
-                    {gifs.map(gif => (
-                        <Gif
-                            gif={gif}
-                            key={gif.id}
-                            width={gifWidth}
-                            onGifClick={onGifClick}
-                            onGifHover={onGifHover}
-                            onGifSeen={onGifSeen}
-                            onGifVisible={onGifVisible}
-                            onGifRightClick={onGifRightClick}
-                            user={user}
-                            hideAttribution={hideAttribution}
-                            noLink={noLink}
-                        />
-                    ))}
-                    {!showLoader && gifs.length === 0 && noResultsMessage}
+            <PingbackContextManager
+                attributes={[
+                    {
+                        key: 'layout_type',
+                        value: 'GRID',
+                    },
+                ]}
+            >
+                <div class={className}>
+                    <div ref={(c) => (this.el = c)}>
+                        {gifs.map((gif) => (
+                            <Gif
+                                gif={gif}
+                                key={gif.id}
+                                width={gifWidth}
+                                onGifClick={onGifClick}
+                                onGifHover={onGifHover}
+                                onGifSeen={onGifSeen}
+                                onGifVisible={onGifVisible}
+                                onGifRightClick={onGifRightClick}
+                                user={user}
+                                hideAttribution={hideAttribution}
+                                noLink={noLink}
+                            />
+                        ))}
+                        {!showLoader && gifs.length === 0 && noResultsMessage}
+                    </div>
+                    {isError ? (
+                        <FetchError onClick={this.onFetch} />
+                    ) : (
+                        showLoader && (
+                            <Observer onVisibleChange={this.onLoaderVisible}>
+                                <Loader className={cx(Grid.loaderClassName, isFirstLoad ? loaderHiddenCss : '')} />
+                            </Observer>
+                        )
+                    )}
                 </div>
-                {isError ? (
-                    <FetchError onClick={this.onFetch} />
-                ) : (
-                    showLoader && (
-                        <Observer onVisibleChange={this.onLoaderVisible}>
-                            <Loader className={cx(Grid.loaderClassName, isFirstLoad ? loaderHiddenCss : '')} />
-                        </Observer>
-                    )
-                )}
-            </div>
+            </PingbackContextManager>
         )
     }
 }

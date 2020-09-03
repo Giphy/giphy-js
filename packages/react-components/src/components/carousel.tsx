@@ -142,7 +142,7 @@ class Carousel extends PureComponent<Props, State> {
                 attributes={[
                     {
                         key: 'layout_type',
-                        value: 'GRID',
+                        value: 'CAROUSEL',
                     },
                 ]}
             >

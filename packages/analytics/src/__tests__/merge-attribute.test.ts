@@ -43,14 +43,14 @@ describe('merge pingback attribute', () => {
                     },
                     {
                         key: 'bye',
-                        value: 'aurevoir',
+                        value: 'au revoir',
                     },
                 ],
                 'hi'
             )
         ).toEqual([
             { key: 'bye', value: 'goodbye' },
-            { key: 'bye', value: 'aurevoir' },
+            { key: 'bye', value: 'au revoir' },
             { key: 'hi', value: 'hello, bonjour' },
         ])
     })
