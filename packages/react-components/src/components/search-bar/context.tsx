@@ -2,6 +2,7 @@ import { GifsResult, GiphyFetch, SearchOptions } from '@giphy/js-fetch-api'
 import { IChannel } from '@giphy/js-types'
 import { ThemeProvider } from 'emotion-theming'
 import React, { createContext, ReactNode, useEffect, useState } from 'react'
+import PingbackContextManager from '../pingback-context-manager'
 import { initTheme, SearchTheme } from './theme'
 
 export type SearchContextProps = {
@@ -99,7 +100,18 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
                 isFetching,
             }}
         >
-            <ThemeProvider theme={initTheme(theme)}>{children}</ThemeProvider>
+            <ThemeProvider theme={initTheme(theme)}>
+                <PingbackContextManager
+                    attributes={[
+                        {
+                            key: 'layout_type',
+                            value: 'SEARCH',
+                        },
+                    ]}
+                >
+                    {children}
+                </PingbackContextManager>
+            </ThemeProvider>
         </SearchContext.Provider>
     )
 }

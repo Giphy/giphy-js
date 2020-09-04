@@ -9,6 +9,7 @@ import FetchError from './fetch-error'
 import Gif, { EventProps, GifOverlayProps } from './gif'
 import DotsLoader from './loader'
 import MasonryGrid from './masonry-grid'
+import PingbackContextManager from './pingback-context-manager'
 
 type Props = {
     className?: string
@@ -143,43 +144,52 @@ class Grid extends PureComponent<Props, State> {
         // get the height of each grid item
         const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
         return (
-            <div className={className} style={{ width }}>
-                <MasonryGrid
-                    itemHeights={itemHeights}
-                    useTransform={useTransform}
-                    itemWidth={gifWidth}
-                    columns={columns}
-                    gutter={gutter}
-                    columnOffsets={columnOffsets}
-                >
-                    {gifs.map((gif) => (
-                        <Gif
-                            gif={gif}
-                            key={gif.id}
-                            width={gifWidth}
-                            onGifClick={onGifClick}
-                            onGifSeen={onGifSeen}
-                            onGifVisible={onGifVisible}
-                            onGifRightClick={onGifRightClick}
-                            user={user}
-                            overlay={overlay}
-                            backgroundColor={backgroundColor}
-                            hideAttribution={hideAttribution}
-                            noLink={noLink}
-                        />
-                    ))}
-                </MasonryGrid>
-                {!showLoader && gifs.length === 0 && noResultsMessage}
-                {isError ? (
-                    <FetchError onClick={this.onFetch} />
-                ) : (
-                    showLoader && (
-                        <Observer onVisibleChange={this.onLoaderVisible}>
-                            <Loader isFirstLoad={isFirstLoad} className={Grid.loaderClassName} />
-                        </Observer>
-                    )
-                )}
-            </div>
+            <PingbackContextManager
+                attributes={[
+                    {
+                        key: 'layout_type',
+                        value: 'GRID',
+                    },
+                ]}
+            >
+                <div className={className} style={{ width }}>
+                    <MasonryGrid
+                        itemHeights={itemHeights}
+                        useTransform={useTransform}
+                        itemWidth={gifWidth}
+                        columns={columns}
+                        gutter={gutter}
+                        columnOffsets={columnOffsets}
+                    >
+                        {gifs.map((gif) => (
+                            <Gif
+                                gif={gif}
+                                key={gif.id}
+                                width={gifWidth}
+                                onGifClick={onGifClick}
+                                onGifSeen={onGifSeen}
+                                onGifVisible={onGifVisible}
+                                onGifRightClick={onGifRightClick}
+                                user={user}
+                                overlay={overlay}
+                                backgroundColor={backgroundColor}
+                                hideAttribution={hideAttribution}
+                                noLink={noLink}
+                            />
+                        ))}
+                    </MasonryGrid>
+                    {!showLoader && gifs.length === 0 && noResultsMessage}
+                    {isError ? (
+                        <FetchError onClick={this.onFetch} />
+                    ) : (
+                        showLoader && (
+                            <Observer onVisibleChange={this.onLoaderVisible}>
+                                <Loader isFirstLoad={isFirstLoad} className={Grid.loaderClassName} />
+                            </Observer>
+                        )
+                    )}
+                </div>
+            </PingbackContextManager>
         )
     }
 }

@@ -3,7 +3,8 @@
     "rules": {
         "@typescript-eslint/no-unused-vars": [2, { "args": "after-used" }],
         "react/display-name": 0,
-        "react/no-unused-state": 1
+        "react/no-unused-state": 1,
+        "react/prop-types": 0
     },
     "settings": {
         "react": {

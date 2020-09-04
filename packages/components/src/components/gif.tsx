@@ -3,10 +3,11 @@ import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
 import { getAltText, getBestRendition, getGifHeight, injectTrackingPixel, Logger } from '@giphy/js-util'
 import { css, cx } from 'emotion'
 import { h } from 'preact'
-import { useEffect, useRef, useState } from 'preact/hooks'
+import { useContext, useEffect, useRef, useState } from 'preact/hooks'
 import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
+import { PingbackContext } from './pingback-context-manager'
 
 const gifCss = css`
     display: block;
@@ -100,12 +101,14 @@ const Gif = ({
     const hoverTimeout = useMutableRef<number>()
     // fire onseen ref (changes per gif, so need a ref)
     const sendOnSeen = useRef<(_: IntersectionObserverEntry) => void>(noop)
+    // custom pingback
+    const { attributes } = useContext(PingbackContext)
 
     const onMouseOver = (e: Event) => {
         clearTimeout(hoverTimeout.current!)
         setHovered(true)
         hoverTimeout.current = window.setTimeout(() => {
-            pingback.onGifHover(gif, user, e.target as HTMLElement)
+            pingback.onGifHover(gif, user, e.target as HTMLElement, attributes)
         }, hoverTimeoutDelay)
     }
 
@@ -116,7 +119,7 @@ const Gif = ({
 
     const onClick = (e: Event) => {
         // fire pingback
-        pingback.onGifClick(gif, user, e.target as HTMLElement)
+        pingback.onGifClick(gif, user, e.target as HTMLElement, attributes)
         onGifClick(gif, e)
     }
 
@@ -130,7 +133,7 @@ const Gif = ({
             injectTrackingPixel(gif.bottle_data.tags)
         }
         // fire pingback
-        pingback.onGifSeen(gif, user, entry.boundingClientRect)
+        pingback.onGifSeen(gif, user, entry.boundingClientRect, attributes)
         // fire custom onGifSeen
         onGifSeen?.(gif, entry.boundingClientRect)
         // disconnect

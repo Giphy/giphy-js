@@ -1,24 +1,12 @@
 import styled from '@emotion/styled'
-import { PingbackAttribute } from '@giphy/js-analytics'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
 import { getAltText, getBestRendition, getGifHeight, injectTrackingPixel, Logger } from '@giphy/js-util'
-import React, {
-    createContext,
-    HTMLProps,
-    ReactType,
-    SyntheticEvent,
-    useContext,
-    useEffect,
-    useRef,
-    useState,
-} from 'react'
+import React, { HTMLProps, ReactType, SyntheticEvent, useContext, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
-
-type PingbackContextProps = { attributes: PingbackAttribute[] }
-export const PingbackContext = createContext({} as PingbackContextProps)
+import { PingbackContext } from './pingback-context-manager'
 
 const GifContainer = styled.div`
     display: block;

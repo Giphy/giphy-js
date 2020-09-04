@@ -6,6 +6,7 @@ import React, { PureComponent, ReactType } from 'react'
 import { debounce } from 'throttle-debounce'
 import ObserverShared from '../util/observer'
 import Gif_, { EventProps, GifOverlayProps } from './gif'
+import PingbackContextManager from './pingback-context-manager'
 
 const Container = styled.div`
     -webkit-overflow-scrolling: touch;
@@ -137,34 +138,43 @@ class Carousel extends PureComponent<Props, State> {
         const showLoader = fetchGifs && !isDoneFetching
         const isFirstLoad = gifs.length === 0
         return (
-            <Container className={className}>
-                {gifs.map((gif) => {
-                    const gifWidth = getGifWidth(gif, gifHeight)
-                    return (
-                        <Gif
-                            gif={gif}
-                            key={gif.id}
-                            width={gifWidth}
-                            onGifClick={onGifClick}
-                            onGifSeen={onGifSeen}
-                            onGifVisible={onGifVisible}
-                            onGifRightClick={onGifRightClick}
-                            user={user}
-                            ml={gutter}
-                            overlay={overlay}
-                            hideAttribution={hideAttribution}
-                            noLink={noLink}
-                            backgroundColor={backgroundColor}
-                        />
-                    )
-                })}
-                {!showLoader && gifs.length === 0 && noResultsMessage}
-                {showLoader && (
-                    <Observer onVisibleChange={this.onLoaderVisible}>
-                        <Loader isFirstLoad={isFirstLoad} height={gifHeight} />
-                    </Observer>
-                )}
-            </Container>
+            <PingbackContextManager
+                attributes={[
+                    {
+                        key: 'layout_type',
+                        value: 'CAROUSEL',
+                    },
+                ]}
+            >
+                <Container className={className}>
+                    {gifs.map((gif) => {
+                        const gifWidth = getGifWidth(gif, gifHeight)
+                        return (
+                            <Gif
+                                gif={gif}
+                                key={gif.id}
+                                width={gifWidth}
+                                onGifClick={onGifClick}
+                                onGifSeen={onGifSeen}
+                                onGifVisible={onGifVisible}
+                                onGifRightClick={onGifRightClick}
+                                user={user}
+                                ml={gutter}
+                                overlay={overlay}
+                                hideAttribution={hideAttribution}
+                                noLink={noLink}
+                                backgroundColor={backgroundColor}
+                            />
+                        )
+                    })}
+                    {!showLoader && gifs.length === 0 && noResultsMessage}
+                    {showLoader && (
+                        <Observer onVisibleChange={this.onLoaderVisible}>
+                            <Loader isFirstLoad={isFirstLoad} height={gifHeight} />
+                        </Observer>
+                    )}
+                </Container>
+            </PingbackContextManager>
         )
     }
 }
