@@ -37,6 +37,7 @@ const Attribution = ({ gif, className, onClick }: Props) => {
             className={cx(containerCss, Attribution.className, className)}
             onClick={(e) => {
                 e.preventDefault()
+                e.stopPropagation()
                 if (onClick) {
                     onClick(gif)
                 } else {

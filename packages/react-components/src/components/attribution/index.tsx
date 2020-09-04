@@ -37,6 +37,7 @@ const Attribution = ({ gif, className, onClick }: Props) => {
             className={[Attribution.className, className].join(' ')}
             onClick={(e) => {
                 e.preventDefault()
+                e.stopPropagation()
                 if (onClick) {
                     onClick(gif)
                 } else {
