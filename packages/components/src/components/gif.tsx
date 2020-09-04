@@ -49,7 +49,6 @@ function useMutableRef<T>(initialValue?: T) {
 export type GifOverlayProps = {
     gif: IGif
     isHovered: boolean
-    onClick?: (gif: IGif) => void
 }
 
 type GifProps = {

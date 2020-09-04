@@ -24,7 +24,9 @@ const Container = styled.div`
     transition: opacity 150ms ease-in;
 `
 
-const AttributionOverlay = ({ gif, isHovered, onClick }: GifOverlayProps) => {
+type Props = { onClick?: (gif: IGif) => void }
+
+const AttributionOverlay = ({ gif, isHovered, onClick }: GifOverlayProps & Props) => {
     const hasHovered = useRef(isHovered)
     if (isHovered) {
         // not rendering to avoid loading the avatar until hover
