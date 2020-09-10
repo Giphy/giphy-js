@@ -2,6 +2,8 @@ import styled from '@emotion/styled'
 import React, { useRef } from 'react'
 import Attribution_ from '.'
 import { GifOverlayProps } from '../gif'
+import { IGif } from '@giphy/js-types'
+
 const Background = styled.div`
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(18, 18, 18, 0.6));
     cursor: default;
@@ -24,7 +26,9 @@ const Container = styled.div`
     transition: opacity 150ms ease-in;
 `
 
-const AttributionOverlay = ({ gif, isHovered, onClick }: GifOverlayProps) => {
+type Props = { onClick?: (gif: IGif) => void }
+
+const AttributionOverlay = ({ gif, isHovered, onClick }: GifOverlayProps & Props) => {
     const hasHovered = useRef(isHovered)
     if (isHovered) {
         // not rendering to avoid loading the avatar until hover
