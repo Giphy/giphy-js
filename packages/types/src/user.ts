@@ -24,6 +24,8 @@ export default interface IUser extends IPublicUser {
     facebook: string
     // instagram handle or url
     instagram: string
+    // authenticated instagram handle or url
+    authenticated_instagram?: string
     // tumblr url
     tumblr_site: string
     // READ ONLY FIELDS BELOW
@@ -33,6 +35,8 @@ export default interface IUser extends IPublicUser {
     facebook_url?: string
     // instagram value as url
     instagram_url?: string
+    // authenticated instagram value as url
+    authenticated_instagram_url?: string
     // tumblr site value as URL (no change)
     tumblr_url?: string
     // website URL -- primary_site value if there is one
