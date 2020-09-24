@@ -5,7 +5,23 @@ export const ERROR_PREFIX = `@giphy/js-fetch-api: `
 export const DEFAULT_ERROR = 'Error fetching'
 const serverUrl = 'https://api.giphy.com/v1/'
 const identity = (i: any) => i
-const requestMap: { [key: string]: Promise<Result> } = {}
+const requestMap: {
+    [key: string]: {
+        request: Promise<Result>
+        ts: number // timestamp
+    }
+} = {}
+
+const maxLife = 60000 // clear memory cache every minute
+
+const purgeCache = () => {
+    const now = Date.now()
+    Object.keys(requestMap).forEach((key: string) => {
+        if (now - requestMap[key].ts >= maxLife) {
+            delete requestMap[key]
+        }
+    })
+}
 
 function request(
     url: string,
@@ -13,6 +29,7 @@ function request(
     pingbackType?: PingbackEventType,
     noCache: boolean = false
 ) {
+    purgeCache()
     if (!requestMap[url] || noCache) {
         const makeRequest = async (): Promise<Result> => {
             let fetchError: FetchError
@@ -44,9 +61,9 @@ function request(
             }
             throw fetchError
         }
-        requestMap[url] = makeRequest()
+        requestMap[url] = { request: makeRequest(), ts: Date.now() }
     }
-    return requestMap[url]
+    return requestMap[url].request
 }
 
 export default request
