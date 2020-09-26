@@ -27,7 +27,7 @@ export interface ICategory {
     gif?: IGif
     name: string
     name_encoded: string
-    subcategories: ICategory
+    subcategories: ICategory[]
 }
 export interface CategoriesResult extends Result {
     data: ICategory[]
