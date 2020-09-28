@@ -1,3 +1,21 @@
+## 1.7.0 (2020-09-28)
+
+#### :rocket: Enhancement
+
+-   `fetch-api`
+    -   [#134](https://github.com/Giphy/giphy-js/pull/134) feat(fetch-api): keep requests fresh ([@giannif](https://github.com/giannif))
+
+#### :bug: Bug Fix
+
+-   `fetch-api`
+    -   [#136](https://github.com/Giphy/giphy-js/pull/136) Wrong type for subcategories ([@jravas](https://github.com/jravas))
+
+#### Committers: 3
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+-   Josip Ravas ([@jravas](https://github.com/jravas))
+-   Nick S ([@nicksantan](https://github.com/nicksantan))
+
 ## 1.6.1 (2020-08-03)
 
 #### :bug: Bug Fix
