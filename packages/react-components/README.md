@@ -37,7 +37,7 @@ See [codesandbox](https://codesandbox.io/s/giphyreact-components-hbmcf?from-embe
 import { Grid } from '@giphy/react-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 // use @giphy/js-fetch-api to fetch gifs
-// apply for a new __Web SDK__ key. Use a separate key for every platform (Android, iOS, Web)
+// apply for a new Web SDK key. Use a separate key for every platform (Android, iOS, Web)
 const gf = new GiphyFetch('your Web SDK key')
 // fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
 const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
@@ -113,7 +113,7 @@ import { Gif } from '@giphy/react-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
 // use @giphy/js-fetch-api to fetch gifs
-// apply for a new __Web SDK__ key. Use a separate key for every platform (Android, iOS, Web)
+// apply for a new Web SDK key. Use a separate key for every platform (Android, iOS, Web)
 const gf = new GiphyFetch('your Web SDK key')
 // fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
 const { data } = await gf.gif('fpXxIjftmkk9y')
