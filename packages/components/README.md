@@ -14,7 +14,8 @@ Use `renderGrid(props, target)` to render a grid to a target element
 
 ```typescript
 // use @giphy/js-fetch-api to fetch gifs
-const gf = new GiphyFetch('your api key')
+// apply for a new Web SDK key. Use a separate key for every platform (Android, iOS, Web)
+const gf = new GiphyFetch('your Web SDK key')
 // fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
 const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 // render a grid
@@ -44,7 +45,8 @@ import { renderGrid } from '@giphy/js-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
 // create a GiphyFetch with your api key
-const gf = new GiphyFetch('your api key')
+// apply for a new Web SDK key. Use a separate key for every platform (Android, iOS, Web)
+const gf = new GiphyFetch('your Web SDK key')
 // create a fetch gifs function that takes an offset
 // this will allow the grid to paginate as the user scrolls
 const fetchGifs = (offset: number) => {
@@ -104,7 +106,8 @@ import { renderCarousel } from '@giphy/js-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
 // create a GiphyFetch with your api key
-const gf = new GiphyFetch('your api key')
+// apply for a new Web SDK key. Use a separate key for every platform (Android, iOS, Web)
+const gf = new GiphyFetch('your Web SDK key')
 
 // Creating a grid with window resizing and remove-ability
 const vanillaJSCarousel = (mountNode: HTMLElement) => {
@@ -138,7 +141,8 @@ import { renderGif } from '@giphy/js-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
 // create a GiphyFetch with your api key
-const gf = new GiphyFetch('your api key')
+// apply for a new Web SDK key. Use a separate key for every platform (Android, iOS, Web)
+const gf = new GiphyFetch('your Web SDK key')
 
 const vanillaJSGif = async (mountNode: HTMLElement) => {
     // render a single gif
