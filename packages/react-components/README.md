@@ -37,7 +37,8 @@ See [codesandbox](https://codesandbox.io/s/giphyreact-components-hbmcf?from-embe
 import { Grid } from '@giphy/react-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 // use @giphy/js-fetch-api to fetch gifs
-const gf = new GiphyFetch('your api key')
+// apply for a new Web SDK key. Use a separate key for every platform (Android, iOS, Web)
+const gf = new GiphyFetch('your Web SDK key')
 // fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
 const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 // React Component
@@ -112,7 +113,8 @@ import { Gif } from '@giphy/react-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 
 // use @giphy/js-fetch-api to fetch gifs
-const gf = new GiphyFetch('your api key')
+// apply for a new Web SDK key. Use a separate key for every platform (Android, iOS, Web)
+const gf = new GiphyFetch('your Web SDK key')
 // fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
 const { data } = await gf.gif('fpXxIjftmkk9y')
 // React Component
@@ -136,7 +138,7 @@ import {
 
 // the search experience consists of the manager and its child components that use SearchContext
 const SearchExperience = () => (
-    <SearchContextManager apiKey={apiKey}>
+    <SearchContextManager apiKey={webSDKKey}>
         <Components />
     </SearchContextManager>
 )
@@ -163,7 +165,7 @@ It has a few initialization props:
 
 | _prop_      | _type_                                                                                                     | _default_     | _description_                                                                    |
 | ----------- | ---------------------------------------------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------- |
-| apiKey      | string                                                                                                     | undefined     | Your api key                                                                     |
+| apiKey      | string                                                                                                     | undefined     | Your web SDK key. Use a separate key for every platform (Android, iOS, Web)                                                                     |
 | initialTerm | string                                                                                                     | ''            | _Advanced usage_ a search term to fetch and render when the component is mounted |
 | theme       | [SearchTheme](#searchtheme)                                                                                | default theme | A few theming options such as search bar height and dark or light mode           |
 | options     | [SearchOptions](https://github.com/Giphy/giphy-js/blob/master/packages/fetch-api/README.md#search-options) | undefined     | Search options that will be passed on to the search request                      |
