@@ -877,19 +877,6 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@giphy/js-types@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@giphy/js-types/-/js-types-2.0.2.tgz#31e06cf407f276cbd64da5e892080f23b70a94bc"
-  integrity sha512-wPKdGoiAWtA7UoFGeae0y/Z5YSQPbWr8C5K4CUumNtA78sh0SWFvrhMq4OWmGJGAOTcMybsXXIclKp1bvwM1PA==
-
-"@giphy/js-util@^1.9.1":
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/@giphy/js-util/-/js-util-1.9.1.tgz#7d8be4a02f9a18691d05d6de42fd73fcaaec55b8"
-  integrity sha512-DdqWa1m3lZSDowlR/0vKFIRWMF1C/e3GhbXWUoXr1HDUZi6SFLE0ZQBT8HA3WbSnz9sRTU39J2R1yNta1rogBQ==
-  dependencies:
-    "@giphy/js-types" "^2.0.2"
-    dompurify "^2.0.8"
-
 "@iarna/toml@^2.2.0":
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.5.tgz#b32366c89b43c6f8cefbdefac778b9c828e3ba8c"
@@ -2045,11 +2032,6 @@ domhandler@^2.3.0:
   integrity sha512-JiK04h0Ht5u/80fdLMCEmV4zkNh2BcoMFBmZ/91WtYZ8qVXSKjiw7fXMgFPnHcSZgOo3XdinHvmnDUeMf5R4wA==
   dependencies:
     domelementtype "1"
-
-dompurify@^2.0.8:
-  version "2.0.12"
-  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.0.12.tgz#284a2b041e1c60b8e72d7b4d2fadad36141254ae"
-  integrity sha512-Fl8KseK1imyhErHypFPA8qpq9gPzlsJ/EukA6yk9o0gX23p1TzC+rh9LqNg1qvErRTc0UNMYlKxEGSfSh43NDg==
 
 domutils@^1.5.1, domutils@^1.7.0:
   version "1.7.0"
@@ -5041,10 +5023,10 @@ typedoc@^0.18.0:
     shelljs "^0.8.4"
     typedoc-default-themes "^0.10.2"
 
-typescript@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.2.tgz#7ea7c88777c723c681e33bf7988be5d008d05ac2"
-  integrity sha512-e4ERvRV2wb+rRZ/IQeb3jm2VxBsirQLpQhdxplZ2MEzGvDkkMmPglecnNDfSUBivMjP93vRbngYYDQqQ/78bcQ==
+typescript@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.0.5.tgz#ae9dddfd1069f1cb5beb3ef3b2170dd7c1332389"
+  integrity sha512-ywmr/VrTVCmNTJ6iV2LwIrfG1P+lv6luD8sUJs+2eI9NLGigaN+nUQc13iHqisq7bra9lnmUSYqbJvegraBOPQ==
 
 uglify-js@^3.1.4:
   version "3.10.2"

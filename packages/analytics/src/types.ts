@@ -8,19 +8,21 @@ export type PingbackAttribute = {
 export type Pingback = {
     gif: IGif
     user: Partial<IUser>
-    type: PingbackEventType
-    responseId: string
+    pingbackType?: PingbackEventType
     actionType: PingbackActionType
     position?: ClientRect
     attributes?: PingbackAttribute[]
 }
 
-export type PingbackActionType = 'CLICK' | 'SEEN' | 'HOVER'
+export type PingbackActionType = 'CLICK' | 'SEEN' | 'HOVER' | 'FAVORITE' | 'SENT'
 
-export type PingbackRequestAction = {
-    action_type: PingbackActionType
+export type PingbackRequestEvent = {
+    event_type?: PingbackEventType
+    analytics_response_payload: string
+    user_id?: string
+    logged_in_user_id?: string
+    action_type: string
+    random_id?: string
     attributes: any
-    gif_id: string
-    tid?: string
     ts: number
 }

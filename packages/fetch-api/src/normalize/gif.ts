@@ -1,5 +1,5 @@
-import { IGif, PingbackEventType } from '@giphy/js-types'
-import { GifsResult, GifResult } from '../result-types'
+import { IGif } from '@giphy/js-types'
+import { GifResult, GifsResult } from '../result-types'
 
 /**
  * @hidden
@@ -28,15 +28,10 @@ type Tag = { text: string }
 // tags sometimes are objects that have a text prop, sometimes they're strings
 const getTag = (tag: Tag | string) => (typeof tag === 'string' ? (tag as string) : (tag as Tag).text)
 
-const normalize = (gif: any, responseId: string = '', pingbackType: PingbackEventType = '') => {
+const normalize = (gif: any) => {
     const newGif: IGif = { ...gif }
     newGif.id = String(newGif.id)
     newGif.tags = (newGif.tags || []).map(getTag)
-    if (!newGif.bottle_data) {
-        newGif.bottle_data = {} as any
-    }
-    newGif.response_id = responseId
-    newGif.pingback_event_type = pingbackType
     BOOL_PROPS.forEach(makeBool(newGif))
     const { user } = newGif
     if (user) {
@@ -50,17 +45,15 @@ const normalize = (gif: any, responseId: string = '', pingbackType: PingbackEven
 /**
  * @hidden
  */
-export const normalizeGif = (result: GifResult, pingbackType?: PingbackEventType) => {
-    const { response_id } = result.meta
-    result.data = normalize(result.data, response_id, pingbackType)
+export const normalizeGif = (result: GifResult) => {
+    result.data = normalize(result.data)
     return result
 }
 
 /**
  * @hidden
  */
-export const normalizeGifs = (result: GifsResult, pingbackType?: PingbackEventType) => {
-    const { response_id } = result.meta
-    result.data = result.data.map(gif => normalize(gif, response_id, pingbackType))
+export const normalizeGifs = (result: GifsResult) => {
+    result.data = result.data.map((gif) => normalize(gif))
     return result
 }

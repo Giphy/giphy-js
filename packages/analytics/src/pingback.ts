@@ -1,61 +1,77 @@
+import cookie from 'cookie'
 import { debounce } from 'throttle-debounce'
-import { createSession } from './session'
-import { Pingback, PingbackRequestAction } from './types'
-import { getAction } from './util'
-import { PingbackEventType } from '@giphy/js-types'
-import { forEach, Logger } from '@giphy/js-util'
+import { v1 as uuid } from 'uuid' // v1 only for pingback verfication
 import { sendPingback } from './send-pingback'
+import { Pingback, PingbackAttribute, PingbackRequestEvent } from './types'
 
-type ActionMap = { [key: string]: PingbackRequestAction[] }
+let queuedPingbackEvents: PingbackRequestEvent[] = []
 
-const queuedPingbacks: { [key in PingbackEventType]?: ActionMap } = {}
+const gl = ((typeof window !== 'undefined' ? window : global) || {}) as any
+gl.giphyRandomId = ''
+const getRandomId = () => {
+    // it exists in memory
+    if (!gl.giphyRandomId) {
+        try {
+            // it exists in storage
+            gl.giphyRandomId = localStorage.getItem('giphyRandomId')
+        } catch (_) {}
+        if (!gl.giphyRandomId) {
+            // we need to create it
+            gl.giphyRandomId = uuid()
+            try {
+                // save in storage
+                localStorage.setItem('giphyRandomId', gl.giphyRandomId)
+            } catch (_) {}
+        }
+    }
+    return gl.giphyRandomId
+}
 
 let loggedInUserId = ''
 
 function fetchPingbackRequest() {
-    forEach(queuedPingbacks, (actionMap: ActionMap, pingbackType: PingbackEventType) => {
-        if (actionMap) {
-            forEach(actionMap, (action: PingbackRequestAction[], responseId: string) => {
-                // if there are no actions lined up inside this pingbackType do nothing
-                if (action.length) {
-                    const session = createSession(pingbackType, action, responseId, loggedInUserId)
-                    sendPingback(session)
-                    // empty this specific batch
-                    actionMap[responseId] = []
-                }
-            })
-        }
-    })
+    const sendEvents = [...queuedPingbackEvents]
+    queuedPingbackEvents = []
+    sendPingback(sendEvents)
 }
 
 const debouncedPingbackEvent = debounce(1000, fetchPingbackRequest)
 
-const pingback = ({ gif, user, responseId, type: pingbackType, actionType, position, attributes }: Pingback) => {
-    // not all endpoints provide a response_id
-    if (!responseId) {
-        Logger.debug(`Pingback aborted for ${gif.id}, no responseId`)
-        return
-    }
-    const { id, bottle_data = {} } = gif
-    const { tid } = bottle_data
-
+const pingback = ({ gif, user, pingbackType, actionType, position, attributes = [] }: Pingback) => {
     // save the user id for whenever create session is invoked
     loggedInUserId = user && user.id ? String(user.id) : loggedInUserId
 
-    // the queue doesn't exist for this pingbackType yet so create it
-    if (!queuedPingbacks[pingbackType]) queuedPingbacks[pingbackType] = {}
+    // apppend position only if it's not passed as a custom attribute
+    if (position && !attributes.some((a: PingbackAttribute) => a.key === 'position')) {
+        attributes.push({
+            key: `position`,
+            value: JSON.stringify(position),
+        })
+    }
 
-    // a map of actions based on pingback type
-    const actionMap = queuedPingbacks[pingbackType]! // we just created it so ! is ok
+    // get the giphy_pbid cookie
+    const user_id = cookie.parse(document ? document.cookie : ({} as any)).giphy_pbid
 
-    // create the searchRepsonseId queue
-    if (!actionMap[responseId]) actionMap[responseId] = []
+    const newEvent: PingbackRequestEvent = {
+        user_id,
+        logged_in_user_id: loggedInUserId || '',
+        ts: Date.now(),
+        analytics_response_payload: gif.analytics_response_payload,
+        attributes,
+        action_type: actionType,
+    }
 
-    // add the action
-    actionMap[responseId].push(getAction(actionType, String(id), tid, position, attributes))
+    if (!user_id) {
+        newEvent.random_id = getRandomId()
+    }
 
+    if (pingbackType) {
+        newEvent.event_type = pingbackType
+    }
+
+    queuedPingbackEvents.push(newEvent)
     // if there's a tid, skip the queue
-    tid ? fetchPingbackRequest() : debouncedPingbackEvent()
+    debouncedPingbackEvent()
 }
 
 export default pingback

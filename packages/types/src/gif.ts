@@ -1,4 +1,3 @@
-import { PingbackEventType } from './pingback-event'
 import IUser from './user'
 import IVideo from './video'
 
@@ -83,6 +82,6 @@ export default interface IGif {
     tags: string[]
     bottle_data: IBottleData
     response_id: string
-    pingback_event_type: PingbackEventType
+    analytics_response_payload: string
     video?: IVideo
 }

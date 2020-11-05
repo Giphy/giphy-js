@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
-import React, { GetDerivedStateFromProps, PureComponent, ReactType } from 'react'
+import React, { ElementType, GetDerivedStateFromProps, PureComponent } from 'react'
 import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'
 import FetchError from './fetch-error'
@@ -20,7 +20,7 @@ type Props = {
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
     onGifsFetchError?: (e: Error) => void
-    overlay?: ReactType<GifOverlayProps>
+    overlay?: ElementType<GifOverlayProps>
     hideAttribution?: boolean
     noLink?: boolean
     noResultsMessage?: string | JSX.Element
