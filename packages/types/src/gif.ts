@@ -55,6 +55,7 @@ interface IBottleData {
     tid?: string
     tags?: string[]
 }
+
 export default interface IGif {
     type: 'video' | 'gif'
     id: string | number
@@ -81,7 +82,6 @@ export default interface IGif {
     is_removed: boolean
     tags: string[]
     bottle_data: IBottleData
-    response_id: string
     analytics_response_payload: string
     video?: IVideo
 }

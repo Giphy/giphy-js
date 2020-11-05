@@ -2,9 +2,9 @@ import cookie from 'cookie'
 import { debounce } from 'throttle-debounce'
 import { v1 as uuid } from 'uuid' // v1 only for pingback verfication
 import { sendPingback } from './send-pingback'
-import { Pingback, PingbackAttribute, PingbackRequestEvent } from './types'
+import { Pingback, PingbackAttribute, PingbackGifEvent, PingbackRequestEvent as PingbackEvent } from './types'
 
-let queuedPingbackEvents: PingbackRequestEvent[] = []
+let queuedPingbackEvents: PingbackEvent[] = []
 
 const gl = ((typeof window !== 'undefined' ? window : global) || {}) as any
 gl.giphyRandomId = ''
@@ -29,20 +29,23 @@ const getRandomId = () => {
 
 let loggedInUserId = ''
 
-function fetchPingbackRequest() {
+function sendPingbacks() {
     const sendEvents = [...queuedPingbackEvents]
     queuedPingbackEvents = []
     sendPingback(sendEvents)
 }
 
-const debouncedPingbackEvent = debounce(1000, fetchPingbackRequest)
+const debouncedPingbackEvent = debounce(1000, sendPingbacks)
 
-const pingback = ({ gif, user, pingbackType, actionType, position, attributes = [] }: Pingback) => {
+const pingback = ({ gif, user, pingbackType, actionType, position, attributes, queueEvents = true }: Pingback) => {
     // save the user id for whenever create session is invoked
     loggedInUserId = user && user.id ? String(user.id) : loggedInUserId
 
     // apppend position only if it's not passed as a custom attribute
-    if (position && !attributes.some((a: PingbackAttribute) => a.key === 'position')) {
+    if (position && !attributes?.some((a: PingbackAttribute) => a.key === 'position')) {
+        if (!attributes) {
+            attributes = []
+        }
         attributes.push({
             key: `position`,
             value: JSON.stringify(position),
@@ -52,16 +55,24 @@ const pingback = ({ gif, user, pingbackType, actionType, position, attributes = 
     // get the giphy_pbid cookie
     const user_id = cookie.parse(document ? document.cookie : ({} as any)).giphy_pbid
 
-    const newEvent: PingbackRequestEvent = {
-        user_id,
-        logged_in_user_id: loggedInUserId || '',
+    const newEvent: PingbackEvent = {
         ts: Date.now(),
-        analytics_response_payload: gif.analytics_response_payload,
         attributes,
         action_type: actionType,
     }
 
-    if (!user_id) {
+    if (loggedInUserId) {
+        newEvent.logged_in_user_id = loggedInUserId
+    }
+
+    if (gif) {
+        const gifEvent = newEvent as PingbackGifEvent
+        gifEvent.analytics_response_payload = gif.analytics_response_payload
+    }
+
+    if (user_id) {
+        newEvent.user_id = user_id
+    } else {
         newEvent.random_id = getRandomId()
     }
 
@@ -70,8 +81,8 @@ const pingback = ({ gif, user, pingbackType, actionType, position, attributes = 
     }
 
     queuedPingbackEvents.push(newEvent)
-    // if there's a tid, skip the queue
-    debouncedPingbackEvent()
+
+    queueEvents ? debouncedPingbackEvent() : sendPingbacks()
 }
 
 export default pingback

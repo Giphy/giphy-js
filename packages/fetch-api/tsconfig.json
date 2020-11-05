@@ -3,7 +3,7 @@
     "compilerOptions": {
         "noImplicitAny": false,
         "outDir": "./dist",
-        "types": ["node", "jest"]
+        "types": ["node", "jest", "jest-fetch-mock"]
     },
     "files": ["./src/index.ts"]
 }
