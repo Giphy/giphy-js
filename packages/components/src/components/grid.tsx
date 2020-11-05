@@ -154,14 +154,7 @@ class Grid extends Component<Props, State> {
         const showLoader = fetchGifs && !isDoneFetching
         const isFirstLoad = gifs.length === 0
         return (
-            <PingbackContextManager
-                attributes={[
-                    {
-                        key: 'layout_type',
-                        value: 'GRID',
-                    },
-                ]}
-            >
+            <PingbackContextManager attributes={{ layout_type: 'GRID' }}>
                 <div class={className}>
                     <div ref={(c) => (this.el = c)}>
                         {gifs.map((gif) => (

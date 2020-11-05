@@ -1,17 +1,13 @@
 import { IGif, IUser, PingbackEventType } from '@giphy/js-types'
 
-export type PingbackAttribute = {
-    key: string
-    value: string
-}
+export type PingbackAttributes = { [key: string]: string }
 
 export type Pingback = {
     gif?: IGif
     user?: Partial<IUser>
-    pingbackType?: PingbackEventType
+    eventType?: PingbackEventType
     actionType: PingbackActionType
-    position?: ClientRect
-    attributes?: PingbackAttribute[]
+    attributes?: PingbackAttributes
     queueEvents?: boolean
 }
 

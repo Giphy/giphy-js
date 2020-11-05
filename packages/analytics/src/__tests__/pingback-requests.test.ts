@@ -6,32 +6,33 @@ const gl = ((typeof window !== 'undefined' ? window : global) || {}) as any
 describe('pingback', () => {
     const analytics_response_payload = 'analytics_response_payload gif 9870'
     const gif: Partial<IGif> = { id: 9870, analytics_response_payload }
-    // @ts-ignore
-    gif.skipQueue = Symbol('skipQueue')
 
     const user: Partial<IUser> = { id: 1234 }
+    afterEach(() => {
+        sessionStorage.clear()
+    })
     beforeEach(() => {
         // @ts-ignore
         fetch.resetMocks()
     })
-    test('request no user', () => {
+    test('no gif, but pingback type', () => {
         pingback({
-            gif: gif as IGif,
             user: {},
             actionType: 'CLICK',
+            eventType: 'GIF_CHANNEL',
+            queueEvents: false,
         })
-
         // @ts-ignore
         expect(fetch.mock.calls.length).toEqual(1)
         // @ts-ignore
         const [[, options]] = fetch.mock.calls
         const {
-            events: [eventNoUser],
+            events: [event],
         } = JSON.parse(options.body)
-        delete eventNoUser.ts
-        expect(eventNoUser).toEqual({
-            analytics_response_payload,
+        delete event.ts
+        expect(event).toEqual({
             action_type: 'CLICK',
+            event_type: 'GIF_CHANNEL',
             random_id: gl.giphyRandomId,
         })
     })
@@ -41,9 +42,9 @@ describe('pingback', () => {
             gif: gif as IGif,
             user: {},
             actionType: 'CLICK',
+            queueEvents: false,
         })
         document.cookie = 'giphy_pbid='
-
         // @ts-ignore
         expect(fetch.mock.calls.length).toEqual(1)
         // @ts-ignore
@@ -59,24 +60,41 @@ describe('pingback', () => {
             // no random id here
         })
     })
-    const position = { top: 0, left: 20 } as ClientRect
-    const attributes = [
-        {
-            key: 'position',
-            value: JSON.stringify(position),
-        },
-    ]
-    test('request', () => {
-        pingback({
-            gif: gif as IGif,
-            user,
-            actionType: 'CLICK',
-            position,
-        })
+    test('request no user', () => {
         pingback({
             gif: gif as IGif,
             user: {},
             actionType: 'CLICK',
+            queueEvents: false,
+        })
+        // @ts-ignore
+        expect(fetch.mock.calls.length).toEqual(1)
+        // @ts-ignore
+        const [[, options]] = fetch.mock.calls
+        const {
+            events: [eventNoUser],
+        } = JSON.parse(options.body)
+        delete eventNoUser.ts
+        expect(eventNoUser).toEqual({
+            analytics_response_payload,
+            action_type: 'CLICK',
+            random_id: gl.giphyRandomId,
+        })
+    })
+    test('request', () => {
+        const attributes = { position: JSON.stringify({ top: 0, left: 20 }) }
+        pingback({
+            gif: gif as IGif,
+            user,
+            actionType: 'FAVORITE',
+            attributes,
+            queueEvents: false,
+        })
+        pingback({
+            gif: gif as IGif,
+            user: {},
+            actionType: 'SEEN',
+            queueEvents: false,
         })
         // @ts-ignore
         expect(fetch.mock.calls.length).toEqual(2)
@@ -85,22 +103,24 @@ describe('pingback', () => {
         const {
             events: [event],
         } = JSON.parse(options.body)
+
+        const {
+            events: [eventNoUser],
+        } = JSON.parse(optionsNoUser.body)
+        delete eventNoUser.ts
         // remove api key
         expect(url).toContain('https://pingback.giphy.com/pingback?apikey=l0HlIwPWyBBUDAUgM')
         delete event.ts
         expect(event).toEqual({
-            action_type: 'CLICK',
+            action_type: 'FAVORITE',
             analytics_response_payload,
             logged_in_user_id: String(user.id),
             random_id: gl.giphyRandomId,
             attributes,
         })
-        const {
-            events: [eventNoUser],
-        } = JSON.parse(optionsNoUser.body)
-        delete eventNoUser.ts
+
         expect(eventNoUser).toEqual({
-            action_type: 'CLICK',
+            action_type: 'SEEN',
             analytics_response_payload,
             // but there's still a user bc we save it
             logged_in_user_id: String(user.id),
@@ -112,8 +132,8 @@ describe('pingback', () => {
             gif: gif as IGif,
             user: {},
             actionType: 'CLICK',
-            attributes: [{ key: 'position', value: `1` }],
-            position,
+            attributes: { position: `1` },
+            queueEvents: false,
         })
         // @ts-ignore
         expect(fetch.mock.calls.length).toEqual(1)
@@ -128,12 +148,22 @@ describe('pingback', () => {
             analytics_response_payload,
             logged_in_user_id: String(user.id),
             random_id: gl.giphyRandomId,
-            attributes: [
-                {
-                    key: 'position',
-                    value: `1`,
-                },
-            ],
+            attributes: { position: `1` },
         })
+    })
+
+    test('no call since queueEvents is false', async () => {
+        pingback({
+            gif: gif as IGif,
+            user: {},
+            actionType: 'CLICK',
+        })
+        // @ts-ignore
+        expect(fetch.mock.calls.length).toEqual(0)
+        await new Promise((resolve) => {
+            setTimeout(() => resolve(), 1110)
+        })
+        // @ts-ignore
+        expect(fetch.mock.calls.length).toEqual(1)
     })
 })

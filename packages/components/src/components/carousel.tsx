@@ -128,14 +128,7 @@ class Carousel extends Component<Props, State> {
         const containerCss = cx(className, carouselCss)
         const gifCss = cx(carouselItemCss, marginCss)
         return (
-            <PingbackContextManager
-                attributes={[
-                    {
-                        key: 'layout_type',
-                        value: 'CAROUSEL',
-                    },
-                ]}
-            >
+            <PingbackContextManager attributes={{ layout_type: 'CAROUSEL' }}>
                 <div class={containerCss}>
                     {gifs.map((gif) => {
                         const gifWidth = getGifWidth(gif, gifHeight)

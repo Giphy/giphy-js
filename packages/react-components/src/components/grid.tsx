@@ -144,14 +144,7 @@ class Grid extends PureComponent<Props, State> {
         // get the height of each grid item
         const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
         return (
-            <PingbackContextManager
-                attributes={[
-                    {
-                        key: 'layout_type',
-                        value: 'GRID',
-                    },
-                ]}
-            >
+            <PingbackContextManager attributes={{ layout_type: 'GRID' }}>
                 <div className={className} style={{ width }}>
                     <MasonryGrid
                         itemHeights={itemHeights}

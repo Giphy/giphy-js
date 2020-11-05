@@ -2,7 +2,7 @@ import cookie from 'cookie'
 import { debounce } from 'throttle-debounce'
 import { v1 as uuid } from 'uuid' // v1 only for pingback verfication
 import { sendPingback } from './send-pingback'
-import { Pingback, PingbackAttribute, PingbackGifEvent, PingbackRequestEvent as PingbackEvent } from './types'
+import { Pingback, PingbackEvent, PingbackGifEvent } from './types'
 
 let queuedPingbackEvents: PingbackEvent[] = []
 
@@ -37,20 +37,9 @@ function sendPingbacks() {
 
 const debouncedPingbackEvent = debounce(1000, sendPingbacks)
 
-const pingback = ({ gif, user, pingbackType, actionType, position, attributes, queueEvents = true }: Pingback) => {
+const pingback = ({ gif, user, eventType, actionType, attributes, queueEvents = true }: Pingback) => {
     // save the user id for whenever create session is invoked
     loggedInUserId = user && user.id ? String(user.id) : loggedInUserId
-
-    // apppend position only if it's not passed as a custom attribute
-    if (position && !attributes?.some((a: PingbackAttribute) => a.key === 'position')) {
-        if (!attributes) {
-            attributes = []
-        }
-        attributes.push({
-            key: `position`,
-            value: JSON.stringify(position),
-        })
-    }
 
     // get the giphy_pbid cookie
     const user_id = cookie.parse(document ? document.cookie : ({} as any)).giphy_pbid
@@ -76,8 +65,8 @@ const pingback = ({ gif, user, pingbackType, actionType, position, attributes, q
         newEvent.random_id = getRandomId()
     }
 
-    if (pingbackType) {
-        newEvent.event_type = pingbackType
+    if (eventType) {
+        newEvent.event_type = eventType
     }
 
     queuedPingbackEvents.push(newEvent)
