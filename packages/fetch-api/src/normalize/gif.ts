@@ -33,6 +33,9 @@ const normalize = (gif: any) => {
     newGif.id = String(newGif.id)
     newGif.tags = (newGif.tags || []).map(getTag)
     BOOL_PROPS.forEach(makeBool(newGif))
+    if (!newGif.analytics_response_payload) {
+        console.error(`No ARP for ${gif.id}`)
+    }
     const { user } = newGif
     if (user) {
         const newUser = { ...user }

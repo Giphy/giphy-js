@@ -37,9 +37,9 @@ function sendPingbacks() {
 
 const debouncedPingbackEvent = debounce(1000, sendPingbacks)
 
-const pingback = ({ gif, user, eventType, actionType, attributes, queueEvents = true }: Pingback) => {
+const pingback = ({ gif, userId, eventType, actionType, attributes, queueEvents = true }: Pingback) => {
     // save the user id for whenever create session is invoked
-    loggedInUserId = user && user.id ? String(user.id) : loggedInUserId
+    loggedInUserId = userId ? String(userId) : loggedInUserId
 
     // get the giphy_pbid cookie
     const user_id = cookie.parse(document ? document.cookie : ({} as any)).giphy_pbid

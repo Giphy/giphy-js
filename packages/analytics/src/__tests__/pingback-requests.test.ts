@@ -17,7 +17,6 @@ describe('pingback', () => {
     })
     test('no gif, but pingback type', () => {
         pingback({
-            user: {},
             actionType: 'CLICK',
             eventType: 'GIF_CHANNEL',
             queueEvents: false,
@@ -40,7 +39,6 @@ describe('pingback', () => {
         document.cookie = 'giphy_pbid=1234'
         pingback({
             gif: gif as IGif,
-            user: {},
             actionType: 'CLICK',
             queueEvents: false,
         })
@@ -63,7 +61,6 @@ describe('pingback', () => {
     test('request no user', () => {
         pingback({
             gif: gif as IGif,
-            user: {},
             actionType: 'CLICK',
             queueEvents: false,
         })
@@ -85,14 +82,13 @@ describe('pingback', () => {
         const attributes = { position: JSON.stringify({ top: 0, left: 20 }) }
         pingback({
             gif: gif as IGif,
-            user,
+            userId: user?.id,
             actionType: 'FAVORITE',
             attributes,
             queueEvents: false,
         })
         pingback({
             gif: gif as IGif,
-            user: {},
             actionType: 'SEEN',
             queueEvents: false,
         })
@@ -130,7 +126,6 @@ describe('pingback', () => {
     test('request custom attributes', () => {
         pingback({
             gif: gif as IGif,
-            user: {},
             actionType: 'CLICK',
             attributes: { position: `1` },
             queueEvents: false,
@@ -155,7 +150,6 @@ describe('pingback', () => {
     test('no call since queueEvents is false', async () => {
         pingback({
             gif: gif as IGif,
-            user: {},
             actionType: 'CLICK',
         })
         // @ts-ignore

@@ -120,7 +120,7 @@ const Gif = ({
         e.persist()
         setHovered(true)
         hoverTimeout.current = window.setTimeout(() => {
-            pingback.onGifHover(gif, user, e.target as HTMLElement, attributes)
+            pingback.onGifHover(gif, user?.id, e.target as HTMLElement, attributes)
         }, hoverTimeoutDelay)
     }
 
@@ -131,7 +131,7 @@ const Gif = ({
 
     const onClick = (e: SyntheticEvent<HTMLElement, Event>) => {
         // fire pingback
-        pingback.onGifClick(gif, user, e.target as HTMLElement, attributes)
+        pingback.onGifClick(gif, user?.id, e.target as HTMLElement, attributes)
         onGifClick(gif, e)
     }
 
@@ -145,7 +145,7 @@ const Gif = ({
             injectTrackingPixel(gif.bottle_data.tags)
         }
         // fire pingback
-        pingback.onGifSeen(gif, user, entry.boundingClientRect, attributes)
+        pingback.onGifSeen(gif, user?.id, entry.boundingClientRect, attributes)
         // fire custom onGifSeen
         onGifSeen?.(gif, entry.boundingClientRect)
         // disconnect
