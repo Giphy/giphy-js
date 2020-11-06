@@ -6,7 +6,9 @@ import { Pingback, PingbackEvent, PingbackGifEvent } from './types'
 
 let queuedPingbackEvents: PingbackEvent[] = []
 
+/* istanbul ignore next */
 const gl = ((typeof window !== 'undefined' ? window : global) || {}) as any
+
 gl.giphyRandomId = ''
 const getRandomId = () => {
     // it exists in memory
@@ -41,6 +43,7 @@ const pingback = ({ gif, userId, eventType, actionType, attributes, queueEvents 
     // save the user id for whenever create session is invoked
     loggedInUserId = userId ? String(userId) : loggedInUserId
 
+    /* istanbul ignore next */
     // get the giphy_pbid cookie
     const user_id = cookie.parse(document ? document.cookie : ({} as any)).giphy_pbid
 
