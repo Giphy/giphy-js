@@ -55,6 +55,10 @@ const pingback = ({ gif, userId, eventType, actionType, attributes, queueEvents 
     }
 
     if (gif) {
+        if (!gif.analytics_response_payload) {
+            // abort pingback, analytics_response_payload is required for gif events
+            return
+        }
         const gifEvent = newEvent as PingbackGifEvent
         gifEvent.analytics_response_payload = gif.analytics_response_payload
     }

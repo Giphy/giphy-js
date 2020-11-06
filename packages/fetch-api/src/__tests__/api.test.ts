@@ -7,6 +7,7 @@ const dummyGif = {
     id: 12345,
     tags: [{ text: 'text prop' }, 'regular tag'],
     is_hidden: 0,
+    analytics_response_payload: 'ARP',
 }
 const pagination = {}
 const meta = {
@@ -18,7 +19,7 @@ const gifsResponse = {
     meta,
 }
 const gifsResponseNoTags = {
-    data: [{ id: 456, is_hidden: 0 }],
+    data: [{ id: 456, is_hidden: 0, analytics_response_payload: 'ARP' }],
     pagination,
     meta,
 }

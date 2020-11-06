@@ -123,6 +123,17 @@ describe('pingback', () => {
             random_id: gl.giphyRandomId,
         })
     })
+    test('no analytics_response_payload should abort', () => {
+        const testGif = { ...gif } as IGif
+        testGif.analytics_response_payload = ''
+        pingback({
+            gif: testGif,
+            actionType: 'CLICK',
+            queueEvents: false,
+        })
+        // @ts-ignore
+        expect(fetch.mock.calls.length).toEqual(0)
+    })
     test('request custom attributes', () => {
         pingback({
             gif: gif as IGif,
