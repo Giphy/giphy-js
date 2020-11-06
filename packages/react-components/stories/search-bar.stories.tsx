@@ -3,7 +3,7 @@ import isPercy from '@percy-io/in-percy'
 import { withKnobs } from '@storybook/addon-knobs'
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport'
 import fetchMock from 'fetch-mock'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useLayoutEffect } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import Grid_ from '../src/components/grid'
 import SearchBarComponent_ from '../src/components/search-bar'
@@ -36,9 +36,9 @@ export default {
 const Components = () => {
     const { fetchGifs, searchKey } = useContext(SearchContext)
     const { innerWidth } = useWindowSize()
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (isPercy()) {
-            fetchMock.mock(`begin:https://api.giphy.com/v1/channels/search?q=`, {
+            fetchMock.mock(`begin:https://api.giphy.com/v1/channels/search`, {
                 body: mockChannelSearchResults,
             })
             fetchMock.mock(`begin:https://api.giphy.com/v1/trending/searches`, {
