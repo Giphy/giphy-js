@@ -109,7 +109,7 @@ describe('pingback', () => {
         } = JSON.parse(optionsNoUser.body)
         delete eventNoUser.ts
         // remove api key
-        expect(url).toContain('https://pingback.giphy.com/pingback?apikey=l0HlIwPWyBBUDAUgM')
+        expect(url).toContain('https://pingback.giphy.com/v2/pingback?apikey=l0HlIwPWyBBUDAUgM')
         delete event.ts
         expect(event).toEqual({
             action_type: 'FAVORITE',
