@@ -3,7 +3,10 @@ import FetchError from './fetch-error'
 import { ErrorResult, Result } from './result-types'
 export const ERROR_PREFIX = `@giphy/js-fetch-api: `
 export const DEFAULT_ERROR = 'Error fetching'
-const serverUrl = 'https://api.giphy.com/v1/'
+
+const gl = ((typeof window !== 'undefined' ? window : global) || {}) as any
+const serverUrl = gl.GIPHY_API_URL || 'https://api.giphy.com/v1/'
+
 const identity = (i: any) => i
 const requestMap: {
     [key: string]: {
