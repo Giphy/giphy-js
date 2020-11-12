@@ -9,18 +9,18 @@
         "snapshot": "build-storybook && percy-storybook --widths=320,1280"
     },
     "devDependencies": {
-        "@babel/core": "^7.11.4",
+        "@babel/core": "^7.12.3",
         "@percy-io/in-percy": "0.1.11",
         "@percy/storybook": "3.3.1",
-        "@storybook/addon-actions": "^6.0.16",
-        "@storybook/addon-info": "^5.3.19",
-        "@storybook/addon-knobs": "^6.0.16",
-        "@storybook/addon-viewport": "6.0.16",
-        "@storybook/addons": "^6.0.16",
-        "@storybook/react": "^6.0.16",
+        "@storybook/addon-actions": "^6.0.28",
+        "@storybook/addon-info": "^5.3.21",
+        "@storybook/addon-knobs": "^6.0.28",
+        "@storybook/addon-viewport": "6.0.28",
+        "@storybook/addons": "^6.0.28",
+        "@storybook/react": "^6.0.28",
         "@storybook/storybook-deployer": "^2.8.6",
-        "@types/react": "^16.9.47",
-        "@types/react-dom": "^16.9.8",
+        "@types/react": "^16.9.55",
+        "@types/react-dom": "^16.9.9",
         "@types/storybook__react": "^5.2.1",
         "@types/throttle-debounce": "^2.1.0",
         "awesome-typescript-loader": "^5.2.1",
@@ -30,7 +30,7 @@
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "storybook-addon-jsx": "^7.3.4",
-        "typescript": "^4.0.2"
+        "typescript": "^4.0.5"
     },
     "name": "@giphy/react-components",
     "version": "1.10.0",
@@ -50,7 +50,7 @@
         "react": "^16.10.2"
     },
     "dependencies": {
-        "@emotion/core": "10.0.35",
+        "@emotion/core": "10.1.1",
         "@emotion/styled": "10.0.27",
         "@giphy/js-analytics": "^1.8.0",
         "@giphy/js-brand": "^2.0.1",
@@ -59,7 +59,7 @@
         "@giphy/js-util": "^1.9.2",
         "emotion-theming": "10.0.27",
         "intersection-observer": "^0.11.0",
-        "react-use": "15.3.3",
+        "react-use": "15.3.4",
         "throttle-debounce": "^2.3.0"
     }
 }

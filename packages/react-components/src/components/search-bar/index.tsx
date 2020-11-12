@@ -25,6 +25,36 @@ type Props = {
     clear?: boolean
 }
 
+const Container = styled.div`
+    display: flex;
+    background: white;
+    ${(props) => getSize(props.theme)}
+`
+
+const Input = styled.input<{ isUsernameSearch: boolean }>`
+    background: ${(props) => (props.theme.mode === 'dark' ? giphyCharcoal : giphyWhite)};
+    box-sizing: border-box;
+    border: 0;
+    appearance: none;
+    font-weight: normal;
+    outline: 0;
+    font-size: 15px;
+    padding: 0 10px;
+    border-radius: 0;
+    text-overflow: ellipsis;
+    color: ${(props) => (props.theme.mode === 'dark' ? giphyWhite : giphyBlack)};
+    &::placeholder {
+        color: ${(props) => (props.theme.mode === 'dark' ? giphyLightGrey : giphyLightGrey)};
+    }
+    min-width: 150px;
+    flex: 1;
+    ${(props) =>
+        props.isUsernameSearch &&
+        css`
+            color: ${giphyIndigo};
+        `}
+`
+
 const SearchBar = ({ className, placeholder = 'Search GIPHY', clear = false }: Props) => {
     const { setSearch, activeChannel, setActiveChannel, term, channelSearch } = useContext(SearchContext)
 
@@ -101,36 +131,6 @@ const SearchBar = ({ className, placeholder = 'Search GIPHY', clear = false }: P
         </Container>
     )
 }
-
-const Container = styled.div`
-    display: flex;
-    background: white;
-    ${(props) => getSize(props.theme)}
-`
-
-const Input = styled.input<{ isUsernameSearch: boolean }>`
-    background: ${(props) => (props.theme.mode === 'dark' ? giphyCharcoal : giphyWhite)};
-    box-sizing: border-box;
-    border: 0;
-    appearance: none;
-    font-weight: normal;
-    outline: 0;
-    font-size: 15px;
-    padding: 0 10px;
-    border-radius: 0;
-    text-overflow: ellipsis;
-    color: ${(props) => (props.theme.mode === 'dark' ? giphyWhite : giphyBlack)};
-    &::placeholder {
-        color: ${(props) => (props.theme.mode === 'dark' ? giphyLightGrey : giphyLightGrey)};
-    }
-    min-width: 150px;
-    flex: 1;
-    ${(props) =>
-        props.isUsernameSearch &&
-        css`
-            color: ${giphyIndigo};
-        `}
-`
 
 SearchBar.className = 'giphy-search-bar'
 

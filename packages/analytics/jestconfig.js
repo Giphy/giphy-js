@@ -6,5 +6,5 @@ module.exports = {
     name: '@giphy/js-analytics',
     displayName: 'analytics',
     automock: false,
-    setupFiles: ['./set-up-jest.ts', './browser-mock.ts'],
+    setupFiles: ['./set-up-jest.ts'],
 }

@@ -1,4 +1,3 @@
-export { default as mergeAttribute } from './merge-attribute'
+export { default as mergeAttributes } from './merge-attributes'
 export { default as pingback } from './pingback'
-export { addLastSearchResponseId } from './session'
 export * from './types'

@@ -138,14 +138,7 @@ class Carousel extends PureComponent<Props, State> {
         const showLoader = fetchGifs && !isDoneFetching
         const isFirstLoad = gifs.length === 0
         return (
-            <PingbackContextManager
-                attributes={[
-                    {
-                        key: 'layout_type',
-                        value: 'CAROUSEL',
-                    },
-                ]}
-            >
+            <PingbackContextManager attributes={{ layout_type: 'CAROUSEL' }}>
                 <Container className={className}>
                     {gifs.map((gif) => {
                         const gifWidth = getGifWidth(gif, gifHeight)

@@ -4,8 +4,8 @@ import { throttle } from 'throttle-debounce'
 import { Grid, renderGrid } from '../src'
 
 const getWidth = () => innerWidth
-const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
+const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
 
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 h
@@ -99,7 +99,7 @@ export const vanillaJSGrid = (mountNode: HTMLElement) => {
                 fetchGifs,
                 columns: width < 500 ? 2 : 3,
                 gutter: 6,
-                onGifsFetchError: error => console.error(`Gif Grid fetch error`, error),
+                onGifsFetchError: (error) => console.error(`Gif Grid fetch error`, error),
             },
             mountNode
         )

@@ -80,7 +80,7 @@ export class GiphyFetch {
     }
 
     emoji(options?: PaginationOptions): Promise<GifsResult> {
-        return request(`emoji?${this.getQS(options)}`, normalizeGifs, 'EMOJI') as Promise<GifsResult>
+        return request(`emoji?${this.getQS(options)}`, normalizeGifs) as Promise<GifsResult>
     }
 
     /**
@@ -91,8 +91,7 @@ export class GiphyFetch {
     search(term: string, options: SearchOptions = {}): Promise<GifsResult> {
         const q = options.channel ? `@${options.channel} ${term}` : term
         const qsParams = this.getQS({ ...options, q })
-        const pingbackType = options.type === 'text' ? 'TEXT_SEARCH' : options.explore ? 'GIF_EXPLORE' : 'GIF_SEARCH'
-        return request(`${getType(options)}/search?${qsParams}`, normalizeGifs, pingbackType) as Promise<GifsResult>
+        return request(`${getType(options)}/search?${qsParams}`, normalizeGifs) as Promise<GifsResult>
     }
 
     /**
@@ -112,10 +111,7 @@ export class GiphyFetch {
      * @returns {Promise<GifsResult>}
      */
     trending(options: TrendingOptions = {}): Promise<GifsResult> {
-        const pingbackType = options.type === 'text' ? 'TEXT_TRENDING' : 'GIF_TRENDING'
-        return request(`${getType(options)}/trending?${this.getQS(options)}`, normalizeGifs, pingbackType) as Promise<
-            GifsResult
-        >
+        return request(`${getType(options)}/trending?${this.getQS(options)}`, normalizeGifs) as Promise<GifsResult>
     }
 
     /**
@@ -124,9 +120,7 @@ export class GiphyFetch {
      * @returns {Promise<GifResult>}
      **/
     random(options?: RandomOptions): Promise<GifResult> {
-        return request(`${getType(options)}/random?${this.getQS(options)}`, normalizeGif, undefined, true) as Promise<
-            GifResult
-        >
+        return request(`${getType(options)}/random?${this.getQS(options)}`, normalizeGif, true) as Promise<GifResult>
     }
 
     /**
@@ -136,11 +130,7 @@ export class GiphyFetch {
      * @returns {Promise<GifsResult>}
      **/
     related(id: string, options?: RelatedOptions): Promise<GifsResult> {
-        return request(
-            `gifs/related?${this.getQS({ gif_id: id, ...options })}`,
-            normalizeGifs,
-            'GIF_RELATED'
-        ) as Promise<GifsResult>
+        return request(`gifs/related?${this.getQS({ gif_id: id, ...options })}`, normalizeGifs) as Promise<GifsResult>
     }
 }
 export default GiphyFetch

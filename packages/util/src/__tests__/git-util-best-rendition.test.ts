@@ -1,66 +1,6 @@
 import { setRenditionScaleUpMaxPixels } from '../bestfit'
 import { getBestRenditionUrl } from '../gif-utils'
 
-describe('gif util', () => {
-    beforeEach(() => {
-        setRenditionScaleUpMaxPixels(50)
-    })
-    test('getBestRenditionUrl ', () => {
-        expect(getBestRenditionUrl(testGifLandscape, 450, 350)).toEqual('/media/600x338.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 400, 300)).toEqual('/media/600x338.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 300, 200)).toEqual('/media/355x200.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 200, 200)).toEqual('/media/355x200.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 100, 100)).toEqual('/media/100x56.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 300, 200)).toEqual('/media/355x200.gif')
-        // within the scaleup range
-        expect(getBestRenditionUrl(testGifLandscape, 200, 100)).toEqual('/media/178x100.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 200, 100)).toEqual('/media/178x100.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 178, 100)).toEqual('/media/178x100.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 100, 100)).toEqual('/media/100x56.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 1, 1)).toEqual('/media/100x56.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 0, 1)).toEqual('')
-    })
-    test('getBestRenditionUrl portrait target landscape gif ', () => {
-        expect(getBestRenditionUrl(testGifLandscape, 700, 450)).toEqual('/media/600x338.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 350, 450)).toEqual('/media/600x338.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 300, 400)).toEqual('/media/600x338.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 200, 300)).toEqual('/media/600x338.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 100, 200)).toEqual('/media/355x200.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 50, 100)).toEqual('/media/100x56.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 1, 1)).toEqual('/media/100x56.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 0, 1)).toEqual('')
-    })
-    test('getBestRenditionUrl landscape target portrait gif ', () => {
-        expect(getBestRenditionUrl(testGifPortrait, 700, 700)).toEqual('/media/338x600.gif')
-        expect(getBestRenditionUrl(testGifPortrait, 338, 200)).toEqual('/media/338x600.gif')
-        expect(getBestRenditionUrl(testGifPortrait, 300, 200)).toEqual('/media/338x600.gif')
-        expect(getBestRenditionUrl(testGifPortrait, 200, 100)).toEqual('/media/200x355.gif')
-        expect(getBestRenditionUrl(testGifPortrait, 100, 50)).toEqual('/media/56x100.gif')
-        expect(getBestRenditionUrl(testGifPortrait, 1, 1)).toEqual('/media/56x100.gif')
-        expect(getBestRenditionUrl(testGifPortrait, 0, 1)).toEqual('')
-    })
-    test('getBestRenditionUrl type video ', () => {
-        expect(getBestRenditionUrl(testGifVideo, 450, 350)).toEqual('/media/600x338.gif')
-        expect(getBestRenditionUrl(testGifVideo, 400, 300)).toEqual('/media/600x338.gif')
-    })
-    test('getBestRenditionUrl higher quality: 20', () => {
-        setRenditionScaleUpMaxPixels(20)
-        expect(getBestRenditionUrl(testGifLandscape, 450, 350)).toEqual('/media/600x338.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 400, 300)).toEqual('/media/600x338.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 300, 200)).toEqual('/media/355x200.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 200, 200)).toEqual('/media/355x200.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 100, 100)).toEqual('/media/178x100.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 300, 200)).toEqual('/media/355x200.gif')
-        // within the scaleup range
-        expect(getBestRenditionUrl(testGifLandscape, 200, 100)).toEqual('/media/200x113.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 200, 100)).toEqual('/media/200x113.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 178, 100)).toEqual('/media/178x100.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 100, 100)).toEqual('/media/178x100.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 1, 1)).toEqual('/media/100x56.gif')
-        expect(getBestRenditionUrl(testGifLandscape, 0, 1)).toEqual('')
-    })
-})
-
 const testGifLandscape: any = {
     images: {
         fixed_height_still: {
@@ -228,3 +168,63 @@ const testGifVideo: any = {
     images: {},
     video: { previews: testGifLandscape.images },
 }
+
+describe('gif util', () => {
+    beforeEach(() => {
+        setRenditionScaleUpMaxPixels(50)
+    })
+    test('getBestRenditionUrl ', () => {
+        expect(getBestRenditionUrl(testGifLandscape, 450, 350)).toEqual('/media/600x338.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 400, 300)).toEqual('/media/600x338.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 300, 200)).toEqual('/media/355x200.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 200, 200)).toEqual('/media/355x200.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 100, 100)).toEqual('/media/100x56.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 300, 200)).toEqual('/media/355x200.gif')
+        // within the scaleup range
+        expect(getBestRenditionUrl(testGifLandscape, 200, 100)).toEqual('/media/178x100.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 200, 100)).toEqual('/media/178x100.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 178, 100)).toEqual('/media/178x100.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 100, 100)).toEqual('/media/100x56.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 1, 1)).toEqual('/media/100x56.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 0, 1)).toEqual('')
+    })
+    test('getBestRenditionUrl portrait target landscape gif ', () => {
+        expect(getBestRenditionUrl(testGifLandscape, 700, 450)).toEqual('/media/600x338.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 350, 450)).toEqual('/media/600x338.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 300, 400)).toEqual('/media/600x338.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 200, 300)).toEqual('/media/600x338.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 100, 200)).toEqual('/media/355x200.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 50, 100)).toEqual('/media/100x56.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 1, 1)).toEqual('/media/100x56.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 0, 1)).toEqual('')
+    })
+    test('getBestRenditionUrl landscape target portrait gif ', () => {
+        expect(getBestRenditionUrl(testGifPortrait, 700, 700)).toEqual('/media/338x600.gif')
+        expect(getBestRenditionUrl(testGifPortrait, 338, 200)).toEqual('/media/338x600.gif')
+        expect(getBestRenditionUrl(testGifPortrait, 300, 200)).toEqual('/media/338x600.gif')
+        expect(getBestRenditionUrl(testGifPortrait, 200, 100)).toEqual('/media/200x355.gif')
+        expect(getBestRenditionUrl(testGifPortrait, 100, 50)).toEqual('/media/56x100.gif')
+        expect(getBestRenditionUrl(testGifPortrait, 1, 1)).toEqual('/media/56x100.gif')
+        expect(getBestRenditionUrl(testGifPortrait, 0, 1)).toEqual('')
+    })
+    test('getBestRenditionUrl type video ', () => {
+        expect(getBestRenditionUrl(testGifVideo, 450, 350)).toEqual('/media/600x338.gif')
+        expect(getBestRenditionUrl(testGifVideo, 400, 300)).toEqual('/media/600x338.gif')
+    })
+    test('getBestRenditionUrl higher quality: 20', () => {
+        setRenditionScaleUpMaxPixels(20)
+        expect(getBestRenditionUrl(testGifLandscape, 450, 350)).toEqual('/media/600x338.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 400, 300)).toEqual('/media/600x338.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 300, 200)).toEqual('/media/355x200.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 200, 200)).toEqual('/media/355x200.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 100, 100)).toEqual('/media/178x100.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 300, 200)).toEqual('/media/355x200.gif')
+        // within the scaleup range
+        expect(getBestRenditionUrl(testGifLandscape, 200, 100)).toEqual('/media/200x113.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 200, 100)).toEqual('/media/200x113.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 178, 100)).toEqual('/media/178x100.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 100, 100)).toEqual('/media/178x100.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 1, 1)).toEqual('/media/100x56.gif')
+        expect(getBestRenditionUrl(testGifLandscape, 0, 1)).toEqual('')
+    })
+})

@@ -101,16 +101,7 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
             }}
         >
             <ThemeProvider theme={initTheme(theme)}>
-                <PingbackContextManager
-                    attributes={[
-                        {
-                            key: 'layout_type',
-                            value: 'SEARCH',
-                        },
-                    ]}
-                >
-                    {children}
-                </PingbackContextManager>
+                <PingbackContextManager attributes={{ layout_type: 'SEARCH' }}>{children}</PingbackContextManager>
             </ThemeProvider>
         </SearchContext.Provider>
     )

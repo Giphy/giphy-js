@@ -2,10 +2,13 @@ import styled from '@emotion/styled'
 import { giphyLightestGrey } from '@giphy/js-brand'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
+import isPercy from '@percy-io/in-percy'
 import { boolean, text, withKnobs } from '@storybook/addon-knobs'
+import fetchMock from 'fetch-mock'
 import React, { useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { Attribution as AttributionComponent, Gif } from '../src'
+import mockGifResult from './mock-data/gif.json'
 
 const Container = styled.div`
     font-family: interface;
@@ -43,7 +46,11 @@ export const Attribution = () => {
     const [gif, setGif] = useState<IGif | undefined>()
     useEffect(() => {
         const f = async () => {
-            const { data } = await gf.gif(text('gif id', 'l0HlyLQsbvhciAuKA'))
+            const id = 'l0HlyLQsbvhciAuKA'
+            if (isPercy()) {
+                fetchMock.restore().getOnce(`begin:https://api.giphy.com/v1/gifs/${id}`, { body: mockGifResult })
+            }
+            const { data } = await gf.gif(text('gif id', id))
             setGif(data)
         }
         f()

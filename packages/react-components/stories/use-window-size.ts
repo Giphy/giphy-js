@@ -6,6 +6,7 @@ type WindowSize = {
     outerHeight: number
     outerWidth: number
 }
+let lastSize: WindowSize
 const getSize = (): WindowSize => {
     lastSize = {
         innerHeight: window.innerHeight,
@@ -15,8 +16,6 @@ const getSize = (): WindowSize => {
     }
     return lastSize
 }
-
-let lastSize: WindowSize
 
 function useWindowSize(debounceMs = 300) {
     // this will run on every render, only getSize once

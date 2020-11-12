@@ -1,40 +1,34 @@
-import { pingback, PingbackActionType, PingbackAttribute } from '@giphy/js-analytics'
-import { IGif, IUser } from '@giphy/js-types'
+import { pingback, PingbackActionType, PingbackAttributes } from '@giphy/js-analytics'
+import { IGif } from '@giphy/js-types'
 import { getClientRect } from '@giphy/js-util'
 
 const firePingback = (actionType: PingbackActionType) => (
     gif: IGif,
-    user: Partial<IUser>,
+    userId: string | number | undefined,
     target: HTMLElement,
-    attributes: PingbackAttribute[] = []
+    attributes: PingbackAttributes = {}
 ) =>
     pingback({
         gif,
-        user,
-        responseId: gif.response_id,
-        type: gif.pingback_event_type,
+        userId,
         actionType,
-        position: getClientRect(target),
-        attributes,
+        attributes: { position: JSON.stringify(getClientRect(target)), ...attributes },
     })
 
-// these have position from the target
-export const onGifHover = firePingback('HOVER')
-export const onGifClick = firePingback('CLICK')
-
+// no target on this one
 export const onGifSeen = (
     gif: IGif,
-    user: Partial<IUser>,
+    userId: string | number | undefined,
     position: ClientRect,
-    attributes: PingbackAttribute[] = []
+    attributes: PingbackAttributes = {}
 ) => {
     pingback({
         gif,
-        user,
-        responseId: gif.response_id,
-        type: gif.pingback_event_type,
+        userId,
         actionType: 'SEEN',
-        position,
-        attributes,
+        attributes: { position: JSON.stringify(position), ...attributes },
     })
 }
+
+export const onGifClick = firePingback('CLICK')
+export const onGifHover = firePingback('HOVER')
