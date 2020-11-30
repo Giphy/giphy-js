@@ -72,6 +72,12 @@ export const SearchExperience = () => (
     </SearchContextManager>
 )
 
+export const SearchExperienceCondensed = () => (
+    <SearchContextManager apiKey={apiKey} theme={{ condensedMode: true }}>
+        <Components />
+    </SearchContextManager>
+)
+
 export const SearchExperienceInitialTerm = () => {
     return (
         <SearchContextManager apiKey={apiKey} initialTerm="skateboard">
