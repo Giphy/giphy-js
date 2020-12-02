@@ -1,5 +1,5 @@
 import { keyframes } from '@emotion/core'
-import { giphyCharcoal, giphyDarkCharcoal, giphyLightestGrey, giphyWhite } from '@giphy/js-brand'
+import { giphyCharcoal, giphyDarkCharcoal, giphyWhite, giphyWhiteSmoke } from '@giphy/js-brand'
 import React, { useContext } from 'react'
 import Avatar_ from '../attribution/avatar'
 import VerifiedBadge from '../attribution/verified-badge'
@@ -36,7 +36,7 @@ const Username = styled.div`
 `
 
 const UsernamePill = styled.div`
-    background: ${giphyLightestGrey};
+    background: ${giphyWhiteSmoke};
     display: flex;
     padding: 0 4px;
     color: ${giphyDarkCharcoal};
