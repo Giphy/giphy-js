@@ -1,10 +1,10 @@
 import { keyframes } from '@emotion/core'
-import { giphyCharcoal, giphyDarkCharcoal, giphyLightestGrey, giphyWhite } from '@giphy/js-brand'
+import { giphyCharcoal, giphyDarkCharcoal, giphyWhite, giphyWhiteSmoke } from '@giphy/js-brand'
 import React, { useContext } from 'react'
 import Avatar_ from '../attribution/avatar'
 import VerifiedBadge from '../attribution/verified-badge'
 import { SearchContext } from './context'
-import styled, { mobileQuery, SearchTheme } from './theme'
+import styled, { SearchTheme } from './theme'
 
 const channelMargin = 6
 
@@ -22,7 +22,7 @@ const Avatar = styled(Avatar_)`
     margin: 0;
     width: 0;
     animation: ${(props) => animateAvatar(channelSearchHeight(props.theme))} 100ms ease-in-out forwards;
-    @media (${mobileQuery}) {
+    @media (${(props) => props.theme.condensedMediaQuery}) {
         height: ${(props) => smallChannelSearchHeight(props.theme)}px;
         animation: ${(props) => animateAvatar(smallChannelSearchHeight(props.theme))} 100ms ease-in-out forwards;
     }
@@ -36,7 +36,7 @@ const Username = styled.div`
 `
 
 const UsernamePill = styled.div`
-    background: ${giphyLightestGrey};
+    background: ${giphyWhiteSmoke};
     display: flex;
     padding: 0 4px;
     color: ${giphyDarkCharcoal};
@@ -45,7 +45,7 @@ const UsernamePill = styled.div`
     font-size: 12px;
     align-items: center;
     height: ${(props) => channelSearchHeight(props.theme)}px;
-    @media (${mobileQuery}) {
+    @media (${(props) => props.theme.condensedMediaQuery}) {
         display: none;
     }
 `

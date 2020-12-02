@@ -1,3 +1,4 @@
+import { giphyBlack } from '@giphy/js-brand'
 import React from 'react'
 type Props = {
     className?: string
@@ -7,6 +8,12 @@ type Props = {
 
 const VerifiedBadge = ({ className = '', size = 17, fill = '#15CDFF' }: Props) => (
     <svg className={[VerifiedBadge.className, className].join(' ')} height={size} width="19px" viewBox="0 0 19 17">
+        <path
+            className={VerifiedBadge.checkMarkClassName}
+            d="M9.32727273,9.44126709 L9.32727273,3.03016561 L6.55027155,3.03016561 L6.55027155,10.8150746 L6.55027155,12.188882 L12.1042739,12.188882 L12.1042739,9.44126709 L9.32727273,9.44126709 Z"
+            fill={giphyBlack}
+            transform="translate(9.327273, 7.609524) scale(-1, 1) rotate(-45.000000) translate(-9.327273, -7.609524) "
+        ></path>
         <g transform="translate(-532.000000, -466.000000)" fill={fill}>
             <g transform="translate(141.000000, 235.000000)">
                 <g transform="translate(264.000000, 0.000000)">
@@ -22,5 +29,6 @@ const VerifiedBadge = ({ className = '', size = 17, fill = '#15CDFF' }: Props) =
 )
 
 VerifiedBadge.className = 'giphy-verified-badge'
+VerifiedBadge.checkMarkClassName = 'giphy-verified-checkmark'
 
 export default VerifiedBadge
