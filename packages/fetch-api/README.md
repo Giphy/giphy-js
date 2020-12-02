@@ -108,7 +108,7 @@ Fetch related gifs based on the id of a gif
 related(id: string, options?: RelatedOptions): Promise<GifsResult>
 ```
 
-> Options: [Pagination Options](#pagination-options)
+> Options: [Pagination Options](#pagination-options), [Type Option](#type-option)
 
 ##### Example:
 
@@ -150,7 +150,7 @@ random(options?: RandomOptions): Promise<GifResult>
 | :----- | :----- | :---------------------------------- | :-------: |
 | _tag_  | string | The GIF tag to limit randomness by. | undefined |
 
-> Other Options: [Type Option](#type-option)
+> Options: [Type Option](#type-option)
 
 ##### Example:
 

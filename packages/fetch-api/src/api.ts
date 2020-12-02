@@ -130,7 +130,10 @@ export class GiphyFetch {
      * @returns {Promise<GifsResult>}
      **/
     related(id: string, options?: RelatedOptions): Promise<GifsResult> {
-        return request(`gifs/related?${this.getQS({ gif_id: id, ...options })}`, normalizeGifs) as Promise<GifsResult>
+        return request(
+            `${options?.type === 'stickers' ? 'stickers' : 'gifs'}/related?${this.getQS({ gif_id: id, ...options })}`,
+            normalizeGifs
+        ) as Promise<GifsResult>
     }
 }
 export default GiphyFetch
