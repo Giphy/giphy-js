@@ -23,7 +23,9 @@ export interface PaginationOptions {
 }
 export interface CategoriesOptions extends PaginationOptions {}
 export interface SubcategoriesOptions extends PaginationOptions {}
-export interface RelatedOptions extends PaginationOptions {}
+export interface RelatedOptions extends PaginationOptions {
+    type?: 'gifs' | 'stickers' // no 'text' support, overrride MediaType
+}
 
 export interface TrendingOptions extends PaginationOptions, TypeOption {
     rating?: Rating
