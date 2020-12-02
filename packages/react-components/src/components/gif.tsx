@@ -18,6 +18,9 @@ const GifContainer = styled.div`
             fill: white;
         }
     }
+    .${VerifiedBadge.checkMarkClassName} {
+        opacity: 0;
+    }
 `
 
 export const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow]
