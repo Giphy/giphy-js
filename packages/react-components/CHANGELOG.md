@@ -1,3 +1,15 @@
+## @giphy/react-components@2.0.1 (2020-12-09)
+
+#### :rocket: Enhancement
+
+-   `react-components`
+    -   [#142](https://github.com/Giphy/giphy-js/pull/142) condensed mode option for search bar experience ([@giannif](https://github.com/giannif))
+    -   [#140](https://github.com/Giphy/giphy-js/pull/140) pingback v2 - analytics upgrade ([@giannif](https://github.com/giannif))
+
+#### Committers: 1
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+
 ## @giphy/react-components@1.7.1 (2020-09-02)
 
 #### :rocket: Enhancement

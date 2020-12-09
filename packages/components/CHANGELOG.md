@@ -1,4 +1,15 @@
-## @giphy/react-components@3.4.0 (2020-08-06)
+## @giphy/js-components@4.0.1 (2020-12-09)
+
+#### :rocket: Enhancement
+
+-   `js-components`
+    -   [#140](https://github.com/Giphy/giphy-js/pull/140) pingback v2 - analytics upgrade ([@giannif](https://github.com/giannif))
+
+#### Committers: 1
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+
+## @giphy/js-components@3.4.0 (2020-08-06)
 
 #### :rocket: Enhancement
 

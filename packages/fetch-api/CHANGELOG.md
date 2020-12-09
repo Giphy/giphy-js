@@ -1,3 +1,15 @@
+## 2.0.1 (2020-12-09)
+
+#### :rocket: Enhancement
+
+-   `fetch-api`
+    -   [#143](https://github.com/Giphy/giphy-js/pull/143) related stickers option ([@giannif](https://github.com/giannif))
+    -   [#141](https://github.com/Giphy/giphy-js/pull/141) global api url override ([@giannif](https://github.com/giannif))
+
+#### Committers: 1
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+
 ## 1.7.0 (2020-09-28)
 
 #### :rocket: Enhancement
