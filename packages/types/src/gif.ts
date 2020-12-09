@@ -13,7 +13,7 @@ export interface IImage extends IRendition {
 
 export interface IURLAsset extends IImage {}
 
-export interface IMP4 {
+export interface IMP4 extends IRendition {
     mp4: string
     mp4_size: string
 }
@@ -46,7 +46,7 @@ export interface IImages {
     original: ImageAllTypes
     fixed_height: ImageAllTypes
     looping: IMP4
-    original_mp4: IImage
+    original_mp4: IMP4
     preview_gif: IImage
     '480w_still': IImage
 }
