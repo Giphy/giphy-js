@@ -58,6 +58,7 @@ type Props = {
     noResultsMessage?: string | JSX.Element
     initialGifs?: IGif[]
     backgroundColor?: string
+    borderRadius?: number
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
@@ -133,6 +134,7 @@ class Carousel extends PureComponent<Props, State> {
             noLink,
             noResultsMessage,
             backgroundColor,
+            borderRadius,
         } = this.props
         const { gifs, isDoneFetching } = this.state
         const showLoader = fetchGifs && !isDoneFetching
@@ -156,6 +158,7 @@ class Carousel extends PureComponent<Props, State> {
                                 overlay={overlay}
                                 hideAttribution={hideAttribution}
                                 noLink={noLink}
+                                borderRadius={borderRadius}
                                 backgroundColor={backgroundColor}
                             />
                         )

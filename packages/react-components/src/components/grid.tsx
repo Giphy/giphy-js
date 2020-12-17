@@ -28,6 +28,7 @@ type Props = {
     useTransform?: boolean
     columnOffsets?: number[]
     backgroundColor?: string
+    borderRadius?: number
 } & EventProps
 
 const Loader = styled(DotsLoader)<{ isFirstLoad: boolean }>`
@@ -130,6 +131,7 @@ class Grid extends PureComponent<Props, State> {
             overlay,
             hideAttribution,
             noLink,
+            borderRadius,
             noResultsMessage,
             columns,
             width,
@@ -168,6 +170,7 @@ class Grid extends PureComponent<Props, State> {
                                 backgroundColor={backgroundColor}
                                 hideAttribution={hideAttribution}
                                 noLink={noLink}
+                                borderRadius={borderRadius}
                             />
                         ))}
                     </MasonryGrid>

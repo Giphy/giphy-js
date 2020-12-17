@@ -12,7 +12,17 @@ const eventAction = (event: string) => (gif: IGif) => {
     action(`Gif ${event} for ${gif.id}`)()
 }
 
-const GifDemo = ({ id, width, noLink }: { id: string; width: number; noLink?: boolean }) => {
+const GifDemo = ({
+    id,
+    width,
+    noLink,
+    borderRadius,
+}: {
+    id: string
+    width: number
+    noLink?: boolean
+    borderRadius?: number
+}) => {
     const [gif, setGif] = useState<IGif>()
 
     const fetch = async () => {
@@ -27,6 +37,7 @@ const GifDemo = ({ id, width, noLink }: { id: string; width: number; noLink?: bo
     return gif ? (
         <GifComponent
             key={`gif-${noLink}`}
+            borderRadius={borderRadius}
             gif={gif}
             width={width}
             noLink={noLink}
@@ -44,6 +55,15 @@ export default {
 
 export const Gif = () => (
     <GifDemo id={text('id', 'ZEU9ryYGZzttn0Cva7')} width={number('width', 300)} noLink={boolean('noLink', false)} />
+)
+
+export const GifNoBorderRadius = () => (
+    <GifDemo
+        id={text('id', 'ZEU9ryYGZzttn0Cva7')}
+        borderRadius={0}
+        width={number('width', 300)}
+        noLink={boolean('noLink', false)}
+    />
 )
 export const Sticker = () => (
     <GifDemo id={text('id', 'l1J9FvenuBnI4GTeg')} width={number('width', 300)} noLink={boolean('noLink', false)} />

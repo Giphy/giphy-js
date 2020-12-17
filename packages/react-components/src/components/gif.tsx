@@ -1,3 +1,4 @@
+import { css } from '@emotion/core'
 import styled from '@emotion/styled'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
@@ -8,8 +9,14 @@ import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
 import { PingbackContext } from './pingback-context-manager'
 
-const GifContainer = styled.div`
+const GifContainer = styled.div<{ borderRadius?: number }>`
     display: block;
+    ${(props) =>
+        props.borderRadius &&
+        css`
+            border-radius: ${props.borderRadius}px;
+            overflow: hidden;
+        `}
     img {
         display: block;
     }
@@ -28,7 +35,7 @@ export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLOR
 
 const hoverTimeoutDelay = 200
 
-type ContainerProps = HTMLProps<HTMLElement> & { href?: string }
+type ContainerProps = HTMLProps<HTMLElement> & { href?: string; borderRadius: number }
 const Container = (props: ContainerProps) => (
     <GifContainer as={props.href ? 'a' : 'div'} {...(props as HTMLProps<HTMLDivElement>)} />
 )
@@ -60,6 +67,7 @@ type GifProps = {
     overlay?: ReactType<GifOverlayProps>
     hideAttribution?: boolean
     noLink?: boolean
+    borderRadius?: number
     style?: any
 }
 
@@ -86,6 +94,7 @@ const Gif = ({
     overlay,
     hideAttribution = false,
     noLink = false,
+    borderRadius = 4,
     style,
 }: Props) => {
     // only fire seen once per gif id
@@ -222,6 +231,7 @@ const Gif = ({
                 height,
                 ...style,
             }}
+            borderRadius={borderRadius}
             className={[Gif.className, className].join(' ')}
             onMouseOver={onMouseOver}
             onMouseLeave={onMouseLeave}
