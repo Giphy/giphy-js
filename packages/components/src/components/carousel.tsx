@@ -44,6 +44,7 @@ type Props = {
     noResultsMessage?: string | JSX.Element
     hideAttribution?: boolean
     noLink?: boolean
+    borderRadius?: number
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {} })
@@ -115,6 +116,7 @@ class Carousel extends Component<Props, State> {
             noResultsMessage,
             hideAttribution,
             noLink,
+            borderRadius,
         }: Props,
         { gifs }: State
     ) {
@@ -146,6 +148,7 @@ class Carousel extends Component<Props, State> {
                                 user={user}
                                 hideAttribution={hideAttribution}
                                 noLink={noLink}
+                                borderRadius={borderRadius}
                             />
                         )
                     })}

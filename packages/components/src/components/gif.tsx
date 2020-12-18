@@ -60,6 +60,7 @@ type GifProps = {
     user?: Partial<IUser>
     hideAttribution?: boolean
     noLink?: boolean
+    borderRadius?: number
 }
 
 export type Props = GifProps & EventProps
@@ -81,6 +82,7 @@ const Gif = ({
     backgroundColor,
     hideAttribution = false,
     noLink = false,
+    borderRadius = 4,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -194,6 +196,12 @@ const Gif = ({
             ? `url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AQMAAACSSKldAAAABlBMVEUhIiIWFhYoSqvJAAAAGElEQVQY02MAAv7///8PWxqIPwDZw5UGABtgwz2xhFKxAAAAAElFTkSuQmCC') 0 0`
             : defaultBgColor.current)
 
+    const borderRadiusCss = borderRadius
+        ? css`
+              border-radius: ${borderRadius}px;
+              overflow: hidden;
+          `
+        : ''
     return (
         <Container
             href={noLink ? undefined : gif.url}
@@ -201,7 +209,7 @@ const Gif = ({
                 width,
                 height,
             }}
-            className={cx(Gif.className, gifCss, className)}
+            className={cx(Gif.className, gifCss, borderRadiusCss, className)}
             onMouseOver={onMouseOver}
             onMouseLeave={onMouseLeave}
             onClick={onClick}

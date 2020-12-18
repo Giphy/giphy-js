@@ -26,6 +26,7 @@ type Props = {
     noResultsMessage?: string | JSX.Element
     hideAttribution?: boolean
     noLink?: boolean
+    borderRadius?: number
 } & EventProps
 const defaultProps = Object.freeze({ gutter: 6, user: {} })
 
@@ -148,6 +149,7 @@ class Grid extends Component<Props, State> {
             noResultsMessage,
             hideAttribution,
             noLink,
+            borderRadius,
         }: Props,
         { gifWidth, gifs, isError, isDoneFetching }: State
     ) {
@@ -170,6 +172,7 @@ class Grid extends Component<Props, State> {
                                 user={user}
                                 hideAttribution={hideAttribution}
                                 noLink={noLink}
+                                borderRadius={borderRadius}
                             />
                         ))}
                         {!showLoader && gifs.length === 0 && noResultsMessage}
