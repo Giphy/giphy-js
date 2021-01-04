@@ -55,7 +55,8 @@ See this [codesanbox](https://codesandbox.io/s/giphy-web-sdk-ssr-with-nextjs-irv
 | fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                              |
 | columns                                 | `number`                                 | 3         | The number of columns in the grid                                                                     |
 | gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                    |
-| noResultsMessage                        | `string || component`                    | undefined | Customise the "No results" message                                                                    |
+| borderRadius                            | `number`                                 | 4         | a border radius applied to Gif Components making the corners rounded                                  |
+| noResultsMessage                        | `string                                  |           | component`                                                                                            | undefined | Customise the "No results" message |
 | noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
 | [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF                                                     |
 | [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                             |
@@ -67,7 +68,8 @@ See this [codesanbox](https://codesandbox.io/s/giphy-web-sdk-ssr-with-nextjs-irv
 | gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                                               |
 | fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                              |
 | gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                    |
-| noResultsMessage                        | `string || component`                    | undefined | Customise the "No results" message                                                                    |
+| borderRadius                            | `number`                                 | 4         | a border radius applied to Gif Components making the corners rounded                                  |
+| noResultsMessage                        | `string                                  |           | component`                                                                                            | undefined | Customise the "No results" message |
 | noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
 | [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF                                                     |
 | [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                             |
@@ -100,6 +102,7 @@ _Gif props_
 | --------------------------------------- | ------------------------------------------ | ------------------ | ----------------------------------------------------------------------------------------------------- |
 | gif                                     | `IGif`                                     | undefined          | The gif to display                                                                                    |
 | width                                   | `number`                                   | undefined          | The width of the gif                                                                                  |
+| borderRadius                            | `number`                                   | 4                  | a border radius making the corners rounded                                                            |
 | backgroundColor                         | `string`                                   | random giphy color | The background of the gif before it loads                                                             |
 | [hideAttribution](#attribution-overlay) | `boolean`                                  | false              | Hide the user attribution that appears over a GIF                                                     |
 | noLink                                  | `boolean`                                  | false              | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
@@ -165,7 +168,7 @@ It has a few initialization props:
 
 | _prop_      | _type_                                                                                                     | _default_     | _description_                                                                    |
 | ----------- | ---------------------------------------------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------- |
-| apiKey      | string                                                                                                     | undefined     | Your web SDK key. Use a separate key for every platform (Android, iOS, Web)                                                                     |
+| apiKey      | string                                                                                                     | undefined     | Your web SDK key. Use a separate key for every platform (Android, iOS, Web)      |
 | initialTerm | string                                                                                                     | ''            | _Advanced usage_ a search term to fetch and render when the component is mounted |
 | theme       | [SearchTheme](#searchtheme)                                                                                | default theme | A few theming options such as search bar height and dark or light mode           |
 | options     | [SearchOptions](https://github.com/Giphy/giphy-js/blob/master/packages/fetch-api/README.md#search-options) | undefined     | Search options that will be passed on to the search request                      |
