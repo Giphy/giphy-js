@@ -1,3 +1,12 @@
+## @giphy/js-components@4.1.0 (2021-01-05)
+
+#### :rocket: Enhancement
+* `components`, `react-components`
+  * [#150](https://github.com/Giphy/giphy-js/pull/150) feat(react-components): border radius ([@giannif](https://github.com/giannif))
+
+#### Committers: 1
+- Gianni Ferullo ([@giannif](https://github.com/giannif))
+
 ## @giphy/js-components@4.0.1 (2020-12-09)
 
 #### :rocket: Enhancement
