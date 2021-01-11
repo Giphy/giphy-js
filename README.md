@@ -14,7 +14,7 @@ Choose your flavor!
 
 ### [@giphy/js-components](packages/components/README.md)
 
-> lightweight UI components, no framework reqiuired
+> lightweight UI components, no framework required
 
 ### [@giphy/js-fetch-api](packages/fetch-api/README.md)
 
