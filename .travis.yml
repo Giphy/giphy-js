@@ -20,5 +20,5 @@ deploy:
     skip_cleanup: true
     on:
         node: '10'
-        branch: master
+        branch: v1-updates
         condition: $TRAVIS_COMMIT_MESSAGE =~ ^Publish
