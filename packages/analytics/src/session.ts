@@ -1,7 +1,7 @@
-import cookie from 'cookie'
 import { PingbackEventType } from '@giphy/js-types'
-import { PingbackRequestAction } from './types'
+import { getPingbackId } from '@giphy/js-util'
 import { v1 as uuid } from 'uuid' // v1 only for pingback verfication
+import { PingbackRequestAction } from './types'
 
 type SessionEvent = {
     event_type: PingbackEventType
@@ -35,7 +35,7 @@ export function addLastSearchResponseId(responseId: string) {
     try {
         const existing = sessionStorage.getItem(SESSION_STORAGE_KEY)
         if (existing) {
-            var searchResponseIds = JSON.parse(existing)
+            const searchResponseIds = JSON.parse(existing)
             if (searchResponseIds[searchResponseIds.length - 1] !== responseId) {
                 sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify([...searchResponseIds, responseId]))
             }
@@ -74,7 +74,7 @@ export const createSession = (
     loggedInUserId: string = ''
 ): Session => ({
     user: {
-        user_id: cookie.parse(document ? document.cookie : ({} as any)).giphy_pbid,
+        user_id: getPingbackId(),
         logged_in_user_id: loggedInUserId || '',
         random_id: getRandomId(),
     },

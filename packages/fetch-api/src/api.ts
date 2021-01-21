@@ -1,5 +1,5 @@
 /* eslint-disable no-dupe-class-members */
-import cookie from 'cookie'
+import { getPingbackId } from '@giphy/js-util'
 import qs from 'qs'
 import { normalizeGif, normalizeGifs } from './normalize/gif'
 import {
@@ -34,9 +34,7 @@ export class GiphyFetch {
      * @hidden
      */
     private getQS = (options: any = {}) => {
-        const { giphy_pbid: pingback_id } =
-            typeof document !== 'undefined' ? cookie.parse(document.cookie) : ({} as any)
-        return qs.stringify({ ...options, api_key: this.apiKey, pingback_id })
+        return qs.stringify({ ...options, api_key: this.apiKey, pingback_id: getPingbackId() })
     }
 
     /**

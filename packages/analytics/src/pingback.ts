@@ -1,10 +1,10 @@
+import { PingbackEventType } from '@giphy/js-types'
+import { forEach, Logger } from '@giphy/js-util'
 import { debounce } from 'throttle-debounce'
+import { sendPingback } from './send-pingback'
 import { createSession } from './session'
 import { Pingback, PingbackRequestAction } from './types'
 import { getAction } from './util'
-import { PingbackEventType } from '@giphy/js-types'
-import { forEach, Logger } from '@giphy/js-util'
-import { sendPingback } from './send-pingback'
 
 type ActionMap = { [key: string]: PingbackRequestAction[] }
 
