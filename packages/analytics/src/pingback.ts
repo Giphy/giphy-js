@@ -32,9 +32,8 @@ const getRandomId = () => {
 let loggedInUserId = ''
 
 function sendPingbacks() {
-    const sendEvents = [...queuedPingbackEvents]
+    sendPingback(queuedPingbackEvents)
     queuedPingbackEvents = []
-    sendPingback(sendEvents)
 }
 
 const debouncedPingbackEvent = debounce(1000, sendPingbacks)
