@@ -1,4 +1,5 @@
 import { IGif, IUser } from '@giphy/js-types'
+import { getPingbackId } from '@giphy/js-util'
 import pingback from '../pingback'
 import { addLastSearchResponseId, SESSION_STORAGE_KEY } from '../session'
 
@@ -42,9 +43,10 @@ describe('pingback', () => {
         expect(sessionsNoUser.user).toEqual({
             logged_in_user_id: '',
             random_id: gl.giphyRandomId,
+            user_id: getPingbackId(),
         })
     })
-    const position = { top: 0, left: 20 } as ClientRect
+    const position = { top: 0, left: 20 } as any
     test('no response id', () => {
         pingback({
             gif: gif as IGif,
@@ -88,6 +90,7 @@ describe('pingback', () => {
         expect(session.user).toEqual({
             logged_in_user_id: String(user.id),
             random_id: gl.giphyRandomId,
+            user_id: getPingbackId(),
         })
         const [event] = session.events
         const { actions } = event
@@ -119,6 +122,7 @@ describe('pingback', () => {
             // but there's still a user bc we save it
             logged_in_user_id: String(user.id),
             random_id: gl.giphyRandomId,
+            user_id: getPingbackId(),
         })
     })
     test('request custom attributes', () => {
