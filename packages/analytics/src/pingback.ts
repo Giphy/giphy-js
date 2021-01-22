@@ -1,3 +1,4 @@
+import { Logger } from '@giphy/js-util'
 import cookie from 'cookie'
 import { debounce } from 'throttle-debounce'
 import { v1 as uuid } from 'uuid' // v1 only for pingback verfication
@@ -59,11 +60,14 @@ const pingback = ({ gif, userId, eventType, actionType, attributes, queueEvents 
 
     if (gif) {
         if (!gif.analytics_response_payload) {
+            Logger.debug(`no pingback for ${gif.id}, not all endpoints have ARPs`)
             // abort pingback, analytics_response_payload is required for gif events
             return
         }
         const gifEvent = newEvent as PingbackGifEvent
-        gifEvent.analytics_response_payload = gif.analytics_response_payload
+        gifEvent.analytics_response_payload = `${gif.analytics_response_payload}${
+            Logger.ENABLED ? '&mode=verification' : ''
+        }`
     }
 
     if (user_id) {
