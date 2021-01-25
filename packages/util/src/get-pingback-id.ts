@@ -9,7 +9,8 @@ const getPingbackId = () => {
         } catch (_) {}
         if (!pingbackId) {
             // we need to create it
-            pingbackId = uuid().replace(/-/g, '').substring(0, 16)
+            const hexTime = new Date().getTime().toString(16) // was told to mimic what we had
+            pingbackId = `${hexTime}${uuid().replace(/-/g, '')}`.substring(0, 16) // 16 character max
             try {
                 // save in storage
                 sessionStorage.setItem('giphyPingbackId', pingbackId)
