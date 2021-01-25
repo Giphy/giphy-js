@@ -1,7 +1,8 @@
-import { getGifHeight, getAltText, getBestRenditionUrl, getSpecificRendition, getGifWidth } from '../gif-utils'
-import { mapValues, forEach, take, without, pick } from '../collections'
 import { IGif, IUser } from '@giphy/js-types'
 import { IImages, ImageAllTypes } from '@giphy/js-types/dist/gif'
+import { forEach, mapValues, pick, take, without } from '../collections'
+import getPingbackId from '../get-pingback-id'
+import { getAltText, getBestRenditionUrl, getGifHeight, getGifWidth, getSpecificRendition } from '../gif-utils'
 
 jest.mock('../webp-check')
 
@@ -165,5 +166,10 @@ describe('collections', () => {
         // @ts-ignore
         const unmatchedProperty = pick({ g: 123 }, ['b'])
         expect(unmatchedProperty).toEqual({})
+    })
+
+    test('getRandomId', () => {
+        const id = getPingbackId()
+        expect(id.length).toEqual(16)
     })
 })

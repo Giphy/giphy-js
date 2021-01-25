@@ -24,7 +24,6 @@
     "dependencies": {
         "@giphy/js-types": "^2.1.0",
         "@giphy/js-util": "^1.9.2",
-        "cookie": "0.4.1",
         "qs": "^6.9.4"
     },
     "devDependencies": {

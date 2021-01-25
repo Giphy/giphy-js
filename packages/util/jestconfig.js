@@ -5,4 +5,5 @@ module.exports = {
     ...base,
     name: '@giphy/js-util',
     displayName: 'util',
+    setupFiles: ['./browser-mock.ts'],
 }
