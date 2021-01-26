@@ -4,11 +4,9 @@ import { debounce } from 'throttle-debounce'
 import { v1 as uuid } from 'uuid' // v1 only for pingback verfication
 import { sendPingback } from './send-pingback'
 import { Pingback, PingbackEvent, PingbackGifEvent } from './types'
+import gl from './global'
 
 let queuedPingbackEvents: PingbackEvent[] = []
-
-/* istanbul ignore next */
-const gl = ((typeof window !== 'undefined' ? window : global) || {}) as any
 
 gl.giphyRandomId = ''
 const getRandomId = () => {
