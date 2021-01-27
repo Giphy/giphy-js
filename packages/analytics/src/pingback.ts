@@ -1,5 +1,4 @@
-import { Logger } from '@giphy/js-util'
-import cookie from 'cookie'
+import { getPingbackId, Logger } from '@giphy/js-util'
 import { debounce } from 'throttle-debounce'
 import { v1 as uuid } from 'uuid' // v1 only for pingback verfication
 import { sendPingback } from './send-pingback'
@@ -27,6 +26,8 @@ const getRandomId = () => {
     }
     return gl.giphyRandomId
 }
+// generate this for verification?
+getRandomId()
 
 let loggedInUserId = ''
 
@@ -41,10 +42,6 @@ const debouncedPingbackEvent = debounce(1000, sendPingbacks)
 const pingback = ({ gif, userId, eventType, actionType, attributes, queueEvents = true }: Pingback) => {
     // save the user id for whenever create session is invoked
     loggedInUserId = userId ? String(userId) : loggedInUserId
-
-    /* istanbul ignore next */
-    // get the giphy_pbid cookie
-    const user_id = cookie.parse(document ? document.cookie : ({} as any)).giphy_pbid
 
     const newEvent: PingbackEvent = {
         ts: Date.now(),
@@ -68,11 +65,7 @@ const pingback = ({ gif, userId, eventType, actionType, attributes, queueEvents 
         }`
     }
 
-    if (user_id) {
-        newEvent.user_id = user_id
-    } else {
-        newEvent.random_id = getRandomId()
-    }
+    newEvent.user_id = getPingbackId()
 
     if (eventType) {
         newEvent.event_type = eventType
