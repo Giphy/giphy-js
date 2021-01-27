@@ -47,7 +47,7 @@ export function addLastSearchResponseId(responseId: string) {
 
 const gl = ((typeof window !== 'undefined' ? window : global) || {}) as any
 gl.giphyRandomId = ''
-const getRandomId = () => {
+export const getRandomId = () => {
     // it exists in memory
     if (!gl.giphyRandomId) {
         try {

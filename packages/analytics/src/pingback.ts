@@ -1,61 +1,102 @@
 import { PingbackEventType } from '@giphy/js-types'
-import { forEach, Logger } from '@giphy/js-util'
+import { getGiphySDKRequestHeaders, Logger } from '@giphy/js-util'
+import cookie from 'cookie'
 import { debounce } from 'throttle-debounce'
-import { sendPingback } from './send-pingback'
-import { createSession } from './session'
-import { Pingback, PingbackRequestAction } from './types'
-import { getAction } from './util'
-
-type ActionMap = { [key: string]: PingbackRequestAction[] }
-
-const queuedPingbacks: { [key in PingbackEventType]?: ActionMap } = {}
+import { getRandomId } from './session'
+import { Pingback } from './types'
 
 let loggedInUserId = ''
 
-function fetchPingbackRequest() {
-    forEach(queuedPingbacks, (actionMap: ActionMap, pingbackType: PingbackEventType) => {
-        if (actionMap) {
-            forEach(actionMap, (action: PingbackRequestAction[], responseId: string) => {
-                // if there are no actions lined up inside this pingbackType do nothing
-                if (action.length) {
-                    const session = createSession(pingbackType, action, responseId, loggedInUserId)
-                    sendPingback(session)
-                    // empty this specific batch
-                    actionMap[responseId] = []
-                }
-            })
-        }
+const debouncedPingbackEvent = debounce(1000, sendPingbacks)
+
+export type PingbackV2Event = {
+    event_type?: PingbackEventType
+    user_id?: string
+    logged_in_user_id?: string
+    action_type: string
+    random_id?: string
+    attributes: any
+    ts: number
+}
+
+// TODO remove api key
+const pingBackUrl = 'https://pingback.giphy.com/v2/pingback?apikey=l0HlIwPWyBBUDAUgM'
+
+export const sendPingback = (events: PingbackV2Event[]) => {
+    const headers = getGiphySDKRequestHeaders()
+    /* istanbul ignore next */
+    headers?.set('Content-Type', 'application/json')
+    Logger.debug(`Pingback session`, events)
+    return fetch(pingBackUrl, {
+        method: 'POST',
+        body: JSON.stringify({ events }),
+        headers,
     })
 }
 
-const debouncedPingbackEvent = debounce(1000, fetchPingbackRequest)
+let queuedPingbackEvents: PingbackV2Event[] = []
 
-const pingback = ({ gif, user, responseId, type: pingbackType, actionType, position, attributes }: Pingback) => {
-    // not all endpoints provide a response_id
-    if (!responseId) {
-        Logger.debug(`Pingback aborted for ${gif.id}, no responseId`)
-        return
+function sendPingbacks() {
+    sendPingback(queuedPingbackEvents)
+    queuedPingbackEvents = []
+}
+
+export type PingbackGifEvent = PingbackV2Event & {
+    analytics_response_payload: string
+}
+
+const pingback = ({ gif, user, type: pingbackType, actionType, position, attributes = [] }: Pingback) => {
+    if (
+        position &&
+        // apppend position only if it's not passed as a custom attribute
+        !attributes.some((attributes) => attributes.key === 'position')
+    ) {
+        attributes.push({
+            key: `position`,
+            value: JSON.stringify(position),
+        })
     }
-    const { id, bottle_data = {} } = gif
-    const { tid } = bottle_data
-
     // save the user id for whenever create session is invoked
-    loggedInUserId = user && user.id ? String(user.id) : loggedInUserId
+    loggedInUserId = user?.id ? String(user?.id) : loggedInUserId
 
-    // the queue doesn't exist for this pingbackType yet so create it
-    if (!queuedPingbacks[pingbackType]) queuedPingbacks[pingbackType] = {}
+    /* istanbul ignore next */
+    // get the giphy_pbid cookie
+    const user_id = cookie.parse(document ? document.cookie : ({} as any)).giphy_pbid
 
-    // a map of actions based on pingback type
-    const actionMap = queuedPingbacks[pingbackType]! // we just created it so ! is ok
+    const newEvent: PingbackV2Event = {
+        ts: Date.now(),
+        attributes: Object.fromEntries(attributes.map(({ key, value }) => [key, value])),
+        action_type: actionType,
+    }
 
-    // create the searchRepsonseId queue
-    if (!actionMap[responseId]) actionMap[responseId] = []
+    if (loggedInUserId) {
+        newEvent.logged_in_user_id = loggedInUserId
+    }
 
-    // add the action
-    actionMap[responseId].push(getAction(actionType, String(id), tid, position, attributes))
+    if (gif) {
+        // @ts-ignore
+        if (!gif.analytics_response_payload) {
+            // abort pingback, analytics_response_payload is required for gif events
+            return
+        }
+        const gifEvent = newEvent as PingbackGifEvent
+        // @ts-ignore
+        gifEvent.analytics_response_payload = gif.analytics_response_payload
+    }
 
-    // if there's a tid, skip the queue
-    tid ? fetchPingbackRequest() : debouncedPingbackEvent()
+    if (user_id) {
+        newEvent.user_id = user_id
+    } else {
+        newEvent.random_id = getRandomId()
+    }
+
+    if (pingbackType) {
+        newEvent.event_type = pingbackType
+    }
+
+    queuedPingbackEvents.push(newEvent)
+
+    debouncedPingbackEvent()
 }
 
 export default pingback
