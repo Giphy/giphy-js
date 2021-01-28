@@ -1,33 +1,12 @@
 import { getPingbackId, Logger } from '@giphy/js-util'
 import { debounce } from 'throttle-debounce'
-import { v1 as uuid } from 'uuid' // v1 only for pingback verfication
+import gl from './global'
 import { sendPingback } from './send-pingback'
 import { Pingback, PingbackEvent, PingbackGifEvent } from './types'
-import gl from './global'
 
 let queuedPingbackEvents: PingbackEvent[] = []
 
-gl.giphyRandomId = ''
-const getRandomId = () => {
-    // it exists in memory
-    if (!gl.giphyRandomId) {
-        try {
-            // it exists in storage
-            gl.giphyRandomId = localStorage.getItem('giphyRandomId')
-        } catch (_) {}
-        if (!gl.giphyRandomId) {
-            // we need to create it
-            gl.giphyRandomId = uuid()
-            try {
-                // save in storage
-                localStorage.setItem('giphyRandomId', gl.giphyRandomId)
-            } catch (_) {}
-        }
-    }
-    return gl.giphyRandomId
-}
-// generate this for verification?
-getRandomId()
+gl.giphyRandomId = getPingbackId()
 
 let loggedInUserId = ''
 
@@ -47,6 +26,7 @@ const pingback = ({ gif, userId, eventType, actionType, attributes, queueEvents 
         ts: Date.now(),
         attributes,
         action_type: actionType,
+        user_id: getPingbackId(),
     }
 
     if (loggedInUserId) {
@@ -64,8 +44,6 @@ const pingback = ({ gif, userId, eventType, actionType, attributes, queueEvents 
             Logger.ENABLED ? '&mode=verification' : ''
         }`
     }
-
-    newEvent.user_id = getPingbackId()
 
     if (eventType) {
         newEvent.event_type = eventType
