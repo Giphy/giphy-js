@@ -52,12 +52,7 @@ export const Grid = () => {
         if (isPercy()) {
             fetchMock
                 .restore()
-                .getOnce(
-                    `https://api.giphy.com/v1/gifs/search?offset=0&limit=${limit}&q=${encodeURIComponent(
-                        term
-                    )}&api_key=${apiKey}`,
-                    { body: mockGifsResult }
-                )
+                .getOnce(`begin:https://api.giphy.com/v1/gifs/search?offset=0&limit=`, { body: mockGifsResult })
         }
         const result = await gf.search(term, { offset, limit })
         fetchMock.restore()

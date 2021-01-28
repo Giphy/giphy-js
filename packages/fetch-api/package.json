@@ -24,11 +24,9 @@
     "dependencies": {
         "@giphy/js-types": "^3.0.0",
         "@giphy/js-util": "^2.0.0",
-        "cookie": "0.4.1",
         "qs": "^6.9.4"
     },
     "devDependencies": {
-        "@types/cookie": "^0.4.0",
         "@types/qs": "^6.9.4",
         "jest-fetch-mock": "^3.0.3",
         "parcel-bundler": "^1.12.4",

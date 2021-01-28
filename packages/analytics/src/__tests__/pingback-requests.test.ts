@@ -1,8 +1,7 @@
 import { IGif, IUser } from '@giphy/js-types'
+import { getPingbackId } from '@giphy/js-util'
 import fetch from 'jest-fetch-mock'
 import pingback from '../pingback'
-
-const gl = ((typeof window !== 'undefined' ? window : global) || {}) as any
 
 function getRequest(init: RequestInit = {}): { events: [any] } {
     return init.body ? JSON.parse(init.body.toString()) : ''
@@ -30,17 +29,15 @@ describe('pingback', () => {
         expect(event).toEqual({
             action_type: 'CLICK',
             event_type: 'GIF_CHANNEL',
-            random_id: gl.giphyRandomId,
+            user_id: getPingbackId(),
         })
     })
     test('request user_id', () => {
-        document.cookie = 'giphy_pbid=1234'
         pingback({
             gif: gif as IGif,
             actionType: 'CLICK',
             queueEvents: false,
         })
-        document.cookie = 'giphy_pbid='
         expect(fetch.mock.calls.length).toEqual(1)
         const [[, options]] = fetch.mock.calls
         const {
@@ -50,7 +47,7 @@ describe('pingback', () => {
         expect(eventNoUser).toEqual({
             analytics_response_payload,
             action_type: 'CLICK',
-            user_id: '1234',
+            user_id: getPingbackId(),
             // no random id here
         })
     })
@@ -69,7 +66,7 @@ describe('pingback', () => {
         expect(eventNoUser).toEqual({
             analytics_response_payload,
             action_type: 'CLICK',
-            random_id: gl.giphyRandomId,
+            user_id: getPingbackId(),
         })
     })
     test('request', () => {
@@ -105,7 +102,7 @@ describe('pingback', () => {
             action_type: 'FAVORITE',
             analytics_response_payload,
             logged_in_user_id: String(user.id),
-            random_id: gl.giphyRandomId,
+            user_id: getPingbackId(),
             attributes,
         })
 
@@ -114,7 +111,7 @@ describe('pingback', () => {
             analytics_response_payload,
             // but there's still a user bc we save it
             logged_in_user_id: String(user.id),
-            random_id: gl.giphyRandomId,
+            user_id: getPingbackId(),
         })
     })
     test('no analytics_response_payload should abort', () => {
@@ -145,7 +142,7 @@ describe('pingback', () => {
             action_type: 'CLICK',
             analytics_response_payload,
             logged_in_user_id: String(user.id),
-            random_id: gl.giphyRandomId,
+            user_id: getPingbackId(),
             attributes: { position: `1` },
         })
     })

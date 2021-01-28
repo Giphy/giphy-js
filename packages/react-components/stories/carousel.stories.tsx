@@ -21,14 +21,7 @@ export const SearchExample = () => {
     const limit = number('limit', 5)
     const fetchGifs = async (offset: number) => {
         if (isPercy()) {
-            fetchMock
-                .restore()
-                .getOnce(
-                    `https://api.giphy.com/v1/gifs/search?offset=0&limit=${limit}&q=${encodeURIComponent(
-                        term
-                    )}&api_key=${apiKey}`,
-                    { body: mockGifsResult }
-                )
+            fetchMock.restore().getOnce(`begin:https://api.giphy.com/v1/gifs/search?`, { body: mockGifsResult })
         }
         const result = await gf.search(term, { offset, limit })
         fetchMock.restore()

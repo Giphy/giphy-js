@@ -1,32 +1,12 @@
-import { Logger } from '@giphy/js-util'
-import cookie from 'cookie'
+import { getPingbackId, Logger } from '@giphy/js-util'
 import { debounce } from 'throttle-debounce'
-import { v1 as uuid } from 'uuid' // v1 only for pingback verfication
+import gl from './global'
 import { sendPingback } from './send-pingback'
 import { Pingback, PingbackEvent, PingbackGifEvent } from './types'
-import gl from './global'
 
 let queuedPingbackEvents: PingbackEvent[] = []
 
-gl.giphyRandomId = ''
-const getRandomId = () => {
-    // it exists in memory
-    if (!gl.giphyRandomId) {
-        try {
-            // it exists in storage
-            gl.giphyRandomId = localStorage.getItem('giphyRandomId')
-        } catch (_) {}
-        if (!gl.giphyRandomId) {
-            // we need to create it
-            gl.giphyRandomId = uuid()
-            try {
-                // save in storage
-                localStorage.setItem('giphyRandomId', gl.giphyRandomId)
-            } catch (_) {}
-        }
-    }
-    return gl.giphyRandomId
-}
+gl.giphyRandomId = getPingbackId()
 
 let loggedInUserId = ''
 
@@ -42,14 +22,11 @@ const pingback = ({ gif, userId, eventType, actionType, attributes, queueEvents 
     // save the user id for whenever create session is invoked
     loggedInUserId = userId ? String(userId) : loggedInUserId
 
-    /* istanbul ignore next */
-    // get the giphy_pbid cookie
-    const user_id = cookie.parse(document ? document.cookie : ({} as any)).giphy_pbid
-
     const newEvent: PingbackEvent = {
         ts: Date.now(),
         attributes,
         action_type: actionType,
+        user_id: getPingbackId(),
     }
 
     if (loggedInUserId) {
@@ -66,12 +43,6 @@ const pingback = ({ gif, userId, eventType, actionType, attributes, queueEvents 
         gifEvent.analytics_response_payload = `${gif.analytics_response_payload}${
             Logger.ENABLED ? '&mode=verification' : ''
         }`
-    }
-
-    if (user_id) {
-        newEvent.user_id = user_id
-    } else {
-        newEvent.random_id = getRandomId()
     }
 
     if (eventType) {
