@@ -8,7 +8,7 @@
         "test:watch": "jest --config ./jestconfig.js --watchAll"
     },
     "name": "@giphy/js-analytics",
-    "version": "2.1.1",
+    "version": "2.2.0",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
@@ -21,7 +21,7 @@
     },
     "dependencies": {
         "@giphy/js-types": "^3.0.0",
-        "@giphy/js-util": "^2.0.0",
+        "@giphy/js-util": "^2.1.0",
         "append-query": "^2.1.0",
         "throttle-debounce": "^2.3.0"
     },
