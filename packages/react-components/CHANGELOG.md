@@ -1,3 +1,21 @@
+## @giphy/react-components@2.1.3 (2021-01-29)
+
+#### :rocket: Enhancement
+* `analytics`, `fetch-api`, `react-components`, `util`
+  * [#156](https://github.com/Giphy/giphy-js/pull/156) use session storage instead of cookie for pingback v2 ([@giannif](https://github.com/giannif))
+
+#### Committers: 1
+- Gianni Ferullo ([@giannif](https://github.com/giannif))
+
+## @giphy/react-components@2.1.2 (2021-01-27)
+
+#### :rocket: Enhancement
+* `analytics`
+  * [#154](https://github.com/Giphy/giphy-js/pull/154) Get the environment url from globals ([@dleitee](https://github.com/dleitee))
+
+#### Committers: 1
+- Daniel Leite de Oliveira ([@dleitee](https://github.com/dleitee))
+
 ## @giphy/react-components@2.1.0 (2021-01-05)
 
 #### :rocket: Enhancement

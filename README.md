@@ -56,3 +56,11 @@ $ lerna version
 ```
 
 [Travis](https://travis-ci.com/Giphy/giphy-js) will publish to npm
+
+### Changelog
+
+Tag PRs in github, and run something like this, then cut and paste from the console. See [more](https://github.com/lerna/lerna-changelog)
+
+```sh
+lerna-changelog --from=@giphy/react-components@2.1.0 --to=@giphy/react-components@2.1.2
+```
