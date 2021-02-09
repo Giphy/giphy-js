@@ -5,16 +5,17 @@ type Props = {
     children: ReactNode
     onVisibleChange: (isVisible: boolean) => void
     className?: string
+    config?: IntersectionObserverInit
 }
 
-const Observer: FC<Props> = ({ children, className, onVisibleChange }: Props) => {
+const Observer: FC<Props> = ({ children, className, onVisibleChange, config }: Props) => {
     const container = useRef<HTMLDivElement | null>(null)
     useEffect(() => {
         let io: IntersectionObserver | undefined
         if (container.current) {
             io = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
                 if (onVisibleChange) onVisibleChange(entry.isIntersecting)
-            })
+            }, config)
             io.observe(container.current)
         }
         return () => io?.disconnect()

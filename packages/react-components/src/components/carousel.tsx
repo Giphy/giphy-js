@@ -59,6 +59,7 @@ type Props = {
     initialGifs?: IGif[]
     backgroundColor?: string
     borderRadius?: number
+    loaderConfig?: IntersectionObserverInit
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
@@ -135,6 +136,7 @@ class Carousel extends PureComponent<Props, State> {
             noResultsMessage,
             backgroundColor,
             borderRadius,
+            loaderConfig,
         } = this.props
         const { gifs, isDoneFetching } = this.state
         const showLoader = fetchGifs && !isDoneFetching
@@ -165,7 +167,7 @@ class Carousel extends PureComponent<Props, State> {
                     })}
                     {!showLoader && gifs.length === 0 && noResultsMessage}
                     {showLoader && (
-                        <Observer onVisibleChange={this.onLoaderVisible}>
+                        <Observer onVisibleChange={this.onLoaderVisible} config={loaderConfig}>
                             <Loader isFirstLoad={isFirstLoad} height={gifHeight} />
                         </Observer>
                     )}

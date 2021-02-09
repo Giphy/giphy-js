@@ -29,6 +29,7 @@ type Props = {
     columnOffsets?: number[]
     backgroundColor?: string
     borderRadius?: number
+    loaderConfig?: IntersectionObserverInit
 } & EventProps
 
 const Loader = styled(DotsLoader)<{ isFirstLoad: boolean }>`
@@ -139,6 +140,7 @@ class Grid extends PureComponent<Props, State> {
             useTransform,
             columnOffsets,
             backgroundColor,
+            loaderConfig,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = fetchGifs && !isDoneFetching
@@ -179,7 +181,7 @@ class Grid extends PureComponent<Props, State> {
                         <FetchError onClick={this.onFetch} />
                     ) : (
                         showLoader && (
-                            <Observer onVisibleChange={this.onLoaderVisible}>
+                            <Observer onVisibleChange={this.onLoaderVisible} config={loaderConfig}>
                                 <Loader isFirstLoad={isFirstLoad} className={Grid.loaderClassName} />
                             </Observer>
                         )

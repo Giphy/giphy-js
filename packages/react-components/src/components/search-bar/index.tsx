@@ -23,6 +23,7 @@ type Props = {
     // clears the input until the next entry,
     // leaves the term in context unaffected
     clear?: boolean
+    autoFocus?: boolean
 }
 
 const Container = styled.div`
@@ -37,6 +38,7 @@ const Input = styled.input<{ isUsernameSearch: boolean }>`
     border: 0;
     appearance: none;
     font-weight: normal;
+    font-family: interface, Helvetica Neue, helvetica, sans-serif;
     outline: 0;
     font-size: 15px;
     padding: 0 10px;
@@ -55,7 +57,7 @@ const Input = styled.input<{ isUsernameSearch: boolean }>`
         `}
 `
 
-const SearchBar = ({ className, placeholder = 'Search GIPHY', clear = false }: Props) => {
+const SearchBar = ({ className, placeholder = 'Search GIPHY', clear = false, autoFocus }: Props) => {
     const { setSearch, activeChannel, setActiveChannel, term, channelSearch } = useContext(SearchContext)
 
     // debounce local input
@@ -71,6 +73,12 @@ const SearchBar = ({ className, placeholder = 'Search GIPHY', clear = false }: P
 
     // we'll use this to see when we went from no channel to channel
     const previousActiveChannel = usePrevious(activeChannel)
+
+    useEffect(() => {
+        if (autoFocus) {
+            inputRef.current?.focus()
+        }
+    }, [autoFocus])
 
     useEffect(() => {
         // if we know have a channel, focus and clear the input
