@@ -86,6 +86,8 @@ const Gif = ({
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
+    // classname to target animations on image load
+    const [loadedClassname, setLoadedClassName] = useState('')
     // hovered is for the gif overlay
     const [isHovered, setHovered] = useState(false)
     // only show the gif if it's on the screen
@@ -159,6 +161,7 @@ const Gif = ({
             fullGifObserver.current.observe(container.current)
         }
         onGifVisible(gif, e) // gif is visible, perhaps just partially
+        setLoadedClassName(Gif.imgLoadedClassName)
     }
 
     useEffect(() => {
@@ -219,7 +222,7 @@ const Gif = ({
                 <picture>
                     <source type="image/webp" srcSet={rendition.webp} />
                     <img
-                        className={Gif.imgClassName}
+                        className={[Gif.imgClassName, loadedClassname].join(' ')}
                         src={showGif ? rendition.url : placeholder}
                         style={{ background }}
                         width={width}
@@ -238,5 +241,6 @@ const Gif = ({
 
 Gif.className = 'giphy-gif'
 Gif.imgClassName = 'giphy-gif-img'
+Gif.imgLoadedClassName = 'giphy-img-loaded'
 
 export default Gif
