@@ -104,6 +104,8 @@ const Gif = ({
     // only show the gif if it's on the screen
     // if we can't use the dom (SSR), then we show the gif by default
     const [showGif, setShowGif] = useState(!canUseDOM)
+    // classname to target animations on image load
+    const [loadedClassname, setLoadedClassName] = useState('')
     // the background color shouldn't change unless it comes from a prop or we have a sticker
     const defaultBgColor = useRef(getColor())
     // the a tag the media is rendered into
@@ -185,6 +187,7 @@ const Gif = ({
     const onImageLoad = (e: SyntheticEvent<HTMLElement, Event>) => {
         watchGif()
         onGifVisible(gif, e) // gif is visible, perhaps just partially
+        setLoadedClassName(Gif.imgLoadedClassName)
     }
 
     useEffect(() => {
@@ -244,7 +247,7 @@ const Gif = ({
                     <img
                         ref={image}
                         suppressHydrationWarning
-                        className={Gif.imgClassName}
+                        className={[Gif.imgClassName, loadedClassname].join(' ')}
                         src={showGif ? rendition.url : placeholder}
                         style={{ background }}
                         width={width}
@@ -261,5 +264,6 @@ const Gif = ({
 
 Gif.className = 'giphy-gif'
 Gif.imgClassName = 'giphy-gif-img'
+Gif.imgLoadedClassName = 'giphy-img-loaded'
 
 export default Gif
