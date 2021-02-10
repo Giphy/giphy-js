@@ -11,15 +11,18 @@ const requestMap: {
     [key: string]: {
         request: Promise<Result>
         ts: number // timestamp
+        isError?: boolean
     }
 } = {}
 
 const maxLife = 60000 // clear memory cache every minute
+const errorMaxLife = 6000 // clear error memory cache after a second
 
 const purgeCache = () => {
     const now = Date.now()
     Object.keys(requestMap).forEach((key: string) => {
-        if (now - requestMap[key].ts >= maxLife) {
+        const ttl = requestMap[key].isError ? errorMaxLife : maxLife
+        if (now - requestMap[key].ts >= ttl) {
             delete requestMap[key]
         }
     })
@@ -45,6 +48,12 @@ function request(url: string, normalizer: (a: any) => any = identity, noCache: b
                         const result = (await response.json()) as ErrorResult
                         if (result.message) message = result.message
                     } catch (_) {}
+                    if (requestMap[url]) {
+                        // we got a specific error,
+                        // normally, you'd want to not fetch this again,
+                        // but the api goes down and sends 400s, so allow a refetch after errorMaxLife
+                        requestMap[url].isError = true
+                    }
                     // we got an error response, throw with the message in the response body json
                     fetchError = new FetchError(`${ERROR_PREFIX}${message}`, response.status, response.statusText)
                 }
