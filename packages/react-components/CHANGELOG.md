@@ -1,3 +1,13 @@
+## 2.2.0 (2021-02-11)
+
+#### :rocket: Enhancement
+* `react-components`
+  * [#158](https://github.com/Giphy/giphy-js/pull/158) feat(react-components): prefetch / input font family / input auto focus ([@giannif](https://github.com/giannif))
+* `components`, `react-components`
+  * [#159](https://github.com/Giphy/giphy-js/pull/159) feat(components/react-components): on loaded classname ([@giannif](https://github.com/giannif))
+
+#### Committers: 1
+- Gianni Ferullo ([@giannif](https://github.com/giannif))
 ## @giphy/react-components@2.1.3 (2021-01-29)
 
 #### :rocket: Enhancement

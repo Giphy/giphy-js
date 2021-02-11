@@ -1,3 +1,17 @@
+## 2.2.0 (2021-02-11)
+
+#### :rocket: Enhancement
+* `fetch-api`
+  * [#160](https://github.com/Giphy/giphy-js/pull/160) feat(fetch-api): expire error fetches more quickly ([@giannif](https://github.com/giannif))
+
+## 2.1.0 (2021-01-29)
+
+#### :rocket: Enhancement
+* `fetch-api`
+  * [#156](https://github.com/Giphy/giphy-js/pull/156) use session storage instead of cookie for pingback v2 ([@giannif](https://github.com/giannif))
+
+#### Committers: 1
+- Gianni Ferullo ([@giannif](https://github.com/giannif))
 ## 2.0.1 (2020-12-09)
 
 #### :rocket: Enhancement

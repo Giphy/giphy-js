@@ -1,3 +1,11 @@
+## 4.2.0 (2021-02-11)
+
+#### :rocket: Enhancement
+* `components`, `react-components`
+  * [#159](https://github.com/Giphy/giphy-js/pull/159) feat(components/react-components): on loaded classname ([@giannif](https://github.com/giannif))
+
+#### Committers: 1
+- Gianni Ferullo ([@giannif](https://github.com/giannif))
 ## @giphy/js-components@4.1.3 (2021-01-29)
 
 #### :rocket: Enhancement
