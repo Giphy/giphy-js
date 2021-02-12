@@ -23,6 +23,7 @@ export interface IChannel {
     is_visible: boolean
     is_private: boolean
     is_live: boolean
+    // TODO this seems to be undefined sometimes
     user: IUser
     featured_gif: IGif
     tags: IChannelTag[]
