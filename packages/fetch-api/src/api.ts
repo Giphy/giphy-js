@@ -88,7 +88,11 @@ export class GiphyFetch {
      **/
     search(term: string, options: SearchOptions = {}): Promise<GifsResult> {
         const q = options.channel ? `@${options.channel} ${term}` : term
-        const qsParams = this.getQS({ ...options, q })
+        let excludeDynamicResults
+        if (options.type === 'text') {
+            excludeDynamicResults = true
+        }
+        const qsParams = this.getQS({ ...options, q, excludeDynamicResults })
         return request(`${getType(options)}/search?${qsParams}`, normalizeGifs) as Promise<GifsResult>
     }
 

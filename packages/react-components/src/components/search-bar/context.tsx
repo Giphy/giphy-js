@@ -57,14 +57,14 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
     // do a search for a term and optionally a channel
     const setSearch = (term: string) => setTerm(term)
 
-    const searchKey = [term, options.type, channelSearch, activeChannel?.user.username || '']
+    const searchKey = [term, options.type, channelSearch, activeChannel?.user?.username || '']
         .filter((val) => !!val)
         .join(' / ')
 
     // search fetch
     const fetchGifs = async (offset: number) => {
         setIsFetching(true)
-        const result = await gf.search(term, { ...options, offset, channel: activeChannel?.user.username })
+        const result = await gf.search(term, { ...options, offset, channel: activeChannel?.user?.username })
         setIsFetching(false)
         return result
     }

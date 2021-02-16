@@ -148,6 +148,15 @@ describe('response parsing', () => {
     test('text trending', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.trending({ type: 'text' })
+        const [req] = fetchMock.mock.calls
+        expect((req[0] as string).indexOf(`excludeDynamicResults`)).toEqual(-1)
+        testDummyGif(data[0])
+    })
+    test('text search', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
+        const { data } = await gf.search('hi', { type: 'text' })
+        const [req] = fetchMock.mock.calls
+        expect((req[0] as string).indexOf(`excludeDynamicResults`)).toBeGreaterThan(-1)
         testDummyGif(data[0])
     })
     test('response ok with message', async () => {
