@@ -39,8 +39,13 @@ function request(url: string, normalizer: (a: any) => any = identity, noCache: b
                 })
                 if (response.ok) {
                     const result = (await response.json()) as Result
-                    // if everything is successful, we return here, otherwise an error will be thrown
-                    return normalizer(result)
+                    // no response id is an indiication of a synthetic response
+                    if (!result.meta?.response_id) {
+                        throw { message: `synthetic response` } as ErrorResult
+                    } else {
+                        // if everything is successful, we return here, otherwise an error will be thrown
+                        return normalizer(result)
+                    }
                 } else {
                     let message = DEFAULT_ERROR
                     try {
@@ -54,6 +59,7 @@ function request(url: string, normalizer: (a: any) => any = identity, noCache: b
                         // but the api goes down and sends 400s, so allow a refetch after errorMaxLife
                         requestMap[url].isError = true
                     }
+
                     // we got an error response, throw with the message in the response body json
                     fetchError = new FetchError(`${ERROR_PREFIX}${message}`, response.status, response.statusText)
                 }

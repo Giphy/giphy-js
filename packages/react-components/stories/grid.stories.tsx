@@ -3,7 +3,7 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 import isPercy from '@percy-io/in-percy'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 import fetchMock from 'fetch-mock'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
@@ -78,5 +78,39 @@ export const Grid = () => {
                 />
             )}
         </>
+    )
+}
+
+export const GridAPIError = () => {
+    const [width, setWidth] = useState(innerWidth)
+    const mockRequest = useRef(true)
+    const onResize = throttle(500, () => setWidth(innerWidth))
+    useEffect(() => {
+        window.addEventListener('resize', onResize, false)
+        return () => window.removeEventListener('resize', onResize, false)
+    }, [])
+    const columns = number('columns', width < 500 ? 2 : 3)
+    const gutter = number('gutter', 6)
+    const body = {
+        data: [],
+    }
+    const fetchGifs = (offset: number) => {
+        if (mockRequest.current) {
+            fetchMock.restore().getOnce(`begin:https://api.giphy.com/v1/gifs/search`, { body })
+            mockRequest.current = false
+            const req = gf.search('hello', { offset })
+            fetchMock.restore()
+            return req
+        }
+        return gf.search('hello', { offset })
+    }
+    return (
+        <GridComponent
+            width={width}
+            columns={columns}
+            gutter={gutter}
+            fetchGifs={fetchGifs}
+            overlay={boolean('show overlay', true) ? Overlay : undefined}
+        />
     )
 }
