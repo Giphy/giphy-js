@@ -66,10 +66,8 @@ function request(url: string, normalizer: (a: any) => any = identity, noCache: b
             } catch (unexpectedError) {
                 fetchError = new FetchError(unexpectedError.message)
                 // if the request fails with an unspecfied error,
-                // the user can request again
-                // TODO: perhaps we can return a function to clear
-                // { clearCache: () => delete requestMap[url] }
-                delete requestMap[url]
+                // the user can request again after the error timeout
+                requestMap[url].isError = true
             }
             throw fetchError
         }
