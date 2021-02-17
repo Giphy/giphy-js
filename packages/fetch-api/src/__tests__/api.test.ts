@@ -46,6 +46,17 @@ const gifResponseWithUser = {
 const category = { name: 'news & politics', name_encoded: 'news-politics' }
 const categoriesResponse = {
     data: [category],
+    meta: {
+        response_id: 'category response id ',
+    },
+}
+
+const syntheticResponse = {
+    data: [],
+    meta: {
+        msg: 'OK',
+        response_id: '',
+    },
 }
 const gf = new GiphyFetchAPI('4OMJYpPoYwVpe')
 const testDummyGif = (gif: IGif) => {
@@ -183,6 +194,15 @@ describe('response parsing', () => {
             await gf.related('12345 dslfjdlskj')
         } catch (error) {
             expect(error.message).toBe('some crazy error')
+        }
+    })
+
+    test('synthetic response', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(syntheticResponse))
+        try {
+            await gf.related('12345 dslfjdlskj')
+        } catch (error) {
+            expect(error.message).toBe('synthetic response')
         }
     })
 })
