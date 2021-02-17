@@ -191,7 +191,7 @@ describe('response parsing', () => {
     test('error', async () => {
         fetchMock.mockReject(new Error('some crazy error'))
         try {
-            await gf.related('12345 dslfjdlskj')
+            await gf.related('some crazy error')
         } catch (error) {
             expect(error.message).toBe('some crazy error')
         }
@@ -200,7 +200,7 @@ describe('response parsing', () => {
     test('synthetic response', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(syntheticResponse))
         try {
-            await gf.related('12345 dslfjdlskj')
+            await gf.related('synthic error')
         } catch (error) {
             expect(error.message).toBe('synthetic response')
         }
