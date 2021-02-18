@@ -1,11 +1,12 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
 import { giphyBlack, giphyCharcoal, giphyIndigo, giphyLightGrey, giphyWhite } from '@giphy/js-brand'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import useDebounce from 'react-use/lib/useDebounce'
 import { SearchContext } from './context'
 import SearchBarChannel from './search-bar-channel'
 import SearchButton from './search-button'
-import styled, { getSize } from './theme'
+import { getSize } from './theme'
 
 function usePrevious<T>(value: T) {
     const ref = useRef<T>(value)

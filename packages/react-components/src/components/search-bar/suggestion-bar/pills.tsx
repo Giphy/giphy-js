@@ -1,10 +1,11 @@
+import styled from '@emotion/styled'
 import { giphyDarkestGrey } from '@giphy/js-brand'
 import { IChannel } from '@giphy/js-types'
 import React, { useContext } from 'react'
 import Avatar_ from '../../attribution/avatar'
 import VerifiedBadge from '../../attribution/verified-badge'
 import { SearchContext } from '../context'
-import styled, { getSize } from '../theme'
+import { getSize } from '../theme'
 import TrendingIcon_ from './trending-icon'
 
 const margin = 9

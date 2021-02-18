@@ -1,5 +1,5 @@
+import { css } from '@emotion/css'
 import { h } from 'preact'
-import { css } from 'emotion'
 const header = css`
     align-items: center;
     background: no-repeat url('https://media.giphy.com/channel_assets/originals/rf5TWGqR6jX4.gif') center center;

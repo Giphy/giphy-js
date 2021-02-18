@@ -1,10 +1,11 @@
-import { keyframes } from '@emotion/core'
+import { keyframes } from '@emotion/react'
+import styled from '@emotion/styled'
 import { giphyCharcoal, giphyDarkCharcoal, giphyWhite, giphyWhiteSmoke } from '@giphy/js-brand'
 import React, { useContext } from 'react'
 import Avatar_ from '../attribution/avatar'
 import VerifiedBadge from '../attribution/verified-badge'
 import { SearchContext } from './context'
-import styled, { SearchTheme } from './theme'
+import { SearchTheme } from './theme'
 
 const channelMargin = 6
 

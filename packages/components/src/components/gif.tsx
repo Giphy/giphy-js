@@ -1,7 +1,7 @@
+import { css, cx } from '@emotion/css'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
 import { getAltText, getBestRendition, getGifHeight, injectTrackingPixel, Logger } from '@giphy/js-util'
-import { css, cx } from 'emotion'
 import { h } from 'preact'
 import { useContext, useEffect, useRef, useState } from 'preact/hooks'
 import * as pingback from '../util/pingback'

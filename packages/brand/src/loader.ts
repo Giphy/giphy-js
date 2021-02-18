@@ -1,4 +1,4 @@
-import { css, keyframes } from 'emotion'
+import { css, keyframes } from '@emotion/css'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from './colors'
 
 const bouncer = keyframes`

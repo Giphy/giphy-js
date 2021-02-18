@@ -1,4 +1,4 @@
-import { css, cx, injectGlobal } from 'emotion'
+import { css, cx, injectGlobal } from '@emotion/css'
 
 // eslint-disable-next-line
 injectGlobal`

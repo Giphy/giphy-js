@@ -1,9 +1,10 @@
-import { keyframes } from '@emotion/core'
+import { css, keyframes, useTheme } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { useContext } from 'react'
 import useThrottle from 'react-use/lib/useThrottle'
 import { SearchContext } from './context'
 import SearchIcon_ from './search-icon'
-import styled, { getSize } from './theme'
+import { getSize } from './theme'
 
 const time = '2s'
 const purp = '#9933FF'
@@ -58,26 +59,28 @@ const Container = styled.div`
     ${(props) => getSize(props.theme, true)}
 `
 
-const GradientBox = styled.div`
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(45deg, ${purp} 0%, ${pink} 100%);
-    overflow: hidden;
-    &:before {
-        animation: ${gradientFade} ${time} linear 0s infinite;
-        background-image: linear-gradient(45deg, ${purp} 0%, ${pink} 50%, ${purp} 100%);
-        background-size: 400%;
-        background-position: 0% 100%;
-        content: '';
+const GradientBox = styled.div(
+    ({ colors = [purp, pink] }: { colors?: string[] }) => css`
         position: absolute;
-        left: 0;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 400%;
-    }
-`
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background: linear-gradient(45deg, ${colors[0]} 0%, ${colors[1]} 100%);
+        &:before {
+            animation: ${gradientFade} ${time} linear 0s infinite;
+            background-image: linear-gradient(45deg, ${colors[0]} 0%, ${colors[1]} 50%, ${colors[0]} 100%);
+            background-size: 400%;
+            background-position: 0% 100%;
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 400%;
+        }
+    `
+)
 
 const Fx = styled.div`
     width: 100%;
@@ -117,9 +120,10 @@ const SearchButton = () => {
     const { isFetching } = useContext(SearchContext)
     // let the animation run by throttling isFetching
     const throttledFetch = useThrottle(isFetching, 1000)
+    const theme = useTheme()
     return (
         <Container>
-            <GradientBox />
+            <GradientBox colors={theme.searchbarColors} />
             <SearchIcon />
             {throttledFetch && (
                 <Fx>

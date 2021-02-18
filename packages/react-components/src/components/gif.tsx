@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
@@ -37,6 +37,7 @@ const hoverTimeoutDelay = 200
 
 type ContainerProps = HTMLProps<HTMLElement> & { href?: string; borderRadius: number }
 const Container = (props: ContainerProps) => (
+    // @ts-ignore this says it's resolved, but I still get an errror: https://github.com/emotion-js/emotion/issues/1992
     <GifContainer as={props.href ? 'a' : 'div'} {...(props as HTMLProps<HTMLDivElement>)} />
 )
 

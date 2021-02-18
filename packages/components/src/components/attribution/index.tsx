@@ -1,5 +1,5 @@
+import { css, cx } from '@emotion/css'
 import { IGif, IProfileUser } from '@giphy/js-types'
-import { css, cx } from 'emotion'
 import { h } from 'preact'
 import Avatar from './avatar'
 import VerifiedBadge from './verified-badge'

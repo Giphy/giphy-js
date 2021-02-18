@@ -1,7 +1,5 @@
-import { css } from '@emotion/core'
-import styled, { CreateStyled } from '@emotion/styled'
-
-export type SearchTheme = {
+import { css } from '@emotion/react'
+export interface SearchTheme {
     mode: 'dark' | 'light'
     // the height of the search bar on desktop
     searchbarHeight: number
@@ -9,6 +7,11 @@ export type SearchTheme = {
     smallSearchbarHeight: number
     condensedMediaQuery?: string
     condensedMode?: boolean
+    searchbarColors?: [string, string]
+}
+
+declare module '@emotion/react' {
+    export interface Theme extends SearchTheme {}
 }
 
 export const initTheme = (theme?: Partial<SearchTheme>): SearchTheme => {
@@ -37,5 +40,3 @@ export const getSize = (theme: SearchTheme, includeWidth: boolean = false) => cs
         `};
     }
 `
-
-export default styled as CreateStyled<SearchTheme>

@@ -1,7 +1,8 @@
+import styled from '@emotion/styled'
 import { IChannel } from '@giphy/js-types'
 import React, { useContext, useEffect, useState } from 'react'
 import { SearchContext } from '../context'
-import styled, { getSize } from '../theme'
+import { getSize } from '../theme'
 import { ChannelPill, TrendingSearchPill } from './pills'
 
 const Container = styled.div`

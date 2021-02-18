@@ -1,7 +1,7 @@
-import { h } from 'preact'
+import { css, cx } from '@emotion/css'
 import * as colors from '../src/colors'
-import { css, cx } from 'emotion'
 import { css as typographtCss } from '../src/typography'
+import { h } from 'preact'
 
 const colorsCss = cx(
     typographtCss.subheaderSmall,
@@ -32,7 +32,7 @@ const Color = ({ color, name }) => (
     </div>
 )
 
-const Colors = Object.keys(colors).map(color =>
+const Colors = Object.keys(colors).map((color) =>
     color !== '__esModule' ? <Color color={colors[color]} name={color} /> : null
 )
 

@@ -1,7 +1,7 @@
+import { css, cx } from '@emotion/css'
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifWidth } from '@giphy/js-util'
-import { css, cx } from 'emotion'
 import { Component, h, JSX } from 'preact'
 import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'
