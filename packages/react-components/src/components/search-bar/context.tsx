@@ -12,6 +12,7 @@ export type SearchContextProps = {
     activeChannel: IChannel | undefined
     setActiveChannel: (channel: IChannel | undefined) => void
     fetchGifs: (offset: number) => Promise<GifsResult>
+    fetchAnimatedText: (offset: number) => Promise<GifsResult>
     fetchChannelSearch: (offset: number) => Promise<IChannel[]>
     isFetching: boolean
     trendingSearches: string[]
@@ -49,7 +50,7 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
 
     const setActiveChannel = (activeChannel: IChannel | undefined) => {
         _setActiveChannel(activeChannel)
-        setTerm('') // clear this here
+        setTerm('') // TODO: clear this here?
     }
 
     // fetched list of trending search terms
@@ -64,10 +65,24 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
     // search fetch
     const fetchGifs = async (offset: number) => {
         setIsFetching(true)
-        const result = await gf.search(term, { ...options, offset, channel: activeChannel?.user?.username })
+        const result = await gf.search(term, {
+            ...options,
+            offset,
+            channel: activeChannel?.user?.username,
+        })
         setIsFetching(false)
         return result
     }
+
+    const fetchAnimatedText = async (offset: number) => {
+        const limit = options.limit || 50
+        const result = await gf.animate(term, { offset, limit })
+        if (!result.pagination) {
+            result.pagination = { count: limit, total_count: limit, offset }
+        }
+        return result
+    }
+
     const fetchChannelSearch = async (offset: number) => {
         const result = await fetch(
             `https://api.giphy.com/v1/channels/search?q=${encodeURIComponent(
@@ -96,6 +111,7 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
                 trendingSearches,
                 setSearch,
                 fetchGifs,
+                fetchAnimatedText,
                 searchKey,
                 isFetching,
             }}

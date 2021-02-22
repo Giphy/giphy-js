@@ -3,6 +3,7 @@ import { getPingbackId } from '@giphy/js-util'
 import qs from 'qs'
 import { normalizeGif, normalizeGifs } from './normalize/gif'
 import {
+    AnimateTextOptions,
     CategoriesOptions,
     MediaType,
     PaginationOptions,
@@ -79,6 +80,11 @@ export class GiphyFetch {
 
     emoji(options?: PaginationOptions): Promise<GifsResult> {
         return request(`emoji?${this.getQS(options)}`, normalizeGifs) as Promise<GifsResult>
+    }
+
+    animate(text: string, options: AnimateTextOptions = {}): Promise<GifsResult> {
+        const qsParams = this.getQS({ ...options, m: text })
+        return request(`text/animate?${qsParams}`, normalizeGifs) as Promise<GifsResult>
     }
 
     /**

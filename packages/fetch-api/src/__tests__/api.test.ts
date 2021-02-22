@@ -170,6 +170,11 @@ describe('response parsing', () => {
         expect((req[0] as string).indexOf(`excludeDynamicResults`)).toBeGreaterThan(-1)
         testDummyGif(data[0])
     })
+    test('text animate', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
+        const { data } = await gf.animate('hi', { limit: 10 })
+        testDummyGif(data[0])
+    })
     test('response ok with message', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(okResponseWithError), { status: 403 })
         try {

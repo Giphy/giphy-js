@@ -14,6 +14,7 @@ export const BOOL_PROPS = [
     'is_realtime',
     'is_removed',
     'is_sticker',
+    'is_dynamic', // not finalized, and not adding to Gif type until type RFC is finished
 ]
 
 /**

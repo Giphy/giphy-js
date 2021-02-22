@@ -42,6 +42,15 @@ const related = async () => {
         console.error('related', error)
     }
 }
+
+const animate = async () => {
+    try {
+        const result = await gf.animate('hello')
+        console.log('animate', result)
+    } catch (error) {
+        console.error('animate', error)
+    }
+}
 const search = async () => {
     try {
         const result = await gf.search('dogs', { sort: 'recent' })
@@ -125,3 +134,4 @@ related()
 emoji()
 text()
 textTrending()
+animate()

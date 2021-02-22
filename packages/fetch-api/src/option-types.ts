@@ -27,6 +27,8 @@ export interface RelatedOptions extends PaginationOptions {
     type?: 'gifs' | 'stickers' // no 'text' support, overrride MediaType
 }
 
+export interface AnimateTextOptions extends PaginationOptions {}
+
 export interface TrendingOptions extends PaginationOptions, TypeOption {
     rating?: Rating
 }
