@@ -49,32 +49,32 @@ ReactDOM.render(<Grid width={800} columns={3} gutter={6} fetchGifs={fetchGifs} /
 
 See this [codesanbox](https://codesandbox.io/s/giphy-web-sdk-ssr-with-nextjs-irv19) for an example of SSR with next.js
 
-| _prop_                                  | _type_                                   | _default_ | _description_                                                                                            |
-| --------------------------------------- | ---------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------- |
-| width                                   | `number`                                 | undefined | The width of the grid                                                                                    |
-| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                                 |
-| columns                                 | `number`                                 | 3         | The number of columns in the grid                                                                        |
-| gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                       |
-| borderRadius                            | `number`                                 | 4         | a border radius applied to Gif Components making the corners rounded                                     |
-| noResultsMessage                        | `string                                  |           | component`                                                                                               | undefined | Customise the "No results" message |
-| noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick`    |
-| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF                                                        |
+| _prop_                                  | _type_                                   | _default_ | _description_                                                                                           |
+| --------------------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------- |
+| width                                   | `number`                                 | undefined | The width of the grid                                                                                   |
+| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                                |
+| columns                                 | `number`                                 | 3         | The number of columns in the grid                                                                       |
+| gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                      |
+| borderRadius                            | `number`                                 | 4         | a border radius applied to Gif Components making the corners rounded                                    |
+| noResultsMessage                        | `string                                  |           | component`                                                                                              | undefined | Customise the "No results" message |
+| noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick`   |
+| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF                                                       |
 | [loaderConfig](#loader-config)          | `IntersectionObserverInit`               | undefined | Enables configuring the loader to fetch sooner than when just onscreen, allowing for smoother scrolling |
-| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                                |
+| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                               |
 
 ## Carousel
 
-| _prop_                                  | _type_                                   | _default_ | _description_                                                                                         |
-| --------------------------------------- | ---------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------- | --------- | ---------------------------------- |
-| gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                                               |
-| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                              |
-| gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                    |
-| borderRadius                            | `number`                                 | 4         | a border radius applied to Gif Components making the corners rounded                                  |
-| noResultsMessage                        | `string                                  |           | component`                                                                                            | undefined | Customise the "No results" message |
-| noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
-| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF    
-| [loaderConfig](#loader-config)          | `IntersectionObserverInit`               | undefined | Enables configuring the loader to fetch sooner than when just onscreen, allowing for smoother scrolling |                                                 |
-| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                             |
+| _prop_                                  | _type_                                   | _default_ | _description_                                                                                           |
+| --------------------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------- |
+| gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                                                 |
+| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                                |
+| gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                      |
+| borderRadius                            | `number`                                 | 4         | a border radius applied to Gif Components making the corners rounded                                    |
+| noResultsMessage                        | `string | JSX.Element`                            | undefined | Customise the "No results" message                                                                      |
+| noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick`   |
+| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF                                                       |
+| [loaderConfig](#loader-config)          | `IntersectionObserverInit`               | undefined | Enables configuring the loader to fetch sooner than when just onscreen, allowing for smoother scrolling |
+| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                               |
 
 See [codesandbox](https://codesandbox.io/s/giphyreact-components-hbmcf?from-embed) for runnable code.
 
