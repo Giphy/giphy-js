@@ -144,6 +144,7 @@ const Gif = ({
     }
 
     const onClick = (e: SyntheticEvent<HTMLElement, Event>) => {
+        setHovered(false)
         // fire pingback
         pingback.onGifClick(gif, user?.id, e.target as HTMLElement, attributes)
         onGifClick(gif, e)
