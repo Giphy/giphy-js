@@ -19,7 +19,6 @@ function sendPingbacks() {
 const debouncedPingbackEvent = debounce(1000, sendPingbacks)
 
 const pingback = ({
-    gif,
     userId,
     eventType,
     actionType,
@@ -40,20 +39,6 @@ const pingback = ({
 
     if (loggedInUserId) {
         newEvent.logged_in_user_id = loggedInUserId
-    }
-
-    if (gif) {
-        if (!gif.analytics_response_payload) {
-            Logger.debug(`no pingback for ${gif.id}, not all endpoints have ARPs`)
-            // abort pingback, analytics_response_payload is required for gif events
-            return
-        }
-        if (analyticsResponsePayload) {
-            Logger.debug(`cannot use analyticsResponsePayload and gif together on ${gif.id}`)
-            // abort pingback, analytics_response_payload is required for gif events
-            return
-        }
-        newEvent.analytics_response_payload = gif.analytics_response_payload
     }
 
     // add verification mode

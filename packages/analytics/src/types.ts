@@ -1,10 +1,8 @@
-import { IGif, PingbackEventType } from '@giphy/js-types'
+import { PingbackEventType } from '@giphy/js-types'
 
 export type PingbackAttributes = { [key: string]: string }
 
 export type Pingback = {
-    // for pingbacks with GIFs
-    gif?: IGif
     userId?: string | number
     eventType?: PingbackEventType
     actionType: PingbackActionType
