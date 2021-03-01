@@ -8,7 +8,7 @@ export type Pingback = {
     actionType: PingbackActionType
     attributes?: PingbackAttributes
     queueEvents?: boolean
-    analyticsResponsePayload?: string
+    analyticsResponsePayload: string
 }
 
 export type PingbackActionType = 'CLICK' | 'SEEN' | 'HOVER' | 'FAVORITE' | 'SENT'
