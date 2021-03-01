@@ -9,10 +9,10 @@ const firePingback = (actionType: PingbackActionType) => (
     attributes: PingbackAttributes = {}
 ) =>
     pingback({
-        gif,
         userId,
         actionType,
         attributes: { position: JSON.stringify(getClientRect(target)), ...attributes },
+        analyticsResponsePayload: gif.analytics_response_payload,
     })
 
 // no target on this one
@@ -23,7 +23,7 @@ export const onGifSeen = (
     attributes: PingbackAttributes = {}
 ) => {
     pingback({
-        gif,
+        analyticsResponsePayload: gif.analytics_response_payload,
         userId,
         actionType: 'SEEN',
         attributes: { position: JSON.stringify(position), ...attributes },
