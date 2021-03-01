@@ -15,11 +15,11 @@ describe('pingback', () => {
         fetch.resetMocks()
     })
     test('no gif, but pingback type', () => {
+        // @ts-ignore
         pingback({
             actionType: 'CLICK',
             eventType: 'GIF_CHANNEL',
             queueEvents: false,
-            analyticsResponsePayload: '',
         })
         expect(fetch.mock.calls.length).toEqual(1)
         const [[, options]] = fetch.mock.calls
