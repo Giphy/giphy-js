@@ -10,6 +10,7 @@ export type Pingback = {
     actionType: PingbackActionType
     attributes?: PingbackAttributes
     queueEvents?: boolean
+    arp?: string
 }
 
 export type PingbackActionType = 'CLICK' | 'SEEN' | 'HOVER' | 'FAVORITE' | 'SENT'
@@ -22,8 +23,5 @@ export type PingbackEvent = {
     random_id?: string
     attributes: any
     ts: number
-}
-
-export type PingbackGifEvent = PingbackEvent & {
-    analytics_response_payload: string
+    analytics_response_payload?: string
 }
