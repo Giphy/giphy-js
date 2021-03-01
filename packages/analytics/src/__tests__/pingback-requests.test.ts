@@ -35,7 +35,7 @@ describe('pingback', () => {
     })
     test('request user_id', () => {
         pingback({
-            analyticsResponsePayload: gif.analytics_response_payload,
+            analyticsResponsePayload: gif.analytics_response_payload || '',
             actionType: 'CLICK',
             queueEvents: false,
         })
@@ -54,7 +54,7 @@ describe('pingback', () => {
     })
     test('request no user', () => {
         pingback({
-            analyticsResponsePayload: gif.analytics_response_payload,
+            analyticsResponsePayload: gif.analytics_response_payload || '',
             actionType: 'CLICK',
             queueEvents: false,
         })
@@ -73,14 +73,14 @@ describe('pingback', () => {
     test('request', () => {
         const attributes = { position: JSON.stringify({ top: 0, left: 20 }) }
         pingback({
-            analyticsResponsePayload: gif.analytics_response_payload,
+            analyticsResponsePayload: gif.analytics_response_payload || '',
             userId: user?.id,
             actionType: 'FAVORITE',
             attributes,
             queueEvents: false,
         })
         pingback({
-            analyticsResponsePayload: gif.analytics_response_payload,
+            analyticsResponsePayload: gif.analytics_response_payload || '',
             actionType: 'SEEN',
             queueEvents: false,
         })
@@ -117,7 +117,7 @@ describe('pingback', () => {
     })
     test('request custom attributes', () => {
         pingback({
-            analyticsResponsePayload: gif.analytics_response_payload,
+            analyticsResponsePayload: gif.analytics_response_payload || '',
             actionType: 'CLICK',
             attributes: { position: `1` },
             queueEvents: false,
@@ -139,7 +139,7 @@ describe('pingback', () => {
 
     test('no call since queueEvents is false', async () => {
         pingback({
-            analyticsResponsePayload: gif.analytics_response_payload,
+            analyticsResponsePayload: gif.analytics_response_payload || '',
             actionType: 'CLICK',
         })
         expect(fetch.mock.calls.length).toEqual(0)
