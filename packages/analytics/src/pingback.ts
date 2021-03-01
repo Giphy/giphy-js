@@ -48,12 +48,19 @@ const pingback = ({
             // abort pingback, analytics_response_payload is required for gif events
             return
         }
+        if (analyticsResponsePayload) {
+            Logger.debug(`cannot use analyticsResponsePayload and gif together on ${gif.id}`)
+            // abort pingback, analytics_response_payload is required for gif events
+            return
+        }
+        newEvent.analytics_response_payload = gif.analytics_response_payload
     }
 
-    const finalARP = gif?.analytics_response_payload ?? arp
-
-    if (finalARP) {
-        newEvent.analytics_response_payload = `${finalARP}${Logger.ENABLED ? '&mode=verification' : ''}`
+    // add verification mode
+    if (newEvent.analytics_response_payload) {
+        newEvent.analytics_response_payload = `${newEvent.analytics_response_payload}${
+            Logger.ENABLED ? '&mode=verification' : ''
+        }`
     }
 
     if (eventType) {
