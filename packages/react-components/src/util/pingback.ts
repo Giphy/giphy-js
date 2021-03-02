@@ -7,13 +7,17 @@ const firePingback = (actionType: PingbackActionType) => (
     userId: string | number | undefined,
     target: HTMLElement,
     attributes: PingbackAttributes = {}
-) =>
+) => {
+    if (!gif.analytics_response_payload) {
+        return
+    }
     pingback({
         analyticsResponsePayload: gif.analytics_response_payload,
         userId,
         actionType,
         attributes: { position: JSON.stringify(getClientRect(target)), ...attributes },
     })
+}
 
 // no target on this one
 export const onGifSeen = (
@@ -22,6 +26,9 @@ export const onGifSeen = (
     position: ClientRect,
     attributes: PingbackAttributes = {}
 ) => {
+    if (!gif.analytics_response_payload) {
+        return
+    }
     pingback({
         analyticsResponsePayload: gif.analytics_response_payload,
         userId,
