@@ -15,6 +15,7 @@ describe('pingback', () => {
         fetch.resetMocks()
     })
     test('no gif, but pingback type', () => {
+        // @ts-ignore
         pingback({
             actionType: 'CLICK',
             eventType: 'GIF_CHANNEL',
@@ -34,7 +35,7 @@ describe('pingback', () => {
     })
     test('request user_id', () => {
         pingback({
-            gif: gif as IGif,
+            analyticsResponsePayload: gif.analytics_response_payload || '',
             actionType: 'CLICK',
             queueEvents: false,
         })
@@ -53,7 +54,7 @@ describe('pingback', () => {
     })
     test('request no user', () => {
         pingback({
-            gif: gif as IGif,
+            analyticsResponsePayload: gif.analytics_response_payload || '',
             actionType: 'CLICK',
             queueEvents: false,
         })
@@ -72,14 +73,14 @@ describe('pingback', () => {
     test('request', () => {
         const attributes = { position: JSON.stringify({ top: 0, left: 20 }) }
         pingback({
-            gif: gif as IGif,
+            analyticsResponsePayload: gif.analytics_response_payload || '',
             userId: user?.id,
             actionType: 'FAVORITE',
             attributes,
             queueEvents: false,
         })
         pingback({
-            gif: gif as IGif,
+            analyticsResponsePayload: gif.analytics_response_payload || '',
             actionType: 'SEEN',
             queueEvents: false,
         })
@@ -114,20 +115,9 @@ describe('pingback', () => {
             user_id: getPingbackId(),
         })
     })
-    test('no analytics_response_payload should abort', () => {
-        const testGif = { ...gif } as IGif
-        testGif.analytics_response_payload = ''
-        pingback({
-            gif: testGif,
-            actionType: 'CLICK',
-            queueEvents: false,
-        })
-
-        expect(fetch.mock.calls.length).toEqual(0)
-    })
     test('request custom attributes', () => {
         pingback({
-            gif: gif as IGif,
+            analyticsResponsePayload: gif.analytics_response_payload || '',
             actionType: 'CLICK',
             attributes: { position: `1` },
             queueEvents: false,
@@ -149,7 +139,7 @@ describe('pingback', () => {
 
     test('no call since queueEvents is false', async () => {
         pingback({
-            gif: gif as IGif,
+            analyticsResponsePayload: gif.analytics_response_payload || '',
             actionType: 'CLICK',
         })
         expect(fetch.mock.calls.length).toEqual(0)

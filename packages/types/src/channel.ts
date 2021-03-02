@@ -35,4 +35,5 @@ export interface IChannel {
     children: IChannel[]
     syncable_tags: IChannelTag[]
     is_common?: boolean
+    analytics_response_payload: string
 }
