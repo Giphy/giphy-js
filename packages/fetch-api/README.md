@@ -98,6 +98,24 @@ const { data: gifs } = await gf.gifs(['3oEjHGr1Fhz0kyv8Ig'])
 const { data: gifs } = await gf.gifs('tv', 'arrested-development')
 ```
 
+## _animate_
+
+Create animated text gifs dynamicaly based on the text input. This endpoint will require you to [create a new SDK key](https://developers.giphy.com/dashboard/)
+
+##### Signature:
+
+```typescript
+animate(text: string, options?: PaginationOptions): Promise<GifsResult>
+```
+> Options: [Pagination Options](#pagination-options)
+
+##### Example:
+
+```typescript
+const { data: gifs } = await gf.animate('some text to animate!', { limit: 5 })
+```
+
+
 ## _related_
 
 Fetch related gifs based on the id of a gif
@@ -168,7 +186,7 @@ categories(options?: CategoriesOptions): Promise<CategoriesResult>
 
 ```typescript
 const { data: categories } = await gf.categories()
-categories.forEach(category => {
+categories.forEach((category) => {
     console.log(category) // ICategory
 })
 ```
@@ -184,7 +202,7 @@ subcategories(category: string, options?: SubcategoriesOptions): Promise<Categor
 ```typescript
 // Example:
 const { data: categories } = await gf.subcategories('tv', { limit: 10, offset: 25, rating: 'g' })
-categories.forEach(category => {
+categories.forEach((category) => {
     console.log(category) // ICategory
 })
 ```
