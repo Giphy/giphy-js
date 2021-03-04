@@ -81,6 +81,11 @@ export class GiphyFetch {
         return request(`emoji?${this.getQS(options)}`, normalizeGifs) as Promise<GifsResult>
     }
 
+    animate(text: string, options: PaginationOptions = {}): Promise<GifsResult> {
+        const qsParams = this.getQS({ ...options, m: text })
+        return request(`text/animate?${qsParams}`, normalizeGifs) as Promise<GifsResult>
+    }
+
     /**
      * @param term: string The term you're searching for
      * @param options: SearchOptions
