@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
-import { IGif, IUser } from '@giphy/js-types'
+import { IGif, IUser, PingbackEventType } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
 import React, { ElementType, GetDerivedStateFromProps, PureComponent } from 'react'
 import { debounce } from 'throttle-debounce'
@@ -30,6 +30,7 @@ type Props = {
     backgroundColor?: string
     borderRadius?: number
     loaderConfig?: IntersectionObserverInit
+    eventType?: PingbackEventType
 } & EventProps
 
 const Loader = styled(DotsLoader)<{ isFirstLoad: boolean }>`
@@ -141,6 +142,7 @@ class Grid extends PureComponent<Props, State> {
             columnOffsets,
             backgroundColor,
             loaderConfig,
+            eventType,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = fetchGifs && !isDoneFetching
@@ -148,7 +150,7 @@ class Grid extends PureComponent<Props, State> {
         // get the height of each grid item
         const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
         return (
-            <PingbackContextManager attributes={{ layout_type: 'GRID' }}>
+            <PingbackContextManager eventType={eventType} attributes={{ layout_type: 'GRID' }}>
                 <div className={className} style={{ width }}>
                     <MasonryGrid
                         itemHeights={itemHeights}

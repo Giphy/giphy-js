@@ -1,12 +1,13 @@
 import { pingback, PingbackActionType, PingbackAttributes } from '@giphy/js-analytics'
-import { IGif } from '@giphy/js-types'
+import { IGif, PingbackEventType } from '@giphy/js-types'
 import { getClientRect } from '@giphy/js-util'
 
 const firePingback = (actionType: PingbackActionType) => (
     gif: IGif,
     userId: string | number | undefined,
     target: HTMLElement,
-    attributes: PingbackAttributes = {}
+    attributes: PingbackAttributes = {},
+    eventType: PingbackEventType | undefined = undefined
 ) => {
     if (!gif.analytics_response_payload) {
         return
@@ -14,6 +15,7 @@ const firePingback = (actionType: PingbackActionType) => (
     pingback({
         userId,
         actionType,
+        eventType,
         attributes: { position: JSON.stringify(getClientRect(target)), ...attributes },
         analyticsResponsePayload: gif.analytics_response_payload,
     })
@@ -24,7 +26,8 @@ export const onGifSeen = (
     gif: IGif,
     userId: string | number | undefined,
     position: ClientRect,
-    attributes: PingbackAttributes = {}
+    attributes: PingbackAttributes = {},
+    eventType: PingbackEventType | undefined = undefined
 ) => {
     if (!gif.analytics_response_payload) {
         return
@@ -33,6 +36,7 @@ export const onGifSeen = (
         analyticsResponsePayload: gif.analytics_response_payload,
         userId,
         actionType: 'SEEN',
+        eventType,
         attributes: { position: JSON.stringify(position), ...attributes },
     })
 }

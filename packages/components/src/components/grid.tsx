@@ -1,5 +1,5 @@
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
-import { IGif, IUser } from '@giphy/js-types'
+import { IGif, IUser, PingbackEventType } from '@giphy/js-types'
 import Bricks from 'bricks.js'
 import { css, cx } from 'emotion'
 import { Component, h, JSX } from 'preact'
@@ -27,6 +27,7 @@ type Props = {
     hideAttribution?: boolean
     noLink?: boolean
     borderRadius?: number
+    eventType?: PingbackEventType
 } & EventProps
 const defaultProps = Object.freeze({ gutter: 6, user: {} })
 
@@ -150,13 +151,14 @@ class Grid extends Component<Props, State> {
             hideAttribution,
             noLink,
             borderRadius,
+            eventType,
         }: Props,
         { gifWidth, gifs, isError, isDoneFetching }: State
     ) {
         const showLoader = fetchGifs && !isDoneFetching
         const isFirstLoad = gifs.length === 0
         return (
-            <PingbackContextManager attributes={{ layout_type: 'GRID' }}>
+            <PingbackContextManager attributes={{ layout_type: 'GRID' }} eventType={eventType}>
                 <div class={className}>
                     <div ref={(c) => (this.el = c)}>
                         {gifs.map((gif) => (

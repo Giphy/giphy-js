@@ -121,7 +121,7 @@ const Gif = ({
     // fire onseen ref (changes per gif, so need a ref)
     const sendOnSeen = useRef<(_: IntersectionObserverEntry) => void>(noop)
     // custom pingback
-    const { attributes } = useContext(PingbackContext)
+    const { attributes, eventType } = useContext(PingbackContext)
     // user's overlay
     let Overlay = overlay
     if (!Overlay && !hideAttribution) {
@@ -134,7 +134,7 @@ const Gif = ({
         e.persist()
         setHovered(true)
         hoverTimeout.current = window.setTimeout(() => {
-            pingback.onGifHover(gif, user?.id, e.target as HTMLElement, attributes)
+            pingback.onGifHover(gif, user?.id, e.target as HTMLElement, attributes, eventType)
         }, hoverTimeoutDelay)
     }
 
@@ -145,7 +145,7 @@ const Gif = ({
 
     const onClick = (e: SyntheticEvent<HTMLElement, Event>) => {
         // fire pingback
-        pingback.onGifClick(gif, user?.id, e.target as HTMLElement, attributes)
+        pingback.onGifClick(gif, user?.id, e.target as HTMLElement, attributes, eventType)
         onGifClick(gif, e)
     }
 
@@ -159,7 +159,7 @@ const Gif = ({
             injectTrackingPixel(gif.bottle_data.tags)
         }
         // fire pingback
-        pingback.onGifSeen(gif, user?.id, entry.boundingClientRect, attributes)
+        pingback.onGifSeen(gif, user?.id, entry.boundingClientRect, attributes, eventType)
         // fire custom onGifSeen
         onGifSeen?.(gif, entry.boundingClientRect)
         // disconnect
