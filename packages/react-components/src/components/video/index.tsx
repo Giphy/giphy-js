@@ -13,7 +13,7 @@ type Props = {
     onCanPlay?: () => void
     onEnded?: () => void
     onLoop?: () => void
-    setFullscreen?: (isFullscreen: boolean) => void
+    onEndFullscreen?: () => void
     setVideoEl?: (el: HTMLVideoElement) => void
     muted?: boolean
     loop?: boolean
@@ -32,7 +32,7 @@ const Video = ({
     onError,
     onEnded,
     onLoop,
-    setFullscreen,
+    onEndFullscreen,
     setVideoEl,
     gif,
     width,
@@ -65,7 +65,7 @@ const Video = ({
     const _onTimeUpdate = useCallback(() => onTimeUpdate?.(videoEl.current?.currentTime || 0), [videoEl])
     const _onCanPlay = useCallback(() => onCanPlay?.(), [])
     const _onEnded = useCallback(() => onEnded?.(), [])
-    const _onEndFullscreen = useCallback(() => setFullscreen?.(false), [])
+    const _onEndFullscreen = useCallback(() => onEndFullscreen?.(), [])
 
     useEffect(() => {
         if (videoEl.current) {
