@@ -1,14 +1,10 @@
-import { pingback } from '@giphy/js-analytics'
 import { IGif } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
 import React, { useCallback, useEffect, useRef } from 'react'
 import getBestMedia from './rendition-selection'
-import { getErrorMessage, shouldFireQuartile } from './util'
+import { getErrorMessage } from './util'
 
 export type MEDIA_STATE = 'playing' | 'paused'
-
-export type QuartileEvent = 0.25 | 0.5 | 0.75
-const quartileEvents: QuartileEvent[] = [0.25, 0.5, 0.75]
 
 type Props = {
     onStateChange?: (state: MEDIA_STATE) => void
@@ -46,7 +42,6 @@ const Video = ({
 }: Props) => {
     const _height = height || getGifHeight(gif, width)
     const media = useRef(getBestMedia(gif.video, width, _height))
-    const quartilesFired = useRef<Set<number>>(new Set())
     const loopNumber = useRef<number>(0)
     const previousPlayhead = useRef<number>(0)
 
@@ -104,18 +99,6 @@ const Video = ({
         const el = videoEl.current
         if (el) {
             const playhead = el.currentTime
-            quartileEvents.some((q: QuartileEvent) => {
-                if (shouldFireQuartile(q, playhead, el.duration, quartilesFired.current, loopNumber.current)) {
-                    pingback({
-                        // @ts-ignore
-                        eventType: `quartile ${q}`,
-                        actionType: `SEEN`,
-                        analyticsResponsePayload: gif.analytics_response_payload,
-                    })
-                    return true
-                }
-                return false
-            })
             if (Math.floor(playhead) === 0 && Math.floor(previousPlayhead.current) > 0) {
                 if (loop && loopNumber.current === 0) {
                     // we're looping so we need to fire our ended event here. Should only fire ONCE at end of first loop.
