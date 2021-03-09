@@ -1124,6 +1124,46 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
+"@giphy/js-analytics@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@giphy/js-analytics/-/js-analytics-3.0.0.tgz#7d7a65faaa3fb997406da4a682f76ad79d392c04"
+  integrity sha512-WeiU+MVyc7vQD6VTztBl1ZAByTKqOpHRxlZHR3PQjzasc1damHooNcHyHqd8PrjYC3Ag/t/3IuFzsFWVh/dDNA==
+  dependencies:
+    "@giphy/js-types" "^3.1.0"
+    "@giphy/js-util" "^2.2.0"
+    append-query "^2.1.0"
+    throttle-debounce "^2.3.0"
+
+"@giphy/js-brand@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@giphy/js-brand/-/js-brand-2.0.2.tgz#bd40f63b1de9cb60b4116a78daa8b6c523e6954e"
+  integrity sha512-q2zDuVaDgobc5o9ucoFdYArrVKfyKXo0/jddvVgAazACLEPycAcxfqdyc98TRELwTVcmN/e0ULfLjim2lq3WXw==
+  dependencies:
+    emotion "10.0.27"
+
+"@giphy/js-fetch-api@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-2.4.0.tgz#e96c7a2599b720d3e40ea409d8e4c4a692aa4611"
+  integrity sha512-xiMHnv81XZjgut4yrkHB5QHDWGNhVHoyMDb3kQBy5H0NruwtQ+aM5BE9xbP+XQlxt3eRnPRJcLy5ORk9+K0fIQ==
+  dependencies:
+    "@giphy/js-types" "^3.1.0"
+    "@giphy/js-util" "^2.2.0"
+    qs "^6.9.4"
+
+"@giphy/js-types@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@giphy/js-types/-/js-types-3.1.0.tgz#cfddcfeb7d389542fc2ffc147bbe122760cfa3b6"
+  integrity sha512-/gzA5Ny6tYVSXHndBzoIPx2t0Lu0UkbvCxb4g+KWEwQslWmak/2vZcO2X6jdIObHkN/8ejFIXr5Od40Namhtvw==
+
+"@giphy/js-util@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@giphy/js-util/-/js-util-2.2.0.tgz#887f957e497ec7a956db5bc271259a02e7cbeffd"
+  integrity sha512-3EHFgOCtAwyV+yild+2YhGB9I+Ht1rXZw+kAuL4+9Ypy+oOwsK++iSdeAw6dY/nddzm91Ch3KB1rP1DBvU+JuA==
+  dependencies:
+    "@giphy/js-types" "^3.1.0"
+    dompurify "^2.2.2"
+    uuid "^8.3.0"
+
 "@iarna/toml@^2.2.0":
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.5.tgz#b32366c89b43c6f8cefbdefac778b9c828e3ba8c"
@@ -2497,6 +2537,13 @@ app-root-dir@^1.0.2:
   resolved "https://registry.yarnpkg.com/app-root-dir/-/app-root-dir-1.0.2.tgz#38187ec2dea7577fff033ffcb12172692ff6e118"
   integrity sha1-OBh+wt6nV3//Az/8sSFyaS/24Rg=
 
+append-query@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/append-query/-/append-query-2.1.0.tgz#c3392d2ddf8c70d3f582a14b051b12333da540bf"
+  integrity sha512-v9YXX6No91QkRA31IvTjl+1kFU+A0DaOzZpCNR7Q/ZoPSXlo5a4W2eS0qos6AKvCKL4MnNna78xgqIG8NRvQwg==
+  dependencies:
+    extend "^2.0.0"
+
 aproba@^1.0.3, aproba@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
@@ -3090,10 +3137,10 @@ bluebird@^3.3.5, bluebird@^3.5.0, bluebird@^3.5.1, bluebird@^3.5.5:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
-bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.4.0:
-  version "4.11.9"
-  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.9.tgz#26d556829458f9d1e81fc48952493d0ba3507828"
-  integrity sha512-E6QoYqCKZfgatHTdHzs1RRKP7ip4vvm+EyRUeE2RF0NblwVvb0p6jSVeNTOFxPn26QXN2o6SMfNxKp6kU8zQaw==
+bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.11.9:
+  version "4.12.0"
+  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.12.0.tgz#775b3f278efbb9718eec7361f483fb36fbbfea88"
+  integrity sha512-c98Bf3tPniI+scsdk237ku1Dc3ujXQTSgyiPUDEOe7tRkhrqridvh8klBv0HCEso1OLOYcHuCv/cS6DNxKH+ZA==
 
 bn.js@^5.1.1:
   version "5.1.3"
@@ -3181,7 +3228,7 @@ brfs@^1.2.0:
     static-module "^2.2.0"
     through2 "^2.0.0"
 
-brorand@^1.0.1:
+brorand@^1.0.1, brorand@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/brorand/-/brorand-1.1.0.tgz#12c25efe40a45e3c323eb8675a0a0ce57b22371f"
   integrity sha1-EsJe/kCkXjwyPrhnWgoM5XsiNx8=
@@ -3961,6 +4008,16 @@ create-ecdh@^4.0.0:
     bn.js "^4.1.0"
     elliptic "^6.5.3"
 
+create-emotion@^10.0.27:
+  version "10.0.27"
+  resolved "https://registry.yarnpkg.com/create-emotion/-/create-emotion-10.0.27.tgz#cb4fa2db750f6ca6f9a001a33fbf1f6c46789503"
+  integrity sha512-fIK73w82HPPn/RsAij7+Zt8eCE8SptcJ3WoRMfxMtjteYxud8GDTKKld7MYwAX2TVhrw29uR1N/bVGxeStHILg==
+  dependencies:
+    "@emotion/cache" "^10.0.27"
+    "@emotion/serialize" "^0.11.15"
+    "@emotion/sheet" "0.9.4"
+    "@emotion/utils" "0.11.3"
+
 create-hash@^1.1.0, create-hash@^1.1.2, create-hash@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/create-hash/-/create-hash-1.2.0.tgz#889078af11a63756bcfb59bd221996be3a9ef196"
@@ -4524,6 +4581,11 @@ domhandler@^3.0.0, domhandler@^3.3.0:
   dependencies:
     domelementtype "^2.0.1"
 
+dompurify@^2.2.2:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.2.6.tgz#54945dc5c0b45ce5ae228705777e8e59d7b2edc4"
+  integrity sha512-7b7ZArhhH0SP6W2R9cqK6RjaU82FZ2UPM7RO8qN1b1wyvC/NY1FNWcX1Pu00fFOAnzEORtwXe4bPaClg6pUybQ==
+
 domutils@1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/domutils/-/domutils-1.5.1.tgz#dcd8488a26f563d61079e48c9f7b7e32373682cf"
@@ -4663,17 +4725,17 @@ element-resize-detector@^1.2.1:
     batch-processor "1.0.0"
 
 elliptic@^6.5.3:
-  version "6.5.3"
-  resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.5.3.tgz#cb59eb2efdaf73a0bd78ccd7015a62ad6e0f93d6"
-  integrity sha512-IMqzv5wNQf+E6aHeIqATs0tOLeOTwj1QKbRcS3jBbYkl5oLAserA8yJTT7/VyHUYG91PRmPyeQDObKLPpeS4dw==
+  version "6.5.4"
+  resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.5.4.tgz#da37cebd31e79a1367e941b592ed1fbebd58abbb"
+  integrity sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==
   dependencies:
-    bn.js "^4.4.0"
-    brorand "^1.0.1"
+    bn.js "^4.11.9"
+    brorand "^1.1.0"
     hash.js "^1.0.0"
-    hmac-drbg "^1.0.0"
-    inherits "^2.0.1"
-    minimalistic-assert "^1.0.0"
-    minimalistic-crypto-utils "^1.0.0"
+    hmac-drbg "^1.0.1"
+    inherits "^2.0.4"
+    minimalistic-assert "^1.0.1"
+    minimalistic-crypto-utils "^1.0.1"
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -4703,6 +4765,14 @@ emotion-theming@10.0.27, emotion-theming@^10.0.19:
     "@babel/runtime" "^7.5.5"
     "@emotion/weak-memoize" "0.2.5"
     hoist-non-react-statics "^3.3.0"
+
+emotion@10.0.27:
+  version "10.0.27"
+  resolved "https://registry.yarnpkg.com/emotion/-/emotion-10.0.27.tgz#f9ca5df98630980a23c819a56262560562e5d75e"
+  integrity sha512-2xdDzdWWzue8R8lu4G76uWX5WhyQuzATon9LmNeCy/2BHVC6dsEpfhN1a0qhELgtDVdjyEA6J8Y/VlI5ZnaH0g==
+  dependencies:
+    babel-plugin-emotion "^10.0.27"
+    create-emotion "^10.0.27"
 
 encodeurl@~1.0.2:
   version "1.0.2"
@@ -5069,6 +5139,11 @@ extend-shallow@^3.0.0, extend-shallow@^3.0.2:
   dependencies:
     assign-symbols "^1.0.0"
     is-extendable "^1.0.1"
+
+extend@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/extend/-/extend-2.0.2.tgz#1b74985400171b85554894459c978de6ef453ab7"
+  integrity sha512-AgFD4VU+lVLP6vjnlNfF7OeInLTyeyckCNPEsuxz1vi786UuK/nk6ynPuhn/h+Ju9++TQyr5EpLRI14fc1QtTQ==
 
 extend@~3.0.2:
   version "3.0.2"
@@ -5895,7 +5970,7 @@ highlight.js@~9.15.0, highlight.js@~9.15.1:
   resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.15.10.tgz#7b18ed75c90348c045eef9ed08ca1319a2219ad2"
   integrity sha512-RoV7OkQm0T3os3Dd2VHLNMoaoDVx77Wygln3n9l5YV172XonWG6rgQD3XnF/BuFFZw9A0TJgmMSO8FEWQgvcXw==
 
-hmac-drbg@^1.0.0:
+hmac-drbg@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
   integrity sha1-0nRXAQJabHdabFRXk+1QL8DGSaE=
@@ -7368,7 +7443,7 @@ minimalistic-assert@^1.0.0, minimalistic-assert@^1.0.1:
   resolved "https://registry.yarnpkg.com/minimalistic-assert/-/minimalistic-assert-1.0.1.tgz#2e194de044626d4a10e7f7fbc00ce73e83e4d5c7"
   integrity sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==
 
-minimalistic-crypto-utils@^1.0.0, minimalistic-crypto-utils@^1.0.1:
+minimalistic-crypto-utils@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/minimalistic-crypto-utils/-/minimalistic-crypto-utils-1.0.1.tgz#f6c00c1c0b082246e5c4d99dfb8c7c083b2b582a"
   integrity sha1-9sAMHAsIIkblxNmd+4x8CDsrWCo=
@@ -9012,6 +9087,11 @@ qs@^6.6.0:
   version "6.9.4"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
   integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
+
+qs@^6.9.4:
+  version "6.9.6"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.6.tgz#26ed3c8243a431b2924aca84cc90471f35d5a0ee"
+  integrity sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ==
 
 qs@~6.5.2:
   version "6.5.2"
@@ -11153,6 +11233,11 @@ uuid@^8.0.0:
   version "8.3.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.1.tgz#2ba2e6ca000da60fce5a196954ab241131e05a31"
   integrity sha512-FOmRr+FmWEIG8uhZv6C2bTgEVXsHk08kE7mPlrBbEe+c3r9pjceVPgupIfNIhc4yx55H69OXANrUaSuu9eInKg==
+
+uuid@^8.3.0:
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+  integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
 v8-compile-cache@^2.0.0:
   version "2.2.0"
