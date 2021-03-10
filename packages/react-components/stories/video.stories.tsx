@@ -32,8 +32,8 @@ const VideoDemo = ({ id, width, height, muted }: Props) => {
             width={width}
             height={height}
             muted={muted}
-            onCanPlay={(ms) => eventAction(`can play in ${ms / 1000}`)}
-            onStateChange={(state) => eventAction(`state: ${state}`)}
+            onFirstPlay={(ms: number) => eventAction(`can play in ${ms / 1000}`)}
+            onStateChange={(state: 'playing' | 'paused') => eventAction(`state: ${state}`)}
             onEnded={() => eventAction('on ended')}
             onLoop={() => eventAction('on loop')}
             onWaiting={(count: number) => eventAction(`on waiting: ${count}`)}
@@ -49,7 +49,7 @@ export default {
 
 export const Video = () => (
     <VideoDemo
-        id={text('id', 'dRmm5LjBvotnAbhV5F')}
+        id={text('id', 'xVJRZebqjxqF7JBHst')}
         width={number('width', 300)}
         height={number('height', 0)}
         muted={boolean('muted', true)}

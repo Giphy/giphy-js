@@ -29,7 +29,7 @@ type Props = {
     onLoop?: () => void
     onEndFullscreen?: () => void
     setVideoEl?: (el: HTMLVideoElement) => void
-    onQuartile: (quartile: QuartileEvent) => void
+    onQuartile?: (quartile: QuartileEvent) => void
     muted?: boolean
     loop?: boolean
     gif: IGif
@@ -138,7 +138,7 @@ const Video = ({
             const playhead = el.currentTime
             quartileEvents.some((q: QuartileEvent) => {
                 if (shouldFireQuartile(q, playhead, el.duration, quartilesFired.current, loopNumber.current)) {
-                    onQuartile(q)
+                    onQuartile?.(q)
                     return true
                 }
                 return false
