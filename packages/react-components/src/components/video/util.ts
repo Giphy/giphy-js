@@ -1,3 +1,5 @@
+import { QuartileEvent } from '.'
+
 export const getErrorMessage = (code: number, src = '') => {
     switch (code) {
         case 1:
@@ -11,4 +13,20 @@ export const getErrorMessage = (code: number, src = '') => {
         default:
             return ''
     }
+}
+
+export const shouldFireQuartile = (
+    quartile: QuartileEvent,
+    playhead: number,
+    duration: number,
+    quartilesFired: Set<number>,
+    loopNumber: number
+): boolean => {
+    const currentQuartile = loopNumber + quartile
+    // NOTE: Should only fire on first loop, if looping.
+    if (!quartilesFired.has(currentQuartile) && duration > 0 && playhead > duration * quartile && loopNumber === 0) {
+        quartilesFired.add(currentQuartile)
+        return true
+    }
+    return false
 }

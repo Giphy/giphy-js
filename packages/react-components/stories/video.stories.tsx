@@ -8,8 +8,8 @@ import { Video as VideoComponent } from '../src'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
-const eventAction = (event: string) => (gif: IGif) => {
-    action(`Gif ${event} for ${gif.id}`)()
+const eventAction = (event: string) => {
+    action(`Video ${event}`)()
 }
 
 type Props = { id: string; width: number; height?: number; muted: boolean }
@@ -32,10 +32,11 @@ const VideoDemo = ({ id, width, height, muted }: Props) => {
             width={width}
             height={height}
             muted={muted}
-            onCanPlay={() => eventAction('can play')}
+            onCanPlay={(ms) => eventAction(`can play in ${ms / 1000}`)}
             onStateChange={(state) => eventAction(`state: ${state}`)}
             onEnded={() => eventAction('on ended')}
             onLoop={() => eventAction('on loop')}
+            onWaiting={(count: number) => eventAction(`on waiting: ${count}`)}
             // onTimeUpdate={(t) => console.log(t)}
         />
     ) : null
@@ -48,7 +49,7 @@ export default {
 
 export const Video = () => (
     <VideoDemo
-        id={text('id', 'zavzFXHmdM44TXrW4B')}
+        id={text('id', 'dRmm5LjBvotnAbhV5F')}
         width={number('width', 300)}
         height={number('height', 0)}
         muted={boolean('muted', true)}
