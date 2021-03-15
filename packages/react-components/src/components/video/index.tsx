@@ -59,6 +59,8 @@ const Video = ({
     className,
 }: Props) => {
     const height = height_ || getGifHeight(gif, width)
+
+    // state
     const media = useRef(getBestMedia(gif.video, width, height))
     const mountTime = useRef(Date.now())
     const hasPlayingFired = useRef(false)
@@ -66,6 +68,16 @@ const Video = ({
     const waitingCount = useRef<number>(0)
     const previousPlayhead = useRef<number>(0)
     const quartilesFired = useRef<Set<number>>(new Set())
+
+    // reset the above when the gif.id changes
+    useEffect(() => {
+        mountTime.current = Date.now()
+        hasPlayingFired.current = false
+        loopNumber.current = 0
+        waitingCount.current = 0
+        previousPlayhead.current = 0
+        quartilesFired.current = new Set()
+    }, [gif.id])
 
     useEffect(() => {
         media.current = getBestMedia(gif.video, width, height)
