@@ -68,6 +68,7 @@ type GifProps = {
     hideAttribution?: boolean
     noLink?: boolean
     borderRadius?: number
+    tabIndex?: number
     style?: any
 }
 
@@ -96,6 +97,7 @@ const Gif = ({
     noLink = false,
     borderRadius = 4,
     style,
+    tabIndex,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -240,6 +242,7 @@ const Gif = ({
             onMouseLeave={onMouseLeave}
             onClick={onClick}
             onContextMenu={(e: SyntheticEvent<HTMLElement, Event>) => onGifRightClick(gif, e)}
+            tabIndex={tabIndex}
         >
             <div style={{ width, height, position: 'relative' }} ref={container}>
                 <picture>

@@ -44,6 +44,7 @@ type Props = {
     noResultsMessage?: string | JSX.Element
     hideAttribution?: boolean
     noLink?: boolean
+    tabIndex?: number
     borderRadius?: number
 } & EventProps
 
@@ -103,7 +104,6 @@ class Carousel extends Component<Props, State> {
 
     render(
         {
-            fetchGifs,
             onGifVisible,
             onGifRightClick,
             gifHeight,
@@ -116,11 +116,12 @@ class Carousel extends Component<Props, State> {
             noResultsMessage,
             hideAttribution,
             noLink,
+            tabIndex = 0,
             borderRadius,
         }: Props,
         { gifs }: State
     ) {
-        const showLoader = fetchGifs && gifs.length > 0
+        const showLoader = gifs.length > 0
         const marginCss = css`
             margin-left: ${gutter}px;
         `
@@ -139,6 +140,7 @@ class Carousel extends Component<Props, State> {
                                 className={gifCss}
                                 gif={gif}
                                 key={gif.id}
+                                tabIndex={tabIndex}
                                 width={gifWidth}
                                 onGifClick={onGifClick}
                                 onGifHover={onGifHover}

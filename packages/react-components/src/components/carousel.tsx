@@ -59,6 +59,7 @@ type Props = {
     initialGifs?: IGif[]
     backgroundColor?: string
     borderRadius?: number
+    tabIndex?: number
     loaderConfig?: IntersectionObserverInit
 } & EventProps
 
@@ -121,7 +122,6 @@ class Carousel extends PureComponent<Props, State> {
 
     render() {
         const {
-            fetchGifs,
             onGifVisible,
             onGifRightClick,
             gifHeight,
@@ -136,10 +136,11 @@ class Carousel extends PureComponent<Props, State> {
             noResultsMessage,
             backgroundColor,
             borderRadius,
+            tabIndex = 0,
             loaderConfig,
         } = this.props
         const { gifs, isDoneFetching } = this.state
-        const showLoader = fetchGifs && !isDoneFetching
+        const showLoader = !isDoneFetching
         const isFirstLoad = gifs.length === 0
         return (
             <PingbackContextManager attributes={{ layout_type: 'CAROUSEL' }}>
@@ -150,6 +151,7 @@ class Carousel extends PureComponent<Props, State> {
                             <Gif
                                 gif={gif}
                                 key={gif.id}
+                                tabIndex={tabIndex}
                                 width={gifWidth}
                                 onGifClick={onGifClick}
                                 onGifSeen={onGifSeen}

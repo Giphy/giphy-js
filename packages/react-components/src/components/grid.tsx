@@ -29,6 +29,7 @@ type Props = {
     columnOffsets?: number[]
     backgroundColor?: string
     borderRadius?: number
+    tabIndex?: number
     loaderConfig?: IntersectionObserverInit
 } & EventProps
 
@@ -122,7 +123,6 @@ class Grid extends PureComponent<Props, State> {
 
     render() {
         const {
-            fetchGifs,
             onGifVisible,
             onGifRightClick,
             className = Grid.className,
@@ -141,9 +141,10 @@ class Grid extends PureComponent<Props, State> {
             columnOffsets,
             backgroundColor,
             loaderConfig,
+            tabIndex = 0,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
-        const showLoader = fetchGifs && !isDoneFetching
+        const showLoader = !isDoneFetching
         const isFirstLoad = gifs.length === 0
         // get the height of each grid item
         const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
@@ -161,6 +162,7 @@ class Grid extends PureComponent<Props, State> {
                         {gifs.map((gif) => (
                             <Gif
                                 gif={gif}
+                                tabIndex={tabIndex}
                                 key={gif.id}
                                 width={gifWidth}
                                 onGifClick={onGifClick}
