@@ -26,10 +26,11 @@ type Props = {
     onFirstPlay?: (msTillPlay: number) => void
     onEnded?: () => void
     onWaiting?: (count: number) => void
-    onLoop?: () => void
+    onLoop?: (count: number) => void
     onEndFullscreen?: () => void
     setVideoEl?: (el: HTMLVideoElement) => void
     onQuartile?: (quartile: QuartileEvent) => void
+    onMuted?: (isMuted: boolean) => void
     muted?: boolean
     loop?: boolean
     gif: IGif
@@ -46,6 +47,7 @@ const Video = ({
     onCanPlay,
     onFirstPlay,
     onWaiting,
+    onMuted,
     onError,
     onEnded,
     onLoop,
@@ -102,7 +104,29 @@ const Video = ({
         }
     }, [])
     const _onPaused = useCallback(() => onStateChange?.('paused'), [])
-    const _onTimeUpdate = useCallback(() => onTimeUpdate?.(videoEl.current?.currentTime || 0), [videoEl])
+    const _onTimeUpdate = useCallback(() => {
+        const el = videoEl.current
+        if (el) {
+            const playhead = el.currentTime
+            quartileEvents.some((q: QuartileEvent) => {
+                if (shouldFireQuartile(q, playhead, el.duration, quartilesFired.current, loopNumber.current)) {
+                    onQuartile?.(q)
+                    return true
+                }
+                return false
+            })
+            if (Math.floor(playhead) === 0 && Math.floor(previousPlayhead.current) > 0) {
+                if (loop && loopNumber.current === 0) {
+                    // we're looping so we need to fire our ended event here. Should only fire ONCE at end of first loop.
+                    onEnded?.()
+                }
+                onLoop?.(loopNumber.current)
+                loopNumber.current = loopNumber.current + 1
+            }
+            previousPlayhead.current = playhead
+            onTimeUpdate?.(el.currentTime || 0)
+        }
+    }, [videoEl])
     const _onCanPlay = useCallback(() => onCanPlay?.(), [])
     const _onWaiting = useCallback(() => {
         const el = videoEl.current
@@ -113,10 +137,28 @@ const Video = ({
     }, [])
     const _onEnded = useCallback(() => onEnded?.(), [])
     const _onEndFullscreen = useCallback(() => onEndFullscreen?.(), [])
-
+    const tryAutoPlayWithSound = async (videoEl: HTMLVideoElement) => {
+        if (!muted && videoEl) {
+            const promisePlay = videoEl.play()
+            if (promisePlay !== undefined) {
+                try {
+                    await promisePlay
+                    onMuted?.(false)
+                } catch (error) {
+                    // Autoplay not allowed!
+                    // Mute video and try to play again
+                    videoEl.muted = true
+                    // Allow the UI to show that the video is muted
+                    onMuted?.(true)
+                    videoEl.play()
+                }
+            }
+        }
+    }
     useEffect(() => {
         if (videoEl.current) {
             const el = videoEl.current
+            tryAutoPlayWithSound(el)
             setVideoEl?.(el)
             if (!isNaN(volume)) {
                 el.volume = volume
@@ -144,32 +186,9 @@ const Video = ({
             }
         }
     }, [])
-    useEffect(() => {
-        const el = videoEl.current
-        if (el) {
-            const playhead = el.currentTime
-            quartileEvents.some((q: QuartileEvent) => {
-                if (shouldFireQuartile(q, playhead, el.duration, quartilesFired.current, loopNumber.current)) {
-                    onQuartile?.(q)
-                    return true
-                }
-                return false
-            })
-            if (Math.floor(playhead) === 0 && Math.floor(previousPlayhead.current) > 0) {
-                if (loop && loopNumber.current === 0) {
-                    // we're looping so we need to fire our ended event here. Should only fire ONCE at end of first loop.
-                    onEnded?.()
-                }
-                onLoop?.()
-                loopNumber.current = loopNumber.current++
-            }
-            previousPlayhead.current = playhead
-        }
-    }, [videoEl.current?.currentTime])
     return media.current?.url ? (
         <video
             className={className}
-            autoPlay
             width={width}
             height={height}
             loop={loop}
