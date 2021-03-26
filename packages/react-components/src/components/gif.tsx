@@ -55,8 +55,6 @@ export type GifOverlayProps = {
     gif: IGif
     isHovered: boolean
     onClick?: (gif: IGif) => void
-    width: number
-    height: number
 }
 
 type GifProps = {
@@ -261,7 +259,7 @@ const Gif = ({
                         onLoad={showGif ? onImageLoad : () => {}}
                     />
                 </picture>
-                {showGif ? Overlay && <Overlay width={width} height={height} gif={gif} isHovered={isHovered} /> : null}
+                {showGif ? Overlay && <Overlay gif={gif} isHovered={isHovered} /> : null}
             </div>
         </Container>
     )

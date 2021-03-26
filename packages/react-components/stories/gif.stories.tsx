@@ -65,7 +65,7 @@ export const GifWithVideoOverlay = () => (
         id={text('id', 'D068R9Ziv1iCjezKzG')}
         width={number('width', 300)}
         noLink={boolean('noLink', false)}
-        overlay={VideoOverlay}
+        overlay={(props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 300)} />}
     />
 )
 

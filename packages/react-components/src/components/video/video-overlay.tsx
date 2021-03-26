@@ -15,16 +15,18 @@ const VideoContainer = styled.div`
 const VideoStyled = styled(Video)`
     height: 100%;
     display: inline-block;
-    object-fit: cover;
 `
 
 const Button = styled.div`
     background: black;
     color: white;
     padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
 `
 
-const VideoOverlay = ({ gif, width, height, isHovered }: GifOverlayProps) => {
+const VideoOverlay = ({ gif, isHovered, width }: GifOverlayProps & { width: number }) => {
     const [muted, setMuted] = useState<boolean | undefined>(undefined)
     const [mutedByBrowser, setMutedByBrowser] = useState(false)
     const toggleMute = () => {
@@ -37,6 +39,9 @@ const VideoOverlay = ({ gif, width, height, isHovered }: GifOverlayProps) => {
     }
     return (
         <VideoContainer>
+            {isHovered ? (
+                <VideoStyled gif={gif} key={gif.id} loop muted={muted} width={width} onMuted={setMutedByBrowser} />
+            ) : null}
             <Button
                 onClick={(e) => {
                     e.preventDefault()
@@ -47,17 +52,6 @@ const VideoOverlay = ({ gif, width, height, isHovered }: GifOverlayProps) => {
                 <br />
                 {mutedByBrowser ? 'muted by browser' : 'not muted by browser'}
             </Button>
-            {isHovered ? (
-                <VideoStyled
-                    gif={gif}
-                    key={gif.id}
-                    loop
-                    muted={muted}
-                    width={width}
-                    height={height}
-                    onMuted={setMutedByBrowser}
-                />
-            ) : null}
         </VideoContainer>
     )
 }
