@@ -40,7 +40,7 @@ type Props = {
     className?: string
 }
 const Video = ({
-    muted = false,
+    muted,
     loop = true,
     onStateChange,
     onTimeUpdate,
@@ -155,6 +155,7 @@ const Video = ({
             }
         }
     }
+
     useEffect(() => {
         if (videoEl.current) {
             const el = videoEl.current
