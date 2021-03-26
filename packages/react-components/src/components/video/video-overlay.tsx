@@ -42,15 +42,19 @@ const VideoOverlay = ({ gif, isHovered, width }: GifOverlayProps & { width: numb
             {isHovered ? (
                 <VideoStyled gif={gif} key={gif.id} loop muted={muted} width={width} onMuted={setMutedByBrowser} />
             ) : null}
-            <Button
-                onClick={(e) => {
-                    e.preventDefault()
-                    toggleMute()
-                }}
-            >
-                {muted ? 'user muted' : 'user not muted'}
-                <br />
-                {mutedByBrowser ? 'muted by browser' : 'not muted by browser'}
+            <Button>
+                <div
+                    onClick={(e) => {
+                        e.preventDefault()
+                        toggleMute()
+                    }}
+                >
+                    click box to {muted ? 'unmute' : 'mute'}
+                    <br />
+                    {muted ? 'user muted' : 'user not muted'}
+                    <br />
+                    {mutedByBrowser ? 'muted by browser' : 'not muted by browser'}
+                </div>
             </Button>
         </VideoContainer>
     )
