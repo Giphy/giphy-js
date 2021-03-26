@@ -138,7 +138,7 @@ const Video = ({
     const _onEnded = useCallback(() => onEnded?.(), [])
     const _onEndFullscreen = useCallback(() => onEndFullscreen?.(), [])
     const tryAutoPlayWithSound = async (videoEl: HTMLVideoElement) => {
-        if (!muted && videoEl) {
+        if (videoEl) {
             const promisePlay = videoEl.play()
             if (promisePlay !== undefined) {
                 try {
@@ -194,6 +194,7 @@ const Video = ({
             height={height}
             loop={loop}
             muted={muted}
+            autoPlay
             playsInline
             ref={videoEl}
             src={media.current.url}
