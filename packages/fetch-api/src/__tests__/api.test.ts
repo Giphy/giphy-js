@@ -8,6 +8,9 @@ const dummyGif = {
     tags: [{ text: 'text prop' }, 'regular tag'],
     is_hidden: 0,
     analytics_response_payload: 'ARP',
+    images: {
+        fixed_width: { width: '12', height: '14' },
+    },
 }
 const pagination = {}
 const meta = {
@@ -78,6 +81,14 @@ describe('response parsing', () => {
     test('gif', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifResponse))
         const { data } = await gf.gif('12345')
+        testDummyGif(data)
+    })
+
+    test('gif images', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(gifResponse))
+        const { data } = await gf.gif('12345')
+        expect(data.images.fixed_width.height).toBe(14)
+        expect(data.images.fixed_width.width).toBe(12)
         testDummyGif(data)
     })
     test('gif w user', async () => {
@@ -206,6 +217,15 @@ describe('response parsing', () => {
         fetchMock.mockResponseOnce(JSON.stringify(syntheticResponse))
         try {
             await gf.related('synthic error')
+        } catch (error) {
+            expect(error.message).toBe('synthetic response')
+        }
+    })
+
+    test('synthetic response no meta', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify({ ...syntheticResponse, meta: undefined }))
+        try {
+            await gf.related('synthic error no meta')
         } catch (error) {
             expect(error.message).toBe('synthetic response')
         }
