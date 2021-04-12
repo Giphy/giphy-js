@@ -34,6 +34,12 @@ const normalize = (gif: any) => {
     newGif.id = String(newGif.id)
     newGif.tags = (newGif.tags || []).map(getTag)
     BOOL_PROPS.forEach(makeBool(newGif))
+    Object.keys(newGif.images || {}).forEach((name: string) => {
+        const img = newGif.images[name]
+        img.width = parseInt(img.width)
+        img.height = parseInt(img.height)
+    })
+
     const { user } = newGif
     if (user) {
         const newUser = { ...user }
