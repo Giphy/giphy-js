@@ -26,6 +26,7 @@ type Props = {
     noResultsMessage?: string | JSX.Element
     hideAttribution?: boolean
     noLink?: boolean
+    tabIndex?: number
     borderRadius?: number
 } & EventProps
 const defaultProps = Object.freeze({ gutter: 6, user: {} })
@@ -138,7 +139,6 @@ class Grid extends Component<Props, State> {
 
     render(
         {
-            fetchGifs,
             onGifVisible,
             onGifRightClick,
             className = Grid.className,
@@ -149,11 +149,12 @@ class Grid extends Component<Props, State> {
             noResultsMessage,
             hideAttribution,
             noLink,
+            tabIndex = 0,
             borderRadius,
         }: Props,
         { gifWidth, gifs, isError, isDoneFetching }: State
     ) {
-        const showLoader = fetchGifs && !isDoneFetching
+        const showLoader = !isDoneFetching
         const isFirstLoad = gifs.length === 0
         return (
             <PingbackContextManager attributes={{ layout_type: 'GRID' }}>
@@ -163,6 +164,7 @@ class Grid extends Component<Props, State> {
                             <Gif
                                 gif={gif}
                                 key={gif.id}
+                                tabIndex={tabIndex}
                                 width={gifWidth}
                                 onGifClick={onGifClick}
                                 onGifHover={onGifHover}
