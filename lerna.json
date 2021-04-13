@@ -3,7 +3,7 @@
     "command": {
         "publish": {
             "ignoreChanges": ["ignored-file", "*.md"],
-            "allowBranch": ["master", "feat/video"]
+            "allowBranch": ["master"]
         }
     },
     "version": "independent",
