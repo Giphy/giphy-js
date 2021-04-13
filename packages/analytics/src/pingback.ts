@@ -18,6 +18,8 @@ function sendPingbacks() {
 
 const debouncedPingbackEvent = debounce(1000, sendPingbacks)
 
+gl.addEventListener?.('beforeunload', sendPingbacks)
+
 const pingback = ({
     userId,
     eventType,
