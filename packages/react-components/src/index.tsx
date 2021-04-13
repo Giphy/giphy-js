@@ -10,6 +10,9 @@ export { PingbackContext } from './components/pingback-context-manager'
 export { default as SearchBar } from './components/search-bar'
 export { default as SearchContextManager, SearchContext } from './components/search-bar/context'
 export { default as SuggestionBar } from './components/search-bar/suggestion-bar'
+export { default as Video } from './components/video'
+// Not ready yet, needs volume icon
+// export { default as VideoOverlay } from './components/video/video-overlay'
 
 const { version } = require('../package.json')
 
