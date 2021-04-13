@@ -4,7 +4,8 @@ import { action } from '@storybook/addon-actions'
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
 import React, { ReactType, useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
-import { Gif as GifComponent, GifOverlayProps, PingbackContext, VideoOverlay } from '../src'
+import { Gif as GifComponent, GifOverlayProps, PingbackContext } from '../src'
+import VideoOverlay from '../src/components/video/video-overlay'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
