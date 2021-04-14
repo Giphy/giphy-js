@@ -1,39 +1,59 @@
+## 2.4.0 (2021-04-14)
+
+#### :rocket: Enhancement
+
+-   `analytics`
+    -   [#181](https://github.com/Giphy/giphy-js/pull/181) feat(analytics): fire pingbacks on beforeunload ([@giannif](https://github.com/giannif))
+-   `react-components`
+    -   [#180](https://github.com/Giphy/giphy-js/pull/180) video ([@giannif](https://github.com/giannif))
+-   `components`, `react-components`
+    -   [#175](https://github.com/Giphy/giphy-js/pull/175) feat(components/react-components): add tabindex to gif, grid, and carousel ([@giannif](https://github.com/giannif))
+
 ## 2.2.0 (2021-02-11)
 
 #### :rocket: Enhancement
-* `react-components`
-  * [#158](https://github.com/Giphy/giphy-js/pull/158) feat(react-components): prefetch / input font family / input auto focus ([@giannif](https://github.com/giannif))
-* `components`, `react-components`
-  * [#159](https://github.com/Giphy/giphy-js/pull/159) feat(components/react-components): on loaded classname ([@giannif](https://github.com/giannif))
+
+-   `react-components`
+    -   [#158](https://github.com/Giphy/giphy-js/pull/158) feat(react-components): prefetch / input font family / input auto focus ([@giannif](https://github.com/giannif))
+-   `components`, `react-components`
+    -   [#159](https://github.com/Giphy/giphy-js/pull/159) feat(components/react-components): on loaded classname ([@giannif](https://github.com/giannif))
 
 #### Committers: 1
-- Gianni Ferullo ([@giannif](https://github.com/giannif))
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+
 ## @giphy/react-components@2.1.3 (2021-01-29)
 
 #### :rocket: Enhancement
-* `analytics`, `fetch-api`, `react-components`, `util`
-  * [#156](https://github.com/Giphy/giphy-js/pull/156) use session storage instead of cookie for pingback v2 ([@giannif](https://github.com/giannif))
+
+-   `analytics`, `fetch-api`, `react-components`, `util`
+    -   [#156](https://github.com/Giphy/giphy-js/pull/156) use session storage instead of cookie for pingback v2 ([@giannif](https://github.com/giannif))
 
 #### Committers: 1
-- Gianni Ferullo ([@giannif](https://github.com/giannif))
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
 
 ## @giphy/react-components@2.1.2 (2021-01-27)
 
 #### :rocket: Enhancement
-* `analytics`
-  * [#154](https://github.com/Giphy/giphy-js/pull/154) Get the environment url from globals ([@dleitee](https://github.com/dleitee))
+
+-   `analytics`
+    -   [#154](https://github.com/Giphy/giphy-js/pull/154) Get the environment url from globals ([@dleitee](https://github.com/dleitee))
 
 #### Committers: 1
-- Daniel Leite de Oliveira ([@dleitee](https://github.com/dleitee))
+
+-   Daniel Leite de Oliveira ([@dleitee](https://github.com/dleitee))
 
 ## @giphy/react-components@2.1.0 (2021-01-05)
 
 #### :rocket: Enhancement
-* `components`, `react-components`
-  * [#150](https://github.com/Giphy/giphy-js/pull/150) feat(react-components): border radius ([@giannif](https://github.com/giannif))
+
+-   `components`, `react-components`
+    -   [#150](https://github.com/Giphy/giphy-js/pull/150) feat(react-components): border radius ([@giannif](https://github.com/giannif))
 
 #### Committers: 1
-- Gianni Ferullo ([@giannif](https://github.com/giannif))
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
 
 ## @giphy/react-components@2.0.1 (2020-12-09)
 
