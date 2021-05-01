@@ -1,6 +1,6 @@
 import { css } from '@emotion/core'
 import { giphyBlack, giphyCharcoal, giphyIndigo, giphyLightGrey, giphyWhite } from '@giphy/js-brand'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState, ComponentType } from 'react'
 import useDebounce from 'react-use/lib/useDebounce'
 import { SearchContext } from './context'
 import SearchBarChannel from './search-bar-channel'
@@ -24,7 +24,9 @@ type Props = {
     // leaves the term in context unaffected
     clear?: boolean
     autoFocus?: boolean
+    tag?: ComponentType
 }
+
 
 const Container = styled.div`
     display: flex;
@@ -57,7 +59,15 @@ const Input = styled.input<{ isUsernameSearch: boolean }>`
         `}
 `
 
-const SearchBar = ({ className, placeholder = `Search GIPHY`, clear = false, autoFocus }: Props) => {
+const defaultProps = {
+    className: undefined,
+    placeholder: undefined,
+    clear: undefined,
+    autoFocus: undefined,
+    tag: Input,
+}
+
+const SearchBar = ({ className, placeholder = `Search GIPHY`, clear = false, autoFocus, tag: Tag }: Props) => {
     const { setSearch, activeChannel, setActiveChannel, term, channelSearch } = useContext(SearchContext)
 
     // debounce local input
@@ -122,7 +132,7 @@ const SearchBar = ({ className, placeholder = `Search GIPHY`, clear = false, aut
     return (
         <Container className={[SearchBar.className, className].join(' ')}>
             <SearchBarChannel />
-            <Input
+            <Tag
                 isUsernameSearch={!!channelSearch}
                 onChange={({ target: { value } }) => {
                     if (!isCleared || value !== '') {
@@ -143,6 +153,7 @@ const SearchBar = ({ className, placeholder = `Search GIPHY`, clear = false, aut
     )
 }
 
+SearchBar.defaultProps = defaultProps
 SearchBar.className = 'giphy-search-bar'
 
 export default SearchBar
