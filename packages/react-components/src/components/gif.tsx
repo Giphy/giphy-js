@@ -3,11 +3,21 @@ import styled from '@emotion/styled'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
 import { getAltText, getBestRendition, getGifHeight, injectTrackingPixel, Logger } from '@giphy/js-util'
-import React, { HTMLProps, ReactType, SyntheticEvent, useContext, useEffect, useRef, useState } from 'react'
+import React, {
+    ElementType,
+    HTMLProps,
+    SyntheticEvent,
+    useCallback,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
 import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
 import { PingbackContext } from './pingback-context-manager'
+import VideoOverlay from './video/video-overlay'
 
 const GifContainer = styled.div<{ borderRadius?: number }>`
     display: block;
@@ -64,7 +74,7 @@ type GifProps = {
     backgroundColor?: string
     className?: string
     user?: Partial<IUser>
-    overlay?: ReactType<GifOverlayProps>
+    overlay?: ElementType<GifOverlayProps>
     hideAttribution?: boolean
     noLink?: boolean
     borderRadius?: number
@@ -92,7 +102,7 @@ const Gif = ({
     onGifVisible = noop,
     user = {},
     backgroundColor,
-    overlay,
+    overlay: UserOverlay,
     hideAttribution = false,
     noLink = false,
     borderRadius = 4,
@@ -124,12 +134,19 @@ const Gif = ({
     const sendOnSeen = useRef<(_: IntersectionObserverEntry) => void>(noop)
     // custom pingback
     const { attributes } = useContext(PingbackContext)
-    // user's overlay
-    let Overlay = overlay
-    if (!Overlay && !hideAttribution) {
+
+    const DefaultOverlay = useCallback(
         // no user overlay, and no force hide of the attribution
-        Overlay = AttributionOverlay
-    }
+        ({ gif, isHovered }: GifOverlayProps) => (
+            <>
+                {gif.type === 'video' && <VideoOverlay gif={gif} isHovered={isHovered} width={width} />}
+                {!hideAttribution && <AttributionOverlay gif={gif} isHovered={isHovered} />}
+            </>
+        ),
+        [width]
+    )
+    // user's overlay
+    const Overlay = UserOverlay || DefaultOverlay
 
     const onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
         clearTimeout(hoverTimeout.current!)
