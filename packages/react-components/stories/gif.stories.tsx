@@ -15,12 +15,14 @@ const eventAction = (event: string) => (gif: IGif) => {
 const GifDemo = ({
     id,
     width,
+    height,
     noLink,
     borderRadius,
     overlay,
 }: {
     id: string
     width: number
+    height?: number
     noLink?: boolean
     borderRadius?: number
     overlay?: ReactType<GifOverlayProps>
@@ -42,6 +44,7 @@ const GifDemo = ({
             borderRadius={borderRadius}
             gif={gif}
             width={width}
+            height={height}
             noLink={noLink}
             onGifClick={eventAction('click')}
             onGifSeen={eventAction('seen')}
@@ -62,6 +65,15 @@ export const Gif = () => (
 
 export const GifWithVideoOverlay = () => (
     <GifDemo id={text('id', 'D068R9Ziv1iCjezKzG')} width={number('width', 500)} noLink={boolean('noLink', false)} />
+)
+
+export const GifWithVideoOverlayFillVideo = () => (
+    <GifDemo
+        id={text('id', '3BNRWBatePBETD7Bfg')}
+        width={number('width', 500)}
+        height={number('height', 300)}
+        noLink={boolean('noLink', false)}
+    />
 )
 
 export const GifNoBorderRadius = () => (

@@ -16,6 +16,7 @@ const VideoContainer = styled.div`
 const VideoStyled = styled(Video)`
     height: 100%;
     display: inline-block;
+    object-fit: fill;
 `
 const Button = styled.div`
     position: absolute;
