@@ -3,21 +3,11 @@ import styled from '@emotion/styled'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
 import { getAltText, getBestRendition, getGifHeight, injectTrackingPixel, Logger } from '@giphy/js-util'
-import React, {
-    ElementType,
-    HTMLProps,
-    SyntheticEvent,
-    useCallback,
-    useContext,
-    useEffect,
-    useRef,
-    useState,
-} from 'react'
+import React, { ElementType, HTMLProps, SyntheticEvent, useContext, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
 import { PingbackContext } from './pingback-context-manager'
-import VideoOverlay from './video/video-overlay'
 
 const GifContainer = styled.div<{ borderRadius?: number }>`
     display: block;
@@ -102,7 +92,7 @@ const Gif = ({
     onGifVisible = noop,
     user = {},
     backgroundColor,
-    overlay: UserOverlay,
+    overlay,
     hideAttribution = false,
     noLink = false,
     borderRadius = 4,
@@ -134,19 +124,12 @@ const Gif = ({
     const sendOnSeen = useRef<(_: IntersectionObserverEntry) => void>(noop)
     // custom pingback
     const { attributes } = useContext(PingbackContext)
-
-    const DefaultOverlay = useCallback(
-        // no user overlay, and no force hide of the attribution
-        ({ gif, isHovered }: GifOverlayProps) => (
-            <>
-                {gif.type === 'video' && <VideoOverlay gif={gif} isHovered={isHovered} width={width} />}
-                {!hideAttribution && <AttributionOverlay gif={gif} isHovered={isHovered} />}
-            </>
-        ),
-        [width]
-    )
     // user's overlay
-    const Overlay = UserOverlay || DefaultOverlay
+    let Overlay = overlay
+    if (!Overlay && !hideAttribution) {
+        // no user overlay, and no force hide of the attribution
+        Overlay = AttributionOverlay
+    }
 
     const onMouseOver = (e: SyntheticEvent<HTMLElement, Event>) => {
         clearTimeout(hoverTimeout.current!)
