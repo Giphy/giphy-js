@@ -1,6 +1,7 @@
-import { IGif } from '@giphy/js-types'
+import { IGif, IImage } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
-import React, { useCallback, useEffect, useRef } from 'react'
+import { h } from 'preact'
+import { useCallback, useEffect, useRef } from 'preact/hooks'
 import getBestMedia from './rendition-selection'
 import { getErrorMessage, shouldFireQuartile } from './util'
 
@@ -82,7 +83,7 @@ const Video = ({
     }, [gif.id])
 
     useEffect(() => {
-        media.current = getBestMedia(gif.video, width, height)
+        media.current = getBestMedia(gif.video, width, height) as IImage
     }, [width, height_])
 
     const videoEl = useRef<HTMLVideoElement | null>(null)

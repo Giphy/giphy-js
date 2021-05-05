@@ -1,13 +1,15 @@
-import 'intersection-observer'
-import { h, render } from 'preact'
-import Carousel from './components/carousel'
-import Grid from './components/grid'
-import Gif, { Props as GifProps } from './components/gif'
 import { appendGiphySDKRequestHeader } from '@giphy/js-util'
+import 'intersection-observer'
+import { ComponentProps, h, render } from 'preact'
+import Carousel from './components/carousel'
+import Gif, { Props as GifProps } from './components/gif'
+import Grid from './components/grid'
+import Video from './components/video'
 
 export { default as Carousel } from './components/carousel'
 export { default as Gif } from './components/gif'
 export { default as Grid } from './components/grid'
+export { default as Video } from './components/video'
 
 // @ts-ignore
 const { version } = require('../package.json')
@@ -24,6 +26,17 @@ type RemoveCallback = () => void
  */
 export const renderGrid = (gridProps: Grid['props'], target: HTMLElement): RemoveCallback => {
     render(<Grid {...gridProps} />, target)
+    return () => render(null, target)
+}
+
+/**
+ * render a video
+ *
+ * @param carouselProps Carousel props
+ * @param target the node to render into it
+ */
+export const renderVideo = (videoProps: ComponentProps<typeof Video>, target: HTMLElement): RemoveCallback => {
+    render(<Video {...videoProps} />, target)
     return () => render(null, target)
 }
 
