@@ -170,8 +170,8 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 const gf = new GiphyFetch('your Web SDK key')
 
 const vanillaJSVideo = async (mountNode: HTMLElement) => {
-    // render a single gif
-    const { data: gif1 } = await gf.gif('fpXxIjftmkk9y')
+    // render a video
+    const { data: gif1 } = await gf.gif('D068R9Ziv1iCjezKzG')
     renderVideo({ gif: gif1, width: 300 }, mountNode)
 }
 ```

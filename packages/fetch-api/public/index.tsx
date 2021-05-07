@@ -59,6 +59,15 @@ const search = async () => {
         console.error('search', error)
     }
 }
+
+const searchVideos = async () => {
+    try {
+        const result = await gf.search('dogs', { sort: 'recent', type: 'videos' })
+        console.log('search videos', result)
+    } catch (error) {
+        console.error('search videos', error)
+    }
+}
 const searchChannel = async () => {
     try {
         const result = await gf.search('dogs', { sort: 'recent', channel: 'reactions' })
@@ -135,3 +144,4 @@ emoji()
 text()
 textTrending()
 animate()
+searchVideos()
