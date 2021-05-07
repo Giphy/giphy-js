@@ -1,4 +1,4 @@
-import { IGif, IImage } from '@giphy/js-types'
+import { IGif } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
 import { h } from 'preact'
 import { useCallback, useEffect, useRef } from 'preact/hooks'
@@ -63,7 +63,7 @@ const Video = ({
 }: Props) => {
     const height = height_ || getGifHeight(gif, width)
 
-    // state
+    // not sure how to change renditions here
     const media = useRef(getBestMedia(gif.video, width, height))
     const mountTime = useRef(Date.now())
     const hasPlayingFired = useRef(false)
@@ -71,6 +71,12 @@ const Video = ({
     const waitingCount = useRef<number>(0)
     const previousPlayhead = useRef<number>(0)
     const quartilesFired = useRef<Set<number>>(new Set())
+
+    if (!media.current) {
+        // Not all gif requests have video content
+        // use the video endpoints (documentation coming soon)
+        console.warn(`GiphyJS No video content for id: ${gif.id}`)
+    }
 
     // reset the above when the gif.id changes
     useEffect(() => {
@@ -81,10 +87,6 @@ const Video = ({
         previousPlayhead.current = 0
         quartilesFired.current = new Set()
     }, [gif.id])
-
-    useEffect(() => {
-        media.current = getBestMedia(gif.video, width, height) as IImage
-    }, [width, height_])
 
     const videoEl = useRef<HTMLVideoElement | null>(null)
 

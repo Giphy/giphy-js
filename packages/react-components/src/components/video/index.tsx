@@ -1,6 +1,6 @@
-import { IGif } from '@giphy/js-types'
+import { IGif, IImage } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import getBestMedia from './rendition-selection'
 import { getErrorMessage, shouldFireQuartile } from './util'
 
@@ -63,7 +63,15 @@ const Video = ({
     const height = height_ || getGifHeight(gif, width)
 
     // state
-    const media = useRef(getBestMedia(gif.video, width, height))
+    const [media, setMedia] = useState(getBestMedia(gif.video, width, height))
+    const seek = useRef(0)
+
+    if (!media) {
+        // Not all gif requests have video content
+        // use the video endpoints (documentation coming soon)
+        console.warn(`GiphyJS No video content for id: ${gif.id}`)
+    }
+
     const mountTime = useRef(Date.now())
     const hasPlayingFired = useRef(false)
     const loopNumber = useRef<number>(0)
@@ -81,11 +89,25 @@ const Video = ({
         quartilesFired.current = new Set()
     }, [gif.id])
 
+    const videoEl = useRef<HTMLVideoElement | null>(null)
+
     useEffect(() => {
-        media.current = getBestMedia(gif.video, width, height)
+        // when the width and height change, check if there's a new url
+        const newMedia = getBestMedia(gif.video, width, height) as IImage
+        if (videoEl.current && media?.url && newMedia.url !== media.url) {
+            // when the media changes set the current seek time
+            seek.current = videoEl.current.currentTime
+            // triggers re-render with above seek time
+            setMedia(newMedia)
+        }
     }, [width, height_])
 
-    const videoEl = useRef<HTMLVideoElement | null>(null)
+    useEffect(() => {
+        if (videoEl.current && media?.url && seek.current) {
+            videoEl.current.currentTime = seek.current
+            seek.current = 0
+        }
+    }, [media?.url, seek])
 
     const _onError = () => {
         const el = videoEl.current
@@ -103,7 +125,7 @@ const Video = ({
             onFirstPlay?.(Date.now() - mountTime.current)
         }
     }, [])
-    const _onPaused = useCallback(() => onStateChange?.('paused'), [])
+    const _onPaused = useCallback(() => onStateChange?.('paused'), [onStateChange])
     const _onTimeUpdate = useCallback(() => {
         const el = videoEl.current
         if (el) {
@@ -127,16 +149,16 @@ const Video = ({
             onTimeUpdate?.(el.currentTime || 0)
         }
     }, [videoEl])
-    const _onCanPlay = useCallback(() => onCanPlay?.(), [])
+    const _onCanPlay = useCallback(() => onCanPlay?.(), [onCanPlay])
     const _onWaiting = useCallback(() => {
         const el = videoEl.current
         // we get a waiting event after a loop, so ignore the first one while the play head is 0
         if (el?.currentTime !== 0 && el?.networkState !== Network.IDLE) {
             onWaiting?.(++waitingCount.current)
         }
-    }, [])
-    const _onEnded = useCallback(() => onEnded?.(), [])
-    const _onEndFullscreen = useCallback(() => onEndFullscreen?.(), [])
+    }, [onWaiting])
+    const _onEnded = useCallback(() => onEnded?.(), [onEnded])
+    const _onEndFullscreen = useCallback(() => onEndFullscreen?.(), [onEndFullscreen])
     const tryAutoPlayWithSound = async (videoEl: HTMLVideoElement) => {
         if (videoEl) {
             const promisePlay = videoEl.play()
@@ -186,8 +208,8 @@ const Video = ({
                 el.removeEventListener('webkitendfullscreen', _onEndFullscreen)
             }
         }
-    }, [])
-    return media.current?.url ? (
+    }, [_onPlaying, _onPaused, _onError, _onTimeUpdate, _onCanPlay, _onEnded, _onWaiting, _onEndFullscreen])
+    return media?.url ? (
         <video
             className={className}
             width={width}
@@ -197,7 +219,7 @@ const Video = ({
             autoPlay
             playsInline
             ref={videoEl}
-            src={media.current.url}
+            src={media?.url}
         />
     ) : null
 }

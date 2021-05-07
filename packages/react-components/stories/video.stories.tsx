@@ -65,3 +65,12 @@ export const VideoUserMuted = () => (
         muted={boolean('muted', true)}
     />
 )
+
+export const VideoNoContent = () => (
+    <VideoDemo
+        id={text('id', 'ZEU9ryYGZzttn0Cva7')}
+        width={number('width', 300)}
+        height={number('height', 0)}
+        muted={boolean('muted', true)}
+    />
+)
