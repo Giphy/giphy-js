@@ -1,7 +1,7 @@
-import { IGif } from '@giphy/js-types'
+import { IGif, IImage } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
 import { h } from 'preact'
-import { useCallback, useEffect, useRef } from 'preact/hooks'
+import { useCallback, useEffect, useRef, useState } from 'preact/hooks'
 import getBestMedia from './rendition-selection'
 import { getErrorMessage, shouldFireQuartile } from './util'
 
@@ -63,20 +63,22 @@ const Video = ({
 }: Props) => {
     const height = height_ || getGifHeight(gif, width)
 
-    // not sure how to change renditions here
-    const media = useRef(getBestMedia(gif.video, width, height))
+    // state
+    const [media, setMedia] = useState(getBestMedia(gif.video, width, height))
+    const seek = useRef(0)
+
+    if (!media) {
+        // Not all gif requests have video content
+        // use the video endpoints (documentation coming soon)
+        console.warn(`GiphyJS No video content for id: ${gif.id}`)
+    }
+
     const mountTime = useRef(Date.now())
     const hasPlayingFired = useRef(false)
     const loopNumber = useRef<number>(0)
     const waitingCount = useRef<number>(0)
     const previousPlayhead = useRef<number>(0)
     const quartilesFired = useRef<Set<number>>(new Set())
-
-    if (!media.current) {
-        // Not all gif requests have video content
-        // use the video endpoints (documentation coming soon)
-        console.warn(`GiphyJS No video content for id: ${gif.id}`)
-    }
 
     // reset the above when the gif.id changes
     useEffect(() => {
@@ -90,7 +92,25 @@ const Video = ({
 
     const videoEl = useRef<HTMLVideoElement | null>(null)
 
-    const _onError = () => {
+    useEffect(() => {
+        // when the width and height change, check if there's a new url
+        const newMedia = getBestMedia(gif.video, width, height) as IImage
+        if (videoEl.current && media?.url && newMedia.url !== media.url) {
+            // when the media changes set the current seek time
+            seek.current = videoEl.current.currentTime
+            // triggers re-render with above seek time
+            setMedia(newMedia)
+        }
+    }, [width, height_, gif.video, height, media?.url])
+
+    useEffect(() => {
+        if (videoEl.current && media?.url && seek.current) {
+            videoEl.current.currentTime = seek.current
+            seek.current = 0
+        }
+    }, [media?.url, seek])
+
+    const _onError = useCallback(() => {
         const el = videoEl.current
         const code = el?.error?.code
         if (code && el?.src) {
@@ -98,15 +118,15 @@ const Video = ({
             console.error(message)
             onError?.(code)
         }
-    }
+    }, [onError])
     const _onPlaying = useCallback(() => {
         onStateChange?.('playing')
         if (!hasPlayingFired.current) {
             hasPlayingFired.current = true
             onFirstPlay?.(Date.now() - mountTime.current)
         }
-    }, [])
-    const _onPaused = useCallback(() => onStateChange?.('paused'), [])
+    }, [onFirstPlay, onStateChange])
+    const _onPaused = useCallback(() => onStateChange?.('paused'), [onStateChange])
     const _onTimeUpdate = useCallback(() => {
         const el = videoEl.current
         if (el) {
@@ -129,39 +149,42 @@ const Video = ({
             previousPlayhead.current = playhead
             onTimeUpdate?.(el.currentTime || 0)
         }
-    }, [videoEl])
-    const _onCanPlay = useCallback(() => onCanPlay?.(), [])
+    }, [loop, onEnded, onLoop, onQuartile, onTimeUpdate])
+    const _onCanPlay = useCallback(() => onCanPlay?.(), [onCanPlay])
     const _onWaiting = useCallback(() => {
         const el = videoEl.current
         // we get a waiting event after a loop, so ignore the first one while the play head is 0
         if (el?.currentTime !== 0 && el?.networkState !== Network.IDLE) {
             onWaiting?.(++waitingCount.current)
         }
-    }, [])
-    const _onEnded = useCallback(() => onEnded?.(), [])
-    const _onEndFullscreen = useCallback(() => onEndFullscreen?.(), [])
-    const tryAutoPlayWithSound = async (videoEl: HTMLVideoElement) => {
-        if (videoEl) {
-            const promisePlay = videoEl.play()
-            if (promisePlay !== undefined) {
-                try {
-                    await promisePlay
-                    onMuted?.(false)
-                } catch (error) {
-                    // Autoplay not allowed!
-                    // Mute video and try to play again
-                    videoEl.muted = true
-                    // Allow the UI to show that the video is muted
-                    onMuted?.(true)
-                    videoEl.play()
+    }, [onWaiting])
+    const _onEnded = useCallback(() => onEnded?.(), [onEnded])
+    const _onEndFullscreen = useCallback(() => onEndFullscreen?.(), [onEndFullscreen])
+    const tryAutoPlayWithSound = useCallback(
+        async (videoEl: HTMLVideoElement) => {
+            if (videoEl) {
+                const promisePlay = videoEl.play()
+                if (promisePlay !== undefined) {
+                    try {
+                        await promisePlay
+                        onMuted?.(false)
+                    } catch (error) {
+                        // Autoplay not allowed!
+                        // Mute video and try to play again
+                        videoEl.muted = true
+                        // Allow the UI to show that the video is muted
+                        onMuted?.(true)
+                        videoEl.play()
+                    }
                 }
             }
-        }
-    }
+        },
+        [onMuted]
+    )
 
     useEffect(() => {
-        if (videoEl.current) {
-            const el = videoEl.current
+        const el = videoEl.current
+        if (el) {
             tryAutoPlayWithSound(el)
             setVideoEl?.(el)
             if (!isNaN(volume)) {
@@ -177,7 +200,6 @@ const Video = ({
             el.addEventListener('webkitendfullscreen', _onEndFullscreen) // this is needed for iOS
         }
         return () => {
-            const el = videoEl.current
             if (el) {
                 el.removeEventListener('play', _onPlaying)
                 el.removeEventListener('pause', _onPaused)
@@ -189,8 +211,20 @@ const Video = ({
                 el.removeEventListener('webkitendfullscreen', _onEndFullscreen)
             }
         }
-    }, [])
-    return media.current?.url ? (
+    }, [
+        _onPlaying,
+        _onPaused,
+        _onError,
+        _onTimeUpdate,
+        _onCanPlay,
+        _onEnded,
+        _onWaiting,
+        _onEndFullscreen,
+        tryAutoPlayWithSound,
+        setVideoEl,
+        volume,
+    ])
+    return media?.url ? (
         <video
             className={className}
             width={width}
@@ -200,7 +234,7 @@ const Video = ({
             autoPlay
             playsInline
             ref={videoEl}
-            src={media.current.url}
+            src={media?.url}
         />
     ) : null
 }

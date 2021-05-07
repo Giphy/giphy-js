@@ -1991,13 +1991,13 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.5.tgz#8eed982e2ee6f7f4e44c253e12962980791efd46"
   integrity sha512-6U71C2Wp7r5XtFtQzYrW5iKFT67OixrSxjI4MptCHzdSVlgabczzqLe0ZSgnub/5Kp4hSbpDB1tMytZY9pwxxA==
 
-"@giphy/js-analytics@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@giphy/js-analytics/-/js-analytics-3.0.0.tgz#7d7a65faaa3fb997406da4a682f76ad79d392c04"
-  integrity sha512-WeiU+MVyc7vQD6VTztBl1ZAByTKqOpHRxlZHR3PQjzasc1damHooNcHyHqd8PrjYC3Ag/t/3IuFzsFWVh/dDNA==
+"@giphy/js-analytics@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@giphy/js-analytics/-/js-analytics-3.1.0.tgz#7cb833235200903ef00e6ce14595586274dd6158"
+  integrity sha512-rMq25J39tA/FN5E2yK98z1C8lovZVrtPyqj8+PJEAGD6gGOo12uc+JkpXYl6AoFqwCvKbiu0rCcjlnQb85wMXg==
   dependencies:
     "@giphy/js-types" "^3.1.0"
-    "@giphy/js-util" "^2.2.0"
+    "@giphy/js-util" "^2.3.0"
     append-query "^2.1.0"
     throttle-debounce "^2.3.0"
 
@@ -2008,13 +2008,13 @@
   dependencies:
     emotion "10.0.27"
 
-"@giphy/js-fetch-api@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-2.4.0.tgz#e96c7a2599b720d3e40ea409d8e4c4a692aa4611"
-  integrity sha512-xiMHnv81XZjgut4yrkHB5QHDWGNhVHoyMDb3kQBy5H0NruwtQ+aM5BE9xbP+XQlxt3eRnPRJcLy5ORk9+K0fIQ==
+"@giphy/js-fetch-api@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@giphy/js-fetch-api/-/js-fetch-api-3.0.0.tgz#f384fbde7980dea79f23d7cf555ae94a8b63fd6b"
+  integrity sha512-9XVchO+D+31LVt2b1+SOVtTz7oEhpDUOAjqkwmGsVIKwhtswLntRoZBHwOhUKa4J9V3zzDCw+zedstqUAAg7Mw==
   dependencies:
     "@giphy/js-types" "^3.1.0"
-    "@giphy/js-util" "^2.2.0"
+    "@giphy/js-util" "^2.3.0"
     qs "^6.9.4"
 
 "@giphy/js-types@^3.1.0":
@@ -2022,10 +2022,10 @@
   resolved "https://registry.yarnpkg.com/@giphy/js-types/-/js-types-3.1.0.tgz#cfddcfeb7d389542fc2ffc147bbe122760cfa3b6"
   integrity sha512-/gzA5Ny6tYVSXHndBzoIPx2t0Lu0UkbvCxb4g+KWEwQslWmak/2vZcO2X6jdIObHkN/8ejFIXr5Od40Namhtvw==
 
-"@giphy/js-util@^2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@giphy/js-util/-/js-util-2.2.0.tgz#887f957e497ec7a956db5bc271259a02e7cbeffd"
-  integrity sha512-3EHFgOCtAwyV+yild+2YhGB9I+Ht1rXZw+kAuL4+9Ypy+oOwsK++iSdeAw6dY/nddzm91Ch3KB1rP1DBvU+JuA==
+"@giphy/js-util@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@giphy/js-util/-/js-util-2.3.0.tgz#4d8e3e6cdc9d479cf61b7a4553d43cf8fdff0fe9"
+  integrity sha512-Z6sPj+M3bgiNycvmP0rk0Afx5LAhVpdJ5oLeUNe8j1rSbaGo67et/pkGjZUy5mnYshtTWXm62+b7TYZ1WOd3Og==
   dependencies:
     "@giphy/js-types" "^3.1.0"
     dompurify "^2.2.2"
@@ -6422,6 +6422,11 @@ escodegen@~1.9.0:
     optionator "^0.8.1"
   optionalDependencies:
     source-map "~0.6.1"
+
+eslint-plugin-react-hooks@4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.2.0.tgz#8c229c268d468956334c943bb45fc860280f5556"
+  integrity sha512-623WEiZJqxR7VdxFCKLI6d6LLpwJkGPYKODnkH3D7WpOG5KM8yWueBd8TLsNAetEJNF5iJmolaAKO3F8yzyVBQ==
 
 eslint-scope@^4.0.3:
   version "4.0.3"

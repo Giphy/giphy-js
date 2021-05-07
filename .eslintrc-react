@@ -1,5 +1,5 @@
 {
-    "extends": [".eslintrc", "plugin:react/recommended"],
+    "extends": [".eslintrc", "plugin:react/recommended", "plugin:react-hooks/recommended"],
     "rules": {
         "react/display-name": 0,
         "react/no-unused-state": 1,
