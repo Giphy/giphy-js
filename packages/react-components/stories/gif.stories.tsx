@@ -2,9 +2,10 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { action } from '@storybook/addon-actions'
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
-import React, { ReactType, useEffect, useState } from 'react'
+import React, { ElementType, useCallback, useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { Gif as GifComponent, GifOverlayProps, PingbackContext } from '../src'
+import VideoOverlay from '../src/components/video/video-overlay'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
@@ -25,18 +26,18 @@ const GifDemo = ({
     height?: number
     noLink?: boolean
     borderRadius?: number
-    overlay?: ReactType<GifOverlayProps>
+    overlay?: ElementType<GifOverlayProps>
 }) => {
     const [gif, setGif] = useState<IGif>()
 
-    const fetch = async () => {
+    const fetch = useCallback(async () => {
         const { data: gif } = await gf.gif(id)
         setGif(gif)
-    }
+    }, [id])
 
     useEffect(() => {
         fetch()
-    }, [id])
+    }, [fetch, id])
 
     return gif ? (
         <GifComponent
@@ -64,7 +65,12 @@ export const Gif = () => (
 )
 
 export const GifWithVideoOverlay = () => (
-    <GifDemo id={text('id', 'D068R9Ziv1iCjezKzG')} width={number('width', 500)} noLink={boolean('noLink', false)} />
+    <GifDemo
+        id={text('id', 'D068R9Ziv1iCjezKzG')}
+        width={number('width', 500)}
+        noLink={boolean('noLink', false)}
+        overlay={(props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 500)} />}
+    />
 )
 
 export const GifWithVideoOverlayFillVideo = () => (
@@ -73,6 +79,7 @@ export const GifWithVideoOverlayFillVideo = () => (
         width={number('width', 500)}
         height={number('height', 300)}
         noLink={boolean('noLink', false)}
+        overlay={(props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 500)} />}
     />
 )
 
