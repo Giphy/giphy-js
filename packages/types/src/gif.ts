@@ -57,7 +57,7 @@ interface IBottleData {
 }
 
 export default interface IGif {
-    type: 'video' | 'gif'
+    type: 'video' | 'gif' | 'text'
     id: string | number
     slug: string
     url: string
