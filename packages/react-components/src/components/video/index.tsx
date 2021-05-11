@@ -68,7 +68,7 @@ const Video = ({
 
     if (!media) {
         // Not all gif requests have video content
-        // use the video endpoints (documentation coming soon)
+        // use { type: 'videos' } for search or trending endpoints
         console.warn(`GiphyJS No video content for id: ${gif.id}`)
     }
 
