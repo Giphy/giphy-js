@@ -1,8 +1,8 @@
-import { take, pick, without } from './collections'
-import bestfit from './bestfit'
-import { IGif, ImageAllTypes, IRendition, IImages } from '@giphy/js-types'
-import { SUPPORTS_WEBP } from './webp-check'
+import { IGif, IImages, ImageAllTypes, IRendition } from '@giphy/js-types'
 import IVideo from '@giphy/js-types/dist/video'
+import bestfit from './bestfit'
+import { pick, take, without } from './collections'
+import { SUPPORTS_WEBP } from './webp-check'
 
 export const getSpecificRendition = (
     { images, is_sticker: isSticker }: IGif,
@@ -30,7 +30,7 @@ interface IRenditionWithName extends IRendition {
     renditionName: keyof IImages
 }
 
-const getRenditions = (type: 'video' | 'gif', images: IImages, video?: IVideo) =>
+const getRenditions = (type: IGif['type'], images: IImages, video?: IVideo) =>
     type === 'video' && video && video.previews && !Object.keys(images).length ? video.previews : images
 
 export const getBestRendition = (
