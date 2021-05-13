@@ -1,3 +1,4 @@
+import { pingback } from '@giphy/js-analytics'
 import { IGif, IImage } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
 import { h } from 'preact'
@@ -123,6 +124,7 @@ const Video = ({
         onStateChange?.('playing')
         if (!hasPlayingFired.current) {
             hasPlayingFired.current = true
+            pingback({ actionType: 'START', analyticsResponsePayload: gif.analytics_response_payload })
             onFirstPlay?.(Date.now() - mountTime.current)
         }
     }, [onFirstPlay, onStateChange])

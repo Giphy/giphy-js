@@ -11,7 +11,7 @@ export type Pingback = {
     analyticsResponsePayload: string
 }
 
-export type PingbackActionType = 'CLICK' | 'SEEN' | 'HOVER' | 'FAVORITE' | 'SENT'
+export type PingbackActionType = 'CLICK' | 'SEEN' | 'HOVER' | 'FAVORITE' | 'SENT' | 'START'
 
 export type PingbackEvent = {
     event_type?: PingbackEventType
