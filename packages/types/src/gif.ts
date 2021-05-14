@@ -71,7 +71,7 @@ export default interface IGif {
     source_tld: string
     source_post_url: string
     is_indexable: boolean
-    sticker: boolean
+    is_sticker: boolean
     import_datetime: string
     trending_datetime: string
     user: IUser
