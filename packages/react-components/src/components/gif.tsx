@@ -11,6 +11,9 @@ import { PingbackContext } from './pingback-context-manager'
 
 const GifContainer = styled.div<{ borderRadius?: number }>`
     display: block;
+    &:focus {
+        outline: unset;
+    }
     ${(props) =>
         props.borderRadius &&
         css`

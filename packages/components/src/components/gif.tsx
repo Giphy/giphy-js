@@ -11,6 +11,9 @@ import { PingbackContext } from './pingback-context-manager'
 
 const gifCss = css`
     display: block;
+    &:focus {
+        outline: unset;
+    }
     img {
         display: block;
     }
