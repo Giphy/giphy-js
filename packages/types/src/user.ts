@@ -17,7 +17,7 @@ export default interface IUser extends IPublicUser {
     user_type: 'partner' | 'artist' | 'user' | 'anonymous'
     is_public: boolean
     // personal website URL
-    primary_site: string
+    primary_site?: string
     // twitter handle or url
     twitter: string
     // facebook url or handle
