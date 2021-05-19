@@ -1,7 +1,8 @@
 import { pingback } from '@giphy/js-analytics'
 import { IGif, IImage } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { h } from 'preact'
+import { useCallback, useEffect, useRef, useState } from 'preact/hooks'
 import getBestMedia from './rendition-selection'
 import { getErrorMessage, shouldFireQuartile } from './util'
 
@@ -126,7 +127,7 @@ const Video = ({
             pingback({ actionType: 'START', analyticsResponsePayload: gif.analytics_response_payload })
             onFirstPlay?.(Date.now() - mountTime.current)
         }
-    }, [onFirstPlay, onStateChange, gif])
+    }, [onFirstPlay, onStateChange])
     const _onPaused = useCallback(() => onStateChange?.('paused'), [onStateChange])
     const _onTimeUpdate = useCallback(() => {
         const el = videoEl.current

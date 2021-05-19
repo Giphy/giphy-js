@@ -2,7 +2,7 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { action } from '@storybook/addon-actions'
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { Video as VideoComponent } from '../src'
 
@@ -16,18 +16,17 @@ type Props = { id: string; width: number; height?: number; muted: boolean }
 const VideoDemo = ({ id, width, height, muted }: Props) => {
     const [gif, setGif] = useState<IGif>()
 
-    const fetch = async () => {
+    const fetch = useCallback(async () => {
         const { data: gif } = await gf.gif(id)
         setGif(gif)
-    }
+    }, [id])
 
     useEffect(() => {
         fetch()
-    }, [id])
+    }, [fetch, id])
 
     return gif ? (
         <VideoComponent
-            key={`gif-${id}`}
             gif={gif}
             width={width}
             height={height}
@@ -60,6 +59,15 @@ export const Video = () => (
 export const VideoUserMuted = () => (
     <VideoDemo
         id={text('id', 'obhOJFSwuTRN7VDY55')}
+        width={number('width', 300)}
+        height={number('height', 0)}
+        muted={boolean('muted', true)}
+    />
+)
+
+export const VideoNoContent = () => (
+    <VideoDemo
+        id={text('id', 'ZEU9ryYGZzttn0Cva7')}
         width={number('width', 300)}
         height={number('height', 0)}
         muted={boolean('muted', true)}

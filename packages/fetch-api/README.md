@@ -107,6 +107,7 @@ Create animated text gifs dynamicaly based on the text input. This endpoint will
 ```typescript
 animate(text: string, options?: PaginationOptions): Promise<GifsResult>
 ```
+
 > Options: [Pagination Options](#pagination-options)
 
 ##### Example:
@@ -114,7 +115,6 @@ animate(text: string, options?: PaginationOptions): Promise<GifsResult>
 ```typescript
 const { data: gifs } = await gf.animate('some text to animate!', { limit: 5 })
 ```
-
 
 ## _related_
 
@@ -226,8 +226,8 @@ Options: [Pagination Options](#pagination-options)
 
 ### Type Option
 
-| option | type   | description            | default |
-| :----- | :----- | :--------------------- | :-----: |
-| _type_ | string | gifs / stickers / text |  gifs   |
+| option | type   | description                     | default |
+| :----- | :----- | :------------------------------ | :-----: |
+| _type_ | string | gifs / stickers / text / videos |  gifs   |
 
 [lang]: https://developers.giphy.com/docs/#language-support

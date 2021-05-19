@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
 import { getAltText, getBestRendition, getGifHeight, injectTrackingPixel, Logger } from '@giphy/js-util'
-import React, { HTMLProps, ReactType, SyntheticEvent, useContext, useEffect, useRef, useState } from 'react'
+import React, { ElementType, HTMLProps, SyntheticEvent, useContext, useEffect, useRef, useState } from 'react'
 import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
@@ -64,7 +64,7 @@ type GifProps = {
     backgroundColor?: string
     className?: string
     user?: Partial<IUser>
-    overlay?: ReactType<GifOverlayProps>
+    overlay?: ElementType<GifOverlayProps>
     hideAttribution?: boolean
     noLink?: boolean
     borderRadius?: number

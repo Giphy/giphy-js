@@ -1,7 +1,7 @@
 /**
  * If you want gifs or stickers
  */
-export type MediaType = 'stickers' | 'gifs' | 'text'
+export type MediaType = 'stickers' | 'gifs' | 'text' | 'videos'
 /**
  * Filters results by specified rating.
  */

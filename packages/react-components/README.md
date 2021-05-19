@@ -27,8 +27,11 @@ To try out it out before integrating, click on the code sandbox below. You may h
 
 [![Edit @giphy/react-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/giphyreact-components-hbmcf?from-embed)
 
-## Grid
+## Storybook:
 
+[storybook](https://giphy.github.io/giphy-js) UI component explorer.
+
+## Grid
 
 | _prop_                                  | _type_                                   | _default_ | _description_                                                                                           |
 | --------------------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------- |
@@ -62,9 +65,6 @@ ReactDOM.render(<Grid width={800} columns={3} gutter={6} fetchGifs={fetchGifs} /
 ### SSR example with next.js
 
 See this [codesanbox](https://codesandbox.io/s/giphy-web-sdk-ssr-with-nextjs-irv19) for an example of SSR with next.js
-
-
-
 
 ## Carousel
 
@@ -215,6 +215,29 @@ Display scrolling trending searches and username search. When clicking a trendin
 populated with that term and the search will be fetched and rendered.
 
 If a user types a username into the search bar such as `@nba`, a username search will done and the all the channels that match will be displayed in the suggestion bar. When clicking a username, the search bar will go into username search mode.
+
+## Video
+
+_Video props_
+
+| _prop_ | _type_   | _default_ | _description_                               |
+| ------ | -------- | --------- | ------------------------------------------- |
+| gif    | `IGif`   | undefined | The gif to display that contains video data |
+| width  | `number` | undefined | The width of the video                      |
+| height | `number` | undefined | The height of the video                     |
+
+```tsx
+import { Video } from '@giphy/react-components'
+import { GiphyFetch } from '@giphy/js-fetch-api'
+
+// use @giphy/js-fetch-api to fetch gifs
+// apply for a new Web SDK key. Use a separate key for every platform (Android, iOS, Web)
+const gf = new GiphyFetch('your Web SDK key')
+
+const { data } = await gf.gif('D068R9Ziv1iCjezKzG')
+// React Component
+ReactDOM.render(<Video gif={data} width={300} />, target)
+```
 
 ### GifOverlay
 
