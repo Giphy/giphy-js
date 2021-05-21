@@ -123,7 +123,9 @@ const Video = ({
         onStateChange?.('playing')
         if (!hasPlayingFired.current) {
             hasPlayingFired.current = true
-            pingback({ actionType: 'START', analyticsResponsePayload: gif.analytics_response_payload })
+            if (gif.analytics_response_payload) {
+                pingback({ actionType: 'START', analyticsResponsePayload: gif.analytics_response_payload })
+            }
             onFirstPlay?.(Date.now() - mountTime.current)
         }
     }, [onFirstPlay, onStateChange, gif])
@@ -191,6 +193,13 @@ const Video = ({
             if (!isNaN(volume)) {
                 el.volume = volume
             }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        const el = videoEl.current
+        if (el) {
             el.addEventListener('play', _onPlaying)
             el.addEventListener('pause', _onPaused)
             el.addEventListener('error', _onError)
@@ -212,19 +221,8 @@ const Video = ({
                 el.removeEventListener('webkitendfullscreen', _onEndFullscreen)
             }
         }
-    }, [
-        _onPlaying,
-        _onPaused,
-        _onError,
-        _onTimeUpdate,
-        _onCanPlay,
-        _onEnded,
-        _onWaiting,
-        _onEndFullscreen,
-        tryAutoPlayWithSound,
-        setVideoEl,
-        volume,
-    ])
+    }, [_onPlaying, _onPaused, _onError, _onTimeUpdate, _onCanPlay, _onEnded, _onWaiting, _onEndFullscreen])
+
     return media?.url ? (
         <video
             className={className}
