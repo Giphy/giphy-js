@@ -39,6 +39,7 @@ type Props = {
     height?: number
     volume?: number
     className?: string
+    copied?: boolean
 }
 const Video = ({
     muted,
