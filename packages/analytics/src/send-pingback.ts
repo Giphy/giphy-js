@@ -15,5 +15,7 @@ export const sendPingback = (events: PingbackEvent[]) => {
         method: 'POST',
         body: JSON.stringify({ events }),
         headers,
+    }).catch(_ => {
+        // Call failed, probably due to adblock.
     })
 }
