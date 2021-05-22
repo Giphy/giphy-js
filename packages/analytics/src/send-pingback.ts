@@ -1,6 +1,6 @@
 import { getGiphySDKRequestHeaders, Logger } from '@giphy/js-util'
-import { PingbackEvent } from './types'
 import gl from './global'
+import { PingbackEvent } from './types'
 
 // TODO remove api key
 const environment = gl?.GIPHY_PINGBACK_URL || 'https://pingback.giphy.com'
@@ -15,7 +15,8 @@ export const sendPingback = (events: PingbackEvent[]) => {
         method: 'POST',
         body: JSON.stringify({ events }),
         headers,
-    }).catch(_ => {
+    }).catch((error) => {
         // Call failed, probably due to adblock.
+        Logger.warn(`pingbacks failing to post ${error}`)
     })
 }
