@@ -35,6 +35,7 @@ const VideoDemo = ({ id, width, height, muted }: Props) => {
             onStateChange={(state: 'playing' | 'paused') => eventAction(`state: ${state}`)}
             onEnded={() => eventAction('on ended')}
             onLoop={(count: number) => eventAction(`on loop ${count}`)}
+            onQuartile={(qt) => eventAction(`on quartile ${qt}`)}
             onMuted={() => eventAction('on muted')}
             onWaiting={(count: number) => eventAction(`on waiting: ${count}`)}
             // onTimeUpdate={(t) => console.log(t)}

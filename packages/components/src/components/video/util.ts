@@ -24,7 +24,7 @@ export const shouldFireQuartile = (
 ): boolean => {
     const currentQuartile = loopNumber + quartile
     // NOTE: Should only fire on first loop, if looping.
-    if (!quartilesFired.has(currentQuartile) && duration > 0 && playhead > duration * quartile && loopNumber === 0) {
+    if (!quartilesFired.has(currentQuartile) && duration > 0 && playhead > duration * quartile) {
         quartilesFired.add(currentQuartile)
         return true
     }
