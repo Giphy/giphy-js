@@ -2,7 +2,7 @@
     "scripts": {
         "clean": "rm -rf ./dist",
         "dev": "parcel public/test.html",
-        "docs": "typedoc",
+        "docs": "typedoc src/index.ts",
         "prepublish": "npm run clean && tsc",
         "build": "tsc",
         "test": "jest --config ./jestconfig.js",
@@ -30,7 +30,7 @@
         "@types/qs": "^6.9.4",
         "jest-fetch-mock": "^3.0.3",
         "parcel-bundler": "^1.12.4",
-        "typedoc": "^0.18.0",
+        "typedoc": "^0.20.36",
         "typedoc-thunder-theme": "^0.0.2",
         "typescript": "^4.0.5"
     }
