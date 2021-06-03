@@ -17,7 +17,7 @@ type Props = {
     user: Partial<IUser>
     columns: number
     gutter: number
-    layoutType?: string
+    layoutType?: 'GRID' | 'MIXED_GRID'
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
     onGifsFetchError?: (e: Error) => void
