@@ -17,6 +17,7 @@ type Props = {
     user: Partial<IUser>
     columns: number
     gutter: number
+    layoutType?: 'GRID' | 'MIXED'
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
     onGifsFetchError?: (e: Error) => void
@@ -142,6 +143,7 @@ class Grid extends PureComponent<Props, State> {
             backgroundColor,
             loaderConfig,
             tabIndex = 0,
+            layoutType = 'GRID',
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = !isDoneFetching
@@ -149,7 +151,7 @@ class Grid extends PureComponent<Props, State> {
         // get the height of each grid item
         const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
         return (
-            <PingbackContextManager attributes={{ layout_type: 'GRID' }}>
+            <PingbackContextManager attributes={{ layout_type: layoutType }}>
                 <div className={className} style={{ width }}>
                     <MasonryGrid
                         itemHeights={itemHeights}
