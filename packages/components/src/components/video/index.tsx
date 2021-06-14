@@ -1,9 +1,8 @@
 import { pingback } from '@giphy/js-analytics'
 import { IGif, IImage } from '@giphy/js-types'
-import { getGifHeight } from '@giphy/js-util'
+import { getBestVideo, getGifHeight } from '@giphy/js-util'
 import { h } from 'preact'
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks'
-import getBestMedia from './rendition-selection'
 import { getErrorMessage, shouldFireQuartile } from './util'
 
 export type QuartileEvent = 0.25 | 0.5 | 0.75
@@ -65,7 +64,7 @@ const Video = ({
     const height = height_ || getGifHeight(gif, width)
 
     // state
-    const [media, setMedia] = useState(getBestMedia(gif.video, width, height))
+    const [media, setMedia] = useState(getBestVideo(gif.video, width, height))
     const seek = useRef(0)
 
     if (!media) {
@@ -95,7 +94,7 @@ const Video = ({
 
     useEffect(() => {
         // when the width and height change, check if there's a new url
-        const newMedia = getBestMedia(gif.video, width, height) as IImage
+        const newMedia = getBestVideo(gif.video, width, height) as IImage
         if (videoEl.current && media?.url && newMedia.url !== media.url) {
             // when the media changes set the current seek time
             seek.current = videoEl.current.currentTime

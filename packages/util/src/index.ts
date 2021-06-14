@@ -7,6 +7,7 @@ export {
     getAltText,
     getBestRendition,
     getBestRenditionUrl,
+    getBestVideo,
     getGifHeight,
     getGifWidth,
     getSpecificRendition,
