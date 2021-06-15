@@ -8,6 +8,8 @@ _bestfit_ - finds image rendition that best fits a given width and height
 
 _getBestRendition_ - get the best rendition object based on a width and height (uses bestfit)
 
+_getBestVideo_ - get the best video rendition object based on a width and height (uses bestfit)
+
 _getBestRenditionUrl_ - get the best rendition url based on a width and height, also factors in webp availability and if you're using video (uses getBestRendition)
 
 _getGifHeight_ - quick way to get the height for a gif based on a provided width

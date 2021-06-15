@@ -2,6 +2,8 @@ import { v4 as uuid } from 'uuid'
 let pingbackId = ''
 
 const idLength = 16
+
+/* istanbul ignore next */
 const noUUIDRandom = () => {
     let result = ''
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -25,6 +27,7 @@ const getPingbackId = () => {
                 // React Native doesn't support uuid without a polyfill
                 pingbackId = `${hexTime}${uuid().replace(/-/g, '')}`.substring(0, idLength) // 16 character max
             } catch (error) {
+                /* istanbul ignore next */
                 pingbackId = noUUIDRandom()
             }
             try {

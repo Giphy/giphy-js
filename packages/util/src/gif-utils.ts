@@ -1,4 +1,4 @@
-import { IGif, IImages, ImageAllTypes, IRendition } from '@giphy/js-types'
+import { IGif, IImage, IImages, ImageAllTypes, IRendition } from '@giphy/js-types'
 import IVideo from '@giphy/js-types/dist/video'
 import bestfit from './bestfit'
 import { pick, take, without } from './collections'
@@ -28,6 +28,17 @@ export const getSpecificRendition = (
 
 interface IRenditionWithName extends IRendition {
     renditionName: keyof IImages
+}
+
+export const getBestVideo = (video: IGif['video'], width: number, height: number) => {
+    let assets = video?.assets
+    if (assets) {
+        assets = { ...assets }
+        // @ts-ignore we don't show source according to the existing code
+        delete assets.source
+        const filteredAssets = Object.values(assets).sort((a: IRendition, b: IRendition) => a.width - b.width)
+        return bestfit(filteredAssets, width, height) as IImage
+    }
 }
 
 const getRenditions = (type: IGif['type'], images: IImages, video?: IVideo) =>

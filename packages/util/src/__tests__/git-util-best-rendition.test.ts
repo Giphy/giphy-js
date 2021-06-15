@@ -1,5 +1,5 @@
 import { setRenditionScaleUpMaxPixels } from '../bestfit'
-import { getBestRenditionUrl } from '../gif-utils'
+import { getBestRenditionUrl, getBestVideo } from '../gif-utils'
 
 const testGifLandscape: any = {
     images: {
@@ -78,6 +78,65 @@ const testGifLandscape: any = {
             mp4_size: '11945',
             webp: '/media/200.webp',
             webp_size: '129066',
+        },
+    },
+}
+
+const testVideo = {
+    ...testGifLandscape,
+    video: {
+        assets: {
+            fixed_width: {
+                url: '/media/200x113.gif',
+                width: '200',
+                height: '113',
+                size: '77670',
+                mp4: '/media/200x113.mp4',
+                mp4_size: '11777',
+                webp: '/media/200x113.webp',
+                webp_size: '52404',
+            },
+            fixed_width_small: {
+                url: '/media/100x56.gif',
+                width: '100',
+                height: '56',
+                size: '77670',
+                mp4: '/media/100x56.mp4',
+                mp4_size: '31328',
+                webp: '/media/100x56.webp',
+                webp_size: '17910',
+            },
+            original: {
+                url: '/media/600x338.gif',
+                width: '600',
+                height: '338',
+                size: '1020165',
+                frames: '14',
+                mp4: '/media/giphy.mp4',
+                mp4_size: '41339',
+                webp: '/media/giphy.webp',
+                webp_size: '295984',
+            },
+            fixed_height: {
+                url: '/media/355x200.gif',
+                width: '355',
+                height: '200',
+                size: '169486',
+                mp4: '/media/200.mp4',
+                mp4_size: '11945',
+                webp: '/media/200.webp',
+                webp_size: '129066',
+            },
+            fixed_height_small: {
+                url: '/media/178x100.gif',
+                width: '178',
+                height: '100',
+                size: '169486',
+                mp4: '/media/100.mp4',
+                mp4_size: '68837',
+                webp: '/media/100.webp',
+                webp_size: '43392',
+            },
         },
     },
 }
@@ -187,6 +246,21 @@ describe('gif util', () => {
         expect(getBestRenditionUrl(testGifLandscape, 100, 100)).toEqual('/media/100x56.gif')
         expect(getBestRenditionUrl(testGifLandscape, 1, 1)).toEqual('/media/100x56.gif')
         expect(getBestRenditionUrl(testGifLandscape, 0, 1)).toEqual('')
+    })
+    test('getBestVideo ', () => {
+        expect(getBestVideo(testVideo.video, 450, 350)?.url).toEqual('/media/600x338.gif')
+        expect(getBestVideo(testVideo.video, 400, 300)?.url).toEqual('/media/600x338.gif')
+        expect(getBestVideo(testVideo.video, 300, 200)?.url).toEqual('/media/355x200.gif')
+        expect(getBestVideo(testVideo.video, 200, 200)?.url).toEqual('/media/355x200.gif')
+        expect(getBestVideo(testVideo.video, 100, 100)?.url).toEqual('/media/100x56.gif')
+        expect(getBestVideo(testVideo.video, 300, 200)?.url).toEqual('/media/355x200.gif')
+        // within the scaleup range
+        expect(getBestVideo(testVideo.video, 200, 100)?.url).toEqual('/media/178x100.gif')
+        expect(getBestVideo(testVideo.video, 200, 100)?.url).toEqual('/media/178x100.gif')
+        expect(getBestVideo(testVideo.video, 178, 100)?.url).toEqual('/media/178x100.gif')
+        expect(getBestVideo(testVideo.video, 100, 100)?.url).toEqual('/media/100x56.gif')
+        expect(getBestVideo(testVideo.video, 1, 1)?.url).toEqual('/media/100x56.gif')
+        // expect(getBestVideo(testVideo.video, 0, 1).u).toEqual('')
     })
     test('getBestRenditionUrl portrait target landscape gif ', () => {
         expect(getBestRenditionUrl(testGifLandscape, 700, 450)).toEqual('/media/600x338.gif')
