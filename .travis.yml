@@ -1,14 +1,17 @@
 language: node_js
 node_js:
-    - '10'
+    - '14'
 cache:
     yarn: true
     directories:
         - 'node_modules'
 before_script:
+    - yarn global add license-checker
     - yarn run lerna bootstrap
     - git checkout .
 script:
+    - node license.js
+    - node_modules/.bin/lerna exec -- node \$LERNA_ROOT_PATH/license.js
     - yarn run lint
     - yarn test
     - yarn run snapshot
