@@ -49,6 +49,9 @@
     "peerDependencies": {
         "react": "^16.10.2"
     },
+    "resolutions": {
+        "foreachasync": "5.1.3"
+    },
     "dependencies": {
         "@emotion/core": "10.1.1",
         "@emotion/styled": "10.0.27",

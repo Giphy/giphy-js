@@ -10,7 +10,6 @@ const onlyAllow = [
     'CC-BY-4.0',
     'CC0-1.0',
     'Apache-2.0',
-    'Apache*', // this exists in @percy#storybook#walk#foreachasync"
     'ISC',
     'Public Domain',
     'Unlicense',
