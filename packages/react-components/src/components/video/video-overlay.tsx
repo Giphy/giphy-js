@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
 import { Logger } from '@giphy/js-util'
 import React, { useState } from 'react'
-import Video from '.'
 import { GifOverlayProps } from '../gif'
+import Video from './'
 import { VolumeOffIcon, VolumeOnIcon } from './controls/volume'
 
 const VideoContainer = styled.div`

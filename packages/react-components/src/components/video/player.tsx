@@ -1,8 +1,9 @@
 import styled from '@emotion/styled'
 import React, { ComponentProps, useCallback, useState } from 'react'
+import VideoWrapper from './'
 import { PauseIcon, PlayIcon } from './controls/play-pause'
 import { VolumeOffIcon, VolumeOnIcon } from './controls/volume'
-import Video, { MEDIA_STATE } from './index'
+import Video, { MEDIA_STATE } from './video'
 
 const Container = styled.div`
     position: relative;
@@ -34,13 +35,13 @@ const Controls = styled.div<{ isHovered: boolean }>`
     transition: opacity ease-out 250ms;
 `
 
-const VideoPlayer = (props: ComponentProps<typeof Video>) => {
+const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     const [isHovered, setIsHovered] = useState(false)
     const [playState, setPlayState] = useState<MEDIA_STATE>('paused')
     const [videoEl, _setVideoEl] = useState<HTMLVideoElement | null>(null)
-    const [muted, setMuted] = useState<boolean | undefined>(undefined)
+    const [muted, setMuted] = useState<boolean | undefined>(props.muted)
     const [mutedByBrowser, setMutedByBrowser] = useState(false)
-    const { onStateChange, setVideoEl, onMuted } = props
+    const { onStateChange, setVideoEl, onMuted, onUserMuted } = props
     const combinedSetPlayState = useCallback(
         (args) => {
             onStateChange?.(args)
@@ -96,6 +97,7 @@ const VideoPlayer = (props: ComponentProps<typeof Video>) => {
                 )}
                 <Volume
                     onClick={(e) => {
+                        onUserMuted?.(!muted)
                         e.preventDefault()
                         toggleMute()
                     }}

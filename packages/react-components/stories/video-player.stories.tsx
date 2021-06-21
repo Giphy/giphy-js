@@ -4,7 +4,7 @@ import isPercy from '@percy-io/in-percy'
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
 import React, { useCallback, useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
-import VideoPlayer from '../src/components/video/player'
+import VideoPlayer from '../src/components/video'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
@@ -22,7 +22,7 @@ const VideoDemo = ({ id, width }: Props) => {
     }, [fetch, id])
 
     // percy and our video autoplay aren't cooperating
-    return !isPercy() && gif ? <VideoPlayer gif={gif} width={width} /> : null
+    return !isPercy() && gif ? <VideoPlayer gif={gif} width={width} controls /> : null
 }
 
 export default {
