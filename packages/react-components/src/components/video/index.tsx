@@ -4,6 +4,10 @@ import Video from './video'
 
 type Props = {
     controls?: boolean
+    hideProgressBar?: boolean
+    hideMute?: boolean
+    hidePlayPause?: boolean
+    persistentControls?: boolean
     // for saving the state of the user muted
     onUserMuted?: (muted: boolean) => void
 }

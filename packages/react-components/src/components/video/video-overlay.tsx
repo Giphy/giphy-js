@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
-import { Logger } from '@giphy/js-util'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GifOverlayProps } from '../gif'
 import Video from './'
 import { VolumeOffIcon, VolumeOnIcon } from './controls/volume'
@@ -14,79 +13,99 @@ const VideoContainer = styled.div`
     height: 100%;
     width: 100%;
 `
+
 const VideoStyled = styled(Video)`
     height: 100%;
     display: inline-block;
     object-fit: fill;
+    pointer-events: none;
+    background: rgb(0, 0, 0, 0);
 `
-const Button = styled.div`
+const Button = styled.div<{ isHovered: boolean }>`
     position: absolute;
-    top: 5px;
-    right: 10px;
+    top: 6px;
+    right: 6px;
+    cursor: pointer;
+    opacity: ${(props) => (props.isHovered ? 1 : 0.8)};
+    transition: opacity ease-out 800ms;
 `
 
-const DebugButton = styled.div`
-    background: black;
-    color: white;
-    padding: 10px;
-    position: absolute;
-    top: 0;
-    left: 0;
-`
+const speakerClassName = 'giphy-video-overlay-button'
 
-type UIProps = {
+type VolumeButtonProps = {
     toggleMute: () => void
     muted: boolean | undefined
     mutedByBrowser: boolean
 }
-
-const DebugUI = ({ toggleMute, muted, mutedByBrowser }: UIProps) => (
-    <DebugButton>
-        <div
-            onClick={(e) => {
-                e.preventDefault()
-                toggleMute()
-            }}
-        >
-            click box to {muted ? 'unmute' : 'mute'}
-            <br />
-            {muted ? 'user muted' : 'user not muted'}
-            <br />
-            {mutedByBrowser ? 'muted by browser' : 'not muted by browser'}
-        </div>
-    </DebugButton>
-)
-
-const VolumeButton = ({ muted, toggleMute, mutedByBrowser, isHovered }: UIProps & { isHovered: boolean }) => (
+const VolumeButton = ({ muted, toggleMute, mutedByBrowser, isHovered }: VolumeButtonProps & { isHovered: boolean }) => (
     <Button
+        className={speakerClassName}
         onClick={(e) => {
             e.preventDefault()
+            e.stopPropagation()
             toggleMute()
         }}
+        isHovered={isHovered}
     >
         {muted || mutedByBrowser || !isHovered ? <VolumeOffIcon /> : <VolumeOnIcon />}
     </Button>
 )
 
-const VideoOverlay = ({ gif, isHovered, width }: GifOverlayProps & { width: number }) => {
-    const [muted, setMuted] = useState<boolean | undefined>(undefined)
+const VideoOverlay = ({
+    gif,
+    isHovered,
+    hideMuteButton,
+    width,
+    height,
+    className,
+    muted: userPrefMuted = false,
+    onUserMuted,
+}: GifOverlayProps & {
+    width: number
+    height?: number
+    className?: string
+    muted?: boolean // force this to be muted
+    hideMuteButton?: boolean
+    onUserMuted?: (muted: boolean) => void // for saving the state of the user muted
+}) => {
+    const [muted, setMuted] = useState<boolean | undefined>(userPrefMuted)
     const [mutedByBrowser, setMutedByBrowser] = useState(false)
+
     const toggleMute = () => {
         if (mutedByBrowser) {
             setMutedByBrowser(false)
             setMuted(false)
         } else {
+            onUserMuted?.(!muted)
             setMuted(!muted)
         }
     }
+    useEffect(() => {
+        setMuted(userPrefMuted)
+    }, [userPrefMuted, setMuted])
+
     const props = { toggleMute, muted, mutedByBrowser }
     return (
-        <VideoContainer>
+        <VideoContainer className={className}>
             {isHovered && (
-                <VideoStyled gif={gif} key={gif.id} loop muted={muted} width={width} onMuted={setMutedByBrowser} />
+                <VideoStyled
+                    gif={gif}
+                    key={gif.id}
+                    loop
+                    controls
+                    hidePlayPause
+                    hideMute
+                    persistentControls
+                    muted={muted}
+                    width={width}
+                    height={height}
+                    onMuted={setMutedByBrowser}
+                />
             )}
-            {Logger.ENABLED ? <DebugUI {...props} /> : <VolumeButton {...props} isHovered={isHovered} />}
+            {!hideMuteButton && <VolumeButton {...props} isHovered={isHovered} />}
         </VideoContainer>
     )
 }
+
+VideoOverlay.imgClassName = speakerClassName
 export default VideoOverlay

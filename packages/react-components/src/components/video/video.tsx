@@ -7,6 +7,7 @@ import { getErrorMessage, shouldFireQuartile } from './util'
 export type QuartileEvent = 0.25 | 0.5 | 0.75
 const quartileEvents: QuartileEvent[] = [0.25, 0.5, 0.75]
 export type MEDIA_STATE = 'playing' | 'paused'
+const videoClassName = 'giphy-video'
 const Network = {
     // The element has not yet been initialized. All attributes are in their initial states.
     EMPTY: 0,
@@ -58,7 +59,7 @@ const Video = ({
     width,
     height: height_,
     volume = 0.7,
-    className,
+    className = videoClassName,
 }: Props) => {
     const height = height_ || getGifHeight(gif, width)
 
@@ -224,6 +225,7 @@ const Video = ({
 
     return media?.url ? (
         <video
+            draggable={true}
             className={className}
             width={width}
             height={height}
@@ -237,6 +239,6 @@ const Video = ({
     ) : null
 }
 
-Video.className = 'giphy-video'
+Video.className = videoClassName
 
 export default Video
