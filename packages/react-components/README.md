@@ -8,12 +8,12 @@ The GIPHY React SDK lets you and your users easily access the world’s largest 
 
 ### GIPHY React SDK includes all the same endpoints listed in our Javascript Fetch API:
 
--   [Search](../packages/fetch-api#search): Search all Giphy GIFs for a word or phrase. Punctuation will be stripped and ignored.
--   [Trending](../packages/fetch-api#trending) Fetch GIFs currently trending online. Hand curated by the Giphy editorial team. The data returned mirrors the GIFs showcased on the Giphy homepage.
--   [GIF by ID](../packages/fetch-api#gif) Fetch detailed information about a GIF by ID
--   [GIFs category and subcategory](../packages/fetch-api#category) Fetch GIFs category and subcategory
--   [Related](../packages/fetch-api#related) Fetch related GIFs based on the ID of a GIF
--   [Random](../packages/fetch-api#random) Returns a random single GIF
+-   [Search](../fetch-api#search): Search all Giphy GIFs for a word or phrase. Punctuation will be stripped and ignored.
+-   [Trending](../fetch-api#trending) Fetch GIFs currently trending online. Hand curated by the Giphy editorial team. The data returned mirrors the GIFs showcased on the Giphy homepage.
+-   [GIF by ID](../fetch-api#gif) Fetch detailed information about a GIF by ID
+-   [GIFs category and subcategory](../fetch-api#category) Fetch GIFs category and subcategory
+-   [Related](../fetch-api#related) Fetch related GIFs based on the ID of a GIF
+-   [Random](../fetch-api#random) Returns a random single GIF
 
 To try out it out before integrating, click on the code sandbox below. You may have also seen it in action on Google Chrome extention or Facebook Messenger bot.
 
