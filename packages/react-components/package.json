@@ -12,24 +12,24 @@
         "@babel/core": "^7.13.10",
         "@percy-io/in-percy": "0.1.11",
         "@percy/storybook": "3.3.1",
-        "@storybook/addon-actions": "^6.1.21",
+        "@storybook/addon-actions": "^6.3.2",
         "@storybook/addon-info": "^5.3.21",
-        "@storybook/addon-knobs": "^6.1.21",
-        "@storybook/addon-viewport": "6.1.21",
-        "@storybook/addons": "^6.1.21",
-        "@storybook/react": "^6.1.21",
-        "@storybook/storybook-deployer": "^2.8.7",
-        "@types/react": "^16.9.55",
-        "@types/react-dom": "^16.9.9",
+        "@storybook/addon-knobs": "^6.3.0",
+        "@storybook/addon-viewport": "6.3.2",
+        "@storybook/addons": "^6.3.2",
+        "@storybook/react": "^6.3.2",
+        "@storybook/storybook-deployer": "^2.8.10",
+        "@types/react": "^17.0.13",
+        "@types/react-dom": "^17.0.8",
         "@types/storybook__react": "^5.2.1",
         "@types/throttle-debounce": "^2.1.0",
         "awesome-typescript-loader": "^5.2.1",
         "babel-loader": "^8.1.0",
         "fetch-mock": "^9.10.7",
         "parcel-bundler": "^1.12.4",
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1",
-        "storybook-addon-jsx": "^7.3.6",
+        "react": "^17",
+        "react-dom": "^17",
+        "storybook-addon-jsx": "^7.3.12",
         "typescript": "^4.0.5"
     },
     "name": "@giphy/react-components",
@@ -47,7 +47,7 @@
         "access": "public"
     },
     "peerDependencies": {
-        "react": "^16.10.2"
+        "react": "16.10.2 - 17"
     },
     "resolutions": {
         "foreachasync": "5.1.3"
