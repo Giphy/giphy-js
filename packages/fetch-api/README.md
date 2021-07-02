@@ -85,7 +85,7 @@ const { data: gif } = await gf.gif('3oEjHGr1Fhz0kyv8Ig')
 ```typescript
 // by id
 gifs(ids: string[]): Promise<GifsResult>
-// by category and subcatetory
+// by category and subcategory
 gifs(category: string, subcategory: string): Promise<GifsResult>
 ```
 
@@ -94,7 +94,7 @@ gifs(category: string, subcategory: string): Promise<GifsResult>
 ```typescript
 // by id
 const { data: gifs } = await gf.gifs(['3oEjHGr1Fhz0kyv8Ig'])
-// by category and subcatetory
+// by category and subcategory
 const { data: gifs } = await gf.gifs('tv', 'arrested-development')
 ```
 
