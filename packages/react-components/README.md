@@ -218,6 +218,12 @@ If a user types a username into the search bar such as `@nba`, a username search
 
 ## Video
 
+Quick and easy way to play video. Just pass the video component a gif object that has a video property. This is true when using `{ type: 'videos' }` in the [fetch api type option](https://github.com/Giphy/giphy-js/blob/master/packages/fetch-api/README.md#type-option).
+
+If you want controls for the video player, use the `controls` property.
+
+Here are the components in action in our [storybook](https://giphy.github.io/giphy-js/?path=/story/react-components-video-player)
+
 _Video props_
 
 | _prop_             | _type_                     | _default_ | _description_                                    |
@@ -242,7 +248,7 @@ const gf = new GiphyFetch('your Web SDK key')
 
 const { data } = await gf.gif('D068R9Ziv1iCjezKzG')
 // React Component
-ReactDOM.render(<Video gif={data} width={300} />, target)
+ReactDOM.render(<Video gif={data} width={300} controls />, target)
 ```
 
 ### GifOverlay
