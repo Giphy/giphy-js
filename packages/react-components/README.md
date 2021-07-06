@@ -220,11 +220,17 @@ If a user types a username into the search bar such as `@nba`, a username search
 
 _Video props_
 
-| _prop_ | _type_   | _default_ | _description_                               |
-| ------ | -------- | --------- | ------------------------------------------- |
-| gif    | `IGif`   | undefined | The gif to display that contains video data |
-| width  | `number` | undefined | The width of the video                      |
-| height | `number` | undefined | The height of the video                     |
+| _prop_             | _type_                     | _default_ | _description_                                    |
+| ------------------ | -------------------------- | --------- | ------------------------------------------------ |
+| gif                | `IGif`                     | undefined | The gif to display that contains video data      |
+| width              | `number`                   | undefined | The width of the video                           |
+| height             | `number`                   | undefined | The height of the video                          |
+| controls           | `boolean`                  | undefined | Show transport controls                          |
+| hideProgressBar    | `boolean`                  | undefined | if controls is true, hides progress bar          |
+| hideMute           | `boolean`                  | undefined | if controls is true, hides the mute button       |
+| hidePlayPause      | `boolean`                  | undefined | if controls is true, hides the play/pause button |
+| persistentControls | `boolean`                  | undefined | don't hide controls when hovering away           |
+| onUserMuted        | `(muted: boolean) => void` | undefined | fired when the user toggles the mute state       |
 
 ```tsx
 import { Video } from '@giphy/react-components'

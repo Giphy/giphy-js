@@ -31,10 +31,11 @@ export const Video = () => {
     const gif = useGif('WtUBmrAK1Yda649Ayr')
     return !isPercy() && gif ? (
         <VideoPlayer
-            gif={gif}
+            controls
             width={number('width', 300)}
             height={number('height', 0)}
             muted={boolean('muted', false)}
+            gif={gif}
         />
     ) : (
         <div>video loading</div>
@@ -48,6 +49,22 @@ export const VideoNoPlayPause = () => {
             gif={gif}
             controls
             hidePlayPause
+            width={number('width', 300)}
+            height={number('height', 0)}
+            muted={boolean('muted', false)}
+        />
+    ) : (
+        <div>video loading</div>
+    )
+}
+
+export const VideoNoProgressBar = () => {
+    const gif = useGif('WtUBmrAK1Yda649Ayr')
+    return !isPercy() && gif ? (
+        <VideoPlayer
+            gif={gif}
+            controls
+            hideProgressBar
             width={number('width', 300)}
             height={number('height', 0)}
             muted={boolean('muted', false)}
