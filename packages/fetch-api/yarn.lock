@@ -882,10 +882,10 @@
   resolved "https://registry.yarnpkg.com/@giphy/js-types/-/js-types-4.0.0.tgz#68b29c12e4baf9071117f6c893ba02be2a1cdc4f"
   integrity sha512-8VKllPsUEpzBNCo0RcubtsLi7rkojYy6QRqpSlvVE/tfbEbDTyWmZCqk+lEcU16GXnurg3K23K/+Zk/7zrpZSg==
 
-"@giphy/js-util@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@giphy/js-util/-/js-util-3.0.0.tgz#878b8a362d172894f40d93127cd2654c5253c58e"
-  integrity sha512-u0/nUK0vKEgYRGO08I7HSYt7Z7MbLF5GsIIdCJhx5SuPktsWzzljRs/IcEAkR6391j1dEq4CPZJqEuXwLPsdeA==
+"@giphy/js-util@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@giphy/js-util/-/js-util-3.1.0.tgz#984ce7c2bb8ce4c0a6fa47c4f416c55aa792a2bf"
+  integrity sha512-9AlUGT/hntGyDrqc39xYU+Fp7U8ijfR/8AoDpHnFPL0u1NXeoKwLJQR+I2D01uhv7OI4LM9YVxprqe8aOy68nw==
   dependencies:
     "@giphy/js-types" "^4.0.0"
     dompurify "^2.2.2"
@@ -1550,9 +1550,9 @@ color-name@^1.0.0:
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
 color-string@^1.5.2:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/color-string/-/color-string-1.5.3.tgz#c9bbc5f01b58b5492f3d6857459cb6590ce204cc"
-  integrity sha512-dC2C5qeWoYkxki5UAXapdjqO672AM4vZuPGRQfO8b5HKuKGBbKWpITyDYN7TOFKvRW7kOgAn3746clDBMDJyQw==
+  version "1.5.5"
+  resolved "https://registry.yarnpkg.com/color-string/-/color-string-1.5.5.tgz#65474a8f0e7439625f3d27a6a19d89fc45223014"
+  integrity sha512-jgIoum0OfQfq9Whcfc2z/VhCNcmQjWbey6qBX0vqt7YICflUmBCh9E9CiQD5GSJ+Uehixm3NUwHVhqUAWRivZg==
   dependencies:
     color-name "^1.0.0"
     simple-swizzle "^0.2.2"
