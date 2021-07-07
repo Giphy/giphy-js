@@ -11,6 +11,8 @@ export { default as SearchBar } from './components/search-bar'
 export { default as SearchContextManager, SearchContext } from './components/search-bar/context'
 export { default as SuggestionBar } from './components/search-bar/suggestion-bar'
 export { default as Video } from './components/video'
+export * from './components/video/controls/play-pause'
+export * from './components/video/controls/volume'
 export { default as VideoOverlay } from './components/video/video-overlay'
 
 const { version } = require('../package.json')

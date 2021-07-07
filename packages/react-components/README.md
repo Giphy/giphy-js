@@ -218,13 +218,25 @@ If a user types a username into the search bar such as `@nba`, a username search
 
 ## Video
 
+Quick and easy way to play video. Just pass the video component a gif object that has a video property. This is true when using `{ type: 'videos' }` in the [fetch api type option](https://github.com/Giphy/giphy-js/blob/master/packages/fetch-api/README.md#type-option).
+
+If you want controls for the video player, use the `controls` property.
+
+Here are the components in action in our [storybook](https://giphy.github.io/giphy-js/?path=/story/react-components-video-player)
+
 _Video props_
 
-| _prop_ | _type_   | _default_ | _description_                               |
-| ------ | -------- | --------- | ------------------------------------------- |
-| gif    | `IGif`   | undefined | The gif to display that contains video data |
-| width  | `number` | undefined | The width of the video                      |
-| height | `number` | undefined | The height of the video                     |
+| _prop_             | _type_                     | _default_ | _description_                                    |
+| ------------------ | -------------------------- | --------- | ------------------------------------------------ |
+| gif                | `IGif`                     | undefined | The gif to display that contains video data      |
+| width              | `number`                   | undefined | The width of the video                           |
+| height             | `number`                   | undefined | The height of the video                          |
+| controls           | `boolean`                  | undefined | Show transport controls                          |
+| hideProgressBar    | `boolean`                  | undefined | if controls is true, hides progress bar          |
+| hideMute           | `boolean`                  | undefined | if controls is true, hides the mute button       |
+| hidePlayPause      | `boolean`                  | undefined | if controls is true, hides the play/pause button |
+| persistentControls | `boolean`                  | undefined | don't hide controls when hovering away           |
+| onUserMuted        | `(muted: boolean) => void` | undefined | fired when the user toggles the mute state       |
 
 ```tsx
 import { Video } from '@giphy/react-components'
@@ -236,7 +248,7 @@ const gf = new GiphyFetch('your Web SDK key')
 
 const { data } = await gf.gif('D068R9Ziv1iCjezKzG')
 // React Component
-ReactDOM.render(<Video gif={data} width={300} />, target)
+ReactDOM.render(<Video gif={data} width={300} controls />, target)
 ```
 
 ### GifOverlay
