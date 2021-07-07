@@ -1,3 +1,11 @@
+## 3.1.0 (2021-07-07)
+
+#### :rocket: Enhancement
+
+-   `react-components`
+    -   [#222](https://github.com/Giphy/giphy-js/pull/222) Feat/video player controls ([@giannif](https://github.com/giannif))
+    -   [#224](https://github.com/Giphy/giphy-js/pull/224) react 17 peer dep / storybook upgrade ([@giannif](https://github.com/giannif))
+
 ## 3.0.0 (2021-05-19)
 
 #### :rocket: Enhancement
