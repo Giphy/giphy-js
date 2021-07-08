@@ -22,6 +22,5 @@ deploy:
     script: 'yarn run lerna:publish'
     skip_cleanup: true
     on:
-        node: '10'
         branch: master
         condition: $TRAVIS_COMMIT_MESSAGE =~ ^Publish
