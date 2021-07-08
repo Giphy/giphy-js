@@ -1,8 +1,8 @@
-import { Video, renderVideo } from '../src'
-import { h, render as preactRender, Component } from 'preact'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { css } from 'emotion'
+import { Component, render as preactRender, h } from 'preact'
+import { renderVideo, Video } from '../src'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 const getEl = (targetEl: HTMLElement, selector: string): HTMLElement => {
@@ -23,7 +23,7 @@ export const vanillaJSVideo = async (targetEl: HTMLElement) => {
     `
     // render a gif
     const { data } = await gf.gif('D068R9Ziv1iCjezKzG')
-    renderVideo({ gif: data, width: 300 }, getEl(targetEl, 'gif1'))
+    renderVideo({ gif: data, width: 300, controls: true }, getEl(targetEl, 'gif1'))
 }
 
 export namespace PreactVideo {
@@ -46,7 +46,7 @@ export namespace PreactVideo {
         render(_: Props, { gif }: State) {
             return gif ? (
                 <div className={containerCss}>
-                    <Video gif={gif} width={300} />
+                    <Video gif={gif} width={300} controls />
                 </div>
             ) : null
         }
