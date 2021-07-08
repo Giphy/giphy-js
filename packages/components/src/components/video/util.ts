@@ -1,4 +1,4 @@
-import { QuartileEvent } from '.'
+import { QuartileEvent } from './video'
 
 export const getErrorMessage = (code: number, src = '') => {
     switch (code) {
