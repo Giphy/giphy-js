@@ -1,3 +1,14 @@
+## 3.2.0 (2021-07-08)
+
+#### :rocket: Enhancement
+
+-   `react-components`
+    -   [#231](https://github.com/Giphy/giphy-js/pull/231) Feat/video player controls - progress bar and more options ([@giannif](https://github.com/giannif))
+
+#### Committers: 1
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+
 ## 3.1.0 (2021-07-07)
 
 #### :rocket: Enhancement
