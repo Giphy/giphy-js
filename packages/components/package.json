@@ -9,7 +9,7 @@
     "devDependencies": {
         "@types/bricks.js": "^1.8.1",
         "@types/throttle-debounce": "^2.1.0",
-        "parcel-bundler": "^1.12.4",
+        "parcel-bundler": "latest",
         "typescript": "^4.0.5"
     },
     "name": "@giphy/js-components",
