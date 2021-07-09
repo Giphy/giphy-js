@@ -27,7 +27,7 @@ export default {
     decorators: [withKnobs, jsxDecorator],
 }
 
-export const Video = () => {
+export const VideoWithControls = () => {
     const gif = useGif('WtUBmrAK1Yda649Ayr')
     return !isPercy() && gif ? (
         <VideoPlayer
