@@ -198,12 +198,15 @@ const Gif = ({
     }
 
     useEffect(() => {
+        // the id has changed, maybe the image has loaded
         if (image.current?.complete) {
             watchGif()
             onGifVisible(gif) // gif is visible, perhaps just partially
         }
         fullGifObserver.current?.disconnect()
         setHasFiredSeen(false)
+        // We only want to fire this when gif id changes
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gif.id])
 
     useEffect(() => {

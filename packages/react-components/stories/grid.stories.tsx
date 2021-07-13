@@ -42,6 +42,7 @@ export const Grid = () => {
     useEffect(() => {
         window.addEventListener('resize', onResize, false)
         return () => window.removeEventListener('resize', onResize, false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const columns = number('columns', width < 500 ? 2 : 3)
     const gutter = number('gutter', 6)
@@ -88,6 +89,7 @@ export const GridAPIError = () => {
     useEffect(() => {
         window.addEventListener('resize', onResize, false)
         return () => window.removeEventListener('resize', onResize, false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const columns = number('columns', width < 500 ? 2 : 3)
     const gutter = number('gutter', 6)

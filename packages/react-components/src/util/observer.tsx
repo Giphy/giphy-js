@@ -19,7 +19,7 @@ const Observer: FC<Props> = ({ children, className, onVisibleChange, config }: P
             io.observe(container.current)
         }
         return () => io?.disconnect()
-    }, [onVisibleChange, container])
+    }, [onVisibleChange, container, config])
     return (
         <div ref={container} className={className}>
             {children}

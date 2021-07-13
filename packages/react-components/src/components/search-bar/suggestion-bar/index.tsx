@@ -33,7 +33,7 @@ const SuggestionBar = () => {
             // revert to trending...
             setChannels([])
         }
-    }, [channelSearch, activeChannel])
+    }, [channelSearch, activeChannel, fetchChannelSearch])
     return (
         <Container>
             {channels.length > 0
