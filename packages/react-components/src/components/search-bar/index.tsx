@@ -87,7 +87,7 @@ const SearchBar = ({ className, placeholder = `Search GIPHY`, clear = false, aut
             inputRef.current?.focus()
             setDebouncedInput('')
         }
-    }, [debouncedTerm, activeChannel])
+    }, [debouncedTerm, activeChannel, previousActiveChannel])
 
     // a pill could have been clicked, update our local term state
     useEffect(() => {

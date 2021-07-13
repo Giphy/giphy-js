@@ -1,7 +1,7 @@
 import { GifsResult, GiphyFetch, SearchOptions } from '@giphy/js-fetch-api'
 import { IChannel } from '@giphy/js-types'
 import { ThemeProvider } from 'emotion-theming'
-import React, { createContext, ReactNode, useEffect, useState } from 'react'
+import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import PingbackContextManager from '../pingback-context-manager'
 import { initTheme, SearchTheme } from './theme'
 
@@ -31,7 +31,7 @@ type Props = {
 }
 
 const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTerm = '', initialChannel }: Props) => {
-    const gf = new GiphyFetch(apiKey)
+    const gf = useMemo(() => new GiphyFetch(apiKey), [apiKey])
 
     // the search term
     const [term, setTerm] = useState<string>(initialTerm)
@@ -48,50 +48,59 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
     // active channel we're searching and displaying in the search bar
     const [activeChannel, _setActiveChannel] = useState<IChannel | undefined>(initialChannel)
 
-    const setActiveChannel = (activeChannel: IChannel | undefined) => {
+    const setActiveChannel = useCallback((activeChannel: IChannel | undefined) => {
         _setActiveChannel(activeChannel)
         setTerm('') // TODO: clear this here?
-    }
+    }, [])
 
     // fetched list of trending search terms
     const [trendingSearches, setTrendingSearches] = useState<string[]>([])
     // do a search for a term and optionally a channel
-    const setSearch = (term: string) => setTerm(term)
+    const setSearch = useCallback((term: string) => setTerm(term), [])
 
     const searchKey = [term, options.type, channelSearch, activeChannel?.user?.username || '']
         .filter((val) => !!val)
         .join(' / ')
 
     // search fetch
-    const fetchGifs = async (offset: number) => {
-        setIsFetching(true)
-        const result = await gf.search(term, {
-            ...options,
-            offset,
-            channel: activeChannel?.user?.username,
-        })
-        setIsFetching(false)
-        return result
-    }
+    const fetchGifs = useCallback(
+        async (offset: number) => {
+            setIsFetching(true)
+            const result = await gf.search(term, {
+                ...options,
+                offset,
+                channel: activeChannel?.user?.username,
+            })
+            setIsFetching(false)
+            return result
+        },
+        [activeChannel?.user?.username, gf, options, term]
+    )
 
-    const fetchAnimatedText = async (offset: number) => {
-        const limit = options.limit || 50
-        const result = await gf.animate(term, { offset, limit })
-        if (!result.pagination) {
-            result.pagination = { count: limit, total_count: limit, offset }
-        }
-        return result
-    }
+    const fetchAnimatedText = useCallback(
+        async (offset: number) => {
+            const limit = options.limit || 50
+            const result = await gf.animate(term, { offset, limit })
+            if (!result.pagination) {
+                result.pagination = { count: limit, total_count: limit, offset }
+            }
+            return result
+        },
+        [gf, options.limit, term]
+    )
 
-    const fetchChannelSearch = async (offset: number) => {
-        const result = await fetch(
-            `https://api.giphy.com/v1/channels/search?q=${encodeURIComponent(
-                channelSearch
-            )}&offset=${offset}&api_key=${apiKey}`
-        )
-        const { data } = await result.json()
-        return data as IChannel[]
-    }
+    const fetchChannelSearch = useCallback(
+        async (offset: number) => {
+            const result = await fetch(
+                `https://api.giphy.com/v1/channels/search?q=${encodeURIComponent(
+                    channelSearch
+                )}&offset=${offset}&api_key=${apiKey}`
+            )
+            const { data } = await result.json()
+            return data as IChannel[]
+        },
+        [apiKey, channelSearch]
+    )
     useEffect(() => {
         const fetchTrendingSearches = async () => {
             const result = await fetch(`https://api.giphy.com/v1/trending/searches?api_key=${apiKey}`)
@@ -99,7 +108,7 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
             setTrendingSearches(data || [])
         }
         fetchTrendingSearches()
-    }, [])
+    }, [apiKey])
     return (
         <SearchContext.Provider
             value={{

@@ -32,6 +32,6 @@
         "parcel-bundler": "latest",
         "typedoc": "^0.20.36",
         "typedoc-thunder-theme": "^0.0.2",
-        "typescript": "^4.0.5"
+        "typescript": "^4.3.5"
     }
 }
