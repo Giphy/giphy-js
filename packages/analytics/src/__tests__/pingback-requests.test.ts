@@ -143,7 +143,7 @@ describe('pingback', () => {
             actionType: 'CLICK',
         })
         expect(fetch.mock.calls.length).toEqual(0)
-        await new Promise((resolve) => {
+        await new Promise<void>((resolve) => {
             setTimeout(() => resolve(), 1110)
         })
         expect(fetch.mock.calls.length).toEqual(1)
