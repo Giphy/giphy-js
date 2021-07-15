@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { giphyWhite } from '@giphy/js-brand'
 import React, { useLayoutEffect, useState } from 'react'
-import { useRaf } from 'react-use'
+import useRaf from 'react-use/lib/useRaf'
 
 const Bar = styled.div`
     background: ${giphyWhite};
