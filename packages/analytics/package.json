@@ -8,6 +8,7 @@
         "test:watch": "jest --config ./jestconfig.js --watchAll"
     },
     "name": "@giphy/js-analytics",
+    "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/analytics",
     "version": "4.0.4",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
