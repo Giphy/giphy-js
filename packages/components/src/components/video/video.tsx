@@ -141,7 +141,9 @@ const Video = ({
                 }
                 return false
             })
-            if (Math.floor(playhead) === 0 && Math.floor(previousPlayhead.current) > 0) {
+            // playhead < 1 is try to ensure we don't fire this when
+            // seeking, but we don't seek, so probably not necessary
+            if (playhead < 1 && previousPlayhead.current > playhead) {
                 if (loop && loopNumber.current === 0) {
                     // we're looping so we need to fire our ended event here. Should only fire ONCE at end of first loop.
                     onEnded?.()
@@ -150,7 +152,7 @@ const Video = ({
                 loopNumber.current = loopNumber.current + 1
             }
             previousPlayhead.current = playhead
-            onTimeUpdate?.(el.currentTime || 0)
+            onTimeUpdate?.(playhead || 0)
         }
     }, [loop, onEnded, onLoop, onQuartile, onTimeUpdate])
     const _onCanPlay = useCallback(() => onCanPlay?.(), [onCanPlay])
