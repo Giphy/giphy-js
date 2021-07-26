@@ -83,7 +83,7 @@ const Video = ({
     useEffect(() => {
         mountTime.current = Date.now()
         hasPlayingFired.current = false
-        loopNumber.current = 0
+        loopNumber.current = 1
         waitingCount.current = 0
         quartilesFired.current = new Set()
     }, [gif.id])
