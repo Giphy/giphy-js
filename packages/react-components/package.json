@@ -35,6 +35,7 @@
     "name": "@giphy/react-components",
     "version": "3.2.4",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
+    "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/react-components",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
