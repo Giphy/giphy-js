@@ -77,7 +77,6 @@ const Video = ({
     const hasPlayingFired = useRef(false)
     const loopNumber = useRef<number>(0)
     const waitingCount = useRef<number>(0)
-    const previousPlayhead = useRef<number>(0)
     const quartilesFired = useRef<Set<number>>(new Set())
 
     // reset the above when the gif.id changes
@@ -86,7 +85,6 @@ const Video = ({
         hasPlayingFired.current = false
         loopNumber.current = 0
         waitingCount.current = 0
-        previousPlayhead.current = 0
         quartilesFired.current = new Set()
     }, [gif.id])
 
@@ -141,20 +139,9 @@ const Video = ({
                 }
                 return false
             })
-            // playhead < 1 is try to ensure we don't fire this when
-            // seeking, but we don't seek, so probably not necessary
-            if (playhead < 1 && previousPlayhead.current > playhead) {
-                if (loop && loopNumber.current === 0) {
-                    // we're looping so we need to fire our ended event here. Should only fire ONCE at end of first loop.
-                    onEnded?.()
-                }
-                onLoop?.(loopNumber.current)
-                loopNumber.current = loopNumber.current + 1
-            }
-            previousPlayhead.current = playhead
             onTimeUpdate?.(playhead || 0)
         }
-    }, [loop, onEnded, onLoop, onQuartile, onTimeUpdate])
+    }, [onQuartile, onTimeUpdate])
     const _onCanPlay = useCallback(() => onCanPlay?.(), [onCanPlay])
     const _onWaiting = useCallback(() => {
         const el = videoEl.current
@@ -163,7 +150,14 @@ const Video = ({
             onWaiting?.(++waitingCount.current)
         }
     }, [onWaiting])
-    const _onEnded = useCallback(() => onEnded?.(), [onEnded])
+    const _onEnded = useCallback(() => {
+        if (loop && videoEl.current) {
+            videoEl.current.play()
+        }
+        onLoop?.(loopNumber.current)
+        loopNumber.current = loopNumber.current + 1
+        onEnded?.()
+    }, [onEnded, loop, onLoop])
     const _onEndFullscreen = useCallback(() => onEndFullscreen?.(), [onEndFullscreen])
     const tryAutoPlayWithSound = useCallback(
         async (videoEl: HTMLVideoElement) => {
@@ -231,7 +225,6 @@ const Video = ({
             className={className}
             width={width}
             height={height}
-            loop={loop}
             muted={muted}
             autoPlay
             playsInline
