@@ -1,3 +1,12 @@
+## 3.2.1 (2021-07-26)
+
+#### :rocket: Enhancement
+
+-   `react-components`
+    -   [#239](https://github.com/Giphy/giphy-js/pull/239) Change the loop counter approach to use the onended event and play, instead of the loop property of the video element
+
+([@giannif](https://github.com/giannif))
+
 ## 3.2.0 (2021-07-08)
 
 #### :rocket: Enhancement
