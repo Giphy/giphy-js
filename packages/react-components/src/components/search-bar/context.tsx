@@ -1,4 +1,4 @@
-import { GifsResult, GiphyFetch, SearchOptions } from '@giphy/js-fetch-api'
+import { GifsResult, GiphyFetch, SearchOptions, serverUrl } from '@giphy/js-fetch-api'
 import { IChannel } from '@giphy/js-types'
 import { ThemeProvider } from 'emotion-theming'
 import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
@@ -92,9 +92,7 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
     const fetchChannelSearch = useCallback(
         async (offset: number) => {
             const result = await fetch(
-                `https://api.giphy.com/v1/channels/search?q=${encodeURIComponent(
-                    channelSearch
-                )}&offset=${offset}&api_key=${apiKey}`
+                `${serverUrl}channels/search?q=${encodeURIComponent(channelSearch)}&offset=${offset}&api_key=${apiKey}`
             )
             const { data } = await result.json()
             return data as IChannel[]
@@ -103,7 +101,7 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
     )
     useEffect(() => {
         const fetchTrendingSearches = async () => {
-            const result = await fetch(`https://api.giphy.com/v1/trending/searches?api_key=${apiKey}`)
+            const result = await fetch(`${serverUrl}trending/searches?api_key=${apiKey}`)
             const { data } = await result.json()
             setTrendingSearches(data || [])
         }
