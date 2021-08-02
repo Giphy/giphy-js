@@ -72,6 +72,18 @@ export const SearchExperience = () => (
     </SearchContextManager>
 )
 
+export const SearchExperienceStickersDefault = () => (
+    <SearchContextManager apiKey={apiKey} options={{ type: 'stickers' }}>
+        <Components />
+    </SearchContextManager>
+)
+
+export const SearchExperienceNoDefault = () => (
+    <SearchContextManager apiKey={apiKey} shouldDefaultToTrending={false}>
+        <Components />
+    </SearchContextManager>
+)
+
 export const SearchExperienceCondensed = () => (
     <SearchContextManager apiKey={apiKey} theme={{ condensedMode: true }}>
         <Components />

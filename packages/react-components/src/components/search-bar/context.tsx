@@ -28,9 +28,23 @@ type Props = {
     theme?: Partial<SearchTheme>
     initialTerm?: string
     initialChannel?: IChannel
+    shouldDefaultToTrending?: boolean
 }
 
-const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTerm = '', initialChannel }: Props) => {
+const EmptyGifsResult = {
+    data: [],
+    pagination: { total_count: 0, count: 0, offset: 0 },
+    meta: { status: 200, msg: 'OK', response_id: '' },
+}
+const SearchContextManager = ({
+    children,
+    options = {},
+    apiKey,
+    theme,
+    initialTerm = '',
+    initialChannel,
+    shouldDefaultToTrending = true,
+}: Props) => {
     const gf = useMemo(() => new GiphyFetch(apiKey), [apiKey])
 
     // the search term
@@ -66,15 +80,20 @@ const SearchContextManager = ({ children, options = {}, apiKey, theme, initialTe
     const fetchGifs = useCallback(
         async (offset: number) => {
             setIsFetching(true)
-            const result = await gf.search(term, {
-                ...options,
-                offset,
-                channel: activeChannel?.user?.username,
-            })
+            let result: GifsResult = EmptyGifsResult
+            if (term) {
+                result = await gf.search(term, {
+                    ...options,
+                    offset,
+                    channel: activeChannel?.user?.username,
+                })
+            } else if (shouldDefaultToTrending) {
+                result = await gf.trending({ ...options, offset })
+            }
             setIsFetching(false)
             return result
         },
-        [activeChannel?.user?.username, gf, options, term]
+        [activeChannel?.user?.username, gf, options, term, shouldDefaultToTrending]
     )
 
     const fetchAnimatedText = useCallback(
