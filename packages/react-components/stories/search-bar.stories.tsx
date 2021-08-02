@@ -47,6 +47,9 @@ const Components = () => {
             fetchMock.mock(`begin:https://api.giphy.com/v1/gifs/search`, {
                 body: mockGifs,
             })
+            fetchMock.mock(`begin:https://api.giphy.com/v1/stickers/search`, {
+                body: mockGifs,
+            })
         }
         return () => {
             fetchMock.restore()
