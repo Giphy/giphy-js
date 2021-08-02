@@ -60,7 +60,7 @@ const gf = new GiphyFetch('your Web SDK key')
 const searchTerm = 'dogs'
 // fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
 // if this function changes, change the Grid key to recreate the grid and start over
-// see the codesanbox for a runnable example
+// see the codesandbox for a runnable example
 const fetchGifs = (offset: number) => gf.search(searchTerm, { offset, limit: 10 })
 // React Component
 ReactDOM.render(<Grid width={800} columns={3} gutter={6} fetchGifs={fetchGifs} key={searchTerm} />, target)
@@ -68,7 +68,7 @@ ReactDOM.render(<Grid width={800} columns={3} gutter={6} fetchGifs={fetchGifs} k
 
 ### SSR example with next.js
 
-See this [codesanbox](https://codesandbox.io/s/giphy-web-sdk-ssr-with-nextjs-irv19) for an example of SSR with next.js
+See this [codesandbox](https://codesandbox.io/s/giphy-web-sdk-ssr-with-nextjs-irv19) for an example of SSR with next.js
 
 ## Carousel
 
@@ -97,7 +97,7 @@ const gf = new GiphyFetch('your api key')
 const searchTerm = 'dogs'
 // fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
 // if this function changes, change the Grid key to recreate the grid and start over
-// see the codesanbox for a runnable example
+// see the codesandbox for a runnable example
 const fetchGifs = (offset: number) => gf.search(searchTerm, { offset, limit: 10 })
 // React Component
 ReactDOM.render(<Carousel gifHeight={200} gutter={6} fetchGifs={fetchGifs} key={searchTerm} />, target)
