@@ -56,10 +56,14 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 // use @giphy/js-fetch-api to fetch gifs
 // apply for a new Web SDK key. Use a separate key for every platform (Android, iOS, Web)
 const gf = new GiphyFetch('your Web SDK key')
+
+const searchTerm = 'dogs'
 // fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
-const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
+// if this function changes, change the Grid key to recreate the grid and start over
+// see the codesanbox for a runnable example
+const fetchGifs = (offset: number) => gf.search(searchTerm, { offset, limit: 10 })
 // React Component
-ReactDOM.render(<Grid width={800} columns={3} gutter={6} fetchGifs={fetchGifs} />, target)
+ReactDOM.render(<Grid width={800} columns={3} gutter={6} fetchGifs={fetchGifs} key={searchTerm} />, target)
 ```
 
 ### SSR example with next.js
@@ -90,11 +94,13 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 
 // use @giphy/js-fetch-api to fetch gifs
 const gf = new GiphyFetch('your api key')
+const searchTerm = 'dogs'
 // fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
-const fetchGifs = (offset: number) => gf.trending({ offset, limit: 10 })
-
+// if this function changes, change the Grid key to recreate the grid and start over
+// see the codesanbox for a runnable example
+const fetchGifs = (offset: number) => gf.search(searchTerm, { offset, limit: 10 })
 // React Component
-ReactDOM.render(<Carousel gifHeight={200} gutter={6} fetchGifs={fetchGifs} />, target)
+ReactDOM.render(<Carousel gifHeight={200} gutter={6} fetchGifs={fetchGifs} key={searchTerm} />, target)
 ```
 
 ## Gif
@@ -160,6 +166,12 @@ const Components = () => {
         <>
             <SearchBarComponent />
             <SuggestionBar />
+            {/** 
+                key will recreate the component, 
+                this is important for when you change fetchGifs 
+                e.g. changing from search term dogs to cats or type gifs to stickers
+                you want to restart the gifs from the beginning and changing a component's key does that 
+            **/}
             <Grid key={searchKey} columns={3} width={800} fetchGifs={fetchGifs} />
         </>
     )
@@ -172,12 +184,13 @@ This component manages the [SearchContext](#searchcontext) that the child compon
 
 It has a few initialization props:
 
-| _prop_      | _type_                                                                                                     | _default_     | _description_                                                                    |
-| ----------- | ---------------------------------------------------------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------- |
-| apiKey      | string                                                                                                     | undefined     | Your web SDK key. Use a separate key for every platform (Android, iOS, Web)      |
-| initialTerm | string                                                                                                     | ''            | _Advanced usage_ a search term to fetch and render when the component is mounted |
-| theme       | [SearchTheme](#searchtheme)                                                                                | default theme | A few theming options such as search bar height and dark or light mode           |
-| options     | [SearchOptions](https://github.com/Giphy/giphy-js/blob/master/packages/fetch-api/README.md#search-options) | undefined     | Search options that will be passed on to the search request                      |
+| _prop_                  | _type_                                                                                                     | _default_     | _description_                                                                                        |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------- |
+| apiKey                  | string                                                                                                     | undefined     | Your web SDK key. Use a separate key for every platform (Android, iOS, Web)                          |
+| initialTerm             | string                                                                                                     | ''            | _Advanced usage_ a search term to fetch and render when the component is mounted                     |
+| shouldDefaultToTrending | boolean                                                                                                    | true          | when there is no search term, fetch trending (includes `options` that are relevant e.g. limit, type) |
+| theme                   | [SearchTheme](#searchtheme)                                                                                | default theme | A few theming options such as search bar height and dark or light mode                               |
+| options                 | [SearchOptions](https://github.com/Giphy/giphy-js/blob/master/packages/fetch-api/README.md#search-options) | undefined     | Search options that will be passed on to the search request                                          |
 
 #### Searchbar
 
