@@ -31,7 +31,7 @@ type Props = {
     shouldDefaultToTrending?: boolean
 }
 
-const EmptyGifsResult = {
+const emptyGifsResult = {
     data: [],
     pagination: { total_count: 0, count: 0, offset: 0 },
     meta: { status: 200, msg: 'OK', response_id: '' },
@@ -80,7 +80,7 @@ const SearchContextManager = ({
     const fetchGifs = useCallback(
         async (offset: number) => {
             setIsFetching(true)
-            let result: GifsResult = EmptyGifsResult
+            let result: GifsResult = emptyGifsResult
             if (term) {
                 result = await gf.search(term, {
                     ...options,
