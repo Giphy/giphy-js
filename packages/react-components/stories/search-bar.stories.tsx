@@ -47,6 +47,15 @@ const Components = () => {
             fetchMock.mock(`begin:https://api.giphy.com/v1/gifs/search`, {
                 body: mockGifs,
             })
+            fetchMock.mock(`begin:https://api.giphy.com/v1/stickers/search`, {
+                body: mockGifs,
+            })
+            fetchMock.mock(`begin:https://api.giphy.com/v1/gifs/trending`, {
+                body: mockGifs,
+            })
+            fetchMock.mock(`begin:https://api.giphy.com/v1/stickers/trending`, {
+                body: mockGifs,
+            })
         }
         return () => {
             fetchMock.restore()
@@ -68,6 +77,18 @@ const Components = () => {
 
 export const SearchExperience = () => (
     <SearchContextManager apiKey={apiKey}>
+        <Components />
+    </SearchContextManager>
+)
+
+export const SearchExperienceStickersDefault = () => (
+    <SearchContextManager apiKey={apiKey} options={{ type: 'stickers' }}>
+        <Components />
+    </SearchContextManager>
+)
+
+export const SearchExperienceNoDefault = () => (
+    <SearchContextManager apiKey={apiKey} shouldDefaultToTrending={false}>
         <Components />
     </SearchContextManager>
 )
