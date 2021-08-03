@@ -41,6 +41,7 @@ To try out it out before integrating, click on the code sandbox below. You may h
 | gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                      |
 | borderRadius                            | `number`                                 | 4         | a border radius applied to Gif Components making the corners rounded                                    |
 | noResultsMessage                        | `string or JSX.Element`                  | undefined | Customise the "No results" message                                                                      |
+| loader                                  | `ElementType`                            | undefined | Customise the loader, the default is the GIPHY brand loader                                             |
 | noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick`   |
 | [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF                                                       |
 | [loaderConfig](#loader-config)          | `IntersectionObserverInit`               | undefined | Enables configuring the loader to fetch sooner than when just onscreen, allowing for smoother scrolling |
