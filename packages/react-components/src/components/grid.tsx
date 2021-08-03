@@ -32,9 +32,10 @@ type Props = {
     borderRadius?: number
     tabIndex?: number
     loaderConfig?: IntersectionObserverInit
+    loader?: ElementType
 } & EventProps
 
-const Loader = styled(DotsLoader)<{ isFirstLoad: boolean }>`
+const Loader = styled.div<{ isFirstLoad: boolean }>`
     opacity: ${(props) => (props.isFirstLoad ? 0 : 1)};
 `
 
@@ -144,6 +145,7 @@ class Grid extends PureComponent<Props, State> {
             loaderConfig,
             tabIndex = 0,
             layoutType = 'GRID',
+            loader: LoaderVisual = DotsLoader,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = !isDoneFetching
@@ -186,7 +188,9 @@ class Grid extends PureComponent<Props, State> {
                     ) : (
                         showLoader && (
                             <Observer onVisibleChange={this.onLoaderVisible} config={loaderConfig}>
-                                <Loader isFirstLoad={isFirstLoad} className={Grid.loaderClassName} />
+                                <Loader isFirstLoad={isFirstLoad}>
+                                    <LoaderVisual className={Grid.loaderClassName} />
+                                </Loader>
                             </Observer>
                         )
                     )}

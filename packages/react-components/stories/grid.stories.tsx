@@ -3,7 +3,7 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 import isPercy from '@percy-io/in-percy'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 import fetchMock from 'fetch-mock'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { ElementType, useEffect, useRef, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
@@ -35,7 +35,7 @@ const NoResultsContainer = styled.div`
 
 const Overlay = ({ gif, isHovered }: GifOverlayProps) => <OverlayContainer>{isHovered ? gif.id : ''}</OverlayContainer>
 
-export const Grid = () => {
+export const Grid = ({ loader }: { loader: ElementType }) => {
     const [term, setTerm] = useState('always sunny')
     const [width, setWidth] = useState(innerWidth)
     const onResize = throttle(500, () => setWidth(innerWidth))
@@ -74,6 +74,7 @@ export const Grid = () => {
                     columns={columns}
                     gutter={gutter}
                     noResultsMessage={NoResults}
+                    loader={loader}
                     fetchGifs={fetchGifs}
                     overlay={boolean('show overlay', true) ? Overlay : undefined}
                 />
@@ -81,6 +82,8 @@ export const Grid = () => {
         </>
     )
 }
+
+export const GridCustomLoader = () => <Grid loader={() => <h1 style={{ textAlign: 'center' }}> 🌀 </h1>} />
 
 export const GridAPIError = () => {
     const [width, setWidth] = useState(innerWidth)
