@@ -1,3 +1,17 @@
+## 4.0.0 (2021-08-03)
+
+The search experience now loads trending by default if there is no search term, if you want to disable this feature use `shouldDefaultToTrending={false}` on the [SearchContextManager](https://github.com/Giphy/giphy-js/blob/master/packages/react-components/README.md#searchcontextmanager)
+
+#### :rocket: Enhancement
+
+-   `react-components`
+    -   [#242](https://github.com/Giphy/giphy-js/pull/242) Feat/search experience defaults to trending ([@giannif](https://github.com/giannif))
+    -   [#243](https://github.com/Giphy/giphy-js/pull/243) feat(react-components): custom loader for grid ([@giannif](https://github.com/giannif))
+
+#### Committers: 1
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+
 ## 3.2.4 (2021-07-26)
 
 #### :rocket: Enhancement
