@@ -3,9 +3,8 @@ import { IGif, IImage } from '@giphy/js-types'
 import { getBestVideo, getGifHeight } from '@giphy/js-util'
 import { h } from 'preact'
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks'
-import { getErrorMessage, shouldFireQuartile } from './util'
+import { getErrorMessage, QuartileEvent, shouldFireQuartile } from './util'
 
-export type QuartileEvent = 0.25 | 0.5 | 0.75
 const quartileEvents: QuartileEvent[] = [0.25, 0.5, 0.75]
 export type MEDIA_STATE = 'playing' | 'paused'
 const Network = {

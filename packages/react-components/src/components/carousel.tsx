@@ -5,8 +5,9 @@ import { getGifWidth } from '@giphy/js-util'
 import React, { PureComponent, ReactType } from 'react'
 import { debounce } from 'throttle-debounce'
 import ObserverShared from '../util/observer'
-import Gif_, { EventProps, GifOverlayProps } from './gif'
+import Gif_, { EventProps } from './gif'
 import PingbackContextManager from './pingback-context-manager'
+import type { GifOverlayProps } from './types'
 
 const Container = styled.div`
     -webkit-overflow-scrolling: touch;

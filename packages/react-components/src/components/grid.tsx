@@ -6,10 +6,11 @@ import React, { ElementType, GetDerivedStateFromProps, PureComponent } from 'rea
 import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'
 import FetchError from './fetch-error'
-import Gif, { EventProps, GifOverlayProps } from './gif'
+import Gif, { EventProps } from './gif'
 import DotsLoader from './loader'
 import MasonryGrid from './masonry-grid'
 import PingbackContextManager from './pingback-context-manager'
+import type { GifOverlayProps } from './types'
 
 type Props = {
     className?: string

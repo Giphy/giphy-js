@@ -49,7 +49,7 @@ const Controls = styled.div<{ isHovered: boolean }>`
     transition: opacity ease-out 250ms;
 `
 
-export const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
+const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     const { width, hideMute, hidePlayPause, hideProgressBar, className, persistentControls } = props
     const [isHovered, setIsHovered] = useState(false)
     const [playState, setPlayState] = useState<MEDIA_STATE>('paused')
