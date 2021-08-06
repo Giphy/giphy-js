@@ -6,7 +6,8 @@
         "snapshot": "lerna run snapshot",
         "test:watch": "lerna run test:watch --stream",
         "lerna:publish": "lerna publish from-git --yes",
-        "format": "prettier-eslint \"$(pwd)/**/*.{js,ts,tsx}\" --write --print-width 120 --tab-width 4"
+        "format": "prettier-eslint \"$(pwd)/**/*.{js,ts,tsx}\" --write --print-width 120 --tab-width 4",
+        "dependency-cruiser": "depcruise -c .dependency-cruiser.js ./"
     },
     "lint-staged": {
         "**/*.{ts,tsx}": [
@@ -29,6 +30,7 @@
         "@types/node": "^14.14.6",
         "@typescript-eslint/eslint-plugin": "^4.6.1",
         "@typescript-eslint/parser": "^4.6.1",
+        "dependency-cruiser": "^10.0.7",
         "eslint": "^7.12.1",
         "eslint-config-standard": "^16.0.1",
         "eslint-import-resolver-typescript": "^2.3.0",
