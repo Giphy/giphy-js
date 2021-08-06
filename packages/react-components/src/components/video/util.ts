@@ -1,4 +1,4 @@
-import { QuartileEvent } from './video'
+export type QuartileEvent = 0.25 | 0.5 | 0.75
 
 export const getErrorMessage = (code: number, src = '') => {
     switch (code) {

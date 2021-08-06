@@ -8,6 +8,7 @@ import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
 import { PingbackContext } from './pingback-context-manager'
+import { GifOverlayProps } from './types'
 
 const GifContainer = styled.div<{ borderRadius?: number }>`
     display: block;
@@ -52,14 +53,6 @@ export type EventProps = {
     onGifClick?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
     // fired when the gif is right clicked
     onGifRightClick?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
-}
-
-export type GifOverlayProps = {
-    gif: IGif
-    isHovered: boolean
-    onClick?: (gif: IGif) => void
-    width?: number
-    height?: number
 }
 
 type GifProps = {
