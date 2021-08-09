@@ -1,3 +1,22 @@
+## 4.1.1 (2021-08-09)
+
+#### refactor
+
+-   `components`, `react-components`, `util`
+    -   [#249](https://github.com/Giphy/giphy-js/pull/249) refactor: remove unused tracking pixel and dompurify ([@giannif](https://github.com/giannif))
+-   `fetch-api`
+    -   [#245](https://github.com/Giphy/giphy-js/pull/245) fix(fetch-api): fix warning circular dependencies (#244) ([@huynguyen93](https://github.com/huynguyen93))
+
+#### build tools & continuous integration
+
+-   `components`, `react-components`, `types`, `util`
+    -   [#246](https://github.com/Giphy/giphy-js/pull/246) Build/dependency cruiser ([@giannif](https://github.com/giannif))
+
+#### Committers: 2
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+-   Huy ([@huynguyen93](https://github.com/huynguyen93))
+
 ## 4.0.0 (2021-05-19)
 
 #### :rocket: Enhancement

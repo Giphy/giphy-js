@@ -1,3 +1,14 @@
+## 4.0.0 (2021-08-09)
+
+#### refactor
+
+-   `util`
+    -   [#249](https://github.com/Giphy/giphy-js/pull/249) refactor: remove unused tracking pixel and injectTrackingPixel from exports
+
+#### Committers: 2
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+
 ## 3.0.0 (2021-05-19)
 
 #### :rocket: Enhancement
