@@ -1,4 +1,4 @@
-import { IImages, IURLAsset } from './gif'
+import { IImages, IURLAsset } from './images'
 
 export interface IVideoAssets {
     source: IURLAsset

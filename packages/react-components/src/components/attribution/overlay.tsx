@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { IGif } from '@giphy/js-types'
 import React, { useRef } from 'react'
 import Attribution_ from '.'
-import { GifOverlayProps } from '../gif'
+import type { GifOverlayProps } from '../types'
 
 const Background = styled.div`
     background: linear-gradient(rgba(0, 0, 0, 0), rgba(18, 18, 18, 0.6));

@@ -12,6 +12,7 @@ before_script:
 script:
     - node license.js
     - node_modules/.bin/lerna exec -- node \$LERNA_ROOT_PATH/license.js
+    - yarn run dependency-cruiser
     - yarn run lint
     - yarn test
     - yarn run snapshot
