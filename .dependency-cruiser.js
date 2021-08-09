@@ -26,6 +26,7 @@ module.exports = {
                 orphan: true,
                 pathNot: [
                     '(^|/)\\.[^/]+\\.(js|cjs|mjs|ts|json)$', // dot files
+                    '.storybook',
                     '\\.d\\.ts$', // TypeScript declaration files
                     '(^|/)tsconfig\\.json$', // TypeScript config
                     '(^|/)(babel|webpack)\\.config\\.(js|cjs|mjs|ts|json)$', // other configs
@@ -86,9 +87,7 @@ module.exports = {
                 "That's problematic as the package either (1) won't be available on live (2 - worse) will be " +
                 'available on live with an non-guaranteed version. Fix it by adding the package to the dependencies ' +
                 'in your package.json.',
-            from: {
-                pathNot: ['dist', '.storybook'],
-            },
+            from: {},
             to: {
                 dependencyTypes: ['npm-no-pkg', 'npm-unknown'],
             },
@@ -115,7 +114,6 @@ module.exports = {
             from: {},
             to: {
                 moreThanOneDependencyType: true,
-                pathNot: 'react',
             },
         },
 
@@ -143,10 +141,9 @@ module.exports = {
                 'from.pathNot re of the not-to-dev-dep rule in the dependency-cruiser configuration',
             from: {
                 path: '^(packages)',
-                pathNot: ['\\.(spec|test)\\.(js|mjs|cjs|ts|ls|coffee|litcoffee|coffee\\.md)$', 'set-up-jest.ts'],
+                pathNot: '\\.(spec|test)\\.(js|mjs|cjs|ts|ls|coffee|litcoffee|coffee\\.md)$',
             },
             to: {
-                pathNot: 'react',
                 dependencyTypes: ['npm-dev'],
             },
         },
@@ -174,7 +171,6 @@ module.exports = {
             from: {},
             to: {
                 dependencyTypes: ['npm-peer'],
-                pathNot: ['react'],
             },
         },
     ],
@@ -195,13 +191,13 @@ module.exports = {
           leave out if you want to exclude neither (recommended!)
     */
         exclude: {
-            path: ['__mocks__', 'dist'],
+            path: ['node_modules', 'coverage/', 'storybook-static', 'stories/', 'jest', 'mock'],
         },
 
         /* pattern specifying which files to include (regular expression)
        dependency-cruiser will skip everything not matching this pattern
     */
-        includeOnly: 'src/',
+        // includeOnly : '',
 
         /* dependency-cruiser will include modules matching against the focus
        regular expression in its output, as well as their neighbours (direct
@@ -228,10 +224,10 @@ module.exports = {
        folder the cruise is initiated from. Useful for how (some) mono-repos
        manage dependencies & dependency definitions.
      */
-        combinedDependencies: true,
+        // combinedDependencies: false,
 
         /* if true leave symlinks untouched, otherwise use the realpath */
-        // preserveSymlinks: false,
+        preserveSymlinks: false,
 
         /* TypeScript project file ('tsconfig.json') to use for
        (1) compilation and
@@ -380,4 +376,4 @@ module.exports = {
         },
     },
 }
-// generated: dependency-cruiser@10.0.7 on 2021-08-05T20:51:51.641Z
+// generated: dependency-cruiser@10.0.7 on 2021-08-09T15:33:12.794Z
