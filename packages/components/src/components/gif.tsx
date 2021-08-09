@@ -1,6 +1,6 @@
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
-import { getAltText, getBestRendition, getGifHeight, injectTrackingPixel, Logger } from '@giphy/js-util'
+import { getAltText, getBestRendition, getGifHeight, Logger } from '@giphy/js-util'
 import { css, cx } from 'emotion'
 import { h } from 'preact'
 import { useContext, useEffect, useRef, useState } from 'preact/hooks'
@@ -136,10 +136,6 @@ const Gif = ({
         // flag so we don't observe any more
         setHasFiredSeen(true)
         Logger.debug(`GIF ${gif.id} seen. ${gif.title}`)
-        // third party here
-        if (gif.bottle_data && gif.bottle_data.tags) {
-            injectTrackingPixel(gif.bottle_data.tags)
-        }
         // fire pingback
         pingback.onGifSeen(gif, user?.id, entry.boundingClientRect, attributes)
         // fire custom onGifSeen
