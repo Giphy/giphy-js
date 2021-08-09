@@ -13,7 +13,7 @@
         "typescript": "^4.3.5"
     },
     "name": "@giphy/js-components",
-    "version": "5.1.4",
+    "version": "5.1.5",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/components",
     "main": "dist/index.js",
@@ -28,11 +28,11 @@
         "access": "public"
     },
     "dependencies": {
-        "@giphy/js-analytics": "^4.0.5",
+        "@giphy/js-analytics": "^4.0.6",
         "@giphy/js-brand": "^2.0.4",
-        "@giphy/js-fetch-api": "^4.1.0",
-        "@giphy/js-types": "^4.0.2",
-        "@giphy/js-util": "^3.1.2",
+        "@giphy/js-fetch-api": "^4.1.1",
+        "@giphy/js-types": "^4.0.3",
+        "@giphy/js-util": "^4.0.0",
         "bricks.js": "^1.8.0",
         "emotion": "10.0.27",
         "intersection-observer": "^0.11.0",
