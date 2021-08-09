@@ -1,4 +1,4 @@
-import { serverUrl } from '.'
+import { serverUrl } from './constants'
 import FetchError from './fetch-error'
 import { ErrorResult, Result } from './result-types'
 
