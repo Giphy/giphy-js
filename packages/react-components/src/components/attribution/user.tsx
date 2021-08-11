@@ -20,6 +20,7 @@ const VerifiedBadge = styled(VerifiedBadge_)`
 const Container = styled.div`
     display: flex;
     align-items: center;
+    min-width: 0;
 `
 const User = ({ user }: { user: IUser }) => {
     const { display_name, username } = user
