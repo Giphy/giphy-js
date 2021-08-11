@@ -1,6 +1,5 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
-import isPercy from '@percy-io/in-percy'
 import { action } from '@storybook/addon-actions'
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -26,8 +25,7 @@ const VideoDemo = ({ id, width, height, muted }: Props) => {
         fetch()
     }, [fetch, id])
 
-    // percy and our video autoplay aren't cooperating
-    return !isPercy() && gif ? (
+    return gif ? (
         <VideoComponent
             gif={gif}
             width={width}
