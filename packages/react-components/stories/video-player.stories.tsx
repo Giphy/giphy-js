@@ -1,6 +1,5 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
-import isPercy from '@percy-io/in-percy'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 import React, { useCallback, useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
@@ -29,7 +28,7 @@ export default {
 
 export const VideoWithControls = () => {
     const gif = useGif('WtUBmrAK1Yda649Ayr')
-    return !isPercy() && gif ? (
+    return gif ? (
         <VideoPlayer
             controls
             width={number('width', 300)}
@@ -44,7 +43,7 @@ export const VideoWithControls = () => {
 
 export const VideoNoPlayPause = () => {
     const gif = useGif('WtUBmrAK1Yda649Ayr')
-    return !isPercy() && gif ? (
+    return gif ? (
         <VideoPlayer
             gif={gif}
             controls
@@ -60,7 +59,7 @@ export const VideoNoPlayPause = () => {
 
 export const VideoNoProgressBar = () => {
     const gif = useGif('WtUBmrAK1Yda649Ayr')
-    return !isPercy() && gif ? (
+    return gif ? (
         <VideoPlayer
             gif={gif}
             controls
@@ -76,7 +75,7 @@ export const VideoNoProgressBar = () => {
 
 export const VideoNoMute = () => {
     const gif = useGif('WtUBmrAK1Yda649Ayr')
-    return !isPercy() && gif ? (
+    return gif ? (
         <VideoPlayer
             gif={gif}
             controls
@@ -92,7 +91,7 @@ export const VideoNoMute = () => {
 
 export const VideoPersistent = () => {
     const gif = useGif('WtUBmrAK1Yda649Ayr')
-    return !isPercy() && gif ? (
+    return gif ? (
         <VideoPlayer
             gif={gif}
             controls
