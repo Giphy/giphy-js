@@ -1,8 +1,9 @@
 import styled from '@emotion/styled'
 import { IGif, IProfileUser } from '@giphy/js-types'
 import React from 'react'
-import Avatar_ from './avatar'
-import User from './user'
+import Avatar_ from '../attribution/avatar'
+import User from '../attribution/user'
+import GIPHYClips from './clips-branding'
 
 const Container = styled.div`
     display: flex;
@@ -12,7 +13,10 @@ const Container = styled.div`
 const Avatar = styled(Avatar_)`
     flex-shrink: 0;
 `
-
+const Right = styled.div`
+    display: flex;
+    flex-direction: column;
+`
 type Props = { gif: IGif; className?: string; onClick?: (gif: IGif) => void }
 const Attribution = ({ gif, className, onClick }: Props) => {
     const { user } = gif
@@ -34,7 +38,10 @@ const Attribution = ({ gif, className, onClick }: Props) => {
             }}
         >
             <Avatar user={user} />
-            <User user={gif.user} />
+            <Right>
+                <GIPHYClips />
+                <User user={user} />
+            </Right>
         </Container>
     )
 }
