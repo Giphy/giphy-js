@@ -93,7 +93,7 @@ const VideoOverlay = ({
                     key={gif.id}
                     loop
                     controls
-                    hidePlayPause
+                    hideAttribution
                     hideMute
                     persistentControls
                     muted={muted}

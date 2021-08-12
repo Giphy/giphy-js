@@ -1,6 +1,6 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
-import { boolean, number, withKnobs } from '@storybook/addon-knobs'
+import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
 import React, { useCallback, useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import VideoPlayer from '../src/components/video'
@@ -27,7 +27,7 @@ export default {
 }
 
 export const VideoWithControls = () => {
-    const gif = useGif('WtUBmrAK1Yda649Ayr')
+    const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
             controls
@@ -41,13 +41,13 @@ export const VideoWithControls = () => {
     )
 }
 
-export const VideoNoPlayPause = () => {
-    const gif = useGif('WtUBmrAK1Yda649Ayr')
+export const VideoNoAttribution = () => {
+    const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
             gif={gif}
             controls
-            hidePlayPause
+            hideAttribution
             width={number('width', 300)}
             height={number('height', 0)}
             muted={boolean('muted', false)}
@@ -58,7 +58,7 @@ export const VideoNoPlayPause = () => {
 }
 
 export const VideoNoProgressBar = () => {
-    const gif = useGif('WtUBmrAK1Yda649Ayr')
+    const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
             gif={gif}
@@ -74,7 +74,7 @@ export const VideoNoProgressBar = () => {
 }
 
 export const VideoNoMute = () => {
-    const gif = useGif('WtUBmrAK1Yda649Ayr')
+    const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
             gif={gif}
@@ -89,14 +89,46 @@ export const VideoNoMute = () => {
     )
 }
 
-export const VideoPersistent = () => {
-    const gif = useGif('WtUBmrAK1Yda649Ayr')
+export const VideoPersistentControlsSmall = () => {
+    const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
             gif={gif}
             controls
             persistentControls
             width={number('width', 300)}
+            height={number('height', 0)}
+            muted={boolean('muted', false)}
+        />
+    ) : (
+        <div>video loading</div>
+    )
+}
+
+export const VideoPersistentControlsMedium = () => {
+    const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
+    return gif ? (
+        <VideoPlayer
+            gif={gif}
+            controls
+            persistentControls
+            width={number('width', 400)}
+            height={number('height', 0)}
+            muted={boolean('muted', false)}
+        />
+    ) : (
+        <div>video loading</div>
+    )
+}
+
+export const VideoPersistentControlsLarge = () => {
+    const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
+    return gif ? (
+        <VideoPlayer
+            gif={gif}
+            controls
+            persistentControls
+            width={number('width', 600)}
             height={number('height', 0)}
             muted={boolean('muted', false)}
         />
