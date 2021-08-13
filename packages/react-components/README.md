@@ -131,7 +131,7 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 // use @giphy/js-fetch-api to fetch gifs
 // apply for a new Web SDK key. Use a separate key for every platform (Android, iOS, Web)
 const gf = new GiphyFetch('your Web SDK key')
-// fetch 10 gifs at a time as the user scrolls (offset is handled by the grid)
+// fetch single gif
 const { data } = await gf.gif('fpXxIjftmkk9y')
 // React Component
 ReactDOM.render(<Gif gif={data} width={300} />, target)
