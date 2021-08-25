@@ -1,3 +1,16 @@
+## 5.0.0 (2021-08-25)
+
+#### refactor
+
+-   `react-components`
+    -   [#253](https://github.com/Giphy/giphy-js/pull/253) redesign(video): react ui redesign ([@giannif](https://github.com/giannif))
+    -   [#251](https://github.com/Giphy/giphy-js/pull/251) refactor(attribution): separate components ([@giannif](https://github.com/giannif))
+
+#### Committers: 2
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+-   Riko Fauzan Habib ([@fauzanrh](https://github.com/fauzanrh))
+
 ## 4.0.1 (2021-08-09)
 
 #### refactor
