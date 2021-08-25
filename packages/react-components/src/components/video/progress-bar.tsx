@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
 import { giphyWhite } from '@giphy/js-brand'
-import React, { useLayoutEffect, useState } from 'react'
+import React from 'react'
 import useRaf from 'react-use/lib/useRaf'
 
-const Bar = styled.div`
+const Bar = styled.div<{ barHeight: number }>`
     background: ${giphyWhite};
-    height: 2px;
+    height: ${(props) => props.barHeight}px;
     position: absolute;
     width: 5px;
     bottom: 0;
@@ -13,17 +13,19 @@ const Bar = styled.div`
     opacity: 0.95;
 `
 const ProgressBar = ({ videoEl }: { videoEl: HTMLVideoElement }) => {
-    const [progress, setProgress] = useState(0)
     useRaf(2147483647, 100)
     const time = videoEl?.currentTime || 0
     const duration = videoEl?.duration || 0
     const val = time / duration
-    useLayoutEffect(() => {
-        setProgress(val)
-    }, [val, setProgress])
-    let perc = Math.round(progress * 100)
-    perc = duration < 10 && perc > 98 ? 100 : perc
-    return <Bar style={{ width: `${perc}%` }} />
+    let percentage = Math.round(val * 100)
+    let barHeight = 5
+    if (videoEl?.height < 200) {
+        barHeight = 3
+    } else if (videoEl?.height < 300) {
+        barHeight = 4
+    }
+    percentage = duration < 10 && percentage > 98 ? 100 : percentage
+    return <Bar style={{ width: `${percentage}%` }} barHeight={barHeight} />
 }
 
 export default ProgressBar

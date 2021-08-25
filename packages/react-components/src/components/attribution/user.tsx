@@ -5,7 +5,7 @@ import VerifiedBadge_ from './verified-badge'
 
 export const Username = styled.div`
     color: white;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 700;
     overflow: hidden;
     text-overflow: ellipsis;

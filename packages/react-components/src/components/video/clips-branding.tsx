@@ -2,7 +2,6 @@ import React from 'react'
 
 const GIPHYClips = () => (
     <svg width="66px" height="13px" viewBox="0 0 66 13">
-        <title>GIPHYClips</title>
         <g stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">
             <g transform="translate(-1060.000000, -462.000000)" fill="#FFFFFF" fillRule="nonzero">
                 <g transform="translate(931.000000, 286.375671)">
