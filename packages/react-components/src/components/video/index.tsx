@@ -36,6 +36,7 @@ const Volume = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 `
 
 const Controls = styled.div<{ isHovered: boolean }>`
@@ -43,6 +44,7 @@ const Controls = styled.div<{ isHovered: boolean }>`
     top: 10px;
     right: 10px;
     left: 10px;
+    bottom: 0;
     display: flex;
     justify-content: space-between;
     opacity: ${(props) => (props.isHovered ? 1 : 0)};
@@ -60,9 +62,34 @@ const Title = styled.div`
     white-space: nowrap;
 `
 const TitleContainer = styled.div`
+    position: relative;
     min-width: 0;
 `
 
+const Gradient = styled.div<{ isLargePlayer: boolean }>`
+    &:before {
+        background: linear-gradient(rgba(18, 18, 18, 0.6), rgba(0, 0, 0, 0));
+        content: '';
+        height: ${(props) => (props.isLargePlayer ? 125 : 75)}px;
+        left: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+    &:after {
+        background: linear-gradient(rgba(0, 0, 0, 0), rgba(18, 18, 18, 0.6));
+        content: '';
+        height: ${(props) => (props.isLargePlayer ? 125 : 75)}px;
+        left: 0;
+        pointer-events: none;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+`
+
+const LARGE_PLAYER_HEIGHT = 300
 const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     const { width, hideMute, hideAttribution, hideProgressBar, className, persistentControls, gif } = props
     const [isHovered, setIsHovered] = useState(false)
@@ -97,6 +124,8 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     useEffect(() => {
         setMuted(props.muted)
     }, [props.muted])
+    const showControls = persistentControls || isHovered
+    const isLargePlayer = height >= LARGE_PLAYER_HEIGHT
     return (
         <Container
             className={className}
@@ -105,21 +134,28 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
             onMouseLeave={() => setIsHovered(false)}
             onClick={(e) => {
                 onUserMuted?.(!muted)
+                // adding this, it may save us if the browser blocks autoplay
+                videoEl?.play()
                 e.preventDefault()
                 toggleMute()
             }}
         >
-            <Video {...props} onMuted={combinedOnMuted} setVideoEl={combinedSetVideoEl} muted={muted} />
-            <Controls isHovered={persistentControls || isHovered}>
+            <Video
+                {...props}
+                onMuted={combinedOnMuted}
+                setVideoEl={combinedSetVideoEl}
+                muted={muted}
+                onLoop={() => {}}
+            />
+            {showControls && <Gradient isLargePlayer={isLargePlayer} />}
+            <Controls isHovered={showControls}>
                 <TitleContainer>
-                    {height >= 300 && <Title>{gif.title}</Title>}
+                    {isLargePlayer && <Title>{gif.title}</Title>}
                     {videoEl && !hideAttribution ? <Attribution gif={gif} /> : null}
                 </TitleContainer>
                 {!hideMute && <Volume>{muted || mutedByBrowser ? <VolumeOffIcon /> : <VolumeOnIcon />}</Volume>}
             </Controls>
-            {(persistentControls || isHovered) && !hideProgressBar && videoEl ? (
-                <ProgressBar videoEl={videoEl} />
-            ) : null}
+            {showControls && !hideProgressBar && videoEl ? <ProgressBar videoEl={videoEl} /> : null}
         </Container>
     )
 }

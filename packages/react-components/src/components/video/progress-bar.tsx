@@ -21,15 +21,15 @@ const ProgressBar = ({ videoEl }: { videoEl: HTMLVideoElement }) => {
     useLayoutEffect(() => {
         setProgress(val)
     }, [val, setProgress])
-    let perc = Math.round(progress * 100)
+    let percentage = Math.round(progress * 100)
     let barHeight = 5
     if (videoEl?.height < 200) {
         barHeight = 3
     } else if (videoEl?.height < 300) {
         barHeight = 4
     }
-    perc = duration < 10 && perc > 98 ? 100 : perc
-    return <Bar style={{ width: `${perc}%` }} barHeight={barHeight} />
+    percentage = duration < 10 && percentage > 98 ? 100 : percentage
+    return <Bar style={{ width: `${percentage}%` }} barHeight={barHeight} />
 }
 
 export default ProgressBar
