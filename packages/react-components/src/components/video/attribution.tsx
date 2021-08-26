@@ -9,6 +9,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     font-family: interface, helvetica, arial;
+    cursor: pointer;
 `
 const Avatar = styled(Avatar_)`
     flex-shrink: 0;

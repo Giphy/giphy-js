@@ -37,6 +37,7 @@ const Volume = styled.div`
     justify-content: center;
     align-items: center;
     position: relative;
+    cursor: pointer;
 `
 
 const Controls = styled.div<{ isHovered: boolean }>`
@@ -60,6 +61,7 @@ const Title = styled.div`
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    user-select: none;
 `
 const TitleContainer = styled.div`
     position: relative;
