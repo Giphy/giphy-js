@@ -33,7 +33,7 @@
         "typescript": "^4.3.5"
     },
     "name": "@giphy/react-components",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/react-components",
     "main": "dist/index.js",
