@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import { getGifHeight } from '@giphy/js-util'
-import isPercy from '@percy-io/in-percy'
 import React, { ComponentProps, useCallback, useEffect, useState } from 'react'
 import { useTimeoutFn } from 'react-use'
 import Attribution from './attribution'
@@ -53,6 +52,9 @@ const Controls = styled.div<{ isHovered: boolean }>`
     opacity: ${(props) => (props.isHovered ? 1 : 0)};
     transition: opacity ease-out 250ms;
     align-items: flex-start;
+    @media only percy {
+        opacity: 1;
+    }
 `
 
 const Title = styled.div`
@@ -104,7 +106,7 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     const { setVideoEl, onMuted, onUserMuted } = props
     const height = props.height || getGifHeight(gif, width)
     const [, cancelHideTimeout, resetHideTimeout] = useTimeoutFn(() => {
-        if (!isPercy()) setIsHovered(false)
+        setIsHovered(false)
     }, AUTO_HIDE_TIMEOUT)
 
     const combinedOnMuted = useCallback(
