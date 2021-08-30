@@ -1,6 +1,8 @@
 import styled from '@emotion/styled'
 import { getGifHeight } from '@giphy/js-util'
+import isPercy from '@percy-io/in-percy'
 import React, { ComponentProps, useCallback, useEffect, useState } from 'react'
+import { useTimeoutFn } from 'react-use'
 import Attribution from './attribution'
 import { VolumeOffIcon, VolumeOnIcon } from './controls/volume'
 import ProgressBar from './progress-bar'
@@ -92,6 +94,7 @@ const Gradient = styled.div<{ isLargePlayer: boolean }>`
 `
 
 const LARGE_PLAYER_HEIGHT = 300
+const AUTO_HIDE_TIMEOUT = 4000
 const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     const { width, hideMute, hideAttribution, hideProgressBar, className, persistentControls, gif } = props
     const [isHovered, setIsHovered] = useState(false)
@@ -100,6 +103,9 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     const [mutedByBrowser, setMutedByBrowser] = useState(false)
     const { setVideoEl, onMuted, onUserMuted } = props
     const height = props.height || getGifHeight(gif, width)
+    const [, cancelHideTimeout, resetHideTimeout] = useTimeoutFn(() => {
+        if (!isPercy()) setIsHovered(false)
+    }, AUTO_HIDE_TIMEOUT)
 
     const combinedOnMuted = useCallback(
         (args) => {
@@ -128,13 +134,29 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     }, [props.muted])
     const showControls = persistentControls || isHovered
     const isLargePlayer = height >= LARGE_PLAYER_HEIGHT
+    // Manage auto hide controls
+    useEffect(() => {
+        if (showControls) {
+            resetHideTimeout()
+        } else {
+            cancelHideTimeout()
+        }
+        return () => cancelHideTimeout()
+    }, [showControls, cancelHideTimeout, resetHideTimeout])
     return (
         <Container
             className={className}
             style={{ width, height }}
             onMouseOver={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onMouseMove={() => {
+                setIsHovered(true)
+                resetHideTimeout()
+            }}
             onClick={(e) => {
+                // TODO on mobile, maybe here we'd want to not mute if
+                // controls are hidden, mute and show controls are the same action
+                // which could be annoying
                 onUserMuted?.(!muted)
                 // adding this, it may save us if the browser blocks autoplay
                 videoEl?.play()
