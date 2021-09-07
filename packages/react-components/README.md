@@ -250,6 +250,8 @@ _Video props_
 | hideMute           | `boolean`                  | undefined | if controls is true, hides the mute button       |
 | hidePlayPause      | `boolean`                  | undefined | if controls is true, hides the play/pause button |
 | persistentControls | `boolean`                  | undefined | don't hide controls when hovering away           |
+| ccEnabled          | `boolean`                  | false     | if true, show captions                           |
+| ccLanguage         | `string`                   | 'en'      | the closed caption language                      |
 | onUserMuted        | `(muted: boolean) => void` | undefined | fired when the user toggles the mute state       |
 
 ```tsx
