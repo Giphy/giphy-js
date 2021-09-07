@@ -11,6 +11,9 @@ const Bar = styled.div<{ barHeight: number }>`
     bottom: 0;
     left: 0;
     opacity: 0.95;
+    @media only percy {
+        opacity: 0;
+    }
 `
 const ProgressBar = ({ videoEl }: { videoEl: HTMLVideoElement }) => {
     useRaf(2147483647, 100)

@@ -18,6 +18,8 @@ const Network = {
     NO_SOURCE: 3,
 }
 
+type IVideo = NonNullable<IGif['video']>
+
 type Props = {
     onStateChange?: (state: MEDIA_STATE) => void
     onTimeUpdate?: (playhead: number) => void
@@ -32,6 +34,8 @@ type Props = {
     onQuartile?: (quartile: QuartileEvent) => void
     onMuted?: (isMuted: boolean) => void
     muted?: boolean
+    ccEnabled?: boolean
+    ccLanguage?: keyof NonNullable<IVideo['captions']>
     loop?: boolean
     gif: IGif
     width: number
@@ -41,6 +45,8 @@ type Props = {
 }
 const Video = ({
     muted,
+    ccEnabled = false,
+    ccLanguage = 'en',
     loop = true,
     onStateChange,
     onTimeUpdate,
@@ -217,9 +223,10 @@ const Video = ({
             }
         }
     }, [_onPlaying, _onPaused, _onError, _onTimeUpdate, _onCanPlay, _onEnded, _onWaiting, _onEndFullscreen])
-
+    const captionSrc = gif.video?.captions?.[ccLanguage]?.vtt
     return media?.url ? (
         <video
+            crossOrigin="anonymous"
             draggable={true}
             className={className}
             width={width}
@@ -229,7 +236,11 @@ const Video = ({
             playsInline
             ref={videoEl}
             src={media?.url}
-        />
+        >
+            {ccEnabled && captionSrc && (
+                <track label="English" kind="subtitles" srcLang={ccLanguage} src={captionSrc} default />
+            )}
+        </video>
     ) : null
 }
 
