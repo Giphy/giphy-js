@@ -40,7 +40,17 @@ const Attribution = ({ gif, className, onClick }: Props) => {
         >
             <Avatar user={user} />
             <Right>
-                <GIPHYClips />
+                <GIPHYClips
+                    onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        if (onClick) {
+                            onClick(gif)
+                        } else if (gif.url) {
+                            window.open(gif.url, '_blank')
+                        }
+                    }}
+                />
                 <User user={user} />
             </Right>
         </Container>
