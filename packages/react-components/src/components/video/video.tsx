@@ -35,7 +35,7 @@ type Props = {
     onMuted?: (isMuted: boolean) => void
     muted?: boolean
     ccEnabled?: boolean
-    ccLanguage?: keyof IVideo['captions']
+    ccLanguage?: keyof NonNullable<IVideo['captions']>
     loop?: boolean
     gif: IGif
     width: number
@@ -223,7 +223,7 @@ const Video = ({
             }
         }
     }, [_onPlaying, _onPaused, _onError, _onTimeUpdate, _onCanPlay, _onEnded, _onWaiting, _onEndFullscreen])
-    const captionSrc = gif.video?.captions[ccLanguage]?.vtt
+    const captionSrc = gif.video?.captions?.[ccLanguage]?.vtt
     return media?.url ? (
         <video
             crossOrigin="anonymous"

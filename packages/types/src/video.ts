@@ -20,6 +20,6 @@ export default interface IVideo {
     dash_manifest_url: string
     hls_manifest_url: string
     previews: IImages
-    captions: Partial<Record<Language, ICaption>>
+    captions?: Partial<Record<Language, ICaption>>
     native: Language
 }
