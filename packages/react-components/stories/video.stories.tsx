@@ -12,8 +12,8 @@ const eventAction = (event: string) => {
     action(`Video ${event}`)()
 }
 
-type Props = { id: string; width: number; height?: number; muted: boolean }
-const VideoDemo = ({ id, width, height, muted }: Props) => {
+type Props = { id: string; width: number; height?: number; muted: boolean; ccEnabled?: boolean }
+const VideoDemo = ({ id, width, height, muted, ccEnabled }: Props) => {
     const [gif, setGif] = useState<IGif>()
 
     const fetch = useCallback(async () => {
@@ -38,6 +38,7 @@ const VideoDemo = ({ id, width, height, muted }: Props) => {
             onQuartile={(qt) => eventAction(`on quartile ${qt}`)}
             onMuted={() => eventAction('on muted')}
             onWaiting={(count: number) => eventAction(`on waiting: ${count}`)}
+            ccEnabled={ccEnabled}
             // onTimeUpdate={(t) => console.log(t)}
         />
     ) : null
@@ -55,6 +56,19 @@ export const Video = () => (
         height={number('height', 0)}
         muted={boolean('muted', false)}
     />
+)
+
+export const VideoCaptionsBeta = () => (
+    <>
+        <h3 style={{ color: 'white' }}>Beta Feature</h3>
+        <VideoDemo
+            id={text('id', 'D068R9Ziv1iCjezKzG')}
+            width={number('width', 300)}
+            height={number('height', 0)}
+            muted={boolean('muted', true)}
+            ccEnabled={boolean('ccEnabled', true)}
+        />
+    </>
 )
 
 export const VideoUserMuted = () => (
