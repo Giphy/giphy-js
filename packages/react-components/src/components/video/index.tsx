@@ -157,7 +157,7 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
                 // TODO on mobile, maybe here we'd want to not mute if
                 // controls are hidden, mute and show controls are the same action
                 // which could be annoying
-                onUserMuted?.(!muted)
+                onUserMuted?.(!(muted || mutedByBrowser))
                 // adding this, it may save us if the browser blocks autoplay
                 videoEl?.play()
                 e.preventDefault()
