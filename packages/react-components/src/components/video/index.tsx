@@ -52,9 +52,6 @@ const Controls = styled.div<{ isHovered: boolean }>`
     opacity: ${(props) => (props.isHovered ? 1 : 0)};
     transition: opacity ease-out 250ms;
     align-items: flex-start;
-    @media only percy {
-        opacity: 1;
-    }
 `
 
 const Title = styled.div`
@@ -66,6 +63,7 @@ const Title = styled.div`
     overflow: hidden;
     white-space: nowrap;
     user-select: none;
+    cursor: pointer;
 `
 const TitleContainer = styled.div`
     position: relative;
@@ -176,7 +174,17 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
             {showControls && <Gradient isLargePlayer={isLargePlayer} />}
             <Controls isHovered={showControls}>
                 <TitleContainer>
-                    {isLargePlayer && <Title>{gif.title}</Title>}
+                    {isLargePlayer && (
+                        <Title
+                            onClick={(e) => {
+                                e.preventDefault()
+                                e.stopPropagation()
+                                window.open(gif.url, '_blank')
+                            }}
+                        >
+                            {gif.title}
+                        </Title>
+                    )}
                     {videoEl && !hideAttribution ? <Attribution gif={gif} /> : null}
                 </TitleContainer>
                 {!hideMute && <Volume>{muted || mutedByBrowser ? <VolumeOffIcon /> : <VolumeOnIcon />}</Volume>}

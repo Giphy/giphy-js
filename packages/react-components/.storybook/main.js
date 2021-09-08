@@ -15,7 +15,11 @@ module.exports = {
         isPercy &&
         `video {
             opacity: 0 !important;
-        }`
+        }
+        .hide-in-percy {
+            visibility: hidden;
+        }
+        `
     }
     
     </style>
