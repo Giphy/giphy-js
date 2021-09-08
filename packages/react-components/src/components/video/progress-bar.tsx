@@ -11,9 +11,6 @@ const Bar = styled.div<{ barHeight: number }>`
     bottom: 0;
     left: 0;
     opacity: 0.95;
-    @media only percy {
-        opacity: 0;
-    }
 `
 const ProgressBar = ({ videoEl }: { videoEl: HTMLVideoElement }) => {
     useRaf(2147483647, 100)
@@ -28,7 +25,7 @@ const ProgressBar = ({ videoEl }: { videoEl: HTMLVideoElement }) => {
         barHeight = 4
     }
     percentage = duration < 10 && percentage > 98 ? 100 : percentage
-    return <Bar style={{ width: `${percentage}%` }} barHeight={barHeight} />
+    return <Bar style={{ width: `${percentage}%` }} barHeight={barHeight} className="hide-in-percy" />
 }
 
 export default ProgressBar

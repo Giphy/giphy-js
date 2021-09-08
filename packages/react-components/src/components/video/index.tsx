@@ -52,9 +52,6 @@ const Controls = styled.div<{ isHovered: boolean }>`
     opacity: ${(props) => (props.isHovered ? 1 : 0)};
     transition: opacity ease-out 250ms;
     align-items: flex-start;
-    @media only percy {
-        opacity: 1;
-    }
 `
 
 const Title = styled.div`
