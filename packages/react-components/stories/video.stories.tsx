@@ -2,7 +2,7 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { action } from '@storybook/addon-actions'
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { ComponentProps, useCallback, useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { Video as VideoComponent } from '../src'
 
@@ -12,7 +12,7 @@ const eventAction = (event: string) => {
     action(`Video ${event}`)()
 }
 
-type Props = { id: string; width: number; height?: number; muted: boolean; ccEnabled?: boolean }
+type Props = { id: string } & Partial<ComponentProps<typeof VideoComponent>>
 const VideoDemo = ({ id, width, height, muted, ccEnabled }: Props) => {
     const [gif, setGif] = useState<IGif>()
 
