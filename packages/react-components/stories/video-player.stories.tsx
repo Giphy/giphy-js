@@ -1,3 +1,4 @@
+import styled from '@emotion/styled'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
@@ -131,6 +132,28 @@ export const VideoPersistentControlsLarge = () => {
             width={number('width', 600)}
             height={number('height', 0)}
             muted={boolean('muted', false)}
+        />
+    ) : (
+        <div>video loading</div>
+    )
+}
+
+const Overlay = styled.div`
+    background: pink;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+`
+export const VideoOverlay = () => {
+    const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
+    return gif ? (
+        <VideoPlayer
+            gif={gif}
+            controls
+            width={number('width', 300)}
+            height={number('height', 0)}
+            muted={boolean('muted', true)}
+            overlay={() => <Overlay>OVERLAY</Overlay>}
         />
     ) : (
         <div>video loading</div>
