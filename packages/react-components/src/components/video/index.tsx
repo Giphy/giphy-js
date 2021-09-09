@@ -1,7 +1,8 @@
 import styled from '@emotion/styled'
 import { getGifHeight } from '@giphy/js-util'
-import React, { ComponentProps, useCallback, useEffect, useState } from 'react'
+import React, { ComponentProps, ElementType, useCallback, useEffect, useState } from 'react'
 import { useTimeoutFn } from 'react-use'
+import { GifOverlayProps } from '../types'
 import Attribution from './attribution'
 import { VolumeOffIcon, VolumeOnIcon } from './controls/volume'
 import ProgressBar from './progress-bar'
@@ -20,6 +21,12 @@ type Props = {
     persistentControls?: boolean
     // for saving the state of the user muted
     onUserMuted?: (muted: boolean) => void
+    // add a component that overlays the video
+    // and can hide when hovered
+    // TODO this should possibly be in video/video.tsx,
+    // similar to how gif.tsx has the overlay
+    // but we'd have to move the hover stuff into there
+    overlay?: ElementType<GifOverlayProps>
 }
 
 const Container = styled.div`
@@ -96,7 +103,16 @@ const Gradient = styled.div<{ isLargePlayer: boolean }>`
 const LARGE_PLAYER_HEIGHT = 300
 const AUTO_HIDE_TIMEOUT = 4000
 const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
-    const { width, hideMute, hideAttribution, hideProgressBar, className, persistentControls, gif } = props
+    const {
+        width,
+        hideMute,
+        hideAttribution,
+        hideProgressBar,
+        className,
+        persistentControls,
+        gif,
+        overlay: Overlay,
+    } = props
     const [isHovered, setIsHovered] = useState(false)
     const [videoEl, _setVideoEl] = useState<HTMLVideoElement | null>(null)
     const [muted, setMuted] = useState<boolean | undefined>(props.muted)
@@ -190,6 +206,7 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
                 {!hideMute && <Volume>{muted || mutedByBrowser ? <VolumeOffIcon /> : <VolumeOnIcon />}</Volume>}
             </Controls>
             {showControls && !hideProgressBar && videoEl ? <ProgressBar videoEl={videoEl} /> : null}
+            {Overlay && <Overlay gif={gif} isHovered={isHovered} width={width} height={height} />}
         </Container>
     )
 }
