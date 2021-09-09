@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { getGifHeight } from '@giphy/js-util'
+import { getGifHeight, Logger } from '@giphy/js-util'
 import React, { ComponentProps, ElementType, useCallback, useEffect, useState } from 'react'
 import { useTimeoutFn } from 'react-use'
 import { GifOverlayProps } from '../types'
@@ -211,7 +211,11 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     )
 }
 
-const VideoWrapper = (props: ComponentProps<typeof Video> & Props) =>
-    props.controls ? <VideoPlayer {...props} /> : <Video {...props} />
+const VideoWrapper = (props: ComponentProps<typeof Video> & Props) => {
+    if (props.overlay && !props.controls) {
+        console.warn(`${Logger.PREFIX}: Overlays only work when controls are enabled`)
+    }
+    return props.controls ? <VideoPlayer {...props} /> : <Video {...props} />
+}
 
 export default VideoWrapper
