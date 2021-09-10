@@ -180,13 +180,7 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
                 toggleMute()
             }}
         >
-            <Video
-                {...props}
-                onMuted={combinedOnMuted}
-                setVideoEl={combinedSetVideoEl}
-                muted={muted}
-                onLoop={() => {}}
-            />
+            <Video {...props} onMuted={combinedOnMuted} setVideoEl={combinedSetVideoEl} muted={muted} />
             {showControls && <Gradient isLargePlayer={isLargePlayer} />}
             <Controls isHovered={showControls}>
                 <TitleContainer>
