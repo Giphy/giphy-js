@@ -7,7 +7,8 @@
         "test:watch": "lerna run test:watch --stream",
         "lerna:publish": "lerna publish from-git --yes",
         "format": "prettier-eslint \"$(pwd)/**/*.{js,ts,tsx}\" --write --print-width 120 --tab-width 4",
-        "dependency-cruiser": "depcruise -c .dependency-cruiser.js ./"
+        "dependency-cruiser": "depcruise -c .dependency-cruiser.js ./",
+        "check-licenses": "node ./scripts/license-checker.js && lerna exec -- node \\$LERNA_ROOT_PATH/scripts/license-checker.js"
     },
     "lint-staged": {
         "**/*.{ts,tsx}": [
