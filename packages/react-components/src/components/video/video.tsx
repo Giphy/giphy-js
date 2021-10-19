@@ -156,6 +156,9 @@ const Video = ({
         }
     }, [onWaiting])
     const _onEnded = useCallback(() => {
+        if (!hasPlayingFired.current) {
+            return
+        }
         if (loop && videoEl.current) {
             videoEl.current.play()
         }
