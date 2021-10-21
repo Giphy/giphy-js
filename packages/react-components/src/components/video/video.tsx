@@ -99,12 +99,15 @@ const Video = ({
         // when the width and height change, check if there's a new url
         const newMedia = getBestVideo(gif.video, width, height) as IImage
         if (videoEl.current && media?.url && newMedia.url !== media.url) {
-            // when the media changes set the current seek time
-            seek.current = videoEl.current.currentTime
+            // we may have changed gifs, we don't want to seek then
+            if (media.url.indexOf(String(gif.id)) !== -1) {
+                // when the media changes set the current seek time
+                seek.current = videoEl.current.currentTime
+            }
             // triggers re-render with above seek time
             setMedia(newMedia)
         }
-    }, [width, height_, gif.video, height, media?.url])
+    }, [width, height_, gif.video, height, media?.url, gif.id])
 
     useEffect(() => {
         if (videoEl.current && media?.url && seek.current) {
@@ -156,6 +159,10 @@ const Video = ({
         }
     }, [onWaiting])
     const _onEnded = useCallback(() => {
+        // helps prevent two ended events when changing media
+        if (!hasPlayingFired.current) {
+            return
+        }
         if (loop && videoEl.current) {
             videoEl.current.play()
         }
