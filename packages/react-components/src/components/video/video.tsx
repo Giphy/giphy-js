@@ -159,6 +159,7 @@ const Video = ({
         }
     }, [onWaiting])
     const _onEnded = useCallback(() => {
+        // helps prevent two ended events when changing media
         if (!hasPlayingFired.current) {
             return
         }
