@@ -38,6 +38,7 @@ type Props = {
     className?: string
     user: Partial<IUser>
     gifHeight: number
+    gifWidth?: number
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
@@ -107,6 +108,7 @@ class Carousel extends Component<Props, State> {
             onGifVisible,
             onGifRightClick,
             gifHeight,
+            gifWidth,
             gutter,
             className = Carousel.className,
             onGifClick,
@@ -134,14 +136,14 @@ class Carousel extends Component<Props, State> {
             <PingbackContextManager attributes={{ layout_type: 'CAROUSEL' }}>
                 <div class={containerCss}>
                     {gifs.map((gif) => {
-                        const gifWidth = getGifWidth(gif, gifHeight)
                         return (
                             <Gif
                                 className={gifCss}
                                 gif={gif}
                                 key={gif.id}
                                 tabIndex={tabIndex}
-                                width={gifWidth}
+                                width={gifWidth || getGifWidth(gif, gifHeight)}
+                                height={gifHeight}
                                 onGifClick={onGifClick}
                                 onGifHover={onGifHover}
                                 onGifSeen={onGifSeen}

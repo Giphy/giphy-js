@@ -76,6 +76,7 @@ See this [codesandbox](https://codesandbox.io/s/giphy-web-sdk-ssr-with-nextjs-ir
 | _prop_                                  | _type_                                   | _default_ | _description_                                                                                           |
 | --------------------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------- |
 | gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                                                 |
+| gifWidth                               | `number`                                 | undefined | The width of the gifs and the carousel (you may want to set Gif.imgClassName to have object-fit: cover to avoid stretching) 
 | fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                                |
 | gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                      |
 | borderRadius                            | `number`                                 | 4         | a border radius applied to Gif Components making the corners rounded                                    |

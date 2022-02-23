@@ -94,6 +94,7 @@ _renderCarousel options_
 | property                                | type                                     | default   | description                                                                                           |
 | --------------------------------------- | ---------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------- |
 | gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                                               |
+| gifWidth                               | `number`                                 | undefined | The width of the gifs and the carousel (you may want to set Gif.imgClassName to have object-fit: cover to avoid stretching)                                                              |
 | fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                              |
 | gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                    |
 | noResultsMessage                        | `string \| element`                      | undefined | Customise the "No results" message                                                                    |
