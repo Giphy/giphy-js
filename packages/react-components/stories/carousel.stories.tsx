@@ -38,6 +38,7 @@ export const SearchExample = () => {
             <CarouselComponent
                 key={term}
                 gifHeight={number('gif height', 200)}
+                gifWidth={number('gif width', undefined)}
                 backgroundColor={isPercy() ? 'white' : undefined}
                 gutter={6}
                 fetchGifs={fetchGifs}
