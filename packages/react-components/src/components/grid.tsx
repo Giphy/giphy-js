@@ -131,6 +131,7 @@ class Grid extends PureComponent<Props, State> {
             className = Grid.className,
             onGifSeen,
             onGifClick,
+            onGifKeyPress,
             user,
             overlay,
             hideAttribution,
@@ -171,6 +172,7 @@ class Grid extends PureComponent<Props, State> {
                                 key={gif.id}
                                 width={gifWidth}
                                 onGifClick={onGifClick}
+                                onGifKeyPress={onGifKeyPress}
                                 onGifSeen={onGifSeen}
                                 onGifVisible={onGifVisible}
                                 onGifRightClick={onGifRightClick}

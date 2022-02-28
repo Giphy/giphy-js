@@ -53,6 +53,8 @@ export type EventProps = {
     onGifClick?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
     // fired when the gif is right clicked
     onGifRightClick?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
+    // fired when the gif is selected and a key is pressed
+    onGifKeyPress?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
 }
 
 type GifProps = {
@@ -86,6 +88,7 @@ const Gif = ({
     onGifRightClick = noop,
     className = '',
     onGifClick = noop,
+    onGifKeyPress = noop,
     onGifSeen = noop,
     onGifVisible = noop,
     user = {},
@@ -147,6 +150,10 @@ const Gif = ({
         // fire pingback
         pingback.onGifClick(gif, user?.id, e.target as HTMLElement, attributes)
         onGifClick(gif, e)
+    }
+
+    const onKeyPress = (e: SyntheticEvent<HTMLElement, Event>) => {
+        onGifKeyPress(gif, e)
     }
 
     // using a ref in case `gif` changes
@@ -239,6 +246,7 @@ const Gif = ({
             onMouseLeave={onMouseLeave}
             onClick={onClick}
             onContextMenu={(e: SyntheticEvent<HTMLElement, Event>) => onGifRightClick(gif, e)}
+            onKeyPress={onKeyPress}
             tabIndex={tabIndex}
         >
             <div style={{ width, height, position: 'relative' }} ref={container}>

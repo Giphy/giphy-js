@@ -113,6 +113,7 @@ class Carousel extends Component<Props, State> {
             className = Carousel.className,
             onGifClick,
             onGifHover,
+            onGifKeyPress,
             onGifSeen,
             user,
             noResultsMessage,
@@ -146,6 +147,7 @@ class Carousel extends Component<Props, State> {
                                 height={gifHeight}
                                 onGifClick={onGifClick}
                                 onGifHover={onGifHover}
+                                onGifKeyPress={onGifKeyPress}
                                 onGifSeen={onGifSeen}
                                 onGifVisible={onGifVisible}
                                 onGifRightClick={onGifRightClick}
