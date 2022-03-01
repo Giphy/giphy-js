@@ -323,3 +323,4 @@ If you want to prefetch network requests before the loader appears in Grids and 
 | onGifSeen       | `(gif: IGif, boundingClientRect: ClientRect &#124; DOMRect) => void` | fired once after the gif loads and when it's completely in view |
 | onGifClick      | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is clicked                                   |
 | onGifRightClick | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is right clicked                             |
+| onGifKeyPress   | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the a key is pressed on the gif                      |

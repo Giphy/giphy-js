@@ -200,6 +200,7 @@ If a GIF has an associated user, an overlay with their avatar and display name w
 | onGifSeen       | `(gif: IGif, boundingClientRect: ClientRect &#124; DOMRect) => void` | fired once after the gif loads and when it's completely in view |
 | onGifClick      | `(gif: IGif, e: Event) => void`                                      | fired when the gif is clicked                                   |
 | onGifRightClick | `(gif: IGif, e: Event) => void`                                      | fired when the gif is right clicked                             |
+| onGifKeyPress   | `(gif: IGif, e: Event) => void`                                      | fired when the a key is pressed on the gif                      |
 
 ```
 

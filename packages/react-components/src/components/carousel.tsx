@@ -132,6 +132,7 @@ class Carousel extends PureComponent<Props, State> {
             className = Carousel.className,
             onGifSeen,
             onGifClick,
+            onGifKeyPress,
             user,
             overlay,
             hideAttribution,
@@ -157,6 +158,7 @@ class Carousel extends PureComponent<Props, State> {
                                 width={gifWidth || getGifWidth(gif, gifHeight)}
                                 height={gifHeight}
                                 onGifClick={onGifClick}
+                                onGifKeyPress={onGifKeyPress}
                                 onGifSeen={onGifSeen}
                                 onGifVisible={onGifVisible}
                                 onGifRightClick={onGifRightClick}
