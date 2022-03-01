@@ -104,7 +104,9 @@ class Grid extends PureComponent<Props, State> {
             let gifs
             try {
                 gifs = await this.paginator()
+                if (this.unmounted) return
             } catch (error) {
+                if (this.unmounted) return
                 this.setState({ isFetching: false, isError: true })
                 const { onGifsFetchError } = this.props
                 if (onGifsFetchError) onGifsFetchError(error)
