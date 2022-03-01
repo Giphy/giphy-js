@@ -122,7 +122,7 @@ class Grid extends Component<Props, State> {
             } catch (error) {
                 this.setState({ isFetching: false, isError: true })
                 const { onGifsFetchError } = this.props
-                if (onGifsFetchError) onGifsFetchError(error)
+                if (onGifsFetchError) onGifsFetchError(error as Error)
             }
             if (gifs) {
                 if (existingGifs.length === gifs.length) {
