@@ -230,7 +230,7 @@ const Gif = ({
         >
             <div style={{ width, height, position: 'relative' }} ref={container}>
                 <picture>
-                    <source type="image/webp" srcSet={rendition.webp} />
+                    <source type="image/webp" srcSet={showGif ? rendition.webp : placeholder} />
                     <img
                         className={[Gif.imgClassName, loadedClassname].join(' ')}
                         src={showGif ? rendition.url : placeholder}
