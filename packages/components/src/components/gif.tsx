@@ -42,6 +42,8 @@ export type EventProps = {
     onGifClick?: (gif: IGif, e: Event) => void
     // fired when the gif is right clicked
     onGifRightClick?: (gif: IGif, e: Event) => void
+    // fired when the gif is selected and a key is pressed
+    onGifKeyPress?: (gif: IGif, e: Event) => void
 }
 
 function useMutableRef<T>(initialValue?: T) {
@@ -80,6 +82,7 @@ const Gif = ({
     onGifRightClick = noop,
     className,
     onGifClick = noop,
+    onGifKeyPress = noop,
     onGifSeen = noop,
     onGifVisible = noop,
     user = {},
@@ -129,6 +132,10 @@ const Gif = ({
         // fire pingback
         pingback.onGifClick(gif, user?.id, e.target as HTMLElement, attributes)
         onGifClick(gif, e)
+    }
+
+    const onKeyPress = (e: Event) => {
+        onGifKeyPress(gif, e)
     }
 
     // using a ref in case `gif` changes
@@ -218,6 +225,7 @@ const Gif = ({
             onMouseLeave={onMouseLeave}
             onClick={onClick}
             onContextMenu={(e: Event) => onGifRightClick(gif, e)}
+            onKeyPress={onKeyPress}
             tabIndex={tabIndex}
         >
             <div style={{ width, height, position: 'relative' }} ref={container}>
