@@ -42,6 +42,7 @@ const GifDemo = ({
     return gif ? (
         <GifComponent
             key={`gif-${noLink}`}
+            tabIndex={1}
             borderRadius={borderRadius}
             gif={gif}
             width={width}
@@ -50,6 +51,7 @@ const GifDemo = ({
             onGifClick={eventAction('click')}
             onGifSeen={eventAction('seen')}
             onGifVisible={eventAction('visible')}
+            onGifKeyPress={eventAction('keyPress')}
             overlay={overlay}
         />
     ) : null
