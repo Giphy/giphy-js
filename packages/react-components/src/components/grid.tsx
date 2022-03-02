@@ -109,7 +109,7 @@ class Grid extends PureComponent<Props, State> {
                 if (this.unmounted) return
                 this.setState({ isFetching: false, isError: true })
                 const { onGifsFetchError } = this.props
-                if (onGifsFetchError) onGifsFetchError(error)
+                if (onGifsFetchError) onGifsFetchError(error as Error)
             }
             if (gifs) {
                 // if we've just fetched and we don't have

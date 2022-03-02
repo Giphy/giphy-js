@@ -106,7 +106,7 @@ const Gif = ({
     const [isHovered, setHovered] = useState(false)
     // only show the gif if it's on the screen
     // if we can't use the dom (SSR), then we show the gif by default
-    const [showGif, setShowGif] = useState(!canUseDOM)
+    const [shouldShowMedia, setShouldShowMedia] = useState(!canUseDOM)
     // classname to target animations on image load
     const [loadedClassname, setLoadedClassName] = useState('')
     // the background color shouldn't change unless it comes from a prop or we have a sticker
@@ -209,7 +209,7 @@ const Gif = ({
         showGifObserver.current = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
             const { isIntersecting } = entry
             // show the gif if the container is on the screen
-            setShowGif(isIntersecting)
+            setShouldShowMedia(isIntersecting)
             // remove the fullGifObserver if we go off the screen
             // we may have already disconnected if the hasFiredSeen happened
             if (!isIntersecting && fullGifObserver.current) {
@@ -251,20 +251,22 @@ const Gif = ({
         >
             <div style={{ width, height, position: 'relative' }} ref={container}>
                 <picture>
-                    <source type="image/webp" srcSet={rendition.webp} />
+                    <source type="image/webp" srcSet={shouldShowMedia ? rendition.webp : placeholder} />
                     <img
                         ref={image}
                         suppressHydrationWarning
                         className={[Gif.imgClassName, loadedClassname].join(' ')}
-                        src={showGif ? rendition.url : placeholder}
+                        src={shouldShowMedia ? rendition.url : placeholder}
                         style={{ background }}
                         width={width}
                         height={height}
                         alt={getAltText(gif)}
-                        onLoad={showGif ? onImageLoad : () => {}}
+                        onLoad={shouldShowMedia ? onImageLoad : () => {}}
                     />
                 </picture>
-                {showGif ? Overlay && <Overlay gif={gif} isHovered={isHovered} width={width} height={height} /> : null}
+                {shouldShowMedia
+                    ? Overlay && <Overlay gif={gif} isHovered={isHovered} width={width} height={height} />
+                    : null}
             </div>
         </Container>
     )
