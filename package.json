@@ -53,7 +53,9 @@
     },
     "changelog": {
         "labels": {
+            "bug": "bug",
             "refactor": "refactor",
+            "feature request": "feature",
             "build tools & CI": "build tools & continuous integration"
         }
     }
