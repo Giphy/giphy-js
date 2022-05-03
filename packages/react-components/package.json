@@ -6,12 +6,13 @@
         "build": "tsc",
         "prepublish": "npm run clean && tsc",
         "deploy-storybook": "storybook-to-ghpages",
-        "snapshot": "NODE_ENV=PERCY build-storybook && percy-storybook --widths=320,1280"
+        "snapshot": "NODE_ENV=PERCY build-storybook && percy storybook ./storybook-static"
     },
     "devDependencies": {
         "@babel/core": "^7.14.6",
         "@percy-io/in-percy": "0.1.11",
-        "@percy/storybook": "3.3.1",
+        "@percy/cli": "^1.1.0",
+        "@percy/storybook": "4.2.0",
         "@storybook/addon-actions": "^6.3.4",
         "@storybook/addon-info": "^5.3.21",
         "@storybook/addon-knobs": "^6.3.0",
