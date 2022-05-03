@@ -62,7 +62,7 @@ const Controls = styled.div<{ isHovered: boolean }>`
 `
 
 const Title = styled.div`
-    font-size: 26px;
+    font-size: 22px;
     color: white;
     margin-bottom: 5px;
     font-weight: bold;
