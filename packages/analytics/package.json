@@ -9,7 +9,7 @@
     },
     "name": "@giphy/js-analytics",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/analytics",
-    "version": "4.0.7",
+    "version": "4.0.8",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
