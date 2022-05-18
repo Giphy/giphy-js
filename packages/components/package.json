@@ -13,7 +13,7 @@
         "typescript": "^4.3.5"
     },
     "name": "@giphy/js-components",
-    "version": "5.4.1",
+    "version": "5.4.2",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/components",
     "main": "dist/index.js",
@@ -28,7 +28,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@giphy/js-analytics": "^4.0.7",
+        "@giphy/js-analytics": "^4.0.8",
         "@giphy/js-brand": "^2.0.4",
         "@giphy/js-fetch-api": "^4.1.2",
         "@giphy/js-types": "^4.1.0",
