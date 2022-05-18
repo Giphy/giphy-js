@@ -11,6 +11,11 @@ export const sendPingback = (events: PingbackEvent[]) => {
     /* istanbul ignore next */
     headers?.set('Content-Type', 'application/json')
     Logger.debug(`Pingback session`, events)
+
+    if (!events.length) {
+        return new Promise<void>((resolve) => resolve())
+    }
+
     return fetch(pingBackUrl, {
         method: 'POST',
         body: JSON.stringify({ events }),
