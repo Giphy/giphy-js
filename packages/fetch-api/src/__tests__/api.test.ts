@@ -190,7 +190,7 @@ describe('response parsing', () => {
         fetchMock.mockResponseOnce(JSON.stringify(okResponseWithError), { status: 403 })
         try {
             await gf.related('d')
-        } catch (error) {
+        } catch (error: any) {
             expect(error.message).toBe(`${ERROR_PREFIX}${okResponseWithError.message}`)
         }
     })
@@ -198,7 +198,7 @@ describe('response parsing', () => {
         fetchMock.mockResponses([JSON.stringify({}), { status: 400 }])
         try {
             await gf.related('12345 with error')
-        } catch (error) {
+        } catch (error: any) {
             expect(error.status).toBe(400)
             expect(error.statusText).toBe('Bad Request')
             expect(error.message).toBe(`${ERROR_PREFIX}${DEFAULT_ERROR}`)
@@ -208,7 +208,7 @@ describe('response parsing', () => {
         fetchMock.mockReject(new Error('some crazy error'))
         try {
             await gf.related('some crazy error')
-        } catch (error) {
+        } catch (error: any) {
             expect(error.message).toBe('some crazy error')
         }
     })
@@ -217,7 +217,7 @@ describe('response parsing', () => {
         fetchMock.mockResponseOnce(JSON.stringify(syntheticResponse))
         try {
             await gf.related('synthic error')
-        } catch (error) {
+        } catch (error: any) {
             expect(error.message).toBe('synthetic response')
         }
     })
@@ -226,7 +226,7 @@ describe('response parsing', () => {
         fetchMock.mockResponseOnce(JSON.stringify({ ...syntheticResponse, meta: undefined }))
         try {
             await gf.related('synthic error no meta')
-        } catch (error) {
+        } catch (error: any) {
             expect(error.message).toBe('synthetic response')
         }
     })

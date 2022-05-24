@@ -1,8 +1,8 @@
 /**
  * @param el HTMLElement
- * @returns calculated properties of ClientRect
+ * @returns calculated properties of DOMReact
  */
-const getClientRect = (el: HTMLElement): ClientRect => {
+const getClientRect = (el: HTMLElement): DOMRectReadOnly => {
     let left = 0
     let top = 0
     const width = el.offsetWidth
@@ -13,8 +13,17 @@ const getClientRect = (el: HTMLElement): ClientRect => {
         top += el.offsetTop
         el = el.offsetParent as HTMLElement
     } while (el)
-    // TODO check this
-    return { left, top, width, height, right: left + width, bottom: top + height }
+    const result = {
+        left,
+        top,
+        width,
+        height,
+        right: left + width,
+        bottom: top + height,
+        x: left,
+        y: top,
+    }
+    return { ...result, toJSON: () => JSON.stringify(result) }
 }
 
 export default getClientRect
