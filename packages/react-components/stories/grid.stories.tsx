@@ -61,6 +61,7 @@ export const Grid = ({ loader }: { loader: ElementType }) => {
     }
     return (
         <>
+            {isPercy() && <div>Percy mode enabled</div>}
             <input
                 style={{ margin: 10 }}
                 placeholder="type to search"
