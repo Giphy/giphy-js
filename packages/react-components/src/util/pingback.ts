@@ -23,7 +23,7 @@ const firePingback = (actionType: PingbackActionType) => (
 export const onGifSeen = (
     gif: IGif,
     userId: string | number | undefined,
-    position: ClientRect,
+    position: DOMRectReadOnly,
     attributes: PingbackAttributes = {}
 ) => {
     if (!gif.analytics_response_payload) {

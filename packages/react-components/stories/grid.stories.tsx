@@ -1,12 +1,12 @@
 import styled from '@emotion/styled'
 import { GiphyFetch } from '@giphy/js-fetch-api'
-import isPercy from '@percy-io/in-percy'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 import fetchMock from 'fetch-mock'
 import React, { ElementType, useEffect, useRef, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
+import inPercy from './in-percy'
 import mockGifsResult from './mock-data/gifs.json'
 
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
@@ -50,7 +50,7 @@ export const Grid = ({ loader }: { loader: ElementType }) => {
     const NoResults = <NoResultsContainer>No results for {term}</NoResultsContainer>
 
     const fetchGifs = async (offset: number) => {
-        if (isPercy()) {
+        if (inPercy()) {
             fetchMock
                 .restore()
                 .getOnce(`begin:https://api.giphy.com/v1/gifs/search?offset=0&limit=`, { body: mockGifsResult })

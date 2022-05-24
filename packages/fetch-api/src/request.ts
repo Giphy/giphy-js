@@ -62,7 +62,7 @@ function request(url: string, normalizer: (a: any) => any = identity, noCache: b
                     // we got an error response, throw with the message in the response body json
                     fetchError = new FetchError(`${ERROR_PREFIX}${message}`, response.status, response.statusText)
                 }
-            } catch (unexpectedError) {
+            } catch (unexpectedError: any) {
                 fetchError = new FetchError(unexpectedError.message)
                 // if the request fails with an unspecfied error,
                 // the user can request again after the error timeout
