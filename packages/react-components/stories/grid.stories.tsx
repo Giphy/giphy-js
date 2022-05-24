@@ -61,7 +61,8 @@ export const Grid = ({ loader }: { loader: ElementType }) => {
     }
     return (
         <>
-            {isPercy() && <div>Percy mode enabled</div>}
+            <div>Percy mode {isPercy() ? 'enabled' : 'disabled'}</div>
+            <div>Percy node env {process.env.NODE_ENV}</div>
             <input
                 style={{ margin: 10 }}
                 placeholder="type to search"
