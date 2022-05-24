@@ -10,7 +10,6 @@
     },
     "devDependencies": {
         "@babel/core": "^7.14.6",
-        "@percy-io/in-percy": "0.1.11",
         "@percy/cli": "^1.2.1",
         "@percy/storybook": "4.2.0",
         "@storybook/addon-actions": "^6.5.5",
