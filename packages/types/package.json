@@ -7,7 +7,7 @@
     },
     "name": "@giphy/js-types",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/types",
-    "version": "4.2.0",
+    "version": "4.2.1",
     "main": "dist/index.d.ts",
     "types": "dist/index.d.ts",
     "publishConfig": {
