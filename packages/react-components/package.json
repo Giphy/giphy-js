@@ -48,7 +48,7 @@
         "access": "public"
     },
     "peerDependencies": {
-        "react": "16.10.2 - 17"
+        "react": "16.10.2 - 18"
     },
     "resolutions": {
         "foreachasync": "5.1.3"
