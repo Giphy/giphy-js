@@ -11,13 +11,13 @@
     "devDependencies": {
         "@babel/core": "^7.14.6",
         "@percy/cli": "^1.2.1",
-        "@percy/storybook": "4.2.0",
-        "@storybook/addon-actions": "^6.5.5",
+        "@percy/storybook": "4.2.1",
+        "@storybook/addon-actions": "^6.5.7",
         "@storybook/addon-info": "^5.3.21",
         "@storybook/addon-knobs": "^6.3.0",
-        "@storybook/addon-viewport": "6.5.5",
-        "@storybook/addons": "^6.5.5",
-        "@storybook/react": "^6.5.5",
+        "@storybook/addon-viewport": "6.5.7",
+        "@storybook/addons": "^6.5.7",
+        "@storybook/react": "^6.5.7",
         "@storybook/storybook-deployer": "^2.8.11",
         "@types/react": "^17.0.14",
         "@types/react-dom": "^17.0.9",
@@ -48,7 +48,7 @@
         "access": "public"
     },
     "peerDependencies": {
-        "react": "16.10.2 - 17"
+        "react": "16.10.2 - 18"
     },
     "resolutions": {
         "foreachasync": "5.1.3"
