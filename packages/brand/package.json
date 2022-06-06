@@ -10,7 +10,7 @@
         "parcel-plugin-bundle-visualiser": "1.2.0",
         "parcel-plugin-url-loader": "^1.3.1",
         "preact": "next",
-        "typescript": "^4.6.4"
+        "typescript": "^4.7.3"
     },
     "name": "@giphy/js-brand",
     "version": "2.1.0",
