@@ -42,7 +42,8 @@ export const addFonts = () => injectGlobal`
     src:  url('https://s3.amazonaws.com/giphyscripts/react-giphy-brand/fonts/ss-social.woff') format('woff');
 }
 `
-if (!process.env.GIPHY_SDK_NO_FONTS) {
+
+if (!(process && process.env && process.env.GIPHY_SDK_NO_FONTS)) {
     addFonts()
 }
 
