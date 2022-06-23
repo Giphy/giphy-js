@@ -324,3 +324,6 @@ If you want to prefetch network requests before the loader appears in Grids and 
 | onGifClick      | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is clicked                                   |
 | onGifRightClick | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is right clicked                             |
 | onGifKeyPress   | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the a key is pressed on the gif                      |
+
+
+To stop fonts from loading set the environment variable `GIPHY_SDK_NO_FONTS=true`, this is not recommended as it could cause inconsistencies in the ui components 
