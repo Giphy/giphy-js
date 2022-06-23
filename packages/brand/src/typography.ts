@@ -1,7 +1,6 @@
 import { css, cx, injectGlobal } from 'emotion'
 
-// eslint-disable-next-line
-injectGlobal`
+export const addFonts = () => injectGlobal`
 @font-face {
     font-family: 'interface';
     font-style: normal;
@@ -43,6 +42,9 @@ injectGlobal`
     src:  url('https://s3.amazonaws.com/giphyscripts/react-giphy-brand/fonts/ss-social.woff') format('woff');
 }
 `
+if (!process.env.GIPHY_SDK_NO_FONTS) {
+    addFonts()
+}
 
 export const fontFamily = {
     title: "'nexablack', sans-serif",
