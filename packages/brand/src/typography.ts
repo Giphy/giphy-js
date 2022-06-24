@@ -42,8 +42,15 @@ export const addFonts = () => injectGlobal`
     src:  url('https://s3.amazonaws.com/giphyscripts/react-giphy-brand/fonts/ss-social.woff') format('woff');
 }
 `
-
-if (!(process && process.env && process.env.GIPHY_SDK_NO_FONTS)) {
+try {
+    // in an env where process.env exists,
+    // this will not error allowing the configuration
+    // to work
+    if (!process.env.GIPHY_SDK_NO_FONTS) {
+        addFonts()
+    }
+} catch (error) {
+    // if there is no env then fallback to the default behavior
     addFonts()
 }
 
