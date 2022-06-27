@@ -83,6 +83,7 @@ class Grid extends PureComponent<Props, State> {
     }
 
     componentDidMount() {
+        this.unmounted = false
         this.onFetch()
     }
 
