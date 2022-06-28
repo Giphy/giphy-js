@@ -8,6 +8,9 @@ module.exports = {
         '@storybook/addon-actions/register',
         '@storybook/addon-knobs',
     ],
+    reactOptions: {
+        strictMode: true,
+    },
     previewHead: (head) => `
     ${head}
     <style>

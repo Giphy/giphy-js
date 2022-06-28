@@ -86,6 +86,7 @@ class Carousel extends PureComponent<Props, State> {
     unmounted: boolean = false
     paginator = gifPaginator(this.props.fetchGifs, this.state.gifs)
     componentDidMount() {
+        this.unmounted = false
         this.onFetch()
     }
 
