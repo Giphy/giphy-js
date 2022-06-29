@@ -251,7 +251,11 @@ const Gif = ({
         >
             <div style={{ width, height, position: 'relative' }} ref={container}>
                 <picture>
-                    <source type="image/webp" srcSet={shouldShowMedia ? rendition.webp : placeholder} />
+                    <source
+                        type="image/webp"
+                        srcSet={shouldShowMedia ? rendition.webp : placeholder}
+                        suppressHydrationWarning
+                    />
                     <img
                         ref={image}
                         suppressHydrationWarning
