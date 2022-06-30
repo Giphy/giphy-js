@@ -1,8 +1,7 @@
 import { appendGiphySDKRequestHeader, getGiphySDKRequestHeaders } from '@giphy/js-util'
 
-export { serverUrl } from './constants'
-
 export { default as GiphyFetch } from './api'
+export { serverUrl, setServerUrl } from './constants'
 export * from './option-types'
 export { gifPaginator } from './paginator'
 export * from './result-types'
