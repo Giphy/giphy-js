@@ -2,7 +2,7 @@ import { css } from '@emotion/core'
 import { giphyBlack, giphyCharcoal, giphyIndigo, giphyLightGrey, giphyWhite } from '@giphy/js-brand'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import useDebounce from 'react-use/lib/useDebounce'
-import { SearchContext } from './context'
+import { SearchContext, _SearchContext } from './context'
 import SearchBarChannel from './search-bar-channel'
 import SearchButton from './search-button'
 import styled, { getSize } from './theme'
@@ -59,6 +59,7 @@ const Input = styled.input<{ isUsernameSearch: boolean }>`
 
 const SearchBar = ({ className, placeholder = `Search GIPHY`, clear = false, autoFocus }: Props) => {
     const { setSearch, activeChannel, setActiveChannel, term, channelSearch } = useContext(SearchContext)
+    const { setIsFocused } = useContext(_SearchContext)
 
     // debounce local input
     const [debouncedTerm, setDebouncedInput] = useState<string>(term)
@@ -129,6 +130,12 @@ const SearchBar = ({ className, placeholder = `Search GIPHY`, clear = false, aut
                         setCleared(false)
                         setDebouncedInput(value)
                     }
+                }}
+                onFocus={() => {
+                    setIsFocused(true)
+                }}
+                onBlur={() => {
+                    setIsFocused(false)
                 }}
                 value={isCleared ? '' : debouncedTerm}
                 placeholder={activeChannel ? `Search ${activeChannel.display_name}` : placeholder}

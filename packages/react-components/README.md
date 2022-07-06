@@ -212,6 +212,7 @@ It should use `searchKey` as its key, so when we have a new search, the old cont
 | _prop_    | _type_                                    | _default_            | _description_                                                                       |
 | --------- | ----------------------------------------- | -------------------- | ----------------------------------------------------------------------------------- |
 | searchKey | string                                    | undefined            | A unique id of the current search, used as a React key to refresh the [Grid](#grid) |
+| isFocused | boolean                                    | false            | whether or not the search input has focus |
 | fetchGifs | `(offset: number) => Promise<GifsResult>` | default search fetch | The search request passed to the UI component                                       |
 
 #### SearchTheme
