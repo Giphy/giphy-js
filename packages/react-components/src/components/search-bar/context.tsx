@@ -17,9 +17,14 @@ export type SearchContextProps = {
     isFetching: boolean
     trendingSearches: string[]
     searchKey: string
+    isFocused: boolean
+}
+export type _SearchContextProps = {
+    setIsFocused: (focused: boolean) => void
 }
 
 export const SearchContext = createContext({} as SearchContextProps)
+export const _SearchContext = createContext({} as _SearchContextProps)
 
 type Props = {
     children: ReactNode
@@ -71,6 +76,8 @@ const SearchContextManager = ({
     const [trendingSearches, setTrendingSearches] = useState<string[]>([])
     // do a search for a term and optionally a channel
     const setSearch = useCallback((term: string) => setTerm(term), [])
+
+    const [isFocused, setIsFocused] = useState(false)
 
     const searchKey = [term, options.type, channelSearch, activeChannel?.user?.username || '']
         .filter((val) => !!val)
@@ -140,11 +147,14 @@ const SearchContextManager = ({
                 fetchAnimatedText,
                 searchKey,
                 isFetching,
+                isFocused,
             }}
         >
-            <ThemeProvider theme={initTheme(theme)}>
-                <PingbackContextManager attributes={{ layout_type: 'SEARCH' }}>{children}</PingbackContextManager>
-            </ThemeProvider>
+            <_SearchContext.Provider value={{ setIsFocused }}>
+                <ThemeProvider theme={initTheme(theme)}>
+                    <PingbackContextManager attributes={{ layout_type: 'SEARCH' }}>{children}</PingbackContextManager>
+                </ThemeProvider>
+            </_SearchContext.Provider>
         </SearchContext.Provider>
     )
 }
