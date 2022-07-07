@@ -1,7 +1,7 @@
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
 import Bricks from 'bricks.js'
-import { css, cx } from 'emotion'
+import { css, cx } from '@emotion/css'
 import { Component, h, JSX } from 'preact'
 import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'

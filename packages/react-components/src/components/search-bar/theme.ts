@@ -1,5 +1,4 @@
-import { css } from '@emotion/core'
-import styled, { CreateStyled } from '@emotion/styled'
+import { css } from '@emotion/react'
 
 export type SearchTheme = {
     mode: 'dark' | 'light'
@@ -9,6 +8,10 @@ export type SearchTheme = {
     smallSearchbarHeight: number
     condensedMediaQuery?: string
     condensedMode?: boolean
+}
+
+export type PropsWithSearchTheme<TProps = any> = TProps & {
+    theme: SearchTheme
 }
 
 export const initTheme = (theme?: Partial<SearchTheme>): SearchTheme => {
@@ -37,5 +40,3 @@ export const getSize = (theme: SearchTheme, includeWidth: boolean = false) => cs
         `};
     }
 `
-
-export default styled as CreateStyled<SearchTheme>

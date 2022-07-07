@@ -1,5 +1,5 @@
 import { getGifHeight } from '@giphy/js-util'
-import { css, cx } from 'emotion'
+import { css, cx } from '@emotion/css'
 import { ComponentProps, h } from 'preact'
 import { useCallback, useEffect, useState } from 'preact/hooks'
 import { PauseIcon, PlayIcon } from './controls/play-pause'

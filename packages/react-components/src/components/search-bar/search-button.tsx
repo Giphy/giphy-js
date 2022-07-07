@@ -1,9 +1,10 @@
-import { keyframes } from '@emotion/core'
+import { keyframes } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { useContext } from 'react'
 import useThrottle from 'react-use/lib/useThrottle'
 import { SearchContext } from './context'
 import SearchIcon_ from './search-icon'
-import styled, { getSize } from './theme'
+import { getSize, PropsWithSearchTheme } from './theme'
 
 const time = '2s'
 const purp = '#9933FF'
@@ -55,7 +56,7 @@ const Container = styled.div`
     @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
         display: none;
     }
-    ${(props) => getSize(props.theme, true)}
+    ${(props: PropsWithSearchTheme) => getSize(props.theme, true)}
 `
 
 const GradientBox = styled.div`

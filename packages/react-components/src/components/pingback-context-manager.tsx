@@ -1,7 +1,11 @@
 import { mergeAttributes, PingbackAttributes } from '@giphy/js-analytics'
-import React, { createContext, FC, useContext } from 'react'
+import React, { createContext, FC, useContext, ReactNode } from 'react'
 
-type PingbackContextProps = { attributes: PingbackAttributes }
+type PingbackContextProps = {
+    attributes: PingbackAttributes
+    children?: ReactNode
+}
+
 export const PingbackContext = createContext({} as PingbackContextProps)
 
 // aggrigate attributes

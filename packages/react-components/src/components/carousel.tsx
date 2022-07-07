@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifWidth } from '@giphy/js-util'
-import React, { PureComponent, ReactType } from 'react'
+import React, { PureComponent, ElementType } from 'react'
 import { debounce } from 'throttle-debounce'
 import ObserverShared from '../util/observer'
 import Gif_, { EventProps } from './gif'
@@ -54,7 +54,7 @@ type Props = {
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
-    overlay?: ReactType<GifOverlayProps>
+    overlay?: ElementType<GifOverlayProps>
     hideAttribution?: boolean
     noLink?: boolean
     noResultsMessage?: string | JSX.Element

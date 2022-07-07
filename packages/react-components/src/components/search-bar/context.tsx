@@ -1,6 +1,6 @@
 import { GifsResult, GiphyFetch, SearchOptions, serverUrl } from '@giphy/js-fetch-api'
 import { IChannel } from '@giphy/js-types'
-import { ThemeProvider } from 'emotion-theming'
+import { ThemeProvider } from '@emotion/react'
 import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import PingbackContextManager from '../pingback-context-manager'
 import { initTheme, SearchTheme } from './theme'

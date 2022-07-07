@@ -4,8 +4,9 @@ import React, { useContext } from 'react'
 import Avatar_ from '../../attribution/avatar'
 import VerifiedBadge from '../../attribution/verified-badge'
 import { SearchContext } from '../context'
-import styled, { getSize } from '../theme'
+import { getSize, PropsWithSearchTheme } from '../theme'
 import TrendingIcon_ from './trending-icon'
+import styled from '@emotion/styled'
 
 const margin = 9
 const ChannelPillContainer = styled.div`
@@ -30,7 +31,7 @@ const TrendingSearchPillContainer = styled.div`
 `
 
 const Avatar = styled(Avatar_)`
-    ${(props) => getSize(props.theme, true)}
+    ${(props: PropsWithSearchTheme) => getSize(props.theme, true)}
 `
 
 const TrendingIcon = styled(TrendingIcon_)`

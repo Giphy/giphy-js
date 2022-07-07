@@ -1,5 +1,5 @@
 import { loader } from '@giphy/js-brand'
-import { cx } from 'emotion'
+import { cx } from '@emotion/css'
 import { h } from 'preact'
 
 // trying to share css from brand, but this has an element structure

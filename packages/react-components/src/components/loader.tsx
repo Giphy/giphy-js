@@ -1,4 +1,4 @@
-import { keyframes } from '@emotion/core'
+import { keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import React from 'react'
