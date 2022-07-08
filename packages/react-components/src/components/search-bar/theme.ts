@@ -10,10 +10,6 @@ export type SearchTheme = {
     condensedMode?: boolean
 }
 
-export type PropsWithSearchTheme<TProps = any> = TProps & {
-    theme: SearchTheme
-}
-
 export const initTheme = (theme?: Partial<SearchTheme>): SearchTheme => {
     return {
         mode: 'light',

@@ -6,7 +6,7 @@ import useDebounce from 'react-use/lib/useDebounce'
 import { SearchContext, _SearchContext } from './context'
 import SearchBarChannel from './search-bar-channel'
 import SearchButton from './search-button'
-import { getSize, PropsWithSearchTheme } from './theme'
+import { getSize } from './theme'
 
 function usePrevious<T>(value: T) {
     const ref = useRef<T>(value)
@@ -30,11 +30,11 @@ type Props = {
 const Container = styled.div`
     display: flex;
     background: white;
-    ${(props: PropsWithSearchTheme) => getSize(props.theme)}
+    ${(props) => getSize(props.theme)}
 `
 
 const Input = styled.input<{ isUsernameSearch: boolean }>`
-    background: ${(props: PropsWithSearchTheme) => (props.theme.mode === 'dark' ? giphyCharcoal : giphyWhite)};
+    background: ${(props) => (props.theme.mode === 'dark' ? giphyCharcoal : giphyWhite)};
     box-sizing: border-box;
     border: 0;
     appearance: none;
@@ -45,9 +45,9 @@ const Input = styled.input<{ isUsernameSearch: boolean }>`
     padding: 0 10px;
     border-radius: 0;
     text-overflow: ellipsis;
-    color: ${(props: PropsWithSearchTheme) => (props.theme.mode === 'dark' ? giphyWhite : giphyBlack)};
+    color: ${(props) => (props.theme.mode === 'dark' ? giphyWhite : giphyBlack)};
     &::placeholder {
-        color: ${(props: PropsWithSearchTheme) => (props.theme.mode === 'dark' ? giphyLightGrey : giphyLightGrey)};
+        color: ${(props) => (props.theme.mode === 'dark' ? giphyLightGrey : giphyLightGrey)};
     }
     min-width: 150px;
     flex: 1;

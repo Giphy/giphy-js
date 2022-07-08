@@ -4,7 +4,7 @@ import React, { useContext } from 'react'
 import useThrottle from 'react-use/lib/useThrottle'
 import { SearchContext } from './context'
 import SearchIcon_ from './search-icon'
-import { getSize, PropsWithSearchTheme } from './theme'
+import { getSize } from './theme'
 
 const time = '2s'
 const purp = '#9933FF'
@@ -56,7 +56,7 @@ const Container = styled.div`
     @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
         display: none;
     }
-    ${(props: PropsWithSearchTheme) => getSize(props.theme, true)}
+    ${(props) => getSize(props.theme, true)}
 `
 
 const GradientBox = styled.div`
