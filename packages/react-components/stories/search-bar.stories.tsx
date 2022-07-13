@@ -81,6 +81,12 @@ export const SearchExperience = () => (
     </SearchContextManager>
 )
 
+export const SearchExperienceNoCancel = () => (
+    <SearchContextManager apiKey={apiKey} theme={{ hideCancelButton: true }}>
+        <Components />
+    </SearchContextManager>
+)
+
 export const SearchExperienceStickersDefault = () => (
     <SearchContextManager apiKey={apiKey} options={{ type: 'stickers' }}>
         <Components />
