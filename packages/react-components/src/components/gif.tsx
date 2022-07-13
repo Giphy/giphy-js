@@ -1,9 +1,18 @@
-import { css } from '@emotion/core'
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
 import { getAltText, getBestRendition, getGifHeight, Logger } from '@giphy/js-util'
-import React, { ElementType, HTMLProps, SyntheticEvent, useContext, useEffect, useRef, useState } from 'react'
+import React, {
+    ElementType,
+    HTMLProps,
+    HTMLAttributes,
+    SyntheticEvent,
+    useContext,
+    useEffect,
+    useRef,
+    useState,
+} from 'react'
 import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
@@ -41,7 +50,7 @@ const hoverTimeoutDelay = 200
 
 type ContainerProps = HTMLProps<HTMLElement> & { href?: string; borderRadius: number }
 const Container = (props: ContainerProps) => (
-    <GifContainer as={props.href ? 'a' : 'div'} {...(props as HTMLProps<HTMLDivElement>)} />
+    <GifContainer as={props.href ? 'a' : 'div'} {...(props as HTMLAttributes<HTMLDivElement>)} />
 )
 
 export type EventProps = {

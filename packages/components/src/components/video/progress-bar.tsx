@@ -1,4 +1,4 @@
-import { css } from 'emotion'
+import { css } from '@emotion/css'
 import { giphyWhite } from '@giphy/js-brand'
 import { useState, useLayoutEffect } from 'preact/hooks'
 import { h } from 'preact'

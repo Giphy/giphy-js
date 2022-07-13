@@ -2,7 +2,7 @@ import { renderGif, Gif } from '../src'
 import { h, render as preactRender, Component } from 'preact'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
-import { css } from 'emotion'
+import { css } from '@emotion/css'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 const getEl = (targetEl: HTMLElement, selector: string): HTMLElement => {

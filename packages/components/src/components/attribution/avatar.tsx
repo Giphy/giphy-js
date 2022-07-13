@@ -1,14 +1,11 @@
 import { IUser } from '@giphy/js-types'
-import { css, cx } from 'emotion'
+import { css, cx } from '@emotion/css'
 import { h } from 'preact'
 import { useRef } from 'preact/hooks'
 
 const getSmallAvatar = (avatar: string) => {
     if (!avatar) return ''
-    const ext = avatar
-        ?.split('.')
-        ?.pop()
-        ?.toLowerCase()
+    const ext = avatar?.split('.')?.pop()?.toLowerCase()
     return avatar.replace(`.${ext}`, `/80h.${ext}`)
 }
 

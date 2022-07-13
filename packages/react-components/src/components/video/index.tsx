@@ -124,14 +124,14 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     }, AUTO_HIDE_TIMEOUT)
 
     const combinedOnMuted = useCallback(
-        (args) => {
+        (args: boolean) => {
             onMuted?.(args)
             setMutedByBrowser(args)
         },
         [setMutedByBrowser, onMuted]
     )
     const combinedSetVideoEl = useCallback(
-        (args) => {
+        (args: HTMLVideoElement) => {
             setVideoEl?.(args)
             _setVideoEl(args)
         },

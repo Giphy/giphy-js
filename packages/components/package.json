@@ -10,7 +10,7 @@
         "@types/bricks.js": "^1.8.1",
         "@types/throttle-debounce": "^2.1.0",
         "parcel-bundler": "latest",
-        "typescript": "^4.7.3"
+        "typescript": "^4.7.4"
     },
     "name": "@giphy/js-components",
     "version": "5.7.1",
@@ -28,13 +28,13 @@
         "access": "public"
     },
     "dependencies": {
+        "@emotion/css": "11.9.0",
         "@giphy/js-analytics": "^4.1.1",
         "@giphy/js-brand": "^2.2.2",
         "@giphy/js-fetch-api": "^4.3.1",
         "@giphy/js-types": "^4.2.1",
         "@giphy/js-util": "^4.1.1",
         "bricks.js": "^1.8.0",
-        "emotion": "10.0.27",
         "intersection-observer": "^0.11.0",
         "preact": "10.4.8",
         "throttle-debounce": "^3.0.1"

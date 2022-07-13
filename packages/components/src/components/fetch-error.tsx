@@ -1,5 +1,5 @@
 import { fontFamily, giphyBlue, giphyLightGrey } from '@giphy/js-brand'
-import { css } from 'emotion'
+import { css } from '@emotion/css'
 import { h } from 'preact'
 const fetchError = css`
     color: ${giphyLightGrey};

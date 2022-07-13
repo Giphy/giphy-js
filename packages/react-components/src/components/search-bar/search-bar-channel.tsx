@@ -1,10 +1,11 @@
-import { keyframes } from '@emotion/core'
+import { keyframes } from '@emotion/react'
+import styled from '@emotion/styled'
 import { giphyCharcoal, giphyDarkCharcoal, giphyWhite, giphyWhiteSmoke } from '@giphy/js-brand'
 import React, { useContext } from 'react'
 import Avatar_ from '../attribution/avatar'
 import VerifiedBadge from '../attribution/verified-badge'
 import { SearchContext } from './context'
-import styled, { SearchTheme } from './theme'
+import { SearchTheme } from './theme'
 
 const channelMargin = 6
 
@@ -21,7 +22,7 @@ const Avatar = styled(Avatar_)`
     height: ${(props) => channelSearchHeight(props.theme)}px;
     margin: 0;
     width: 0;
-    animation: ${(props) => animateAvatar(channelSearchHeight(props.theme))} 100ms ease-in-out forwards;
+    animation: ${(props) => animateAvatar(channelSearchHeight(props.theme as SearchTheme))} 100ms ease-in-out forwards;
     @media (${(props) => props.theme.condensedMediaQuery}) {
         height: ${(props) => smallChannelSearchHeight(props.theme)}px;
         animation: ${(props) => animateAvatar(smallChannelSearchHeight(props.theme))} 100ms ease-in-out forwards;

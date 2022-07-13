@@ -1,5 +1,4 @@
-import { css } from '@emotion/core'
-import styled, { CreateStyled } from '@emotion/styled'
+import { css } from '@emotion/react'
 
 export type SearchTheme = {
     mode: 'dark' | 'light'
@@ -37,5 +36,3 @@ export const getSize = (theme: SearchTheme, includeWidth: boolean = false) => cs
         `};
     }
 `
-
-export default styled as CreateStyled<SearchTheme>

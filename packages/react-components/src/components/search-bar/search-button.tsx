@@ -1,9 +1,10 @@
-import { keyframes } from '@emotion/core'
+import { keyframes } from '@emotion/react'
+import styled from '@emotion/styled'
 import React, { useContext } from 'react'
 import useThrottle from 'react-use/lib/useThrottle'
 import { SearchContext } from './context'
 import SearchIcon_ from './search-icon'
-import styled, { getSize } from './theme'
+import { getSize } from './theme'
 
 const time = '2s'
 const purp = '#9933FF'

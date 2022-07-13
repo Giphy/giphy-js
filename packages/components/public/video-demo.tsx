@@ -1,6 +1,6 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
-import { css } from 'emotion'
+import { css } from '@emotion/css'
 import { Component, render as preactRender, h } from 'preact'
 import { renderVideo, Video } from '../src'
 

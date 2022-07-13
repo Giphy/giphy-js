@@ -1,4 +1,4 @@
-import { css, cx } from 'emotion'
+import { css, cx } from '@emotion/css'
 import { getGifHeight } from '@giphy/js-util'
 import { useCallback, useEffect, useState } from 'preact/hooks'
 import VideoWrapper from './'
