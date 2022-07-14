@@ -36,6 +36,8 @@ export default {
 const Components = () => {
     const { fetchGifs, searchKey } = useContext(SearchContext)
     const { innerWidth } = useWindowSize()
+    const columns = innerWidth < 400 ? 2 : 4
+    const width = innerWidth - 16 * 2
     useLayoutEffect(() => {
         if (inPercy()) {
             fetchMock.mock(`begin:https://api.giphy.com/v1/channels/search`, {
@@ -67,8 +69,8 @@ const Components = () => {
             <SuggestionBar />
             <Grid
                 key={searchKey}
-                columns={innerWidth < 400 ? 2 : 4}
-                width={innerWidth - 16 * 2}
+                columns={inPercy() ? 2 : columns}
+                width={inPercy() ? 500 : width}
                 fetchGifs={fetchGifs}
             />
         </>
