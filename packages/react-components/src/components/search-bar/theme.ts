@@ -8,6 +8,7 @@ export type SearchTheme = {
     smallSearchbarHeight: number
     condensedMediaQuery?: string
     condensedMode?: boolean
+    hideCancelButton?: boolean
 }
 
 export const initTheme = (theme?: Partial<SearchTheme>): SearchTheme => {
@@ -17,6 +18,7 @@ export const initTheme = (theme?: Partial<SearchTheme>): SearchTheme => {
         smallSearchbarHeight: 35,
         // bump the condensedMediaQuery to force if condensedMode is true
         condensedMediaQuery: theme?.condensedMode ? `max-width: 99999px` : `max-width: 480px`,
+        hideCancelButton: false,
         ...theme,
     }
 }

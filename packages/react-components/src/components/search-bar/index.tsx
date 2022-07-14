@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import { giphyBlack, giphyCharcoal, giphyIndigo, giphyLightGrey, giphyWhite } from '@giphy/js-brand'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import useDebounce from 'react-use/lib/useDebounce'
+import CancelIcon from './cancel-icon'
 import { SearchContext, _SearchContext } from './context'
 import SearchBarChannel from './search-bar-channel'
 import SearchButton from './search-button'
@@ -30,6 +31,7 @@ type Props = {
 const Container = styled.div`
     display: flex;
     background: white;
+    align-items: center;
     ${(props) => getSize(props.theme)}
 `
 
@@ -146,6 +148,7 @@ const SearchBar = ({ className, placeholder = `Search GIPHY`, clear = false, aut
                 ref={inputRef}
                 onKeyUp={onKeyUp}
             />
+            <CancelIcon />
             <SearchButton />
         </Container>
     )
