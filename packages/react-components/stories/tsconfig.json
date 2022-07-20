@@ -1,0 +1,13 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "resolveJsonModule": true
+  },
+  "include": [
+    "./*.ts",
+    "./*.tsx",
+    "../src/*.ts",
+    "../src/*.tsx"
+  ]
+}

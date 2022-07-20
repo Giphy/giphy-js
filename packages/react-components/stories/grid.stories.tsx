@@ -6,8 +6,9 @@ import React, { ElementType, useEffect, useRef, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
-import inPercy from './in-percy'
+import inTestsRunner from './in-tests-runner'
 import mockGifsResult from './mock-data/gifs.json'
+import { Story } from '@storybook/react'
 
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
 const gf = new GiphyFetch(apiKey)
@@ -35,7 +36,11 @@ const NoResultsContainer = styled.div`
 
 const Overlay = ({ gif, isHovered }: GifOverlayProps) => <OverlayContainer>{isHovered ? gif.id : ''}</OverlayContainer>
 
-export const Grid = ({ loader }: { loader: ElementType }) => {
+type GridProps = {
+    loader: ElementType
+}
+
+export const Grid: Story<GridProps> = ({ loader }) => {
     const [term, setTerm] = useState('always sunny')
     const [width, setWidth] = useState(innerWidth)
     const onResize = throttle(500, () => setWidth(innerWidth))
@@ -50,7 +55,7 @@ export const Grid = ({ loader }: { loader: ElementType }) => {
     const NoResults = <NoResultsContainer>No results for {term}</NoResultsContainer>
 
     const fetchGifs = async (offset: number) => {
-        if (inPercy()) {
+        if (inTestsRunner()) {
             fetchMock
                 .restore()
                 .getOnce(`begin:https://api.giphy.com/v1/gifs/search?offset=0&limit=`, { body: mockGifsResult })
@@ -83,9 +88,9 @@ export const Grid = ({ loader }: { loader: ElementType }) => {
     )
 }
 
-export const GridCustomLoader = () => <Grid loader={() => <h1 style={{ textAlign: 'center' }}> 🌀 </h1>} />
+export const GridCustomLoader: Story = () => <Grid loader={() => <h1 style={{ textAlign: 'center' }}> 🌀 </h1>} />
 
-export const GridAPIError = () => {
+export const GridAPIError: Story = () => {
     const [width, setWidth] = useState(innerWidth)
     const mockRequest = useRef(true)
     const onResize = throttle(500, () => setWidth(innerWidth))

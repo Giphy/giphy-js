@@ -1,5 +1,6 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
+import { Story } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
 import React, { ComponentProps, useCallback, useEffect, useState } from 'react'
@@ -13,6 +14,7 @@ const eventAction = (event: string) => {
 }
 
 type Props = { id: string } & Partial<ComponentProps<typeof VideoComponent>>
+
 const VideoDemo = ({ id, width, height, muted, ccEnabled }: Props) => {
     const [gif, setGif] = useState<IGif>()
 
@@ -28,7 +30,7 @@ const VideoDemo = ({ id, width, height, muted, ccEnabled }: Props) => {
     return gif ? (
         <VideoComponent
             gif={gif}
-            width={width}
+            width={width as number}
             height={height}
             muted={muted}
             onFirstPlay={(ms: number) => eventAction(`can play in ${ms / 1000}`)}
@@ -49,7 +51,7 @@ export default {
     decorators: [withKnobs, jsxDecorator],
 }
 
-export const Video = () => (
+export const Video: Story = () => (
     <VideoDemo
         id={text('id', 'D068R9Ziv1iCjezKzG')}
         width={number('width', 300)}
@@ -58,7 +60,7 @@ export const Video = () => (
     />
 )
 
-export const VideoCaptionsBeta = () => (
+export const VideoCaptionsBeta: Story = () => (
     <>
         <h3 style={{ color: 'white' }}>Beta Feature</h3>
         <VideoDemo
@@ -71,7 +73,7 @@ export const VideoCaptionsBeta = () => (
     </>
 )
 
-export const VideoUserMuted = () => (
+export const VideoUserMuted: Story = () => (
     <VideoDemo
         id={text('id', 'obhOJFSwuTRN7VDY55')}
         width={number('width', 300)}
@@ -80,7 +82,7 @@ export const VideoUserMuted = () => (
     />
 )
 
-export const VideoNoContent = () => (
+export const VideoNoContent: Story = () => (
     <VideoDemo
         id={text('id', 'ZEU9ryYGZzttn0Cva7')}
         width={number('width', 300)}

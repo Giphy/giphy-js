@@ -7,8 +7,9 @@ import fetchMock from 'fetch-mock'
 import React, { useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { Attribution as AttributionComponent, Gif } from '../src'
-import inPercy from './in-percy'
+import inTestsRunner from './in-tests-runner'
 import mockGifResult from './mock-data/gif.json'
+import { Story } from '@storybook/react'
 
 const Container = styled.div`
     font-family: interface;
@@ -42,12 +43,13 @@ const makeDummy = (gif: IGif) => {
     }
     return gif
 }
-export const Attribution = () => {
+
+export const Attribution: Story = () => {
     const [gif, setGif] = useState<IGif | undefined>()
     useEffect(() => {
         const f = async () => {
             const id = 'l0HlyLQsbvhciAuKA'
-            if (inPercy()) {
+            if (inTestsRunner()) {
                 fetchMock.restore().getOnce(`begin:https://api.giphy.com/v1/gifs/${id}`, { body: mockGifResult })
             }
             const { data } = await gf.gif(text('gif id', id))

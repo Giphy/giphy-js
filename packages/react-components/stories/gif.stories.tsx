@@ -1,5 +1,6 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
+import { Story } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
 import React, { ElementType, useCallback, useEffect, useState } from 'react'
@@ -62,11 +63,11 @@ export default {
     decorators: [withKnobs, jsxDecorator],
 }
 
-export const Gif = () => (
+export const Gif: Story = () => (
     <GifDemo id={text('id', 'ZEU9ryYGZzttn0Cva7')} width={number('width', 300)} noLink={boolean('noLink', false)} />
 )
 
-export const GifWithVideoOverlay = () => (
+export const GifWithVideoOverlay: Story = () => (
     <GifDemo
         id={text('id', 'D068R9Ziv1iCjezKzG')}
         width={number('width', 500)}
@@ -75,7 +76,7 @@ export const GifWithVideoOverlay = () => (
     />
 )
 
-export const GifWithVideoOverlayFillVideo = () => (
+export const GifWithVideoOverlayFillVideo: Story = () => (
     <GifDemo
         id={text('id', '3BNRWBatePBETD7Bfg')}
         width={number('width', 500)}
@@ -85,7 +86,7 @@ export const GifWithVideoOverlayFillVideo = () => (
     />
 )
 
-export const GifNoBorderRadius = () => (
+export const GifNoBorderRadius: Story = () => (
     <GifDemo
         id={text('id', 'ZEU9ryYGZzttn0Cva7')}
         borderRadius={0}
@@ -93,9 +94,11 @@ export const GifNoBorderRadius = () => (
         noLink={boolean('noLink', false)}
     />
 )
-export const Sticker = () => (
+
+export const Sticker: Story = () => (
     <GifDemo id={text('id', 'l1J9FvenuBnI4GTeg')} width={number('width', 300)} noLink={boolean('noLink', false)} />
 )
+
 export const CustomPingbackGif = () => (
     <PingbackContext.Provider value={{ attributes: { 'some key': 'some value' } }}>
         <GifDemo id={text('id', 'ZEU9ryYGZzttn0Cva7')} width={number('width', 300)} noLink={boolean('noLink', false)} />
