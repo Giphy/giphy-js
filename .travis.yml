@@ -1,26 +1,48 @@
 language: node_js
 node_js:
-    - '14'
+  - '14'
+
+env:
+  # skip Puppeteer download, only needed for Netlify build
+  - PUPPETEER_SKIP_DOWNLOAD=1
+
+addons:
+  apt:
+    packages:
+      - libgconf-2-4
+
 cache:
-    yarn: true
-    directories:
-        - 'node_modules'
+  yarn: true
+  directories:
+    - 'node_modules'
+    - '~/.cache'
+
 before_script:
-    - yarn global add license-checker
-    - yarn run lerna bootstrap
-    - git checkout .
+  - yarn global add license-checker
+  - yarn run lerna bootstrap
+  - git checkout .
+  - yarn run cy:verify
+  - yarn run cy:info
+
 script:
-    - yarn run check-licenses
-    - yarn run dependency-cruiser
-    - yarn run lint
-    - yarn test
-    - yarn run snapshot
+  - yarn run check-licenses
+  - yarn run dependency-cruiser
+  - yarn run lint
+  - yarn test
+  - yarn run snapshot
+  - yarn run cy:run --record
+   # after all tests finish running we need
+  # to kill all background jobs (like "npm start &")
+  # this avoids flake in Travis jobs
+  - kill $(jobs -p) || true
+
 before_deploy:
-    - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc
+  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc
+
 deploy:
-    provider: script
-    script: 'yarn run lerna:publish'
-    skip_cleanup: true
-    on:
-        branch: master
-        condition: $TRAVIS_COMMIT_MESSAGE =~ ^Publish
+  provider: script
+  script: 'yarn run lerna:publish'
+  skip_cleanup: true
+  on:
+    branch: master
+    condition: $TRAVIS_COMMIT_MESSAGE =~ ^Publish

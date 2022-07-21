@@ -8,7 +8,9 @@
         "deploy-storybook": "storybook-to-ghpages",
         "snapshot": "NODE_ENV=PERCY build-storybook && percy storybook ./storybook-static",
         "cy:run": "npx cypress run --component",
-        "cy:open": "npx cypress open --component -b chrome"
+        "cy:open": "npx cypress open --component -b chrome",
+        "cy:verify": "cypress verify",
+        "cy:info": "cypress info"
     },
     "devDependencies": {
         "@babel/core": "^7.18.6",
