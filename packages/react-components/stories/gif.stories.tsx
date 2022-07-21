@@ -99,7 +99,7 @@ export const Sticker: Story = () => (
     <GifDemo id={text('id', 'l1J9FvenuBnI4GTeg')} width={number('width', 300)} noLink={boolean('noLink', false)} />
 )
 
-export const CustomPingbackGif = () => (
+export const CustomPingbackGif: Story = () => (
     <PingbackContext.Provider value={{ attributes: { 'some key': 'some value' } }}>
         <GifDemo id={text('id', 'ZEU9ryYGZzttn0Cva7')} width={number('width', 300)} noLink={boolean('noLink', false)} />
     </PingbackContext.Provider>

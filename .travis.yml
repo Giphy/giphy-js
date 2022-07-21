@@ -31,7 +31,7 @@ script:
   - yarn test
   - yarn run snapshot
   - yarn run cy:run --record
-   # after all tests finish running we need
+  # after all tests finish running we need
   # to kill all background jobs (like "npm start &")
   # this avoids flake in Travis jobs
   - kill $(jobs -p) || true
