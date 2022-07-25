@@ -3,9 +3,10 @@ import { number, withKnobs } from '@storybook/addon-knobs'
 import { useState } from '@storybook/addons'
 import fetchMock from 'fetch-mock'
 import * as React from 'react'
+import { Story } from '@storybook/react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { Carousel as CarouselComponent } from '../src'
-import inPercy from './in-percy'
+import inTestsRunner from './in-tests-runner'
 import mockGifsResult from './mock-data/gifs.json'
 
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
@@ -16,11 +17,11 @@ export default {
     decorators: [withKnobs, jsxDecorator],
 }
 
-export const SearchExample = () => {
+export const SearchExample: Story = () => {
     const [term, setTerm] = useState('dogs')
     const limit = number('limit', 5)
     const fetchGifs = async (offset: number) => {
-        if (inPercy()) {
+        if (inTestsRunner()) {
             fetchMock.restore().getOnce(`begin:https://api.giphy.com/v1/gifs/search?`, { body: mockGifsResult })
         }
         const result = await gf.search(term, { offset, limit })
@@ -38,8 +39,8 @@ export const SearchExample = () => {
             <CarouselComponent
                 key={term}
                 gifHeight={number('gif height', 200)}
-                gifWidth={number('gif width', undefined)}
-                backgroundColor={inPercy() ? 'white' : undefined}
+                gifWidth={number('gif width', undefined as any)}
+                backgroundColor={inTestsRunner() ? 'white' : undefined}
                 gutter={6}
                 fetchGifs={fetchGifs}
             />

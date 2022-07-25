@@ -8,11 +8,12 @@ import Grid_ from '../src/components/grid'
 import SearchBarComponent_ from '../src/components/search-bar'
 import SearchContextManager, { SearchContext } from '../src/components/search-bar/context'
 import SuggestionBar from '../src/components/search-bar/suggestion-bar'
-import inPercy from './in-percy'
+import inTestsRunner from './in-tests-runner'
 import mockChannelSearchResults from './mock-data/channels-search.json'
 import mockGifs from './mock-data/gifs.json'
 import mockTrendingSearches from './mock-data/trending-searches.json'
 import useWindowSize from './use-window-size'
+import { Story } from '@storybook/react'
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
 
 const Grid = styled(Grid_)`
@@ -39,7 +40,7 @@ const Components = () => {
     const columns = innerWidth < 400 ? 2 : 4
     const width = innerWidth - 16 * 2
     useLayoutEffect(() => {
-        if (inPercy()) {
+        if (inTestsRunner()) {
             fetchMock.mock(`begin:https://api.giphy.com/v1/channels/search`, {
                 body: mockChannelSearchResults,
             })
@@ -69,45 +70,45 @@ const Components = () => {
             <SuggestionBar />
             <Grid
                 key={searchKey}
-                columns={inPercy() ? 2 : columns}
-                width={inPercy() ? 500 : width}
+                columns={inTestsRunner() ? 2 : columns}
+                width={inTestsRunner() ? 500 : width}
                 fetchGifs={fetchGifs}
             />
         </>
     )
 }
 
-export const SearchExperience = () => (
+export const SearchExperience: Story = () => (
     <SearchContextManager apiKey={apiKey}>
         <Components />
     </SearchContextManager>
 )
 
-export const SearchExperienceNoCancel = () => (
+export const SearchExperienceNoCancel: Story = () => (
     <SearchContextManager apiKey={apiKey} theme={{ hideCancelButton: true }}>
         <Components />
     </SearchContextManager>
 )
 
-export const SearchExperienceStickersDefault = () => (
+export const SearchExperienceStickersDefault: Story = () => (
     <SearchContextManager apiKey={apiKey} options={{ type: 'stickers' }}>
         <Components />
     </SearchContextManager>
 )
 
-export const SearchExperienceNoDefault = () => (
+export const SearchExperienceNoDefault: Story = () => (
     <SearchContextManager apiKey={apiKey} shouldDefaultToTrending={false}>
         <Components />
     </SearchContextManager>
 )
 
-export const SearchExperienceCondensed = () => (
+export const SearchExperienceCondensed: Story = () => (
     <SearchContextManager apiKey={apiKey} theme={{ condensedMode: true }}>
         <Components />
     </SearchContextManager>
 )
 
-export const SearchExperienceInitialTerm = () => {
+export const SearchExperienceInitialTerm: Story = () => {
     return (
         <SearchContextManager apiKey={apiKey} initialTerm="skateboard">
             <Components />
@@ -115,7 +116,7 @@ export const SearchExperienceInitialTerm = () => {
     )
 }
 
-export const SearchExperienceInitialChannelSearch = () => {
+export const SearchExperienceInitialChannelSearch: Story = () => {
     return (
         <SearchContextManager apiKey={apiKey} initialTerm="@nba">
             <Components />

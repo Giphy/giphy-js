@@ -1,4 +1,4 @@
-const isPercy = process.env.NODE_ENV === 'PERCY' // isPercy package doesn't work here
+const isTestsRunner = process.env.NODE_ENV === 'PERCY' || process.env.NODE_ENV === 'cypress' // isPercy package doesn't work here
 
 module.exports = {
     stories: ['../**/*.stories.tsx'],
@@ -15,7 +15,7 @@ module.exports = {
     ${head}
     <style>
     ${
-        isPercy &&
+        isTestsRunner &&
         `video {
             opacity: 0 !important;
         }

@@ -5,6 +5,7 @@ import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
 import React, { useCallback, useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import VideoPlayer from '../src/components/video'
+import { Story } from '@storybook/react'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
@@ -27,7 +28,7 @@ export default {
     decorators: [withKnobs, jsxDecorator],
 }
 
-export const VideoWithControls = () => {
+export const VideoWithControls: Story = () => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -42,7 +43,7 @@ export const VideoWithControls = () => {
     )
 }
 
-export const VideoNoAttribution = () => {
+export const VideoNoAttribution: Story = () => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -58,7 +59,7 @@ export const VideoNoAttribution = () => {
     )
 }
 
-export const VideoNoProgressBar = () => {
+export const VideoNoProgressBar: Story = () => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -74,7 +75,7 @@ export const VideoNoProgressBar = () => {
     )
 }
 
-export const VideoNoMute = () => {
+export const VideoNoMute: Story = () => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -90,7 +91,7 @@ export const VideoNoMute = () => {
     )
 }
 
-export const VideoPersistentControlsSmall = () => {
+export const VideoPersistentControlsSmall: Story = () => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -106,7 +107,7 @@ export const VideoPersistentControlsSmall = () => {
     )
 }
 
-export const VideoPersistentControlsMedium = () => {
+export const VideoPersistentControlsMedium: Story = () => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -122,7 +123,7 @@ export const VideoPersistentControlsMedium = () => {
     )
 }
 
-export const VideoPersistentControlsLarge = () => {
+export const VideoPersistentControlsLarge: Story = () => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -144,7 +145,7 @@ const Overlay = styled.div`
     bottom: 5px;
     right: 5px;
 `
-export const VideoOverlay = () => {
+export const VideoOverlay: Story = () => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
