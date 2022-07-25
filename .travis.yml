@@ -30,7 +30,7 @@ script:
   - yarn run lint
   - yarn test
   - yarn run snapshot
-  - yarn run cy:run --record
+  - yarn run cy:run --record --key ${CYPRESS_RECORD_KEY}
   # after all tests finish running we need
   # to kill all background jobs (like "npm start &")
   # this avoids flake in Travis jobs

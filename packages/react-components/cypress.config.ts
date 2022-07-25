@@ -4,6 +4,7 @@ export default defineConfig({
     requestTimeout: 30000,
     video: false,
     viewportWidth: 1100,
+    projectId: 'zse12i',
     env: {
         NODE_ENV: 'cypress',
     },
