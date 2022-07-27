@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@emotion/react'
-import { GifsResult, GiphyFetch, SearchOptions, serverUrl } from '@giphy/js-fetch-api'
+import { GifsResult, GiphyFetch, request, Result, SearchOptions } from '@giphy/js-fetch-api'
 import { IChannel } from '@giphy/js-types'
 import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import PingbackContextManager from '../pingback-context-manager'
@@ -127,19 +127,16 @@ const SearchContextManager = ({
     )
     const fetchChannelSearch = useCallback(
         async (offset: number) => {
-            const search = (channelSearch || term).replace('@', '')
-            const result = await fetch(
-                `${serverUrl}channels/search?q=${encodeURIComponent(search)}&offset=${offset}&api_key=${apiKey}`
-            )
-            const { data } = await result.json()
-            return data as IChannel[]
+            const { data } = (await request(
+                `channels/search?q=${encodeURIComponent(channelSearch)}&offset=${offset}&api_key=${apiKey}`
+            )) as Result & { data: IChannel[] }
+            return data
         },
-        [apiKey, term, channelSearch]
+        [apiKey, channelSearch]
     )
     useEffect(() => {
         const fetchTrendingSearches = async () => {
-            const result = await fetch(`${serverUrl}trending/searches?api_key=${apiKey}`)
-            const { data } = await result.json()
+            const { data } = (await request(`trending/searches?api_key=${apiKey}`)) as Result & { data: string[] }
             setTrendingSearches(data || [])
         }
         fetchTrendingSearches()
