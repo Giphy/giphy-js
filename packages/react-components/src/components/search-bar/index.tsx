@@ -26,6 +26,7 @@ type Props = {
     // leaves the term in context unaffected
     clear?: boolean
     autoFocus?: boolean
+    searchDebounce?: number
 }
 
 const Container = styled.div`
@@ -60,7 +61,13 @@ const Input = styled.input<{ isUsernameSearch: boolean }>`
         `}
 `
 
-const SearchBar = ({ className, placeholder = `Search GIPHY`, clear = false, autoFocus }: Props) => {
+const SearchBar = ({
+    className,
+    placeholder = `Search GIPHY`,
+    clear = false,
+    autoFocus,
+    searchDebounce = SEARCH_DEBOUNCE,
+}: Props) => {
     const { setSearch, activeChannel, setActiveChannel, term, channelSearch } = useContext(SearchContext)
     const { setIsFocused } = useContext(_SearchContext)
 
@@ -70,7 +77,7 @@ const SearchBar = ({ className, placeholder = `Search GIPHY`, clear = false, aut
     // used to see if the last term was a '' before clearing
     const lastTerm = usePrevious(debouncedTerm)
     // set the term when it changes
-    useDebounce(() => setSearch(debouncedTerm), SEARCH_DEBOUNCE, [debouncedTerm])
+    useDebounce(() => setSearch(debouncedTerm), searchDebounce, [debouncedTerm])
 
     // used only to focus the input
     const inputRef = useRef<HTMLInputElement | null>(null)
