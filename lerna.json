@@ -3,7 +3,7 @@
     "command": {
         "publish": {
             "ignoreChanges": ["ignored-file", "*.md"],
-            "allowBranch": ["master"]
+            "allowBranch": ["master", "fix/react-components-search-bar-input"]
         }
     },
     "version": "independent",
