@@ -70,15 +70,15 @@ const SearchBar = ({
     searchDebounce = SEARCH_DEBOUNCE,
 }: Props) => {
     const { activeChannel, setActiveChannel, term, channelSearch } = useContext(SearchContext)
-    const { setIsFocused, _term, _setSearch } = useContext(_SearchContext)
+    const { setIsFocused, _inputValOverride, _setSearch } = useContext(_SearchContext)
 
-    // debounce local input
-    const [debouncedTerm, setDebouncedInput] = useState<string>(term)
+    // the input val
+    const [val, setVal] = useState<string>(term)
 
     // used to see if the last term was a '' before clearing
-    const lastTerm = usePrevious(debouncedTerm)
-    // set the term when it changes
-    useDebounce(() => _setSearch(debouncedTerm), searchDebounce, [debouncedTerm])
+    const lastTerm = usePrevious(val)
+    // set the term when it changes after searchDebounce
+    useDebounce(() => _setSearch(val), searchDebounce, [val])
 
     // used only to focus the input
     const inputRef = useRef<HTMLInputElement | null>(null)
@@ -97,9 +97,9 @@ const SearchBar = ({
         // so the user can search the channel
         if (activeChannel && !previousActiveChannel) {
             inputRef.current?.focus()
-            setDebouncedInput('')
+            setVal('')
         }
-    }, [debouncedTerm, activeChannel, previousActiveChannel])
+    }, [val, activeChannel, previousActiveChannel])
 
     const [isCleared, setCleared] = useState(clear)
 
@@ -107,10 +107,10 @@ const SearchBar = ({
         setCleared(clear)
     }, [clear])
 
-    // a pill could have been clicked, update our local term state
+    // something is setting the input value
     useEffect(() => {
-        setDebouncedInput(_term)
-    }, [_term, setDebouncedInput])
+        setVal(_inputValOverride)
+    }, [_inputValOverride, setVal])
 
     // key ups to clear the active channel
     const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -139,7 +139,7 @@ const SearchBar = ({
                 onChange={({ target: { value } }) => {
                     if (!isCleared || value !== '') {
                         setCleared(false)
-                        setDebouncedInput(value)
+                        setVal(value)
                     }
                 }}
                 onFocus={() => {
@@ -148,7 +148,7 @@ const SearchBar = ({
                 onBlur={() => {
                     setIsFocused(false)
                 }}
-                value={isCleared ? '' : debouncedTerm}
+                value={isCleared ? '' : val}
                 placeholder={activeChannel ? `Search ${activeChannel.display_name}` : placeholder}
                 autoCapitalize="off"
                 autoCorrect="off"
@@ -156,7 +156,7 @@ const SearchBar = ({
                 ref={inputRef}
                 onKeyUp={onKeyUp}
             />
-            <CancelIcon />
+            <CancelIcon setCleared={setCleared} />
             <SearchButton />
         </Container>
     )
