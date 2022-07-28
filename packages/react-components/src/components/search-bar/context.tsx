@@ -1,6 +1,6 @@
+import { ThemeProvider } from '@emotion/react'
 import { GifsResult, GiphyFetch, SearchOptions, serverUrl } from '@giphy/js-fetch-api'
 import { IChannel } from '@giphy/js-types'
-import { ThemeProvider } from '@emotion/react'
 import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import PingbackContextManager from '../pingback-context-manager'
 import { initTheme, SearchTheme } from './theme'
@@ -21,6 +21,8 @@ export type SearchContextProps = {
 }
 export type _SearchContextProps = {
     setIsFocused: (focused: boolean) => void
+    _setSearch: (searchTerm: string) => void
+    _term: string
 }
 
 export const SearchContext = createContext({} as SearchContextProps)
@@ -53,7 +55,15 @@ const SearchContextManager = ({
     const gf = useMemo(() => new GiphyFetch(apiKey), [apiKey])
 
     // the search term
+    const [_term, setOverrideTerm] = useState<string>(initialTerm)
     const [term, setTerm] = useState<string>(initialTerm)
+
+    // do a search for a term and optionally a channel
+    const setSearch = useCallback((term: string) => {
+        setTerm(term)
+        setOverrideTerm(term)
+    }, [])
+    const _setSearch = useCallback((term: string) => setTerm(term), [])
 
     const [isFetching, setIsFetching] = useState(false)
 
@@ -69,13 +79,11 @@ const SearchContextManager = ({
 
     const setActiveChannel = useCallback((activeChannel: IChannel | undefined) => {
         _setActiveChannel(activeChannel)
-        setTerm('') // TODO: clear this here?
+        setTerm('')
     }, [])
 
     // fetched list of trending search terms
     const [trendingSearches, setTrendingSearches] = useState<string[]>([])
-    // do a search for a term and optionally a channel
-    const setSearch = useCallback((term: string) => setTerm(term), [])
 
     const [isFocused, setIsFocused] = useState(false)
 
@@ -150,7 +158,7 @@ const SearchContextManager = ({
                 isFocused,
             }}
         >
-            <_SearchContext.Provider value={{ setIsFocused }}>
+            <_SearchContext.Provider value={{ setIsFocused, _setSearch, _term }}>
                 <ThemeProvider theme={initTheme(theme)}>
                     <PingbackContextManager attributes={{ layout_type: 'SEARCH' }}>{children}</PingbackContextManager>
                 </ThemeProvider>
