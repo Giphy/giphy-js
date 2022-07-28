@@ -22,10 +22,11 @@ export type SearchContextProps = {
 export type _SearchContextProps = {
     setIsFocused: (focused: boolean) => void
     _setSearch: (searchTerm: string) => void
-    _term: string
+    _inputValOverride: string
 }
 
 export const SearchContext = createContext({} as SearchContextProps)
+// for internal components
 export const _SearchContext = createContext({} as _SearchContextProps)
 
 type Props = {
@@ -54,17 +55,14 @@ const SearchContextManager = ({
 }: Props) => {
     const gf = useMemo(() => new GiphyFetch(apiKey), [apiKey])
 
-    // the search term
-    const [_term, setOverrideTerm] = useState<string>(initialTerm)
-    const [term, setTerm] = useState<string>(initialTerm)
-
-    // do a search for a term and optionally a channel
-    const setSearch = useCallback((term: string) => {
-        setTerm(term)
-        setOverrideTerm(term)
-    }, [])
-    const _setSearch = useCallback((term: string) => setTerm(term), [])
-
+    // the input value
+    const [term, _setSearch] = useState<string>(initialTerm)
+    // will replace the current input value with this value
+    // until the user types again.
+    // there needs to be a second state otherwise
+    // with the input value being debounced, there seems to be a race condition that
+    // manifests in Cypress tests
+    const [_inputValOverride, setSearch] = useState<string>(initialTerm)
     const [isFetching, setIsFetching] = useState(false)
 
     // a user name search
@@ -79,7 +77,7 @@ const SearchContextManager = ({
 
     const setActiveChannel = useCallback((activeChannel: IChannel | undefined) => {
         _setActiveChannel(activeChannel)
-        setTerm('')
+        _setSearch('')
     }, [])
 
     // fetched list of trending search terms
@@ -158,7 +156,7 @@ const SearchContextManager = ({
                 isFocused,
             }}
         >
-            <_SearchContext.Provider value={{ setIsFocused, _setSearch, _term }}>
+            <_SearchContext.Provider value={{ setIsFocused, _setSearch, _inputValOverride }}>
                 <ThemeProvider theme={initTheme(theme)}>
                     <PingbackContextManager attributes={{ layout_type: 'SEARCH' }}>{children}</PingbackContextManager>
                 </ThemeProvider>

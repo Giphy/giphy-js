@@ -15,10 +15,10 @@ const Icon = styled.svg`
         `};
 `
 
-type Props = { width?: number; height?: number }
+type Props = { width?: number; height?: number; setCleared: (clear: boolean) => void }
 
-const CancelIcon = ({ width = 17, height = 17 }: Props) => {
-    const { term, setSearch, setActiveChannel, activeChannel } = useContext(SearchContext)
+const CancelIcon = ({ width = 17, height = 17, setCleared }: Props) => {
+    const { term, setActiveChannel, activeChannel } = useContext(SearchContext)
     return term || activeChannel ? (
         <Icon
             width={width}
@@ -29,7 +29,7 @@ const CancelIcon = ({ width = 17, height = 17 }: Props) => {
             onClick={(e) => {
                 e.stopPropagation()
                 e.preventDefault()
-                setSearch('')
+                setCleared(true)
                 setActiveChannel(undefined)
             }}
         >
