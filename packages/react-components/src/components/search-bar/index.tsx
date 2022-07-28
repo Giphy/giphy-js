@@ -27,6 +27,7 @@ type Props = {
     clear?: boolean
     autoFocus?: boolean
     searchDebounce?: number
+    initialTerm?: string
 }
 
 const Container = styled.div`
@@ -68,8 +69,8 @@ const SearchBar = ({
     autoFocus,
     searchDebounce = SEARCH_DEBOUNCE,
 }: Props) => {
-    const { setSearch, activeChannel, setActiveChannel, term, channelSearch } = useContext(SearchContext)
-    const { setIsFocused } = useContext(_SearchContext)
+    const { activeChannel, setActiveChannel, term, channelSearch } = useContext(SearchContext)
+    const { setIsFocused, _term, _setSearch } = useContext(_SearchContext)
 
     // debounce local input
     const [debouncedTerm, setDebouncedInput] = useState<string>(term)
@@ -77,7 +78,7 @@ const SearchBar = ({
     // used to see if the last term was a '' before clearing
     const lastTerm = usePrevious(debouncedTerm)
     // set the term when it changes
-    useDebounce(() => setSearch(debouncedTerm), searchDebounce, [debouncedTerm])
+    useDebounce(() => _setSearch(debouncedTerm), searchDebounce, [debouncedTerm])
 
     // used only to focus the input
     const inputRef = useRef<HTMLInputElement | null>(null)
@@ -100,16 +101,16 @@ const SearchBar = ({
         }
     }, [debouncedTerm, activeChannel, previousActiveChannel])
 
-    // a pill could have been clicked, update our local term state
-    useEffect(() => {
-        setDebouncedInput(term)
-    }, [term])
-
     const [isCleared, setCleared] = useState(clear)
 
     useEffect(() => {
         setCleared(clear)
     }, [clear])
+
+    // a pill could have been clicked, update our local term state
+    useEffect(() => {
+        setDebouncedInput(_term)
+    }, [_term, setDebouncedInput])
 
     // key ups to clear the active channel
     const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
