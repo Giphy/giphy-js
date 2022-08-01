@@ -15,7 +15,9 @@ const eventAction = (event: string) => {
 
 type Props = { id: string } & Partial<ComponentProps<typeof VideoComponent>>
 
-const VideoDemo = ({ id, width, height, muted, ccEnabled }: Props) => {
+type StoryProps = Partial<Props>
+
+const VideoDemo = ({ id, width, height, muted, ccEnabled, ...other }: Props) => {
     const [gif, setGif] = useState<IGif>()
 
     const fetch = useCallback(async () => {
@@ -42,6 +44,7 @@ const VideoDemo = ({ id, width, height, muted, ccEnabled }: Props) => {
             onWaiting={(count: number) => eventAction(`on waiting: ${count}`)}
             ccEnabled={ccEnabled}
             // onTimeUpdate={(t) => console.log(t)}
+            {...other}
         />
     ) : null
 }
@@ -51,16 +54,17 @@ export default {
     decorators: [withKnobs, jsxDecorator],
 }
 
-export const Video: Story = () => (
+export const Video: Story<StoryProps> = (props) => (
     <VideoDemo
         id={text('id', 'D068R9Ziv1iCjezKzG')}
         width={number('width', 300)}
         height={number('height', 0)}
         muted={boolean('muted', false)}
+        {...props}
     />
 )
 
-export const VideoCaptionsBeta: Story = () => (
+export const VideoCaptionsBeta: Story<StoryProps> = (props) => (
     <>
         <h3 style={{ color: 'white' }}>Beta Feature</h3>
         <VideoDemo
@@ -69,24 +73,27 @@ export const VideoCaptionsBeta: Story = () => (
             height={number('height', 0)}
             muted={boolean('muted', true)}
             ccEnabled={boolean('ccEnabled', true)}
+            {...props}
         />
     </>
 )
 
-export const VideoUserMuted: Story = () => (
+export const VideoUserMuted: Story<StoryProps> = (props) => (
     <VideoDemo
         id={text('id', 'obhOJFSwuTRN7VDY55')}
         width={number('width', 300)}
         height={number('height', 0)}
         muted={boolean('muted', true)}
+        {...props}
     />
 )
 
-export const VideoNoContent: Story = () => (
+export const VideoNoContent: Story<StoryProps> = (props) => (
     <VideoDemo
         id={text('id', 'ZEU9ryYGZzttn0Cva7')}
         width={number('width', 300)}
         height={number('height', 0)}
         muted={boolean('muted', true)}
+        {...props}
     />
 )

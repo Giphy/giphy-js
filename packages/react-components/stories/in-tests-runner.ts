@@ -1,2 +1,4 @@
-const inTestsRunner = () => process.env.NODE_ENV === 'PERCY' || process.env.NODE_ENV === 'cypress'
+const inTestsRunner = () => {
+    return process.env.NODE_ENV === 'PERCY' || !!(window as any).Cypress
+}
 export default inTestsRunner
