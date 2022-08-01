@@ -22,14 +22,14 @@ function getCarouselRoot() {
 }
 
 function getCarouselGifs() {
-    return getCarouselRoot().children('[data-gph-gif]')
+    return getCarouselRoot().children('[data-giphy-id]')
 }
 
 function forEachGif(fn: (gifId: string, index: number) => void) {
     getCarouselGifs().each((gif, idx) =>
         cy
             .wrap(gif)
-            .invoke('attr', 'data-gph-gif')
+            .invoke('attr', 'data-giphy-id')
             .then((gifId) => fn(gifId as string, idx))
     )
 }

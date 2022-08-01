@@ -47,7 +47,7 @@ export function setupGifTestUtils(gifId: string): GifTestUtilsContext {
 }
 
 export function getGifRoot(gidId: string) {
-    return cy.get(`[data-cy-root] [data-gph-gif=${gidId}]`)
+    return cy.get(`[data-cy-root] .${Gif.className}[data-giphy-id="${gidId}"]`)
 }
 
 export function resetGifEventsHistory(ctx: GifTestUtilsContext) {
@@ -60,7 +60,7 @@ export function checkGifIsVisible(ctx: GifTestUtilsContext, options: BaseAssertO
     const { gifId } = ctx
     const { onGifVisible } = ctx.events
 
-    getGifRoot(gifId).get('img.giphy-img-loaded').should('be.visible')
+    getGifRoot(gifId).get(`.${Gif.imgLoadedClassName}`).should('be.visible')
     cy.wrap(onGifVisible).should('be.calledBefore', '@onGifSeen').and('be.calledWithMatch', { id: gifId })
 
     if (options.takeSnapshots) {

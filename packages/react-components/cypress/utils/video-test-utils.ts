@@ -1,7 +1,8 @@
-import VideoComponent from '../../src/components/video'
+import Video from '../../src/components/video/video'
+import VideoPlayer from '../../src/components/video'
 import { ComponentEventStubs } from './types'
 
-export type VideoEventStubs = ComponentEventStubs<typeof VideoComponent>
+export type VideoEventStubs = ComponentEventStubs<typeof VideoPlayer>
 
 export type VideoTestUtilsContext = {
     gifId: string
@@ -56,7 +57,7 @@ export function setupVideoTestUtils(gifId: string, options: TestUtilsOptions = {
 }
 
 export function getVideoElement(gidId: string): Cypress.Chainable<JQuery<HTMLVideoElement>> {
-    return cy.get(`[data-cy-root] video[data-gph-video="${gidId}"]`)
+    return cy.get(`[data-cy-root] .${Video.className}[data-giphy-id="${gidId}"]`)
 }
 
 export function checkVideoIsVisible(

@@ -244,7 +244,7 @@ const Gif = ({
     return (
         <Container
             href={noLink ? undefined : gif.url}
-            data-gph-gif={gif.id}
+            data-giphy-id={gif.id}
             style={{
                 width,
                 height,

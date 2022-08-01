@@ -2,6 +2,7 @@ import * as React from 'react'
 import { composeStories, composeStory } from '@storybook/testing-react'
 import { SinonStub } from 'cypress/types/sinon'
 
+import { Grid } from '../../src'
 import * as stories from '../../stories/grid.stories'
 import { storiesCompositionToList } from '../utils/storybook'
 import {
@@ -22,18 +23,18 @@ const composedStories = storiesCompositionToList(composeStories(stories)).filter
 )
 
 function getGridRoot() {
-    return cy.get('.giphy-grid')
+    return cy.get(`.${Grid.className}`)
 }
 
 function getGridGifs() {
-    return getGridRoot().get('[data-gph-gif]')
+    return getGridRoot().get('[data-giphy-id]')
 }
 
 function forEachGif(fn: (gifId: string, index: number) => void) {
     getGridGifs().each((gif, idx) =>
         cy
             .wrap(gif)
-            .invoke('attr', 'data-gph-gif')
+            .invoke('attr', 'data-giphy-id')
             .then((gifId) => fn(gifId as string, idx))
     )
 }

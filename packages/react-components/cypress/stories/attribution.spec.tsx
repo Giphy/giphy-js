@@ -2,6 +2,7 @@ import * as React from 'react'
 import { SinonStub } from 'cypress/types/sinon'
 import { composeStories } from '@storybook/testing-react'
 
+import { Gif } from '../../src'
 import * as stories from '../../stories/attribution.stories'
 
 const { Attribution } = composeStories(stories)
@@ -13,7 +14,7 @@ function getAttributionRoot() {
 }
 
 function getAttributionGifs() {
-    return cy.get(`[data-cy-root] [data-gph-gif="${GIF_ID}"]`)
+    return cy.get(`[data-cy-root] .${Gif.className}[data-giphy-id="${GIF_ID}"]`)
 }
 
 function checkAttributionIsVisible() {
