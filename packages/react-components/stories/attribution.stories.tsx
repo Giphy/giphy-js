@@ -44,7 +44,9 @@ const makeDummy = (gif: IGif) => {
     return gif
 }
 
-export const Attribution: Story = () => {
+type StoryProps = Partial<React.ComponentProps<typeof AttributionComponent>>
+
+export const Attribution: Story<StoryProps> = (props) => {
     const [gif, setGif] = useState<IGif | undefined>()
     useEffect(() => {
         const f = async () => {
@@ -57,10 +59,11 @@ export const Attribution: Story = () => {
         }
         f()
     }, [])
+
     return gif ? (
         <Container>
             <h3>Standalone attribution</h3>
-            <AttributionComponent gif={makeDummy({ ...gif })} />
+            <AttributionComponent gif={makeDummy({ ...gif })} {...props} />
             <h3>Attribution in GIF component</h3>
             <Gifs>
                 <Gif gif={makeDummy({ ...gif })} width={248} />
