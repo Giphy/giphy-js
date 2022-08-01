@@ -100,7 +100,7 @@ module.exports = {
             severity: 'error',
             from: {},
             to: {
-                pathNot: 'react',
+                pathNot: ['react', 'cypress/types/*'],
                 couldNotResolve: true,
             },
         },

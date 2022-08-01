@@ -7,7 +7,7 @@
         "prepublish": "npm run clean && tsc",
         "deploy-storybook": "storybook-to-ghpages",
         "snapshot": "NODE_ENV=PERCY build-storybook && percy storybook ./storybook-static",
-        "cy:run": "npx cypress run --component",
+        "cy:run": "npx percy exec -- npx cypress run --component -b chrome",
         "cy:open": "npx cypress open --component -b chrome",
         "cy:verify": "cypress verify",
         "cy:info": "cypress info"
@@ -15,8 +15,9 @@
     "devDependencies": {
         "@babel/core": "^7.18.6",
         "@cypress/react": "^6.0.0",
-        "@percy/cli": "^1.2.1",
-        "@percy/storybook": "4.2.1",
+        "@percy/cli": "^1.6.4",
+        "@percy/cypress": "^3.1.2",
+        "@percy/storybook": "4.3.1",
         "@storybook/addon-actions": "^6.5.9",
         "@storybook/addon-info": "^5.3.21",
         "@storybook/addon-knobs": "^6.4.0",
@@ -31,7 +32,7 @@
         "@types/throttle-debounce": "^2.1.0",
         "awesome-typescript-loader": "^5.2.1",
         "babel-loader": "^8.2.5",
-        "cypress": "^10.3.0",
+        "cypress": "^10.3.1",
         "fetch-mock": "^9.11.0",
         "parcel-bundler": "latest",
         "react": "^18.2.0",
@@ -39,7 +40,7 @@
         "storybook-addon-jsx": "^7.3.14",
         "ts-loader": "^9.3.1",
         "typescript": "^4.7.4",
-        "webpack": "^5.73.0"
+        "webpack": "^5.74.0"
     },
     "name": "@giphy/react-components",
     "version": "5.12.0",
@@ -70,7 +71,6 @@
         "@giphy/js-fetch-api": "^4.3.1",
         "@giphy/js-types": "^4.2.1",
         "@giphy/js-util": "^4.1.1",
-        "@percy/cypress": "^3.1.2",
         "intersection-observer": "^0.12.2",
         "react-use": "17.4.0",
         "throttle-debounce": "^3.0.1"

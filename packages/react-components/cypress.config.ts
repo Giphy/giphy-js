@@ -2,12 +2,10 @@ import { defineConfig } from 'cypress'
 
 export default defineConfig({
     requestTimeout: 30000,
+    defaultCommandTimeout: 10000,
     video: false,
-    viewportWidth: 1100,
+    viewportWidth: 1080,
     projectId: 'zse12i',
-    env: {
-        NODE_ENV: 'cypress',
-    },
     retries: {
         runMode: 2,
         openMode: 0,
