@@ -6,6 +6,10 @@ export default {
     title: 'React Components/Loader',
 }
 
-export const DotsLoader: Story = () => {
-    return <DotsLoader_ />
+type DotsLoaderProps = React.ComponentProps<typeof DotsLoader_>
+
+type StoryProps = Partial<DotsLoaderProps>
+
+export const DotsLoader: Story<StoryProps> = (props) => {
+    return <DotsLoader_ {...props} />
 }
