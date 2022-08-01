@@ -46,6 +46,7 @@ describe('Video', () => {
     it('VideoNoContent', () => {
         const gifId = storiesGifIds.VideoNoContent
         cy.mount(<VideoNoContent />)
+        cy.wait(1000)
         getVideoElement(gifId).should('not.exist')
         cy.percySnapshot('Video - VideoNoContent')
     })

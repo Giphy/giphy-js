@@ -18,10 +18,8 @@ function getAttributionGifs() {
 
 function checkAttributionIsVisible() {
     getAttributionRoot().should('be.visible')
-    getAttributionGifs().then((gifs) => {
-        expect(gifs.length).eq(2)
-        cy.wrap(gifs).should('be.visible')
-    })
+    getAttributionGifs().its('length').should('eq', 2)
+    getAttributionGifs().should('be.visible')
 }
 
 describe('Attribution', () => {
