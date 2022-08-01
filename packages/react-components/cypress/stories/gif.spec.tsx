@@ -1,25 +1,43 @@
 import * as React from 'react'
 import { composeStories } from '@storybook/testing-react'
-import { mount } from '@cypress/react'
 
 import * as stories from '../../stories/gif.stories'
+import { storiesCompositionToList } from '../utils/storybook'
+import {
+    setupGifTestUtils,
+    GifTestUtilsContext,
+    checkGifSeen,
+    checkGifMouseEvents,
+    checkGifKeyboardEvents,
+    checkGifIsVisible,
+} from '../utils/gif-test-utils'
 
-const { Gif } = composeStories(stories)
+const storiesGifIds = {
+    Gif: 'ZEU9ryYGZzttn0Cva7',
+    GifWithVideoOverlay: 'D068R9Ziv1iCjezKzG',
+    GifWithVideoOverlayFillVideo: '3BNRWBatePBETD7Bfg',
+    GifNoBorderRadius: 'ZEU9ryYGZzttn0Cva7',
+    Sticker: 'l1J9FvenuBnI4GTeg',
+    CustomPingbackGif: 'ZEU9ryYGZzttn0Cva7',
+} as const
 
-describe('Gif Stories', () => {
-    beforeEach(() => {
-        cy.intercept('GET', 'https://api.giphy.com/v1/gifs/*').as('gif-by-id')
-    })
+const composedStories = storiesCompositionToList(composeStories(stories))
 
-    describe('Default Gif', () => {
-        it('Should render a specified gif', () => {
-            mount(<Gif />)
+describe('Gif', () => {
+    composedStories.forEach((story) => {
+        let gifTestUtilsCtx: GifTestUtilsContext
 
-            cy.wait('@gif-by-id')
-            cy.get('img.giphy-img-loaded').should('be.visible')
+        before(() => {
+            gifTestUtilsCtx = setupGifTestUtils(storiesGifIds[story.key])
+        })
 
-            // IMG is loaded, so Percy can take the correct snapshot
-            cy.percySnapshot('Default Gif')
+        it(story.key, () => {
+            const options = { takeSnapshots: true, snapshotNamePrefix: `Stories / Gif / ${story.key}` }
+            cy.mount(<story.Component {...gifTestUtilsCtx.events} />)
+            checkGifIsVisible(gifTestUtilsCtx)
+            checkGifSeen(gifTestUtilsCtx, options)
+            checkGifMouseEvents(gifTestUtilsCtx, options)
+            checkGifKeyboardEvents(gifTestUtilsCtx, options)
         })
     })
 })
