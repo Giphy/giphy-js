@@ -1,9 +1,8 @@
-import { IChannel } from '@giphy/js-types'
-import React, { useContext, useEffect, useState } from 'react'
+import styled from '@emotion/styled'
+import React, { useContext } from 'react'
 import { SearchContext } from '../context'
 import { getSize } from '../theme'
 import { ChannelPill, TrendingSearchPill } from './pills'
-import styled from '@emotion/styled'
 
 const Container = styled.div`
     display: flex;
@@ -20,29 +19,18 @@ const Container = styled.div`
 `
 
 const SuggestionBar = () => {
-    const { channelSearch, fetchChannelSearch, trendingSearches, activeChannel } = useContext(SearchContext)
-    const [channels, setChannels] = useState<IChannel[]>([])
-    useEffect(() => {
-        const fetchChannels = async () => {
-            const channels = await fetchChannelSearch(0)
-            setChannels(channels || [])
-        }
-        if (!activeChannel && channelSearch) {
-            fetchChannels()
-        }
-        if (!channelSearch && !activeChannel) {
-            // revert to trending...
-            setChannels([])
-        }
-    }, [channelSearch, activeChannel, fetchChannelSearch])
+    const { trendingSearches, currentChannels } = useContext(SearchContext)
     return (
-        <Container>
-            {channels.length > 0
-                ? channels.map((channel) => <ChannelPill key={channel.id} channel={channel} />)
+        <Container className={SuggestionBar.className}>
+            {currentChannels.length > 0
+                ? currentChannels.map((channel) => <ChannelPill key={channel.id} channel={channel} />)
                 : trendingSearches.map((trendingSearch) => (
                       <TrendingSearchPill key={trendingSearch} trendingSearch={trendingSearch} />
                   ))}
         </Container>
     )
 }
+
+SuggestionBar.className = 'giphy-suggestion-bar'
+
 export default SuggestionBar

@@ -75,8 +75,7 @@ const SearchBar = ({
     // the input val
     const [val, setVal] = useState<string>(term)
 
-    // used to see if the last term was a '' before clearing
-    const lastTerm = usePrevious(val)
+    const [backspaceCount, setBackspaceCount] = useState(0)
     // set the term when it changes after searchDebounce
     useDebounce(() => _setSearch(val), searchDebounce, [val])
 
@@ -97,19 +96,22 @@ const SearchBar = ({
         // so the user can search the channel
         if (activeChannel && !previousActiveChannel) {
             inputRef.current?.focus()
-            setVal('')
+            setVal(val.replace(`@${channelSearch} `, ''))
+            setBackspaceCount(0)
         }
-    }, [val, activeChannel, previousActiveChannel])
+    }, [val, activeChannel, previousActiveChannel, channelSearch])
 
     const [isCleared, setCleared] = useState(clear)
 
     useEffect(() => {
         setCleared(clear)
+        setBackspaceCount(0)
     }, [clear])
 
     // something is setting the input value
     useEffect(() => {
         setVal(_inputValOverride)
+        setBackspaceCount(0)
     }, [_inputValOverride, setVal])
 
     // key ups to clear the active channel
@@ -118,15 +120,18 @@ const SearchBar = ({
         switch (key) {
             case 8: // backspace
             case 'Backspace':
-                if (lastTerm === '') {
+                setBackspaceCount(backspaceCount + 1)
+                if (backspaceCount >= 2 && val === '') {
                     setActiveChannel(undefined)
                 }
                 break
             case 27: // esc
             case `Escape`: // esc
+                setBackspaceCount(0)
                 setActiveChannel(undefined)
                 break
             default:
+                setBackspaceCount(0)
                 break
         }
     }
