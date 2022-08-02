@@ -17,7 +17,9 @@ export default {
     decorators: [withKnobs, jsxDecorator],
 }
 
-export const SearchExample: Story = () => {
+type StoryProps = Partial<React.ComponentProps<typeof CarouselComponent>>
+
+export const SearchExample: Story<StoryProps> = (props) => {
     const [term, setTerm] = useState('dogs')
     const limit = number('limit', 5)
     const fetchGifs = async (offset: number) => {
@@ -43,6 +45,7 @@ export const SearchExample: Story = () => {
                 backgroundColor={inTestsRunner() ? 'white' : undefined}
                 gutter={6}
                 fetchGifs={fetchGifs}
+                {...props}
             />
         </>
     )

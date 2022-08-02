@@ -29,7 +29,9 @@ script:
   - yarn run dependency-cruiser
   - yarn run lint
   - yarn test
-  - yarn run snapshot
+  # All Percy snapshots except SearchBar have been moved to Cypress, to avoid confusion disable the old "snapshot" command.
+  # When the Cypress setuisbe verified, this command might be removed.
+  # - yarn run snapshot
   - yarn run cy:run --record --key ${CYPRESS_RECORD_KEY}
   # after all tests finish running we need
   # to kill all background jobs (like "npm start &")

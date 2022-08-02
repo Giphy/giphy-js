@@ -243,6 +243,7 @@ const Video = ({
             playsInline
             ref={videoEl}
             src={media?.url}
+            data-giphy-id={gif.id}
         >
             {ccEnabled && captionSrc && (
                 <track label="English" kind="subtitles" srcLang={ccLanguage} src={captionSrc} default />

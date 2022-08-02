@@ -11,6 +11,8 @@
   "include": [
     "./stories/*.ts",
     "./stories/*.tsx",
+    "./support/*.ts",
+    "./utils/*.ts",
     "../stories/*.ts",
     "../stories/*.tsx",
     "../src/*.ts",

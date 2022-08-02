@@ -1,4 +1,4 @@
-const isTestsRunner = process.env.NODE_ENV === 'PERCY' || process.env.NODE_ENV === 'cypress' // isPercy package doesn't work here
+const isTestsRunner = process.env.NODE_ENV === 'PERCY' || (typeof window !== 'undefined' && !!window.Cypress) // is-tests-runner package doesn't work here
 
 module.exports = {
     stories: ['../**/*.stories.tsx'],

@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
 import fetchMock from 'fetch-mock'
-import React, { ElementType, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
@@ -36,11 +36,9 @@ const NoResultsContainer = styled.div`
 
 const Overlay = ({ gif, isHovered }: GifOverlayProps) => <OverlayContainer>{isHovered ? gif.id : ''}</OverlayContainer>
 
-type GridProps = {
-    loader: ElementType
-}
+type GridProps = Partial<React.ComponentProps<typeof GridComponent>>
 
-export const Grid: Story<GridProps> = ({ loader }) => {
+export const Grid: Story<GridProps> = ({ loader, ...other }) => {
     const [term, setTerm] = useState('always sunny')
     const [width, setWidth] = useState(innerWidth)
     const onResize = throttle(500, () => setWidth(innerWidth))
@@ -82,15 +80,18 @@ export const Grid: Story<GridProps> = ({ loader }) => {
                     loader={loader}
                     fetchGifs={fetchGifs}
                     overlay={boolean('show overlay', true) ? Overlay : undefined}
+                    {...other}
                 />
             )}
         </>
     )
 }
 
-export const GridCustomLoader: Story = () => <Grid loader={() => <h1 style={{ textAlign: 'center' }}> 🌀 </h1>} />
+export const GridCustomLoader: Story<GridProps> = (props) => (
+    <Grid loader={() => <h1 style={{ textAlign: 'center' }}> 🌀 </h1>} {...props} />
+)
 
-export const GridAPIError: Story = () => {
+export const GridAPIError: Story<GridProps> = (props) => {
     const [width, setWidth] = useState(innerWidth)
     const mockRequest = useRef(true)
     const onResize = throttle(500, () => setWidth(innerWidth))
@@ -121,6 +122,7 @@ export const GridAPIError: Story = () => {
             gutter={gutter}
             fetchGifs={fetchGifs}
             overlay={boolean('show overlay', true) ? Overlay : undefined}
+            {...props}
         />
     )
 }

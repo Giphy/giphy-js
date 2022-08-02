@@ -28,7 +28,9 @@ export default {
     decorators: [withKnobs, jsxDecorator],
 }
 
-export const VideoWithControls: Story = () => {
+type StoryProps = Partial<React.ComponentProps<typeof VideoPlayer>>
+
+export const VideoWithControls: Story<StoryProps> = (props) => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -37,13 +39,14 @@ export const VideoWithControls: Story = () => {
             height={number('height', 0)}
             muted={boolean('muted', false)}
             gif={gif}
+            {...props}
         />
     ) : (
         <div>video loading</div>
     )
 }
 
-export const VideoNoAttribution: Story = () => {
+export const VideoNoAttribution: Story<StoryProps> = (props) => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -53,13 +56,14 @@ export const VideoNoAttribution: Story = () => {
             width={number('width', 300)}
             height={number('height', 0)}
             muted={boolean('muted', false)}
+            {...props}
         />
     ) : (
         <div>video loading</div>
     )
 }
 
-export const VideoNoProgressBar: Story = () => {
+export const VideoNoProgressBar: Story<StoryProps> = (props) => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -69,13 +73,14 @@ export const VideoNoProgressBar: Story = () => {
             width={number('width', 300)}
             height={number('height', 0)}
             muted={boolean('muted', false)}
+            {...props}
         />
     ) : (
         <div>video loading</div>
     )
 }
 
-export const VideoNoMute: Story = () => {
+export const VideoNoMute: Story<StoryProps> = (props) => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -85,13 +90,14 @@ export const VideoNoMute: Story = () => {
             width={number('width', 300)}
             height={number('height', 0)}
             muted={boolean('muted', false)}
+            {...props}
         />
     ) : (
         <div>video loading</div>
     )
 }
 
-export const VideoPersistentControlsSmall: Story = () => {
+export const VideoPersistentControlsSmall: Story<StoryProps> = (props) => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -101,13 +107,14 @@ export const VideoPersistentControlsSmall: Story = () => {
             width={number('width', 300)}
             height={number('height', 0)}
             muted={boolean('muted', false)}
+            {...props}
         />
     ) : (
         <div>video loading</div>
     )
 }
 
-export const VideoPersistentControlsMedium: Story = () => {
+export const VideoPersistentControlsMedium: Story<StoryProps> = (props) => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -117,13 +124,14 @@ export const VideoPersistentControlsMedium: Story = () => {
             width={number('width', 400)}
             height={number('height', 0)}
             muted={boolean('muted', false)}
+            {...props}
         />
     ) : (
         <div>video loading</div>
     )
 }
 
-export const VideoPersistentControlsLarge: Story = () => {
+export const VideoPersistentControlsLarge: Story<StoryProps> = (props) => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -133,6 +141,7 @@ export const VideoPersistentControlsLarge: Story = () => {
             width={number('width', 600)}
             height={number('height', 0)}
             muted={boolean('muted', false)}
+            {...props}
         />
     ) : (
         <div>video loading</div>
@@ -145,7 +154,8 @@ const Overlay = styled.div`
     bottom: 5px;
     right: 5px;
 `
-export const VideoOverlay: Story = () => {
+
+export const VideoOverlay: Story<StoryProps> = (props) => {
     const gif = useGif(text('id', 'WtUBmrAK1Yda649Ayr'))
     return gif ? (
         <VideoPlayer
@@ -155,6 +165,7 @@ export const VideoOverlay: Story = () => {
             height={number('height', 0)}
             muted={boolean('muted', true)}
             overlay={() => <Overlay>OVERLAY</Overlay>}
+            {...props}
         />
     ) : (
         <div>video loading</div>
