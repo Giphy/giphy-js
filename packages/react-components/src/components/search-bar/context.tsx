@@ -1,23 +1,16 @@
 import { ThemeProvider } from '@emotion/react'
 import { GifsResult, GiphyFetch, SearchOptions, serverUrl } from '@giphy/js-fetch-api'
 import { IChannel } from '@giphy/js-types'
-import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import PingbackContextManager from '../pingback-context-manager'
 import { initTheme, SearchTheme } from './theme'
-
-function usePrevious<T>(value: T) {
-    const ref = useRef<T>(value)
-    useEffect(() => {
-        ref.current = value
-    })
-    return ref.current
-}
 
 export type SearchContextProps = {
     setSearch: (searchTerm: string) => void
     term: string
     channelSearch: string
     activeChannel: IChannel | undefined
+    setChannels: (channels: IChannel[]) => void
     currentChannels: IChannel[]
     setActiveChannel: (channel: IChannel | undefined) => void
     fetchGifs: (offset: number) => Promise<GifsResult>
@@ -88,8 +81,8 @@ const SearchContextManager = ({
     const [activeChannel, _setActiveChannel] = useState<IChannel | undefined>(initialChannel)
 
     const setActiveChannel = useCallback((activeChannel: IChannel | undefined) => {
-        _setActiveChannel(activeChannel)
         _setSearch('')
+        _setActiveChannel(activeChannel)
     }, [])
 
     // fetched list of trending search terms
@@ -132,16 +125,16 @@ const SearchContextManager = ({
         },
         [gf, options.limit, term]
     )
-    const lastChannelSearch = usePrevious(term)
     const fetchChannelSearch = useCallback(
         async (offset: number) => {
+            const search = (channelSearch || term).replace('@', '')
             const result = await fetch(
-                `${serverUrl}channels/search?q=${encodeURIComponent(channelSearch)}&offset=${offset}&api_key=${apiKey}`
+                `${serverUrl}channels/search?q=${encodeURIComponent(search)}&offset=${offset}&api_key=${apiKey}`
             )
             const { data } = await result.json()
             return data as IChannel[]
         },
-        [apiKey, channelSearch]
+        [apiKey, term, channelSearch]
     )
     useEffect(() => {
         const fetchTrendingSearches = async () => {
@@ -152,28 +145,31 @@ const SearchContextManager = ({
         fetchTrendingSearches()
     }, [apiKey])
 
+    // set active channel based on search
+    useEffect(() => {
+        const foundChannel = currentChannels.find(({ slug }) => term.indexOf(`@${slug} `) === 0)
+        if (foundChannel) {
+            _setActiveChannel(foundChannel)
+        }
+    }, [term, currentChannels, _setActiveChannel])
+
+    // fetch when term changes
     useEffect(() => {
         const fetchChannels = async () => {
             const channels = await fetchChannelSearch(0)
             setChannels(channels || emptyChannels)
-            const foundChannel = currentChannels.find(({ slug }) => channelSearch === slug)
-            if (foundChannel) {
-                setActiveChannel(foundChannel)
-            }
         }
-        if (!activeChannel && channelSearch !== lastChannelSearch && term.indexOf(`@${channelSearch} `) === 0) {
+        if (!activeChannel && term.replace('@', '')) {
             fetchChannels()
         }
-        if (!channelSearch && !activeChannel) {
-            // revert to trending...
-            setChannels(emptyChannels)
-        }
-    }, [channelSearch, activeChannel, fetchChannelSearch, currentChannels, setActiveChannel, term, lastChannelSearch])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [term, activeChannel])
 
     return (
         <SearchContext.Provider
             value={{
                 activeChannel,
+                setChannels,
                 currentChannels,
                 setActiveChannel,
                 fetchChannelSearch,

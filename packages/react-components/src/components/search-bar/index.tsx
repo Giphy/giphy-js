@@ -69,13 +69,12 @@ const SearchBar = ({
     autoFocus,
     searchDebounce = SEARCH_DEBOUNCE,
 }: Props) => {
-    const { activeChannel, setActiveChannel, term, channelSearch } = useContext(SearchContext)
+    const { activeChannel, setActiveChannel, term, channelSearch, setChannels } = useContext(SearchContext)
     const { setIsFocused, _inputValOverride, _setSearch } = useContext(_SearchContext)
 
     // the input val
     const [val, setVal] = useState<string>(term)
 
-    const [backspaceCount, setBackspaceCount] = useState(0)
     // set the term when it changes after searchDebounce
     useDebounce(() => _setSearch(val), searchDebounce, [val])
 
@@ -84,6 +83,8 @@ const SearchBar = ({
 
     // we'll use this to see when we went from no channel to channel
     const previousActiveChannel = usePrevious(activeChannel)
+
+    const [isCleared, setCleared] = useState(clear)
 
     useEffect(() => {
         if (autoFocus) {
@@ -96,42 +97,48 @@ const SearchBar = ({
         // so the user can search the channel
         if (activeChannel && !previousActiveChannel) {
             inputRef.current?.focus()
-            setVal(val.replace(`@${channelSearch} `, ''))
-            setBackspaceCount(0)
+            if (val === ' ') {
+                // this doesn't come from a keystroke
+                setVal('')
+            } else {
+                setVal(val.replace(/@?\w*\s?/, ''))
+            }
         }
-    }, [val, activeChannel, previousActiveChannel, channelSearch])
-
-    const [isCleared, setCleared] = useState(clear)
+    }, [val, activeChannel, previousActiveChannel])
 
     useEffect(() => {
         setCleared(clear)
-        setBackspaceCount(0)
     }, [clear])
-
     // something is setting the input value
     useEffect(() => {
         setVal(_inputValOverride)
-        setBackspaceCount(0)
     }, [_inputValOverride, setVal])
 
     // key ups to clear the active channel
     const onKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
         const key = e.keyCode || e.key
         switch (key) {
-            case 8: // backspace
-            case 'Backspace':
-                setBackspaceCount(backspaceCount + 1)
-                if (backspaceCount >= 2 && val === '') {
-                    setActiveChannel(undefined)
-                }
-                break
             case 27: // esc
             case `Escape`: // esc
-                setBackspaceCount(0)
                 setActiveChannel(undefined)
+                setChannels([])
                 break
             default:
-                setBackspaceCount(0)
+                break
+        }
+    }
+
+    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        const key = e.keyCode || e.key
+        switch (key) {
+            case 8: // backspace
+            case 'Backspace':
+                if (val === '') {
+                    setActiveChannel(undefined)
+                    setChannels([])
+                }
+                break
+            default:
                 break
         }
     }
@@ -160,8 +167,9 @@ const SearchBar = ({
                 autoComplete="off"
                 ref={inputRef}
                 onKeyUp={onKeyUp}
+                onKeyDown={onKeyDown}
             />
-            <CancelIcon setCleared={setCleared} />
+            <CancelIcon setCleared={() => setVal('')} />
             <SearchButton />
         </Container>
     )

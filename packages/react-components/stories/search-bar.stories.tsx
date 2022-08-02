@@ -10,9 +10,7 @@ import SearchBarComponent_ from '../src/components/search-bar'
 import SearchContextManager, { SearchContext } from '../src/components/search-bar/context'
 import SuggestionBar from '../src/components/search-bar/suggestion-bar'
 import inTestsRunner from './in-tests-runner'
-import mockChannelSearchResults from './mock-data/channels-search.json'
-import mockGifs from './mock-data/gifs.json'
-import mockTrendingSearches from './mock-data/trending-searches.json'
+import { mockSearchBar } from './mock-requests'
 import useWindowSize from './use-window-size'
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
 
@@ -33,26 +31,6 @@ export default {
         },
     },
 }
-export const mock = () => {
-    fetchMock.mock(`begin:https://api.giphy.com/v1/channels/search`, {
-        body: mockChannelSearchResults,
-    })
-    fetchMock.mock(`begin:https://api.giphy.com/v1/trending/searches`, {
-        body: mockTrendingSearches,
-    })
-    fetchMock.mock(`begin:https://api.giphy.com/v1/gifs/search`, {
-        body: mockGifs,
-    })
-    fetchMock.mock(`begin:https://api.giphy.com/v1/stickers/search`, {
-        body: mockGifs,
-    })
-    fetchMock.mock(`begin:https://api.giphy.com/v1/gifs/trending`, {
-        body: mockGifs,
-    })
-    fetchMock.mock(`begin:https://api.giphy.com/v1/stickers/trending`, {
-        body: mockGifs,
-    })
-}
 
 const Components = () => {
     const { fetchGifs, searchKey } = useContext(SearchContext)
@@ -61,7 +39,7 @@ const Components = () => {
     const width = innerWidth - 16 * 2
     useLayoutEffect(() => {
         if (inTestsRunner()) {
-            mock()
+            mockSearchBar()
         }
         return () => {
             fetchMock.restore()

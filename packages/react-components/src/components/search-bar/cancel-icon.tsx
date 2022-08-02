@@ -21,6 +21,7 @@ const CancelIcon = ({ width = 17, height = 17, setCleared }: Props) => {
     const { term, setActiveChannel, activeChannel } = useContext(SearchContext)
     return term || activeChannel ? (
         <Icon
+            className={CancelIcon.className}
             width={width}
             height={height}
             viewBox="0 0 17 17"
@@ -54,4 +55,5 @@ const CancelIcon = ({ width = 17, height = 17, setCleared }: Props) => {
         </Icon>
     ) : null
 }
+CancelIcon.className = 'giphy-search-bar-cancel'
 export default CancelIcon
