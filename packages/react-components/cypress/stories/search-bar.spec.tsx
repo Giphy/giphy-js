@@ -103,6 +103,8 @@ describe('Search Bar', () => {
                 .click()
             cy.get(`.cy-test`).contains('term:--')
             cy.get(`.cy-test`).contains('channel name:-NBA-')
+            getInput().type(`nba`, { delay })
+            cy.get(`.${SuggestionBar.className}`).contains(`@nba`).click()
         }
 
         it('search bar typing at different speeds/debounce', () => {

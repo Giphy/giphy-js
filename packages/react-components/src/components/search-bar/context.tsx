@@ -127,12 +127,13 @@ const SearchContextManager = ({
     )
     const fetchChannelSearch = useCallback(
         async (offset: number) => {
+            const search = (channelSearch || term).replace('@', '')
             const { data } = (await request(
-                `channels/search?q=${encodeURIComponent(channelSearch)}&offset=${offset}&api_key=${apiKey}`
+                `channels/search?q=${encodeURIComponent(search)}&offset=${offset}&api_key=${apiKey}`
             )) as Result & { data: IChannel[] }
             return data
         },
-        [apiKey, channelSearch]
+        [apiKey, channelSearch, term]
     )
     useEffect(() => {
         const fetchTrendingSearches = async () => {

@@ -28,6 +28,7 @@ type Props = {
     autoFocus?: boolean
     searchDebounce?: number
     initialTerm?: string
+    onEnter?: (term: string) => void
 }
 
 const Container = styled.div`
@@ -68,6 +69,7 @@ const SearchBar = ({
     clear = false,
     autoFocus,
     searchDebounce = SEARCH_DEBOUNCE,
+    onEnter,
 }: Props) => {
     const { activeChannel, setActiveChannel, term, channelSearch, setChannels } = useContext(SearchContext)
     const { setIsFocused, _inputValOverride, _setSearch } = useContext(_SearchContext)
@@ -122,6 +124,10 @@ const SearchBar = ({
             case `Escape`: // esc
                 setActiveChannel(undefined)
                 setChannels([])
+                break
+            case 13: // esc
+            case `Enter`: // esc
+                onEnter?.(val)
                 break
             default:
                 break
