@@ -12,7 +12,6 @@ export type SearchContextProps = {
     activeChannel: IChannel | undefined
     setChannels: (channels: IChannel[]) => void
     currentChannels: IChannel[]
-    channelsResponseId: string
     setActiveChannel: (channel: IChannel | undefined) => void
     fetchGifs: (offset: number) => Promise<GifsResult>
     fetchAnimatedText: (offset: number) => Promise<GifsResult>
@@ -40,6 +39,7 @@ type Props = {
     initialTerm?: string
     initialChannel?: IChannel
     shouldDefaultToTrending?: boolean
+    shouldFetchChannels?: boolean
 }
 
 const emptyChannels: IChannel[] = []
@@ -56,12 +56,11 @@ const SearchContextManager = ({
     initialTerm = '',
     initialChannel,
     shouldDefaultToTrending = true,
+    shouldFetchChannels = true,
 }: Props) => {
     const gf = useMemo(() => new GiphyFetch(apiKey), [apiKey])
 
     const [currentChannels, setChannels] = useState<IChannel[]>([])
-    const [channelsResponseId, setChannelsResponseId] = useState('')
-
     // the input value
     const [term, _setSearch] = useState<string>(initialTerm)
     // will replace the current input value with this value
@@ -131,7 +130,6 @@ const SearchContextManager = ({
         async (offset: number) => {
             const search = (channelSearch || term).replace('@', '')
             const result = await gf.channels(search, { offset })
-            setChannelsResponseId(result.meta.response_id)
             return result.data
         },
         [channelSearch, gf, term]
@@ -154,12 +152,14 @@ const SearchContextManager = ({
 
     // fetch when term changes
     useEffect(() => {
-        const fetchChannels = async () => {
-            const channels = await fetchChannelSearch(0)
-            setChannels(channels || emptyChannels)
-        }
-        if (!activeChannel && term.replace('@', '')) {
-            fetchChannels()
+        if (shouldFetchChannels) {
+            const fetchChannels = async () => {
+                const channels = await fetchChannelSearch(0)
+                setChannels(channels || emptyChannels)
+            }
+            if (!activeChannel && term.replace('@', '')) {
+                fetchChannels()
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [term, activeChannel])
@@ -180,7 +180,6 @@ const SearchContextManager = ({
                 fetchAnimatedText,
                 searchKey,
                 isFetching,
-                channelsResponseId,
                 isFocused,
             }}
         >

@@ -150,7 +150,7 @@ export class GiphyFetch {
      * @returns {Promise<ChannelsResult>}
      **/
     channels(term: string, options: SearchOptions = {}): Promise<ChannelsResult> {
-        return request(`channels/search?q=${encodeURIComponent(term)}${this.getQS(options)}`) as Promise<ChannelsResult>
+        return request(`channels/search?${this.getQS({ q: term, ...options })}`) as Promise<ChannelsResult>
     }
 }
 export default GiphyFetch
