@@ -14,7 +14,7 @@ import {
     TypeOption,
 } from './option-types'
 import request from './request'
-import { CategoriesResult, GifResult, GifsResult } from './result-types'
+import { CategoriesResult, ChannelsResult, GifResult, GifsResult } from './result-types'
 
 const getType = (options?: TypeOption): MediaType => (options && options.type ? options.type : 'gifs')
 /**
@@ -141,6 +141,16 @@ export class GiphyFetch {
             `${options?.type === 'stickers' ? 'stickers' : 'gifs'}/related?${this.getQS({ gif_id: id, ...options })}`,
             normalizeGifs
         ) as Promise<GifsResult>
+    }
+
+    /**
+     * Search for channels based on a term
+     * @param {string} term
+     * @param options: SearchOptions
+     * @returns {Promise<ChannelsResult>}
+     **/
+    channels(term: string, options: SearchOptions = {}): Promise<ChannelsResult> {
+        return request(`channels/search?q=${encodeURIComponent(term)}${this.getQS(options)}`) as Promise<ChannelsResult>
     }
 }
 export default GiphyFetch

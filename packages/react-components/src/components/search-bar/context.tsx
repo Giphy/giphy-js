@@ -12,6 +12,7 @@ export type SearchContextProps = {
     activeChannel: IChannel | undefined
     setChannels: (channels: IChannel[]) => void
     currentChannels: IChannel[]
+    channelsResponseId: string
     setActiveChannel: (channel: IChannel | undefined) => void
     fetchGifs: (offset: number) => Promise<GifsResult>
     fetchAnimatedText: (offset: number) => Promise<GifsResult>
@@ -59,6 +60,7 @@ const SearchContextManager = ({
     const gf = useMemo(() => new GiphyFetch(apiKey), [apiKey])
 
     const [currentChannels, setChannels] = useState<IChannel[]>([])
+    const [channelsResponseId, setChannelsResponseId] = useState('')
 
     // the input value
     const [term, _setSearch] = useState<string>(initialTerm)
@@ -128,12 +130,11 @@ const SearchContextManager = ({
     const fetchChannelSearch = useCallback(
         async (offset: number) => {
             const search = (channelSearch || term).replace('@', '')
-            const { data } = (await request(
-                `channels/search?q=${encodeURIComponent(search)}&offset=${offset}&api_key=${apiKey}`
-            )) as Result & { data: IChannel[] }
-            return data
+            const result = await gf.channels(search, { offset })
+            setChannelsResponseId(result.meta.response_id)
+            return result.data
         },
-        [apiKey, channelSearch, term]
+        [channelSearch, gf, term]
     )
     useEffect(() => {
         const fetchTrendingSearches = async () => {
@@ -179,6 +180,7 @@ const SearchContextManager = ({
                 fetchAnimatedText,
                 searchKey,
                 isFetching,
+                channelsResponseId,
                 isFocused,
             }}
         >
