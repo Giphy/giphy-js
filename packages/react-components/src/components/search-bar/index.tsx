@@ -71,7 +71,7 @@ const SearchBar = ({
     searchDebounce = SEARCH_DEBOUNCE,
     onEnter,
 }: Props) => {
-    const { activeChannel, setActiveChannel, term, channelSearch, setChannels } = useContext(SearchContext)
+    const { activeChannel, setActiveChannel, term, setChannels } = useContext(SearchContext)
     const { setIsFocused, _inputValOverride, _setSearch } = useContext(_SearchContext)
 
     // the input val
@@ -153,7 +153,7 @@ const SearchBar = ({
         <Container className={[SearchBar.className, className].join(' ')}>
             <SearchBarChannel />
             <Input
-                isUsernameSearch={!!channelSearch}
+                isUsernameSearch={term.indexOf('@') === 0}
                 onChange={({ target: { value } }) => {
                     if (!isCleared || value !== '') {
                         setCleared(false)

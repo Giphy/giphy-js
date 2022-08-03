@@ -21,7 +21,7 @@ describe('Search Bar', () => {
         })
     })
 
-    describe.only('behavior', () => {
+    describe('input and channel behavior', () => {
         const Test = () => {
             const { term, activeChannel } = useContext(SearchContext)
             expect(term).to.be.string
@@ -103,14 +103,19 @@ describe('Search Bar', () => {
                 .click()
             cy.get(`.cy-test`).contains('term:--')
             cy.get(`.cy-test`).contains('channel name:-NBA-')
+            cy.get(`.${CancelIcon.className}`).click()
             getInput().type(`nba`, { delay })
             cy.get(`.${SuggestionBar.className}`).contains(`@nba`).click()
         }
 
-        it('search bar typing at different speeds/debounce', () => {
+        it('search bar typing fast / default debounce', () => {
             test(0)
+        })
+        it('search bar typing fast / no debounce', () => {
             test(0, 0)
-            test(100, 0)
+        })
+        it('search bar typing slow default debounce', () => {
+            test(250)
         })
     })
 })

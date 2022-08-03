@@ -8,7 +8,6 @@ import { initTheme, SearchTheme } from './theme'
 export type SearchContextProps = {
     setSearch: (searchTerm: string) => void
     term: string
-    channelSearch: string
     activeChannel: IChannel | undefined
     setChannels: (channels: IChannel[]) => void
     currentChannels: IChannel[]
@@ -71,13 +70,6 @@ const SearchContextManager = ({
     const [_inputValOverride, setSearch] = useState<string>(initialTerm)
     const [isFetching, setIsFetching] = useState(false)
 
-    // a user name search
-    let channelSearch = ''
-
-    if (term && term.indexOf('@') === 0) {
-        channelSearch = term.slice(1).split(' ')[0]
-    }
-
     // active channel we're searching and displaying in the search bar
     const [activeChannel, _setActiveChannel] = useState<IChannel | undefined>(initialChannel)
 
@@ -91,9 +83,7 @@ const SearchContextManager = ({
 
     const [isFocused, setIsFocused] = useState(false)
 
-    const searchKey = [term, options.type, channelSearch, activeChannel?.user?.username || '']
-        .filter((val) => !!val)
-        .join(' / ')
+    const searchKey = [term, options.type, activeChannel?.user?.username || ''].filter((val) => !!val).join(' / ')
 
     // search fetch
     const fetchGifs = useCallback(
@@ -128,11 +118,11 @@ const SearchContextManager = ({
     )
     const fetchChannelSearch = useCallback(
         async (offset: number) => {
-            const search = (channelSearch || term).replace('@', '')
+            const search = term.indexOf('@') === 0 ? term.split(' ')[0] : term
             const result = await gf.channels(search, { offset })
             return result.data
         },
-        [channelSearch, gf, term]
+        [gf, term]
     )
     useEffect(() => {
         const fetchTrendingSearches = async () => {
@@ -173,7 +163,6 @@ const SearchContextManager = ({
                 setActiveChannel,
                 fetchChannelSearch,
                 term,
-                channelSearch,
                 trendingSearches,
                 setSearch,
                 fetchGifs,
