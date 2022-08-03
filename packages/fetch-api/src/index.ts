@@ -4,6 +4,7 @@ export { default as GiphyFetch } from './api'
 export { serverUrl, setServerUrl } from './constants'
 export * from './option-types'
 export { gifPaginator } from './paginator'
+export { default as request } from './request'
 export * from './result-types'
 
 const { version } = require('../package.json')

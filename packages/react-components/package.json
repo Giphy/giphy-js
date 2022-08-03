@@ -2,7 +2,7 @@
     "scripts": {
         "clean": "rm -rf ./dist",
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
-        "dev": "start-storybook -p 4001",
+        "dev": "start-storybook -p 5001",
         "build": "tsc",
         "prepublish": "npm run clean && tsc",
         "deploy-storybook": "storybook-to-ghpages",

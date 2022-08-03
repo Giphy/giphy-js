@@ -1,6 +1,6 @@
-import { GifsResult, GiphyFetch, SearchOptions, serverUrl } from '@giphy/js-fetch-api'
-import { IChannel } from '@giphy/js-types'
 import { ThemeProvider } from '@emotion/react'
+import { GifsResult, GiphyFetch, request, Result, SearchOptions } from '@giphy/js-fetch-api'
+import { IChannel } from '@giphy/js-types'
 import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import PingbackContextManager from '../pingback-context-manager'
 import { initTheme, SearchTheme } from './theme'
@@ -8,8 +8,9 @@ import { initTheme, SearchTheme } from './theme'
 export type SearchContextProps = {
     setSearch: (searchTerm: string) => void
     term: string
-    channelSearch: string
     activeChannel: IChannel | undefined
+    setChannels: (channels: IChannel[]) => void
+    currentChannels: IChannel[]
     setActiveChannel: (channel: IChannel | undefined) => void
     fetchGifs: (offset: number) => Promise<GifsResult>
     fetchAnimatedText: (offset: number) => Promise<GifsResult>
@@ -21,9 +22,12 @@ export type SearchContextProps = {
 }
 export type _SearchContextProps = {
     setIsFocused: (focused: boolean) => void
+    _setSearch: (searchTerm: string) => void
+    _inputValOverride: string
 }
 
 export const SearchContext = createContext({} as SearchContextProps)
+// for internal components
 export const _SearchContext = createContext({} as _SearchContextProps)
 
 type Props = {
@@ -34,8 +38,10 @@ type Props = {
     initialTerm?: string
     initialChannel?: IChannel
     shouldDefaultToTrending?: boolean
+    shouldFetchChannels?: boolean
 }
 
+const emptyChannels: IChannel[] = []
 const emptyGifsResult = {
     data: [],
     pagination: { total_count: 0, count: 0, offset: 0 },
@@ -49,39 +55,35 @@ const SearchContextManager = ({
     initialTerm = '',
     initialChannel,
     shouldDefaultToTrending = true,
+    shouldFetchChannels = true,
 }: Props) => {
     const gf = useMemo(() => new GiphyFetch(apiKey), [apiKey])
 
-    // the search term
-    const [term, setTerm] = useState<string>(initialTerm)
-
+    const [currentChannels, setChannels] = useState<IChannel[]>([])
+    // the input value
+    const [term, _setSearch] = useState<string>(initialTerm)
+    // will replace the current input value with this value
+    // until the user types again.
+    // there needs to be a second state otherwise
+    // with the input value being debounced, there seems to be a race condition that
+    // manifests in Cypress tests
+    const [_inputValOverride, setSearch] = useState<string>(initialTerm)
     const [isFetching, setIsFetching] = useState(false)
-
-    // a user name search
-    let channelSearch = ''
-
-    if (term && term.indexOf('@') === 0) {
-        channelSearch = term.slice(1).split(' ')[0]
-    }
 
     // active channel we're searching and displaying in the search bar
     const [activeChannel, _setActiveChannel] = useState<IChannel | undefined>(initialChannel)
 
     const setActiveChannel = useCallback((activeChannel: IChannel | undefined) => {
+        _setSearch('')
         _setActiveChannel(activeChannel)
-        setTerm('') // TODO: clear this here?
     }, [])
 
     // fetched list of trending search terms
     const [trendingSearches, setTrendingSearches] = useState<string[]>([])
-    // do a search for a term and optionally a channel
-    const setSearch = useCallback((term: string) => setTerm(term), [])
 
     const [isFocused, setIsFocused] = useState(false)
 
-    const searchKey = [term, options.type, channelSearch, activeChannel?.user?.username || '']
-        .filter((val) => !!val)
-        .join(' / ')
+    const searchKey = [term, options.type, activeChannel?.user?.username || ''].filter((val) => !!val).join(' / ')
 
     // search fetch
     const fetchGifs = useCallback(
@@ -114,33 +116,53 @@ const SearchContextManager = ({
         },
         [gf, options.limit, term]
     )
-
     const fetchChannelSearch = useCallback(
         async (offset: number) => {
-            const result = await fetch(
-                `${serverUrl}channels/search?q=${encodeURIComponent(channelSearch)}&offset=${offset}&api_key=${apiKey}`
-            )
-            const { data } = await result.json()
-            return data as IChannel[]
+            const search = term.indexOf('@') === 0 ? term.split(' ')[0] : term
+            const result = await gf.channels(search, { offset })
+            return result.data
         },
-        [apiKey, channelSearch]
+        [gf, term]
     )
     useEffect(() => {
         const fetchTrendingSearches = async () => {
-            const result = await fetch(`${serverUrl}trending/searches?api_key=${apiKey}`)
-            const { data } = await result.json()
+            const { data } = (await request(`trending/searches?api_key=${apiKey}`)) as Result & { data: string[] }
             setTrendingSearches(data || [])
         }
         fetchTrendingSearches()
     }, [apiKey])
+
+    // set active channel based on search
+    useEffect(() => {
+        const foundChannel = currentChannels.find(({ slug }) => term.indexOf(`@${slug} `) === 0)
+        if (foundChannel) {
+            _setActiveChannel(foundChannel)
+        }
+    }, [term, currentChannels, _setActiveChannel])
+
+    // fetch when term changes
+    useEffect(() => {
+        if (shouldFetchChannels) {
+            const fetchChannels = async () => {
+                const channels = await fetchChannelSearch(0)
+                setChannels(channels || emptyChannels)
+            }
+            if (!activeChannel && term.replace('@', '')) {
+                fetchChannels()
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [term, activeChannel])
+
     return (
         <SearchContext.Provider
             value={{
                 activeChannel,
+                setChannels,
+                currentChannels,
                 setActiveChannel,
                 fetchChannelSearch,
                 term,
-                channelSearch,
                 trendingSearches,
                 setSearch,
                 fetchGifs,
@@ -150,7 +172,7 @@ const SearchContextManager = ({
                 isFocused,
             }}
         >
-            <_SearchContext.Provider value={{ setIsFocused }}>
+            <_SearchContext.Provider value={{ setIsFocused, _setSearch, _inputValOverride }}>
                 <ThemeProvider theme={initTheme(theme)}>
                     <PingbackContextManager attributes={{ layout_type: 'SEARCH' }}>{children}</PingbackContextManager>
                 </ThemeProvider>

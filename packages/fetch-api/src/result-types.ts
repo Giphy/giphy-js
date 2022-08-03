@@ -1,4 +1,4 @@
-import { IGif } from '@giphy/js-types'
+import { IChannel, IGif } from '@giphy/js-types'
 
 export interface Result {
     meta: {
@@ -31,4 +31,8 @@ export interface ICategory {
 }
 export interface CategoriesResult extends Result {
     data: ICategory[]
+}
+
+export interface ChannelsResult extends Result {
+    data: IChannel[]
 }

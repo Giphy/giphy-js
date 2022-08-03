@@ -73,18 +73,18 @@ See this [codesandbox](https://codesandbox.io/s/giphy-web-sdk-ssr-with-nextjs-ir
 
 ## Carousel
 
-| _prop_                                  | _type_                                   | _default_ | _description_                                                                                           |
-| --------------------------------------- | ---------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------- |
-| gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                                                 |
-| gifWidth                               | `number`                                 | undefined | The width of the gifs and the carousel (you may want to set Gif.imgClassName to have object-fit: cover to avoid stretching) 
-| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                                |
-| gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                      |
-| borderRadius                            | `number`                                 | 4         | a border radius applied to Gif Components making the corners rounded                                    |
-| noResultsMessage                        | `string or JSX.Element`                  | undefined | Customize the "No results" message                                                                      |
-| noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick`   |
-| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF                                                       |
-| [loaderConfig](#loader-config)          | `IntersectionObserverInit`               | undefined | Enables configuring the loader to fetch sooner than when just onscreen, allowing for smoother scrolling |
-| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                               |
+| _prop_                                  | _type_                                   | _default_ | _description_                                                                                                               |
+| --------------------------------------- | ---------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------- |
+| gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                                                                     |
+| gifWidth                                | `number`                                 | undefined | The width of the gifs and the carousel (you may want to set Gif.imgClassName to have object-fit: cover to avoid stretching) |
+| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                                                    |
+| gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                                          |
+| borderRadius                            | `number`                                 | 4         | a border radius applied to Gif Components making the corners rounded                                                        |
+| noResultsMessage                        | `string or JSX.Element`                  | undefined | Customize the "No results" message                                                                                          |
+| noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick`                       |
+| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF                                                                           |
+| [loaderConfig](#loader-config)          | `IntersectionObserverInit`               | undefined | Enables configuring the loader to fetch sooner than when just onscreen, allowing for smoother scrolling                     |
+| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                                                   |
 
 See [codesandbox](https://codesandbox.io/s/giphyreact-components-hbmcf?from-embed) for runnable code.
 
@@ -186,13 +186,14 @@ This component manages the [SearchContext](#searchcontext) that the child compon
 
 It has a few initialization props:
 
-| _prop_                  | _type_                                                                                                     | _default_     | _description_                                                                                        |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------- | ------------- | ---------------------------------------------------------------------------------------------------- |
-| apiKey                  | string                                                                                                     | undefined     | Your web SDK key. Use a separate key for every platform (Android, iOS, Web)                          |
-| initialTerm             | string                                                                                                     | ''            | _Advanced usage_ a search term to fetch and render when the component is mounted                     |
-| shouldDefaultToTrending | boolean                                                                                                    | true          | when there is no search term, fetch trending (includes `options` that are relevant e.g. limit, type) |
-| theme                   | [SearchTheme](#searchtheme)                                                                                | default theme | A few theming options such as search bar height and dark or light mode                               |
-| options                 | [SearchOptions](https://github.com/Giphy/giphy-js/blob/master/packages/fetch-api/README.md#search-options) | undefined     | Search options that will be passed on to the search request                                          |
+| _prop_                  | _type_                                                                                                     | _default_     | _description_                                                                                                                                                                                         |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| apiKey                  | string                                                                                                     | undefined     | Your web SDK key. Use a separate key for every platform (Android, iOS, Web)                                                                                                                           |
+| initialTerm             | string                                                                                                     | ''            | _Advanced usage_ a search term to fetch and render when the component is mounted                                                                                                                      |
+| shouldDefaultToTrending | boolean                                                                                                    | true          | when there is no search term, fetch trending (includes `options` that are relevant e.g. limit, type)                                                                                                  |
+| shouldFetchChannels     | boolean                                                                                                    | true          | Fetch channels while the term changes, enabling them to be displayed in a SuggestionBar. If the search term is @term and a channel is found that matches, the search bar will display in channel mode |
+| theme                   | [SearchTheme](#searchtheme)                                                                                | default theme | A few theming options such as search bar height and dark or light mode                                                                                                                                |
+| options                 | [SearchOptions](https://github.com/Giphy/giphy-js/blob/master/packages/fetch-api/README.md#search-options) | undefined     | Search options that will be passed on to the search request                                                                                                                                           |
 
 #### Searchbar
 
@@ -209,11 +210,12 @@ An input field used in the [Search Experience](#search-experience).
 The `SearchContext` manages the state of the search experience. The props below are all you need to configure your UI component. See (Search Experience)[#search-experience].
 It should use `searchKey` as its key, so when we have a new search, the old content is removed. And it will need a `fetchGifs` to initiate the first fetch and for subsequent infinite scroll fetches
 
-| _prop_    | _type_                                    | _default_            | _description_                                                                       |
-| --------- | ----------------------------------------- | -------------------- | ----------------------------------------------------------------------------------- |
-| searchKey | string                                    | undefined            | A unique id of the current search, used as a React key to refresh the [Grid](#grid) |
-| isFocused | boolean                                    | false            | whether or not the search input has focus |
-| fetchGifs | `(offset: number) => Promise<GifsResult>` | default search fetch | The search request passed to the UI component                                       |
+| _prop_          | _type_                                    | _default_            | _description_                                                                       |
+| --------------- | ----------------------------------------- | -------------------- | ----------------------------------------------------------------------------------- |
+| searchKey       | string                                    | undefined            | A unique id of the current search, used as a React key to refresh the [Grid](#grid) |
+| isFocused       | boolean                                   | false                | whether or not the search input has focus                                           |
+| currentChannels | IChannel[]                                | []                   | an array of channels that were found with the current search term                   |
+| fetchGifs       | `(offset: number) => Promise<GifsResult>` | default search fetch | The search request passed to the UI component                                       |
 
 #### SearchTheme
 
@@ -326,5 +328,4 @@ If you want to prefetch network requests before the loader appears in Grids and 
 | onGifRightClick | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the gif is right clicked                             |
 | onGifKeyPress   | `(gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void`         | fired when the a key is pressed on the gif                      |
 
-
-To stop fonts from loading set the environment variable `GIPHY_SDK_NO_FONTS=true`, this is not recommended as it could cause inconsistencies in the ui components 
+To stop fonts from loading set the environment variable `GIPHY_SDK_NO_FONTS=true`, this is not recommended as it could cause inconsistencies in the ui components
