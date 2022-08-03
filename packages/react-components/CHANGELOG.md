@@ -1,60 +1,164 @@
+## @giphy/react-components@6.0.0 (2022-08-03)
+
+#### feature
+
+-   `fetch-api`, `react-components`
+    -   [#315](https://github.com/Giphy/giphy-js/pull/315) React components - search bar updates ([@giannif](https://github.com/giannif))
+
+#### build tools & continuous integration
+
+-   `react-components`
+    -   [#313](https://github.com/Giphy/giphy-js/pull/313) chore: cover the main components with basic tests ([@pshoniuk](https://github.com/pshoniuk))
+
+#### Committers: 2
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+-   Valentine ([@pshoniuk](https://github.com/pshoniuk))
+
+## @giphy/js-fetch-api@4.4.0 (2022-08-03)
+
+#### feature
+
+-   `fetch-api`, `react-components`
+    -   [#315](https://github.com/Giphy/giphy-js/pull/315) React components - search bar updates ([@giannif](https://github.com/giannif))
+
+#### build tools & continuous integration
+
+-   `react-components`
+    -   [#313](https://github.com/Giphy/giphy-js/pull/313) chore: cover the main components with basic tests ([@pshoniuk](https://github.com/pshoniuk))
+
+#### Committers: 2
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+-   Valentine ([@pshoniuk](https://github.com/pshoniuk))
+
+## @giphy/js-components@5.8.1 (2022-08-03)
+
+#### feature
+
+-   `fetch-api`, `react-components`
+    -   [#315](https://github.com/Giphy/giphy-js/pull/315) React components - search bar updates ([@giannif](https://github.com/giannif))
+
+#### build tools & continuous integration
+
+-   `react-components`
+    -   [#313](https://github.com/Giphy/giphy-js/pull/313) chore: cover the main components with basic tests ([@pshoniuk](https://github.com/pshoniuk))
+
+#### Committers: 2
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+-   Valentine ([@pshoniuk](https://github.com/pshoniuk))
+
+## @giphy/react-components@5.13.0 (2022-07-27)
+
+#### feature
+
+-   `react-components`
+    -   [#314](https://github.com/Giphy/giphy-js/pull/314) react-components: search debounce configurable ([@giannif](https://github.com/giannif))
+
+#### build tools & continuous integration
+
+-   `react-components`
+    -   [#310](https://github.com/Giphy/giphy-js/pull/310) chore: cypress setup ([@pshoniuk](https://github.com/pshoniuk))
+
+#### Committers: 2
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+-   Valentine ([@pshoniuk](https://github.com/pshoniuk))
+
+## @giphy/react-components@5.11.1 (2022-07-13)
+
+#### refactor
+
+-   `components`, `react-components`
+    -   [#306](https://github.com/Giphy/giphy-js/pull/306) build(deps): update react, emotion, typescript & storybook ([@pshoniuk](https://github.com/pshoniuk))
+
+#### Committers: 1
+
+-   Valentine ([@pshoniuk](https://github.com/pshoniuk))
+
+## @giphy/js-components@5.7.2 (2022-07-13)
+
+#### refactor
+
+-   `components`, `react-components`
+    -   [#306](https://github.com/Giphy/giphy-js/pull/306) build(deps): update react, emotion, typescript & storybook ([@pshoniuk](https://github.com/pshoniuk))
+
+#### Committers: 1
+
+-   Valentine ([@pshoniuk](https://github.com/pshoniuk))
+
 ## @giphy/react-components@5.6.1 (2022-03-02)
 
 #### bug
-* `components`, `react-components`
-  * [#281](https://github.com/Giphy/giphy-js/pull/281) Fix - WebP Loading Bug ([@giannif](https://github.com/giannif))
+
+-   `components`, `react-components`
+    -   [#281](https://github.com/Giphy/giphy-js/pull/281) Fix - WebP Loading Bug ([@giannif](https://github.com/giannif))
 
 #### Committers: 1
-- Gianni Ferullo ([@giannif](https://github.com/giannif))
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+
 ## @giphy/react-components@5.6.0 (2022-03-01)
+
 #### feature
-* `components`, `react-components`
-  * [#280](https://github.com/Giphy/giphy-js/pull/280) feat(gif) Add keypress to GIF Events ([@pshoniuk](https://github.com/pshoniuk))
-  * [#279](https://github.com/Giphy/giphy-js/pull/279) feat(gif) Add keypress to GIF Events ([@robertpin](https://github.com/robertpin))
+
+-   `components`, `react-components`
+    -   [#280](https://github.com/Giphy/giphy-js/pull/280) feat(gif) Add keypress to GIF Events ([@pshoniuk](https://github.com/pshoniuk))
+    -   [#279](https://github.com/Giphy/giphy-js/pull/279) feat(gif) Add keypress to GIF Events ([@robertpin](https://github.com/robertpin))
 
 #### Committers: 2
-- Robert Pintilii ([@robertpin](https://github.com/robertpin))
-- Valentine ([@pshoniuk](https://github.com/pshoniuk))
+
+-   Robert Pintilii ([@robertpin](https://github.com/robertpin))
+-   Valentine ([@pshoniuk](https://github.com/pshoniuk))
 
 ## @giphy/react-components@5.5.0 (2022-02-23)
 
 #### feature
-* `components`, `react-components`
-  * [#276](https://github.com/Giphy/giphy-js/pull/276) feat(carousel): add a gifWidth option for fixed width carousel items ([@giannif](https://github.com/giannif))
+
+-   `components`, `react-components`
+    -   [#276](https://github.com/Giphy/giphy-js/pull/276) feat(carousel): add a gifWidth option for fixed width carousel items ([@giannif](https://github.com/giannif))
 
 #### Committers: 2
-- Gianni Ferullo ([@giannif](https://github.com/giannif))
-- Valentine ([@pshoniuk](https://github.com/pshoniuk))
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+-   Valentine ([@pshoniuk](https://github.com/pshoniuk))
 
 ## @giphy/react-components@5.3.0 (2021-09-09)
 
 #### feature
-* `react-components`
-  * [#264](https://github.com/Giphy/giphy-js/pull/264) feat(video/overlay): add an overlay for the video player component ([@giannif](https://github.com/giannif))
+
+-   `react-components`
+    -   [#264](https://github.com/Giphy/giphy-js/pull/264) feat(video/overlay): add an overlay for the video player component ([@giannif](https://github.com/giannif))
 
 #### Committers: 1
-- Gianni Ferullo ([@giannif](https://github.com/giannif))
 
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
 
 ## @giphy/react-components@5.2.0 (2021-09-07)
 
 #### feature
-* `react-components`
-  * [#261](https://github.com/Giphy/giphy-js/pull/261) feat(video): GIPHY CLIPS links to clip ([@giannif](https://github.com/giannif))
-* `react-components`, `types`
-  * [#260](https://github.com/Giphy/giphy-js/pull/260) Feat/video cc support ([@giannif](https://github.com/giannif))
+
+-   `react-components`
+    -   [#261](https://github.com/Giphy/giphy-js/pull/261) feat(video): GIPHY CLIPS links to clip ([@giannif](https://github.com/giannif))
+-   `react-components`, `types`
+    -   [#260](https://github.com/Giphy/giphy-js/pull/260) Feat/video cc support ([@giannif](https://github.com/giannif))
 
 #### Committers: 1
-- Gianni Ferullo ([@giannif](https://github.com/giannif))
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
 
 ## @giphy/react-components@5.1.0 (2021-08-30)
 
 #### feature
-* `react-components`
-  * [#255](https://github.com/Giphy/giphy-js/pull/255) feat(video): auto hide controls ([@giannif](https://github.com/giannif))
+
+-   `react-components`
+    -   [#255](https://github.com/Giphy/giphy-js/pull/255) feat(video): auto hide controls ([@giannif](https://github.com/giannif))
 
 #### Committers: 1
-- Gianni Ferullo ([@giannif](https://github.com/giannif))
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+
 ## 5.0.0 (2021-08-25)
 
 #### refactor
