@@ -8,7 +8,7 @@ const useRaf = (ms: number = 1e12, delay: number = 0): number => {
 
     useLayoutEffect(() => {
         let raf: number
-        let timerStop: NodeJS.Timeout
+        let timerStop: ReturnType<typeof setTimeout>
         let start: number
 
         const onFrame = () => {
