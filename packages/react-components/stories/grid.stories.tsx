@@ -49,7 +49,7 @@ export const Grid: Story<GridProps> = ({ loader, ...other }) => {
     }, [])
     const columns = number('columns', width < 500 ? 2 : 3)
     const gutter = number('gutter', 6)
-    const limit = number('limit', 5)
+    const limit = number('limit', 10)
     const NoResults = <NoResultsContainer>No results for {term}</NoResultsContainer>
 
     const fetchGifs = async (offset: number) => {
