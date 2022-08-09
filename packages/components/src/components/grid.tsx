@@ -112,30 +112,36 @@ class Grid extends Component<Props, State> {
         this.setState({ isLoaderVisible: isVisible }, this.onFetch)
     }
 
-    onFetch = debounce(Grid.fetchDebounce, async () => {
-        const { isFetching, isLoaderVisible, gifs: existingGifs } = this.state
-        if (!isFetching && isLoaderVisible) {
-            this.setState({ isFetching: true, isError: false })
-            let gifs
-            try {
-                gifs = await this.paginator()
-            } catch (error) {
-                this.setState({ isFetching: false, isError: true })
-                const { onGifsFetchError } = this.props
-                if (onGifsFetchError) onGifsFetchError(error as Error)
-            }
-            if (gifs) {
-                if (existingGifs.length === gifs.length) {
-                    this.setState({ isDoneFetching: true })
-                } else {
-                    this.setState({ gifs, isFetching: false })
-                    const { onGifsFetched } = this.props
-                    if (onGifsFetched) onGifsFetched(gifs)
-                    this.onFetch()
-                }
+    fetchGifs = debounce(Grid.fetchDebounce, async (prefetchCount) => {
+        let gifs
+        try {
+            gifs = await this.paginator()
+        } catch (error) {
+            this.setState({ isFetching: false, isError: true })
+            const { onGifsFetchError } = this.props
+            if (onGifsFetchError) onGifsFetchError(error as Error)
+        }
+        if (gifs) {
+            // if we've just fetched and we don't have
+            // any more gifs, we're done fetching
+            if (prefetchCount === gifs.length) {
+                this.setState({ isDoneFetching: true })
+            } else {
+                this.setState({ gifs, isFetching: false })
+                const { onGifsFetched } = this.props
+                if (onGifsFetched) onGifsFetched(gifs)
+                this.onFetch()
             }
         }
     })
+
+    onFetch = async () => {
+        const { isFetching, isLoaderVisible, gifs } = this.state
+        if (!isFetching && isLoaderVisible) {
+            this.setState({ isFetching: true, isError: false })
+            this.fetchGifs(gifs.length)
+        }
+    }
 
     render(
         {
