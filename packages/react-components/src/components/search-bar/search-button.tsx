@@ -64,6 +64,7 @@ const GradientBox = styled.div`
     height: 100%;
     width: 100%;
     background: linear-gradient(45deg, ${purp} 0%, ${pink} 100%);
+    border-radius: 4px;
     overflow: hidden;
     &:before {
         animation: ${gradientFade} ${time} linear 0s infinite;

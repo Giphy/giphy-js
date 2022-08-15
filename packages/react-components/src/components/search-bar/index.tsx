@@ -35,6 +35,7 @@ const Container = styled.div`
     display: flex;
     background: white;
     align-items: center;
+    border-radius: 4px;
     ${(props) => getSize(props.theme)}
 `
 
