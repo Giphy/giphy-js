@@ -1,50 +1,51 @@
 language: node_js
 node_js:
-  - '14'
+    - '14'
 
 env:
-  # skip Puppeteer download, only needed for Netlify build
-  - PUPPETEER_SKIP_DOWNLOAD=1
+    # skip Puppeteer download, only needed for Netlify build
+    - PUPPETEER_SKIP_DOWNLOAD=1
 
 addons:
-  apt:
-    packages:
-      - libgconf-2-4
+    apt:
+        packages:
+            - libgconf-2-4
 
 cache:
-  yarn: true
-  directories:
-    - 'node_modules'
-    - '~/.cache'
+    yarn: true
+    directories:
+        - 'node_modules'
+        - '~/.cache'
 
 before_script:
-  - yarn global add license-checker
-  - yarn run lerna bootstrap
-  - git checkout .
-  - yarn run cy:verify
-  - yarn run cy:info
+    - yarn global add license-checker
+    - yarn run lerna bootstrap
+    - git checkout .
+    - yarn run cy:verify
+    - yarn run cy:info
 
 script:
-  - yarn run check-licenses
-  - yarn run dependency-cruiser
-  - yarn run lint
-  - yarn test
-  # All Percy snapshots except SearchBar have been moved to Cypress, to avoid confusion disable the old "snapshot" command.
-  # When the Cypress setuisbe verified, this command might be removed.
-  # - yarn run snapshot
-  - yarn run cy:run --record --key ${CYPRESS_RECORD_KEY}
-  # after all tests finish running we need
-  # to kill all background jobs (like "npm start &")
-  # this avoids flake in Travis jobs
-  - kill $(jobs -p) || true
+    - yarn run check-licenses
+    - yarn run dependency-cruiser
+    - yarn run lint
+    - yarn test
+    # All Percy snapshots except SearchBar have been moved to Cypress, to avoid confusion disable the old "snapshot" command.
+    # When the Cypress setuisbe verified, this command might be removed.
+    # - yarn run snapshot
+    - yarn run cy:run --record --key ${CYPRESS_RECORD_KEY}
+    # after all tests finish running we need
+    # to kill all background jobs (like "npm start &")
+    # this avoids flake in Travis jobs
+    - kill $(jobs -p) || true
 
 before_deploy:
-  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc
+    - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc
 
 deploy:
-  provider: script
-  script: 'yarn run lerna:publish'
-  skip_cleanup: true
-  on:
-    branch: master
-    condition: $TRAVIS_COMMIT_MESSAGE =~ ^Publish
+    if: branch = master AND tag IS present
+    provider: script
+    script: 'yarn run lerna:publish'
+    skip_cleanup: true
+    on:
+        tags: true
+        condition: $TRAVIS_COMMIT_MESSAGE =~ ^Publish
