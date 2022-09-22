@@ -9,7 +9,7 @@ const bouncer = keyframes`
   }
 `
 const loaderHeight = 37
-const Loader = styled.div`
+const Container = styled.div`
     display: flex;
     align-items: center;
     height: ${loaderHeight}px;
@@ -32,12 +32,14 @@ const Dot = styled.div<{ color: string; delay: string }>`
     animation-delay: ${(props) => props.delay};
 `
 
-export default ({ className = '' }: { className?: string }) => (
-    <Loader className={className}>
+const Loader = ({ className = '' }: { className?: string }) => (
+    <Container className={className}>
         <Dot color={giphyGreen} delay="0" />
         <Dot color={giphyBlue} delay=".1s" />
         <Dot color={giphyPurple} delay=".2s" />
         <Dot color={giphyRed} delay=".3s" />
         <Dot color={giphyYellow} delay=".4s" />
-    </Loader>
+    </Container>
 )
+
+export default Loader
