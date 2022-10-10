@@ -5,7 +5,7 @@ import fetchMock from 'fetch-mock'
 import * as React from 'react'
 import { Story } from '@storybook/react'
 import { jsxDecorator } from 'storybook-addon-jsx'
-import { Carousel as CarouselComponent } from '../src'
+import { Carousel as CarouselComponent, VideoOverlay } from '../src'
 import inTestsRunner from './in-tests-runner'
 import mockGifsResult from './mock-data/gifs.json'
 
@@ -45,6 +45,39 @@ export const SearchExample: Story<StoryProps> = (props) => {
                 backgroundColor={inTestsRunner() ? 'white' : undefined}
                 gutter={6}
                 fetchGifs={fetchGifs}
+                {...props}
+            />
+        </>
+    )
+}
+
+export const SearchClipsExample: Story<StoryProps> = (props) => {
+    const [term, setTerm] = useState('dogs')
+    const limit = number('limit', 5)
+    const fetchGifs = async (offset: number) => {
+        if (inTestsRunner()) {
+            fetchMock.restore().getOnce(`begin:https://api.giphy.com/v1/gifs/search?`, { body: mockGifsResult })
+        }
+        const result = await gf.search(term, { offset, limit, type: 'videos' })
+        fetchMock.restore()
+        return result
+    }
+    return (
+        <>
+            <input
+                style={{ margin: 10 }}
+                placeholder="type to search"
+                onChange={({ target: { value } }) => setTerm(value)}
+                value={term}
+            />
+            <CarouselComponent
+                key={term}
+                gifHeight={number('gif height', 200)}
+                gifWidth={number('gif width', undefined as any)}
+                backgroundColor={inTestsRunner() ? 'white' : undefined}
+                gutter={6}
+                fetchGifs={fetchGifs}
+                overlay={VideoOverlay}
                 {...props}
             />
         </>

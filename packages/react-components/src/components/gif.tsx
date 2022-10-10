@@ -17,7 +17,7 @@ import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
 import { PingbackContext } from './pingback-context-manager'
-import { GifOverlayProps } from './types'
+import { GifOverlayProps, VideoOverlayProps } from './types'
 
 const GifContainer = styled.div<{ borderRadius?: number }>`
     display: block;
@@ -73,7 +73,7 @@ type GifProps = {
     backgroundColor?: string
     className?: string
     user?: Partial<IUser>
-    overlay?: ElementType<GifOverlayProps>
+    overlay?: ElementType<GifOverlayProps> | ElementType<VideoOverlayProps>
     hideAttribution?: boolean
     noLink?: boolean
     borderRadius?: number

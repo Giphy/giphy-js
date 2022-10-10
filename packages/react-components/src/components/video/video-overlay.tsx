@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import React, { useEffect, useState } from 'react'
-import { GifOverlayProps } from '../types'
+import { GifOverlayProps, VideoOverlayProps } from '../types'
 import Video from './'
 import { VolumeOffIcon, VolumeOnIcon } from './controls/volume'
 
@@ -60,14 +60,7 @@ const VideoOverlay = ({
     className,
     muted: userPrefMuted = false,
     onUserMuted,
-}: GifOverlayProps & {
-    width: number
-    height?: number
-    className?: string
-    muted?: boolean // force this to be muted
-    hideMuteButton?: boolean
-    onUserMuted?: (muted: boolean) => void // for saving the state of the user muted
-}) => {
+}: VideoOverlayProps) => {
     const [muted, setMuted] = useState<boolean | undefined>(userPrefMuted)
     const [mutedByBrowser, setMutedByBrowser] = useState(false)
 
