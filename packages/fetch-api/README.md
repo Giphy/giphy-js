@@ -152,6 +152,40 @@ emoji(options?: PaginationOptions): Promise<GifsResult>
 const { data: gifs } = await gf.emoji()
 ```
 
+## _emoji default variations_
+
+Returns a list of all the default emoji variations.
+
+##### Signature:
+
+```typescript
+emojiDefaultVariations(options?: PaginationOptions): Promise<GifsResult>
+```
+
+> Options: [Pagination Options](#pagination-options)
+
+##### Example:
+
+```typescript
+const { data: gifs } = await gf.emojiDefaultVariations()
+```
+
+## _emoji variations_
+
+Returns a list of gifs representing all the variations for the emoji.
+
+##### Signature:
+
+```typescript
+emojiVariations(id: GifID): Promise<NonPaginatedGifsResult>
+```
+
+##### Example:
+
+```typescript
+const { data: gifs } = await gf.emojiVariations('iigp4VDyf5dCLRlGkm')
+```
+
 ## _random_
 
 Returns a random single GIF
