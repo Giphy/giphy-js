@@ -271,6 +271,64 @@ const { data } = await gf.gif('D068R9Ziv1iCjezKzG')
 ReactDOM.render(<Video gif={data} width={300} controls />, target)
 ```
 
+## EmojiVariationsList
+
+This component is designed to display a list of variations for a given emoji.
+
+Here are the components in action in our [storybook](https://giphy.github.io/giphy-js/?path=path=/story/react-components-emoji-variations-list--default)
+
+| _prop_                                  | _type_                                              | _default_ | _description_                                                                                         |
+| --------------------------------------- | --------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------- |
+| fetchVariations                         | `(gifId: GifID) => Promise<NonPaginatedGifsResult>` | undefined | The async callback that should return emoji variations. Use `@giphy/js-fetch-api`                     |
+| gif                                     | `IGif`                                              | undefined | Specifies for which gif to display variations                                                         |
+| gifHeight                               | `number`                                            | undefined | The height of the gifs in the list                                                                    |
+| gifWidth                                | `number`                                            | undefined | The width of the gifs in the list                                                                     |
+| backgroundColor                         | `string`                                            | '#2e2e2e' | Set the background color for the list                                                                 |
+| dividerColor                            | `string`                                            | '#4e4e4e' | Set the color for the divider                                                                         |
+| gutter                                  | `number`                                            | 6         | The space between the gifs                                                                            |
+| loader                                  | `ElementType`                                       | undefined | Specifies the loader                                                                                  |
+| noLink                                  | `boolean`                                           | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
+| onVariationsFetched                     | `(gifs: IGif[]) => void`                            | undefined | The callback that will be called when variations are fetched                                          |
+| [hideAttribution](#attribution-overlay) | `boolean`                                           | false     | Hide the user attribution that appears over a GIF                                                     |
+| [GifProps](#gif)                        | `GifProps`                                          | undefined | Props applied to the [Gif](#gif) element                                                              |
+| [Gif Events](#gif-events)               | \*                                                  | \*        | see below                                                                                             |
+
+_Example_:
+
+```tsx
+import React, { useState } from 'react'
+import ReactDOM from 'react-dom'
+import { GiphyFetch } from '@giphy/js-fetch-api'
+import { EmojiVariationsList, Grid } from '@giphy/react-components'
+import type { GifID, IGif } from '@giphy/js-types'
+
+// use @giphy/js-fetch-api to fetch gifs
+// apply for a new Web SDK key. Use a separate key for every platform (Android, iOS, Web)
+const gf = new GiphyFetch('your Web SDK key')
+
+const fetchDefaultVariations = (offset: number) => gf.emojiDefaultVariations({ offset })
+const fetchVariations = (id: GifID) => gf.emojiVariations(id)
+
+export function Example() {
+    const [gif, setGif] = useState<IGif | null>(null)
+    return (
+        <>
+            {gif ? <EmojiVariationsList fetchVariations={fetchVariations} gif={gif} gifHeight={100} /> : null}
+            <Grid
+                columns={3}
+                fetchGifs={fetchDefaultVariations}
+                hideAttribution={true}
+                noLink={true}
+                onGifClick={setGif}
+                width={400}
+            />
+        </>
+    )
+}
+
+ReactDOM.render(<Example />, target)
+```
+
 ### GifOverlay
 
 The overlay prop, available on all components allows you to overlay a gif with a custom UI and respond to hover events (desktop only).
