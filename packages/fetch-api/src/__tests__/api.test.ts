@@ -171,7 +171,7 @@ describe('response parsing', () => {
         const { data } = await gf.emojiVariations('12345')
         testDummyGif(data[0])
     })
-    test('emoji variations', async () => {
+    test('text search', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.search('pasta', { type: 'text' })
         testDummyGif(data[0])
