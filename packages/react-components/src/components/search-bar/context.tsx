@@ -126,7 +126,7 @@ const SearchContextManager = ({
     )
     useEffect(() => {
         const fetchTrendingSearches = async () => {
-            const { data } = (await request(`trending/searches?api_key=${apiKey}`)) as Result & { data: string[] }
+            const { data } = (await request(`v1/trending/searches?api_key=${apiKey}`)) as Result & { data: string[] }
             setTrendingSearches(data || [])
         }
         fetchTrendingSearches()
