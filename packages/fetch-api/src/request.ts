@@ -5,6 +5,12 @@ import { ErrorResult, Result } from './result-types'
 export const ERROR_PREFIX = `@giphy/js-fetch-api: `
 export const DEFAULT_ERROR = 'Error fetching'
 
+export type RequestOptions = {
+    apiVersion?: number
+    noCache?: boolean
+    normalizer?: (a: any) => any
+}
+
 const identity = (i: any) => i
 const requestMap: {
     [key: string]: {
@@ -27,13 +33,15 @@ const purgeCache = () => {
     })
 }
 
-function request(url: string, normalizer: (a: any) => any = identity, noCache: boolean = false) {
+function request(url: string, options: RequestOptions = {}) {
+    const { apiVersion = 1, noCache = false, normalizer = identity } = options
+    const serverUrl_ = serverUrl.replace(/\/v\d+\/$/, `/v${apiVersion}/`)
     purgeCache()
     if (!requestMap[url] || noCache) {
         const makeRequest = async (): Promise<Result> => {
             let fetchError: FetchError
             try {
-                const response = await fetch(`${serverUrl}${url}`, {
+                const response = await fetch(`${serverUrl_}${url}`, {
                     method: 'get',
                 })
                 if (response.ok) {
