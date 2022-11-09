@@ -2,6 +2,7 @@ import React, { ElementType, useEffect } from 'react'
 import styled from '@emotion/styled'
 import useAsyncFn from 'react-use/lib/useAsyncFn'
 import useLatest from 'react-use/lib/useLatest'
+import { giphyDarkGrey, giphyCharcoal } from '@giphy/js-brand'
 import { getGifWidth } from '@giphy/js-util'
 import type { GifID, IGif, IUser } from '@giphy/js-types'
 import type { NonPaginatedGifsResult } from '@giphy/js-fetch-api'
@@ -29,8 +30,8 @@ export type EmojiVariationsListProps = {
 } & EventProps &
     React.ComponentProps<'div'>
 
-const DEFAULT_BG_COLOR = '#2e2e2e'
-const DEFAULT_DIVIDER_COLOR = '#4e4e4e'
+const DEFAULT_BG_COLOR = giphyDarkGrey
+const DEFAULT_DIVIDER_COLOR = giphyCharcoal
 const DIVIDER_RELATIVE_HEIGHT = 0.75
 
 const Root = styled.div<{ backgroundColor?: string }>`
