@@ -59,10 +59,11 @@ const VariationsContainer = styled.div<{ width: number }>`
 `
 
 const Divider = styled.div<{ color?: string; gifHeight: number; gutter: number }>`
-    border: 1px solid ${({ color }) => color};
+    background-color: ${({ color }) => color};
+    box-sizing: border-box;
     height: ${({ gifHeight }) => `${Math.round(gifHeight * DIVIDER_RELATIVE_HEIGHT)}px`};
     margin: ${({ gutter }) => `0 ${gutter}px`};
-    width: 1px;
+    width: 2px;
 `
 
 const Emoji = styled(Gif)`
