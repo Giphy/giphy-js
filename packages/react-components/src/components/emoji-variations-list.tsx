@@ -54,6 +54,7 @@ const VariationsViewport = styled.div`
 const VariationsContainer = styled.div<{ width: number }>`
     display: inline-flex;
     justify-content: space-between;
+    overflow: hidden;
     white-space: nowrap;
     width: ${({ width }) => `${width}px`};
 `
