@@ -1,16 +1,20 @@
 import { IChannel, IGif } from '@giphy/js-types'
 
+export interface ResultMeta {
+    msg: string
+    response_id: string
+    status: number
+}
+
+export interface ResultPagination {
+    count: number
+    total_count: number
+    offset: number
+}
+
 export interface Result {
-    meta: {
-        msg: string
-        response_id: string
-        status: number
-    }
-    pagination: {
-        count: number
-        total_count: number
-        offset: number
-    }
+    meta: ResultMeta
+    pagination: ResultPagination
 }
 
 export interface ErrorResult {
@@ -21,6 +25,11 @@ export interface GifResult extends Result {
 }
 export interface GifsResult extends Result {
     data: IGif[]
+}
+
+export interface NonPaginatedGifsResult {
+    data: IGif[]
+    meta: ResultMeta
 }
 
 export interface ICategory {

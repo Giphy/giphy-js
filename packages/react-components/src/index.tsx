@@ -17,6 +17,8 @@ export { default as Video } from './components/video'
 export * from './components/video/controls/play-pause'
 export * from './components/video/controls/volume'
 export { default as VideoOverlay } from './components/video/video-overlay'
+export type { EmojiVariationsListProps } from './components/emoji-variations-list'
+export { EmojiVariationsList } from './components/emoji-variations-list'
 
 const { version } = require('../package.json')
 

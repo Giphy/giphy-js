@@ -14,7 +14,8 @@ import {
     TypeOption,
 } from './option-types'
 import request from './request'
-import { CategoriesResult, ChannelsResult, GifResult, GifsResult } from './result-types'
+import { GifID } from '@giphy/js-types'
+import { CategoriesResult, ChannelsResult, GifResult, GifsResult, NonPaginatedGifsResult } from './result-types'
 
 const getType = (options?: TypeOption): MediaType => (options && options.type ? options.type : 'gifs')
 /**
@@ -53,7 +54,7 @@ export class GiphyFetch {
      * @returns {Promise<GifsResult>}
      **/
     gif(id: string): Promise<GifResult> {
-        return request(`gifs/${id}?${this.getQS()}`, normalizeGif) as Promise<GifResult>
+        return request(`gifs/${id}?${this.getQS()}`, { normalizer: normalizeGif }) as Promise<GifResult>
     }
 
     /**
@@ -72,18 +73,48 @@ export class GiphyFetch {
     gifs(category: string, subcategory: string): Promise<GifsResult>
     gifs(arg1: any, arg2?: string): Promise<GifsResult> {
         if (Array.isArray(arg1)) {
-            return request(`gifs?${this.getQS({ ids: arg1.join(',') })}`, normalizeGifs) as Promise<GifsResult>
+            return request(`gifs?${this.getQS({ ids: arg1.join(',') })}`, {
+                normalizer: normalizeGifs,
+            }) as Promise<GifsResult>
         }
-        return request(`gifs/categories/${arg1}/${arg2}?${this.getQS()}`, normalizeGifs) as Promise<GifsResult>
+        return request(`gifs/categories/${arg1}/${arg2}?${this.getQS()}`, {
+            normalizer: normalizeGifs,
+        }) as Promise<GifsResult>
     }
 
     emoji(options?: PaginationOptions): Promise<GifsResult> {
-        return request(`emoji?${this.getQS(options)}`, normalizeGifs) as Promise<GifsResult>
+        return request(`emoji?${this.getQS(options)}`, { normalizer: normalizeGifs }) as Promise<GifsResult>
+    }
+
+    /**
+     * Returns a list of all the default emoji variations
+     *
+     * @param {PaginationOptions} options
+     * @returns {Promise<GifsResult>}
+     **/
+    emojiDefaultVariations(options?: PaginationOptions): Promise<GifsResult> {
+        return request(`emoji?${this.getQS(options)}`, {
+            apiVersion: 2,
+            normalizer: normalizeGifs,
+        }) as Promise<GifsResult>
+    }
+
+    /**
+     * Returns a list of gifs representing all the variations for the emoji
+     *
+     * @param {string} id
+     * @returns {Promise<NonPaginatedGifsResult>}
+     **/
+    emojiVariations(id: GifID): Promise<NonPaginatedGifsResult> {
+        return request(`emoji/${id}/variations?${this.getQS()}`, {
+            apiVersion: 2,
+            normalizer: normalizeGifs,
+        }) as Promise<GifsResult>
     }
 
     animate(text: string, options: PaginationOptions = {}): Promise<GifsResult> {
         const qsParams = this.getQS({ ...options, m: text })
-        return request(`text/animate?${qsParams}`, normalizeGifs) as Promise<GifsResult>
+        return request(`text/animate?${qsParams}`, { normalizer: normalizeGifs }) as Promise<GifsResult>
     }
 
     /**
@@ -98,7 +129,7 @@ export class GiphyFetch {
             excludeDynamicResults = true
         }
         const qsParams = this.getQS({ ...options, q, excludeDynamicResults })
-        return request(`${getType(options)}/search?${qsParams}`, normalizeGifs) as Promise<GifsResult>
+        return request(`${getType(options)}/search?${qsParams}`, { normalizer: normalizeGifs }) as Promise<GifsResult>
     }
 
     /**
@@ -118,16 +149,21 @@ export class GiphyFetch {
      * @returns {Promise<GifsResult>}
      */
     trending(options: TrendingOptions = {}): Promise<GifsResult> {
-        return request(`${getType(options)}/trending?${this.getQS(options)}`, normalizeGifs) as Promise<GifsResult>
+        return request(`${getType(options)}/trending?${this.getQS(options)}`, {
+            normalizer: normalizeGifs,
+        }) as Promise<GifsResult>
     }
 
     /**
      * Get a random gif
-     * @param {RandomOptions}
+     * @param {RandomOptions} options
      * @returns {Promise<GifResult>}
      **/
     random(options?: RandomOptions): Promise<GifResult> {
-        return request(`${getType(options)}/random?${this.getQS(options)}`, normalizeGif, true) as Promise<GifResult>
+        return request(`${getType(options)}/random?${this.getQS(options)}`, {
+            noCache: true,
+            normalizer: normalizeGif,
+        }) as Promise<GifResult>
     }
 
     /**
@@ -139,7 +175,7 @@ export class GiphyFetch {
     related(id: string, options?: RelatedOptions): Promise<GifsResult> {
         return request(
             `${options?.type === 'stickers' ? 'stickers' : 'gifs'}/related?${this.getQS({ gif_id: id, ...options })}`,
-            normalizeGifs
+            { normalizer: normalizeGifs }
         ) as Promise<GifsResult>
     }
 

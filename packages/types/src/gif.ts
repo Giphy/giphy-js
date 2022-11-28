@@ -7,9 +7,11 @@ interface IBottleData {
     tags?: string[]
 }
 
+export type GifID = string | number
+
 export default interface IGif {
     type: 'video' | 'gif' | 'text'
-    id: string | number
+    id: GifID
     slug: string
     url: string
     bitly_gif_url: string
@@ -35,4 +37,7 @@ export default interface IGif {
     bottle_data: IBottleData
     analytics_response_payload: string
     video?: IVideo
+    emoji_group_id?: number
+    variation?: string
+    variation_count?: number
 }

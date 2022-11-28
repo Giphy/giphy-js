@@ -21,6 +21,10 @@ const gifsResponse = {
     pagination,
     meta,
 }
+const gifsNonPaginatedResponse = {
+    data: [dummyGif],
+    meta,
+}
 const gifsResponseNoTags = {
     data: [{ id: 456, is_hidden: 0, analytics_response_payload: 'ARP' }],
     pagination,
@@ -155,6 +159,16 @@ describe('response parsing', () => {
     test('emoji', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.emoji()
+        testDummyGif(data[0])
+    })
+    test('emoji default variations', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
+        const { data } = await gf.emojiDefaultVariations()
+        testDummyGif(data[0])
+    })
+    test('emoji variations', async () => {
+        fetchMock.mockResponseOnce(JSON.stringify(gifsNonPaginatedResponse))
+        const { data } = await gf.emojiVariations('12345')
         testDummyGif(data[0])
     })
     test('text search', async () => {
