@@ -121,3 +121,7 @@ export function checkVideoEvents(ctx: VideoTestUtilsContext) {
             }
         })
 }
+
+export const performAllVideoTelemetryEvents = (videoId: string) => {
+    getVideoElement(videoId).trigger('play').trigger('pause')
+}

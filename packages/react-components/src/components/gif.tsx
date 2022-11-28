@@ -79,6 +79,8 @@ type GifProps = {
     borderRadius?: number
     tabIndex?: number
     style?: any
+    // Enables telemetry; opt-in
+    optInToTelemetry?: boolean
 }
 
 type Props = GifProps & EventProps
@@ -108,6 +110,7 @@ const Gif = ({
     borderRadius = 4,
     style,
     tabIndex,
+    optInToTelemetry = false,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -145,9 +148,11 @@ const Gif = ({
         clearTimeout(hoverTimeout.current!)
         e.persist()
         setHovered(true)
-        hoverTimeout.current = window.setTimeout(() => {
-            pingback.onGifHover(gif, user?.id, e.target as HTMLElement, attributes)
-        }, hoverTimeoutDelay)
+        if (optInToTelemetry) {
+            hoverTimeout.current = window.setTimeout(() => {
+                pingback.onGifHover(gif, user?.id, e.target as HTMLElement, attributes)
+            }, hoverTimeoutDelay)
+        }
     }
 
     const onMouseLeave = () => {
@@ -156,8 +161,10 @@ const Gif = ({
     }
 
     const onClick = (e: SyntheticEvent<HTMLElement, Event>) => {
-        // fire pingback
-        pingback.onGifClick(gif, user?.id, e.target as HTMLElement, attributes)
+        if (optInToTelemetry) {
+            // fire pingback
+            pingback.onGifClick(gif, user?.id, e.target as HTMLElement, attributes)
+        }
         onGifClick(gif, e)
     }
 
@@ -170,8 +177,10 @@ const Gif = ({
         // flag so we don't observe any more
         setHasFiredSeen(true)
         Logger.debug(`GIF ${gif.id} seen. ${gif.title}`)
-        // fire pingback
-        pingback.onGifSeen(gif, user?.id, entry.boundingClientRect, attributes)
+        if (optInToTelemetry) {
+            // fire pingback
+            pingback.onGifSeen(gif, user?.id, entry.boundingClientRect, attributes)
+        }
         // fire custom onGifSeen
         onGifSeen?.(gif, entry.boundingClientRect)
         // disconnect

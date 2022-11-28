@@ -122,3 +122,12 @@ export function checkGifMouseEvents(
         cy.percySnapshot(`${options.snapshotNamePrefix}: onRightClick`)
     }
 }
+
+export const performAllGifTelemetryEvents = () => {
+    cy.get(`[data-cy-root] .${Gif.className}`)
+        .click()
+        .trigger('mouseover')
+        // hover timeout delay
+        .wait(200)
+        .type('{enter}')
+}
