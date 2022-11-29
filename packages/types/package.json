@@ -3,7 +3,8 @@
         "clean": "rm -rf ./dist",
         "dev": "tsc --watch",
         "build": "tsc -d --emitDeclarationOnly -declarationDir ./dist",
-        "prepublish": "npm run clean && tsc -d --emitDeclarationOnly -declarationDir ./dist"
+        "prepublish": "npm run clean && tsc -d --emitDeclarationOnly -declarationDir ./dist",
+        "test": "tsc --noEmit"
     },
     "name": "@giphy/js-types",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/types",

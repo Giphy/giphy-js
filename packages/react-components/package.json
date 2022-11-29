@@ -10,7 +10,8 @@
         "cy:run": "percy exec -- cypress run --component -b chrome",
         "cy:open": "cypress open --component -b chrome",
         "cy:verify": "cypress verify",
-        "cy:info": "cypress info"
+        "cy:info": "cypress info",
+        "test": "tsc --noEmit && npm run cy:run"
     },
     "devDependencies": {
         "@babel/core": "^7.18.6",

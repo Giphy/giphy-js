@@ -4,7 +4,8 @@
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
         "dev": "parcel public/test.html",
         "build": "tsc",
-        "prepublish": "npm run clean && tsc"
+        "prepublish": "npm run clean && tsc",
+        "test": "tsc --noEmit"
     },
     "devDependencies": {
         "@types/bricks.js": "^1.8.1",

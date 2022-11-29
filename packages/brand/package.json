@@ -3,7 +3,8 @@
         "clean": "rm -rf ./dist",
         "dev": "parcel public/test.html",
         "build": "tsc",
-        "prepublish": "npm run clean && npm run build"
+        "prepublish": "npm run clean && npm run build",
+        "test": "tsc --noEmit"
     },
     "devDependencies": {
         "parcel-bundler": "latest",
