@@ -34,6 +34,8 @@ type Props = {
     tabIndex?: number
     loaderConfig?: IntersectionObserverInit
     loader?: ElementType
+    // Enables telemetry; opt-in
+    optInToTelemetry?: boolean
 } & EventProps
 
 const Loader = styled.div<{ isFirstLoad: boolean }>`
@@ -154,6 +156,7 @@ class Grid extends PureComponent<Props, State> {
             tabIndex = 0,
             layoutType = 'GRID',
             loader: LoaderVisual = DotsLoader,
+            optInToTelemetry,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = !isDoneFetching
@@ -188,6 +191,7 @@ class Grid extends PureComponent<Props, State> {
                                 hideAttribution={hideAttribution}
                                 noLink={noLink}
                                 borderRadius={borderRadius}
+                                optInToTelemetry={optInToTelemetry}
                             />
                         ))}
                     </MasonryGrid>

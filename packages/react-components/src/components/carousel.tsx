@@ -63,6 +63,8 @@ type Props = {
     borderRadius?: number
     tabIndex?: number
     loaderConfig?: IntersectionObserverInit
+    // Enables telemetry; opt-in
+    optInToTelemetry?: boolean
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
@@ -143,6 +145,7 @@ class Carousel extends PureComponent<Props, State> {
             borderRadius,
             tabIndex = 0,
             loaderConfig,
+            optInToTelemetry,
         } = this.props
         const { gifs, isDoneFetching } = this.state
         const showLoader = !isDoneFetching
@@ -170,6 +173,7 @@ class Carousel extends PureComponent<Props, State> {
                                 noLink={noLink}
                                 borderRadius={borderRadius}
                                 backgroundColor={backgroundColor}
+                                optInToTelemetry={optInToTelemetry}
                             />
                         )
                     })}

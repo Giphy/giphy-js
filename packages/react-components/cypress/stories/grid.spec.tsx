@@ -11,9 +11,11 @@ import {
     checkGifKeyboardEvents,
     checkGifMouseEvents,
     GifTestUtilsContext,
+    performAllGifTelemetryEvents,
     resetGifEventsHistory,
     setupGifTestUtils,
 } from '../utils/gif-test-utils'
+import { checkNoTelemetryHappens, checkUsualTelemetryHappens, interceptPingbacks } from '../utils/pingback-utils'
 
 const GIFS_COUNT = 5
 
@@ -83,5 +85,44 @@ describe('Grid', () => {
         getGridGifs().should('not.exist')
         cy.wrap(onGifsFetched).should('not.be.called')
         cy.percySnapshot('Grid / GridAPIError')
+    })
+
+    describe('telemetry tests', () => {
+        let gifUtilsCtx: GifTestUtilsContext
+
+        for (const { Component, title } of [
+            {
+                title: 'should send no telemetry if user has explicitly opted out',
+                Component: (events: typeof gifUtilsCtx['events']) => (
+                    <stories.Grid {...events} optInToTelemetry={false} />
+                ),
+            },
+            {
+                title: 'should send no telemetry if user has not specified the opt-in prop',
+                Component: (events: typeof gifUtilsCtx['events']) => <stories.Grid {...events} />,
+            },
+        ]) {
+            before(() => {
+                gifUtilsCtx = setupGifTestUtils('')
+            })
+
+            it(title, () => {
+                interceptPingbacks()
+                cy.mount(<Component {...gifUtilsCtx.events} />)
+                forEachGif((gifId) => {
+                    performAllGifTelemetryEvents(gifId)
+                })
+                checkNoTelemetryHappens()
+            })
+        }
+
+        it('should send usual telemetry if user has explicitly opted in', () => {
+            interceptPingbacks()
+            cy.mount(<stories.Grid {...gifUtilsCtx.events} optInToTelemetry={true} />)
+            forEachGif((gifId) => {
+                performAllGifTelemetryEvents(gifId)
+            })
+            checkUsualTelemetryHappens()
+        })
     })
 })

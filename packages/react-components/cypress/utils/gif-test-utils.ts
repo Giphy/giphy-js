@@ -123,9 +123,9 @@ export function checkGifMouseEvents(
     }
 }
 
-export const performAllGifTelemetryEvents = () => {
-    cy.get(`[data-cy-root] .${Gif.className}`)
-        .click()
+export const performAllGifTelemetryEvents = (gifId?: string) => {
+    const gif = gifId ? getGifRoot(gifId) : cy.get(`[data-cy-root] .${Gif.className}`)
+    gif.click()
         .trigger('mouseover')
         // hover timeout delay
         .wait(200)
