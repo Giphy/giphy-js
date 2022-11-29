@@ -47,6 +47,8 @@ type Props = {
     noLink?: boolean
     tabIndex?: number
     borderRadius?: number
+    // Enables telemetry; opt-in
+    optInToTelemetry?: boolean
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {} })
@@ -121,6 +123,7 @@ class Carousel extends Component<Props, State> {
             noLink,
             tabIndex = 0,
             borderRadius,
+            optInToTelemetry = false,
         }: Props,
         { gifs }: State
     ) {
@@ -155,6 +158,7 @@ class Carousel extends Component<Props, State> {
                                 hideAttribution={hideAttribution}
                                 noLink={noLink}
                                 borderRadius={borderRadius}
+                                optInToTelemetry={optInToTelemetry}
                             />
                         )
                     })}

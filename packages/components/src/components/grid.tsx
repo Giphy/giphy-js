@@ -28,6 +28,8 @@ type Props = {
     noLink?: boolean
     tabIndex?: number
     borderRadius?: number
+    // Enables telemetry; opt-in
+    optInToTelemetry?: boolean
 } & EventProps
 const defaultProps = Object.freeze({ gutter: 6, user: {} })
 
@@ -158,6 +160,7 @@ class Grid extends Component<Props, State> {
             noLink,
             tabIndex = 0,
             borderRadius,
+            optInToTelemetry = false,
         }: Props,
         { gifWidth, gifs, isError, isDoneFetching }: State
     ) {
@@ -183,6 +186,7 @@ class Grid extends Component<Props, State> {
                                 hideAttribution={hideAttribution}
                                 noLink={noLink}
                                 borderRadius={borderRadius}
+                                optInToTelemetry={optInToTelemetry}
                             />
                         ))}
                         {!showLoader && gifs.length === 0 && noResultsMessage}

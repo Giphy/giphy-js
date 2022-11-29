@@ -34,6 +34,7 @@ _renderGrid options_
 | gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                    |
 | noResultsMessage                        | `string \| element`                      | undefined | Customise the "No results" message                                                                    |
 | noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
+| optInToTelemetry                        | `boolean`                                | false     | Opt-in to sending telemetry events to Giphy on certain user interactions                              |
 | [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a                                                         |
 | [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                             |
 
@@ -91,16 +92,17 @@ grid.remove()
 
 _renderCarousel options_
 
-| property                                | type                                     | default   | description                                                                                           |
-| --------------------------------------- | ---------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------- |
-| gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                                               |
-| gifWidth                               | `number`                                 | undefined | The width of the gifs and the carousel (you may want to set Gif.imgClassName to have object-fit: cover to avoid stretching)                                                              |
-| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                              |
-| gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                    |
-| noResultsMessage                        | `string \| element`                      | undefined | Customise the "No results" message                                                                    |
-| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a                                                         |
-| noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
-| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                             |
+| property                                | type                                     | default   | description                                                                                                                 |
+| --------------------------------------- | ---------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------- |
+| gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                                                                     |
+| gifWidth                                | `number`                                 | undefined | The width of the gifs and the carousel (you may want to set Gif.imgClassName to have object-fit: cover to avoid stretching) |
+| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                                                    |
+| gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                                          |
+| noResultsMessage                        | `string \| element`                      | undefined | Customise the "No results" message                                                                                          |
+| noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick`                       |
+| optInToTelemetry                        | `boolean`                                | false     | Opt-in to sending telemetry events to Giphy on certain user interactions                                                    |
+| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a                                                                               |
+| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                                                   |
 
 ```typescript
 import { renderCarousel } from '@giphy/js-components'
@@ -133,8 +135,9 @@ _Gif props_
 | gif                                     | `IGif`    | undefined          | The gif to display                                                                                    |
 | width                                   | `number`  | undefined          | The width of the gif                                                                                  |
 | backgroundColor                         | `string`  | random giphy color | The background of the gif before it loads                                                             |
-| [hideAttribution](#attribution-overlay) | `boolean` | false              | Hide the user attribution that appears over a GIF                                                     |
 | noLink                                  | `boolean` | false              | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
+| optInToTelemetry                        | `boolean` | false              | Opt-in to sending telemetry events to Giphy on certain user interactions                              |
+| [hideAttribution](#attribution-overlay) | `boolean` | false              | Hide the user attribution that appears over a GIF                                                     |
 | [Gif Events](#gif-events)               | \*        | \*                 | see below                                                                                             |
 
 ```typescript
@@ -160,17 +163,18 @@ If you want controls for the video player, use the `controls` property.
 
 _Video props_
 
-| _prop_             | _type_                     | _default_ | _description_                                    |
-| ------------------ | -------------------------- | --------- | ------------------------------------------------ |
-| gif                | `IGif`                     | undefined | The gif to display that contains video data      |
-| width              | `number`                   | undefined | The width of the video                           |
-| height             | `number`                   | undefined | The height of the video                          |
-| controls           | `boolean`                  | undefined | Show transport controls                          |
-| hideProgressBar    | `boolean`                  | undefined | if controls is true, hides progress bar          |
-| hideMute           | `boolean`                  | undefined | if controls is true, hides the mute button       |
-| hidePlayPause      | `boolean`                  | undefined | if controls is true, hides the play/pause button |
-| persistentControls | `boolean`                  | undefined | don't hide controls when hovering away           |
-| onUserMuted        | `(muted: boolean) => void` | undefined | fired when the user toggles the mute state       |
+| _prop_             | _type_                     | _default_ | _description_                                                            |
+| ------------------ | -------------------------- | --------- | ------------------------------------------------------------------------ |
+| gif                | `IGif`                     | undefined | The gif to display that contains video data                              |
+| width              | `number`                   | undefined | The width of the video                                                   |
+| height             | `number`                   | undefined | The height of the video                                                  |
+| controls           | `boolean`                  | undefined | Show transport controls                                                  |
+| hideProgressBar    | `boolean`                  | undefined | if controls is true, hides progress bar                                  |
+| hideMute           | `boolean`                  | undefined | if controls is true, hides the mute button                               |
+| hidePlayPause      | `boolean`                  | undefined | if controls is true, hides the play/pause button                         |
+| persistentControls | `boolean`                  | undefined | don't hide controls when hovering away                                   |
+| onUserMuted        | `(muted: boolean) => void` | undefined | fired when the user toggles the mute state                               |
+| optInToTelemetry   | `boolean`                  | false     | Opt-in to sending telemetry events to Giphy on certain user interactions |
 
 ```typescript
 import { renderVideo } from '@giphy/js-components'
@@ -206,4 +210,4 @@ If a GIF has an associated user, an overlay with their avatar and display name w
 
 ```
 
-To stop fonts from loading set the environment variable `GIPHY_SDK_NO_FONTS=true`, this is not recommended as it could cause inconsistencies in the ui components 
+To stop fonts from loading set the environment variable `GIPHY_SDK_NO_FONTS=true`, this is not recommended as it could cause inconsistencies in the ui components

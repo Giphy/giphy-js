@@ -38,6 +38,8 @@ type Props = {
     height?: number
     volume?: number
     className?: string
+    // Enables telemetry; opt-in
+    optInToTelemetry?: boolean
 }
 const Video = ({
     muted,
@@ -59,6 +61,7 @@ const Video = ({
     height: height_,
     volume = 0.7,
     className,
+    optInToTelemetry = false,
 }: Props) => {
     const height = height_ || getGifHeight(gif, width)
 
@@ -123,12 +126,12 @@ const Video = ({
         onStateChange?.('playing')
         if (!hasPlayingFired.current) {
             hasPlayingFired.current = true
-            if (gif.analytics_response_payload) {
+            if (optInToTelemetry && gif.analytics_response_payload) {
                 pingback({ actionType: 'START', analyticsResponsePayload: gif.analytics_response_payload })
             }
             onFirstPlay?.(Date.now() - mountTime.current)
         }
-    }, [onFirstPlay, onStateChange])
+    }, [onFirstPlay, onStateChange, optInToTelemetry])
     const _onPaused = useCallback(() => onStateChange?.('paused'), [onStateChange])
     const _onTimeUpdate = useCallback(() => {
         const el = videoEl.current
