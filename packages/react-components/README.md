@@ -43,6 +43,7 @@ To try out it out before integrating, click on the code sandbox below. You may h
 | noResultsMessage                        | `string or JSX.Element`                  | undefined | Customize the "No results" message                                                                      |
 | loader                                  | `ElementType`                            | undefined | Customize the loader, the default is the GIPHY brand loader                                             |
 | noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick`   |
+| optInToTelemetry                        | `boolean`                                | false     | Opt-in to sending telemetry events to Giphy on certain user interactions                                |
 | [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF                                                       |
 | [loaderConfig](#loader-config)          | `IntersectionObserverInit`               | undefined | Enables configuring the loader to fetch sooner than when just onscreen, allowing for smoother scrolling |
 | [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                               |
@@ -82,6 +83,7 @@ See this [codesandbox](https://codesandbox.io/s/giphy-web-sdk-ssr-with-nextjs-ir
 | borderRadius                            | `number`                                 | 4         | a border radius applied to Gif Components making the corners rounded                                                        |
 | noResultsMessage                        | `string or JSX.Element`                  | undefined | Customize the "No results" message                                                                                          |
 | noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick`                       |
+| optInToTelemetry                        | `boolean`                                | false     | Opt-in to sending telemetry events to Giphy on certain user interactions                                                    |
 | [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF                                                                           |
 | [loaderConfig](#loader-config)          | `IntersectionObserverInit`               | undefined | Enables configuring the loader to fetch sooner than when just onscreen, allowing for smoother scrolling                     |
 | [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                                                   |
@@ -118,8 +120,9 @@ _Gif props_
 | width                                   | `number`                                   | undefined          | The width of the gif                                                                                  |
 | borderRadius                            | `number`                                   | 4                  | a border radius making the corners rounded                                                            |
 | backgroundColor                         | `string`                                   | random giphy color | The background of the gif before it loads                                                             |
-| [hideAttribution](#attribution-overlay) | `boolean`                                  | false              | Hide the user attribution that appears over a GIF                                                     |
 | noLink                                  | `boolean`                                  | false              | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
+| optInToTelemetry                        | `boolean`                                  | false              | Opt-in to sending telemetry events to Giphy on certain user interactions                              |
+| [hideAttribution](#attribution-overlay) | `boolean`                                  | false              | Hide the user attribution that appears over a GIF                                                     |
 | [overlay](#gif-overlay)                 | `(props: GifOverlayProps):ReactType => {}` | undefined          | see below                                                                                             |
 | [Gif Events](#gif-events)               | \*                                         | \*                 | see below                                                                                             |
 
@@ -244,19 +247,20 @@ Here are the components in action in our [storybook](https://giphy.github.io/gip
 
 _Video props_
 
-| _prop_             | _type_                     | _default_ | _description_                                    |
-| ------------------ | -------------------------- | --------- | ------------------------------------------------ |
-| gif                | `IGif`                     | undefined | The gif to display that contains video data      |
-| width              | `number`                   | undefined | The width of the video                           |
-| height             | `number`                   | undefined | The height of the video                          |
-| controls           | `boolean`                  | undefined | Show transport controls                          |
-| hideProgressBar    | `boolean`                  | undefined | if controls is true, hides progress bar          |
-| hideMute           | `boolean`                  | undefined | if controls is true, hides the mute button       |
-| hidePlayPause      | `boolean`                  | undefined | if controls is true, hides the play/pause button |
-| persistentControls | `boolean`                  | undefined | don't hide controls when hovering away           |
-| ccEnabled          | `boolean`                  | false     | if true, show captions                           |
-| ccLanguage         | `string`                   | 'en'      | the closed caption language                      |
-| onUserMuted        | `(muted: boolean) => void` | undefined | fired when the user toggles the mute state       |
+| _prop_             | _type_                     | _default_ | _description_                                                            |
+| ------------------ | -------------------------- | --------- | ------------------------------------------------------------------------ |
+| gif                | `IGif`                     | undefined | The gif to display that contains video data                              |
+| width              | `number`                   | undefined | The width of the video                                                   |
+| height             | `number`                   | undefined | The height of the video                                                  |
+| controls           | `boolean`                  | undefined | Show transport controls                                                  |
+| hideProgressBar    | `boolean`                  | undefined | if controls is true, hides progress bar                                  |
+| hideMute           | `boolean`                  | undefined | if controls is true, hides the mute button                               |
+| hidePlayPause      | `boolean`                  | undefined | if controls is true, hides the play/pause button                         |
+| persistentControls | `boolean`                  | undefined | don't hide controls when hovering away                                   |
+| ccEnabled          | `boolean`                  | false     | if true, show captions                                                   |
+| ccLanguage         | `string`                   | 'en'      | the closed caption language                                              |
+| onUserMuted        | `(muted: boolean) => void` | undefined | fired when the user toggles the mute state                               |
+| optInToTelemetry   | `boolean`                  | false     | Opt-in to sending telemetry events to Giphy on certain user interactions |
 
 ```tsx
 import { Video } from '@giphy/react-components'
