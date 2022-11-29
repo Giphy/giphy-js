@@ -40,4 +40,5 @@ export default interface IGif {
     emoji_group_id?: number
     variation?: string
     variation_count?: number
+    alt_text?: string
 }
