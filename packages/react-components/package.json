@@ -43,7 +43,7 @@
         "webpack": "^5.74.0"
     },
     "name": "@giphy/react-components",
-    "version": "6.3.0",
+    "version": "6.4.0",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/react-components",
     "main": "dist/index.js",
@@ -66,11 +66,11 @@
     "dependencies": {
         "@emotion/react": "11.9.3",
         "@emotion/styled": "11.9.3",
-        "@giphy/js-analytics": "^4.1.2",
+        "@giphy/js-analytics": "^4.2.0",
         "@giphy/js-brand": "^2.2.2",
-        "@giphy/js-fetch-api": "^4.5.0",
-        "@giphy/js-types": "^4.3.0",
-        "@giphy/js-util": "^4.2.0",
+        "@giphy/js-fetch-api": "^4.6.0",
+        "@giphy/js-types": "^4.4.0",
+        "@giphy/js-util": "^4.3.0",
         "intersection-observer": "^0.12.2",
         "react-use": "17.4.0",
         "throttle-debounce": "^3.0.1"
