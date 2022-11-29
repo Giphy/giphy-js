@@ -114,7 +114,10 @@ export const getGifWidth = ({ images }: IGif, gifHeight: number) => {
  * @prop  {Gif}
  * @return {String} GIF alt text.
  */
-export const getAltText = ({ user, tags = [], is_sticker = false, title = '' }: IGif): string => {
+export const getAltText = ({ alt_text, user, tags = [], is_sticker = false, title = '' }: IGif): string => {
+    if (alt_text) {
+        return alt_text
+    }
     if (title) {
         return title
     }
