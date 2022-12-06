@@ -68,10 +68,10 @@ function request(url: string, options: RequestOptions = {}) {
                     }
 
                     // we got an error response, throw with the message in the response body json
-                    fetchError = new FetchError(`${ERROR_PREFIX}${message}`, response.status, response.statusText)
+                    fetchError = new FetchError(`${ERROR_PREFIX}${message}`, url, response.status, response.statusText)
                 }
             } catch (unexpectedError: any) {
-                fetchError = new FetchError(unexpectedError.message)
+                fetchError = new FetchError(unexpectedError.message, url)
                 // if the request fails with an unspecfied error,
                 // the user can request again after the error timeout
                 if (requestMap[url]) {
