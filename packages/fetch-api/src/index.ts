@@ -2,6 +2,7 @@ import { appendGiphySDKRequestHeader, getGiphySDKRequestHeaders } from '@giphy/j
 
 export { default as GiphyFetch } from './api'
 export { serverUrl, setServerUrl } from './constants'
+export { default as FetchError } from './fetch-error'
 export * from './option-types'
 export { gifPaginator } from './paginator'
 export { default as request } from './request'

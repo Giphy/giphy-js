@@ -38,10 +38,11 @@ function request(url: string, options: RequestOptions = {}) {
     const serverUrl_ = serverUrl.replace(/\/v\d+\/$/, `/v${apiVersion}/`)
     purgeCache()
     if (!requestMap[url] || noCache) {
+        const fullUrl = `${serverUrl_}${url}`
         const makeRequest = async (): Promise<Result> => {
             let fetchError: FetchError
             try {
-                const response = await fetch(`${serverUrl_}${url}`, {
+                const response = await fetch(fullUrl, {
                     method: 'get',
                 })
                 if (response.ok) {
@@ -68,10 +69,15 @@ function request(url: string, options: RequestOptions = {}) {
                     }
 
                     // we got an error response, throw with the message in the response body json
-                    fetchError = new FetchError(`${ERROR_PREFIX}${message}`, url, response.status, response.statusText)
+                    fetchError = new FetchError(
+                        `${ERROR_PREFIX}${message}`,
+                        fullUrl,
+                        response.status,
+                        response.statusText
+                    )
                 }
             } catch (unexpectedError: any) {
-                fetchError = new FetchError(unexpectedError.message, url)
+                fetchError = new FetchError(unexpectedError.message, fullUrl)
                 // if the request fails with an unspecfied error,
                 // the user can request again after the error timeout
                 if (requestMap[url]) {
