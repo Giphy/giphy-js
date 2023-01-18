@@ -5,8 +5,9 @@ import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
 import { getAltText, getBestRendition, getGifHeight, Logger } from '@giphy/js-util'
 import React, {
     ElementType,
-    HTMLProps,
     HTMLAttributes,
+    HTMLProps,
+    ReactNode,
     SyntheticEvent,
     useContext,
     useEffect,
@@ -89,6 +90,14 @@ const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAAL
 const canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement)
 
 const noop = () => {}
+
+const RenderOnClient = ({ children }: { children: ReactNode }) => {
+    const [render, setRender] = useState(false)
+    useEffect(() => {
+        setRender(true)
+    }, [])
+    return render ? <>{children}</> : null
+}
 
 const Gif = ({
     gif,
@@ -278,9 +287,12 @@ const Gif = ({
                         onLoad={shouldShowMedia ? onImageLoad : () => {}}
                     />
                 </picture>
-                {shouldShowMedia
-                    ? Overlay && <Overlay gif={gif} isHovered={isHovered} width={width} height={height} />
-                    : null}
+                {Overlay && (
+                    // only render the overlay on the client since it depends on shouldShowMedia
+                    <RenderOnClient>
+                        {shouldShowMedia && <Overlay gif={gif} isHovered={isHovered} width={width} height={height} />}
+                    </RenderOnClient>
+                )}
             </div>
         </Container>
     )
