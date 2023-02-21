@@ -4,7 +4,7 @@
         "strictPropertyInitialization": false,
         "noImplicitAny": false,
         "outDir": "./dist",
-        "types": ["node", "jest", "jest-fetch-mock"]
+        "types": ["node"]
     },
     "files": ["./src/index.ts"]
 }
