@@ -1,0 +1,10 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "strictPropertyInitialization": false,
+        "noImplicitAny": false,
+        "outDir": "./dist",
+        "types": ["node", "jest", "jest-fetch-mock"]
+    },
+    "files": ["./src/index.ts"]
+}
