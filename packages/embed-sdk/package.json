@@ -5,7 +5,7 @@
         "prepublish": "npm run clean && tsc",
         "build": "tsc"
     },
-    "name": "@giphy/video-sdk",
+    "name": "@giphy/embed-sdk",
     "version": "1.0.0",
     "main": "dist/index.js",
     "description": "",

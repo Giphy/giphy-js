@@ -1,7 +1,7 @@
-import GIPHYVideoSDK from "../src"
+import GIPHY from '../src'
 
 const clipUrl = 'https://giphy.com/clips/studiosoriginals-love-reaction-emotion-h48wFAB9JpSTSiXwHw'
-const GIPHYVideo = new GIPHYVideoSDK({
+const GIPHYVideo = new GIPHY.GIPHYVideo({
     url: clipUrl,
 })
 GIPHYVideo.loadPlayer('giphy-iframe')
