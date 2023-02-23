@@ -20,8 +20,8 @@
         "access": "public"
     },
     "devDependencies": {
-        "parcel-bundler": "latest",
         "@types/uuid": "^8.3.0",
+        "parcel-bundler": "latest",
         "typescript": "^4.7.3"
     }
 }
