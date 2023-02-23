@@ -17,9 +17,9 @@ export interface GIPHYOEmbed {
     type: string
 }
 
-class GIPHYVideo {
+export class GIPHYVideo {
     public url: string
-    private iframe: HTMLIFrameElement | null
+    private iframe: HTMLIFrameElement | null = null
 
     constructor({ url }: GIPHYVideoProps) {
         this.url = url

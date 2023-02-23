@@ -8,9 +8,8 @@
     "name": "@giphy/embed-sdk",
     "version": "1.0.0",
     "main": "dist/index.js",
-    "description": "",
-    "homepage": "",
-    "type": "module",
+    "description": "JavaScript SDK to use GIPHY Embeds.",
+    "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/embed-sdk",
     "types": "dist/index.d.ts",
     "files": [
         "dist/**/*",
