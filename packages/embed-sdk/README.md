@@ -4,7 +4,7 @@ An SDK to help you embed GIPHY Clips on your website!
 
 ### Get started
 ```typescript
-import { GiphyVideo } from '@giphy/video-sdk'
+import { GiphyVideo } from '@giphy/embed-sdk'
 const clipUrl = 'https://giphy.com/clips/studiosoriginals-love-reaction-emotion-h48wFAB9JpSTSiXwHw'
 const Video = new GiphyVideo({
     url: clipUrl,

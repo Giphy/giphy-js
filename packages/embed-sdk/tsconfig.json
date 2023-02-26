@@ -1,9 +1,11 @@
 {
-    "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "noImplicitAny": false,
-        "outDir": "./dist",
-        "types": ["node"]
+        "target": "es5",
+        "module": "es6",
+        "lib": ["es6", "dom"],
+        "outDir": "dist",
+        "strict": true,
+        "esModuleInterop": true
     },
-    "files": ["./src/index.ts"]
+    "include": ["src/**/*"]
 }
