@@ -6,7 +6,7 @@
         "build": "rollup -c rollup.config.mjs"
     },
     "name": "@giphy/embed-sdk",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "main": "dist/index.js",
     "umd:main": "dist/umd/index.js",
     "description": "JavaScript SDK to use GIPHY Embeds.",
