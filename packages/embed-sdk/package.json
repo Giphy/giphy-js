@@ -12,7 +12,7 @@
     "description": "JavaScript SDK to use GIPHY Embeds.",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/embed-sdk",
     "type": "module",
-    "types": "dist/dts/index.d.ts",
+    "types": "dist/index.d.ts",
     "files": [
         "dist/**/*",
         "src/**/*"
