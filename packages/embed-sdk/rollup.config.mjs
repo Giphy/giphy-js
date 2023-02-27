@@ -12,6 +12,12 @@ export default {
             file: 'dist/index.js',
             format: 'commonjs',
         },
+        {
+            file: 'dist/index.d.ts',
+            format: 'es',
+            exports: 'named',
+            sourcemap: true,
+        },
     ],
     plugins: [
         typescript({

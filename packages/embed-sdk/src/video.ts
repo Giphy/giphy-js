@@ -1,5 +1,5 @@
-type VideoAction = 'mute' | 'unmute' | 'play' | 'pause' | 'stop' | 'seekTo'
-type Message = { action: VideoAction; value?: any }
+export type VideoAction = 'mute' | 'unmute' | 'play' | 'pause' | 'stop' | 'seekTo'
+export type Message = { action: VideoAction; value?: any }
 
 export interface GIPHYVideoProps {
     url: string

@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
+        "declaration": true,
+        "declarationDir": "dist/dts",
         "target": "es5",
         "module": "es6",
         "lib": ["es6", "dom"],
