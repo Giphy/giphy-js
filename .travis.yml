@@ -44,5 +44,5 @@ deploy:
     cleanup: false
     skip_cleanup: true
     on:
-      branch: master
+      tags: true
       condition: $TRAVIS_COMMIT_MESSAGE =~ ^Publish
