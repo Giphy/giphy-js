@@ -254,6 +254,7 @@ const Gif = ({
         <Container
             href={noLink ? undefined : gif.url}
             data-giphy-id={gif.id}
+            data-giphy-is-sticker={gif.is_sticker}
             style={{
                 width,
                 height,
