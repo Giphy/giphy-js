@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@emotion/react'
 import { GifsResult, GiphyFetch, request, Result, SearchOptions } from '@giphy/js-fetch-api'
 import { IChannel } from '@giphy/js-types'
+import { Logger } from '@giphy/js-util'
 import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 import PingbackContextManager from '../pingback-context-manager'
 import { initTheme, SearchTheme } from './theme'
@@ -126,8 +127,16 @@ const SearchContextManager = ({
     )
     useEffect(() => {
         const fetchTrendingSearches = async () => {
-            const { data } = (await request(`trending/searches?api_key=${apiKey}`)) as Result & { data: string[] }
-            setTrendingSearches(data || [])
+            let searches: string[] = []
+            try {
+                const { data = [] } = (await request(`trending/searches?api_key=${apiKey}`)) as Result & {
+                    data: string[]
+                }
+                searches = data
+            } catch (error) {
+                Logger.warn(`Trending searches request failed: ${error}`)
+            }
+            setTrendingSearches(searches)
         }
         fetchTrendingSearches()
     }, [apiKey])
