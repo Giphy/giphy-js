@@ -122,7 +122,7 @@ export class GiphyFetch {
      * @param options: SearchOptions
      * @returns {Promise<GifsResult>}
      **/
-    search(term: string, options: SearchOptions = {}): Promise<GifsResult> {
+    search(term: string, options: SearchOptions = {rating: 'pg-13'}): Promise<GifsResult> {
         const q = options.channel ? `@${options.channel} ${term}` : term
         let excludeDynamicResults
         if (options.type === 'text') {
@@ -148,7 +148,7 @@ export class GiphyFetch {
      * @param {TrendingOptions} options
      * @returns {Promise<GifsResult>}
      */
-    trending(options: TrendingOptions = {}): Promise<GifsResult> {
+    trending(options: TrendingOptions = {rating: 'pg-13'}): Promise<GifsResult> {
         return request(`${getType(options)}/trending?${this.getQS(options)}`, {
             normalizer: normalizeGifs,
         }) as Promise<GifsResult>
@@ -185,7 +185,7 @@ export class GiphyFetch {
      * @param options: SearchOptions
      * @returns {Promise<ChannelsResult>}
      **/
-    channels(term: string, options: SearchOptions = {}): Promise<ChannelsResult> {
+    channels(term: string, options: SearchOptions = {rating: 'pg-13'}): Promise<ChannelsResult> {
         return request(`channels/search?${this.getQS({ q: term, ...options })}`) as Promise<ChannelsResult>
     }
 }
