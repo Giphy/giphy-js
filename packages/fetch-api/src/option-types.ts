@@ -25,22 +25,22 @@ export interface CategoriesOptions extends PaginationOptions {}
 export interface SubcategoriesOptions extends PaginationOptions {}
 export interface RelatedOptions extends PaginationOptions {
     type?: 'gifs' | 'stickers' // no 'text' support, overrride MediaType
-    rating: Rating
+    rating?: Rating
 }
 
 export interface TrendingOptions extends PaginationOptions, TypeOption {
-    rating: Rating
+    rating?: Rating
 }
 
 export interface RandomOptions extends PaginationOptions {
     type?: 'gifs' | 'stickers' // no 'text' support, overrride MediaType
     tag?: string
-    rating: Rating
+    rating?: Rating
 }
 
 export interface SearchOptions extends PaginationOptions, TypeOption {
     sort?: SortTypes
-    rating: Rating
+    rating?: Rating
     lang?: string
     channel?: string
     explore?: boolean
