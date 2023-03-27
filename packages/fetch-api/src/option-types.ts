@@ -5,7 +5,7 @@ export type MediaType = 'stickers' | 'gifs' | 'text' | 'videos'
 /**
  * Filters results by specified rating.
  */
-type Rating = 'pg' | 'g' | 'y' | 'pg-13' | 'r'
+export type Rating = 'pg' | 'g' | 'y' | 'pg-13' | 'r'
 /**
  * Sorting options
  */
@@ -25,6 +25,7 @@ export interface CategoriesOptions extends PaginationOptions {}
 export interface SubcategoriesOptions extends PaginationOptions {}
 export interface RelatedOptions extends PaginationOptions {
     type?: 'gifs' | 'stickers' // no 'text' support, overrride MediaType
+    rating?: Rating
 }
 
 export interface TrendingOptions extends PaginationOptions, TypeOption {
