@@ -149,7 +149,7 @@ export class GiphyFetch {
      * @returns {Promise<GifsResult>}
      */
     trending(options: TrendingOptions = {}): Promise<GifsResult> {
-        return request(`${getType(options)}/trending?${this.getQS({rating: 'pg-13', ...options})}`, {
+        return request(`${getType(options)}/trending?${this.getQS({ rating: 'pg-13', ...options })}`, {
             normalizer: normalizeGifs,
         }) as Promise<GifsResult>
     }
@@ -160,7 +160,7 @@ export class GiphyFetch {
      * @returns {Promise<GifResult>}
      **/
     random(options?: RandomOptions): Promise<GifResult> {
-        return request(`${getType(options)}/random?${this.getQS({rating: 'pg-13', ...options})}`, {
+        return request(`${getType(options)}/random?${this.getQS({ rating: 'pg-13', ...options })}`, {
             noCache: true,
             normalizer: normalizeGif,
         }) as Promise<GifResult>
@@ -174,7 +174,11 @@ export class GiphyFetch {
      **/
     related(id: string, options?: RelatedOptions): Promise<GifsResult> {
         return request(
-            `${options?.type === 'stickers' ? 'stickers' : 'gifs'}/related?${this.getQS({ gif_id: id, rating: 'pg-13', ...options })}`,
+            `${options?.type === 'stickers' ? 'stickers' : 'gifs'}/related?${this.getQS({
+                gif_id: id,
+                rating: 'pg-13',
+                ...options,
+            })}`,
             { normalizer: normalizeGifs }
         ) as Promise<GifsResult>
     }
@@ -186,7 +190,9 @@ export class GiphyFetch {
      * @returns {Promise<ChannelsResult>}
      **/
     channels(term: string, options: SearchOptions = {}): Promise<ChannelsResult> {
-        return request(`channels/search?${this.getQS({ q: term, rating: 'pg-13', ...options })}`) as Promise<ChannelsResult>
+        return request(
+            `channels/search?${this.getQS({ q: term, rating: 'pg-13', ...options })}`
+        ) as Promise<ChannelsResult>
     }
 }
 export default GiphyFetch
