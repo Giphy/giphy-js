@@ -128,7 +128,7 @@ export class GiphyFetch {
         if (options.type === 'text') {
             excludeDynamicResults = true
         }
-        const qsParams = this.getQS({ ...options, q, excludeDynamicResults, rating: 'pg-13' })
+        const qsParams = this.getQS({ rating: 'pg-13', ...options, q, excludeDynamicResults })
         return request(`${getType(options)}/search?${qsParams}`, { normalizer: normalizeGifs }) as Promise<GifsResult>
     }
 
