@@ -166,7 +166,7 @@ const Components = () => {
     const { fetchGifs, searchKey } = useContext(SearchContext)
     return (
         <>
-            <SearchBarComponent />
+            <SearchBar />
             <SuggestionBar />
             {/** 
                 key will recreate the component, 
