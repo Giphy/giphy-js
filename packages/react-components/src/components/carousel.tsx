@@ -7,7 +7,7 @@ import { debounce } from 'throttle-debounce'
 import ObserverShared from '../util/observer'
 import Gif_, { EventProps } from './gif'
 import PingbackContextManager from './pingback-context-manager'
-import type { GifOverlayProps } from './types'
+import type { GifOverlayProps, VideoOverlayProps } from './types'
 
 const Container = styled.div`
     -webkit-overflow-scrolling: touch;
@@ -54,7 +54,7 @@ type Props = {
     gutter: number
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
-    overlay?: ElementType<GifOverlayProps>
+    overlay?: ElementType<GifOverlayProps> | ElementType<VideoOverlayProps>
     hideAttribution?: boolean
     noLink?: boolean
     noResultsMessage?: string | JSX.Element
