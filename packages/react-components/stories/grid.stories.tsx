@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { boolean, number, withKnobs } from '@storybook/addon-knobs'
+import { Story } from '@storybook/react'
 import fetchMock from 'fetch-mock'
 import React, { useEffect, useRef, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
@@ -8,7 +9,6 @@ import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
 import inTestsRunner from './in-tests-runner'
 import mockGifsResult from './mock-data/gifs.json'
-import { Story } from '@storybook/react'
 
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
 const gf = new GiphyFetch(apiKey)
@@ -54,9 +54,7 @@ export const Grid: Story<GridProps> = ({ loader, ...other }) => {
 
     const fetchGifs = async (offset: number) => {
         if (inTestsRunner()) {
-            fetchMock
-                .restore()
-                .getOnce(`begin:https://api.giphy.com/v1/gifs/search?offset=0&limit=`, { body: mockGifsResult })
+            fetchMock.restore().getOnce(`begin:https://api.giphy.com/v1/gifs/search`, { body: mockGifsResult })
         }
         const result = await gf.search(term, { offset, limit })
         fetchMock.restore()
