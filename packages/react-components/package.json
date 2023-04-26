@@ -1,10 +1,11 @@
 {
     "scripts": {
-        "clean": "rm -rf ./dist",
+        "clean": "rm -rf ./dist ./esm",
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
         "dev": "start-storybook -p 5001",
-        "build": "tsc",
-        "prepublish": "npm run clean && tsc",
+        "build": "tsc && npm run build:esm",
+        "build:esm": "tsc -p ./tsconfig-esm.json",
+        "prepublish": "npm run clean && npm run build",
         "deploy-storybook": "storybook-to-ghpages",
         "snapshot": "NODE_ENV=PERCY build-storybook && percy storybook ./storybook-static",
         "cy:run": "percy exec -- cypress run --component -b chrome",
@@ -39,7 +40,7 @@
         "react-dom": "^18.2.0",
         "storybook-addon-jsx": "^7.3.14",
         "ts-loader": "^9.3.1",
-        "typescript": "^4.7.4",
+        "typescript": "^5.0.4",
         "webpack": "^5.74.0"
     },
     "name": "@giphy/react-components",
@@ -48,8 +49,18 @@
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/react-components",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "module": "esm/index.js",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "import": "./esm/index.js",
+            "require": "./dist/index.js"
+        },
+        "./package.json": "./package.json"
+    },
     "files": [
-        "dist/**/*",
+        "dist/",
+        "esm/",
         "src/**/*"
     ],
     "author": "giannif",
