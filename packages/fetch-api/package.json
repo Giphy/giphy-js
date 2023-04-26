@@ -3,8 +3,9 @@
         "clean": "rm -rf ./dist",
         "dev": "parcel public/test.html",
         "docs": "typedoc src/index.ts",
-        "prepublish": "npm run clean && tsc",
-        "build": "tsc",
+        "build": "tsc && npm run build:esm",
+        "build:esm": "tsc -p ./tsconfig-esm.json",
+        "prepublish": "npm run clean && npm run build",
         "test": "jest --config ./jestconfig.js",
         "test:watch": "jest --config ./jestconfig.js --watchAll"
     },
@@ -14,8 +15,18 @@
     "description": "Javascript API to fetch gifs and stickers from the GIPHY API.",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/fetch-api",
     "types": "dist/index.d.ts",
+    "module": "esm/index.js",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "import": "./esm/index.js",
+            "require": "./dist/index.js"
+        },
+        "./package.json": "./package.json"
+    },
     "files": [
-        "dist/**/*",
+        "dist/",
+        "esm/",
         "src/**/*"
     ],
     "license": "MIT",
@@ -33,6 +44,6 @@
         "parcel-bundler": "latest",
         "typedoc": "^0.20.36",
         "typedoc-thunder-theme": "^0.0.2",
-        "typescript": "^4.7.3"
+        "typescript": "^5.0.4"
     }
 }
