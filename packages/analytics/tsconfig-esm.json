@@ -1,0 +1,9 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "moduleResolution": "nodenext",
+        "module": "ESNext",
+        "outDir": "./esm"
+    },
+    "files": ["./src/index.ts"]
+}
