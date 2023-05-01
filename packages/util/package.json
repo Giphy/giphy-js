@@ -35,7 +35,7 @@
     "dependencies": {
         "@giphy/js-types": "^4.4.0",
         "dompurify": "^2.2.2",
-        "uuid": "^8.3.0"
+        "uuid": "^9.0.0"
     },
     "devDependencies": {
         "@types/dompurify": "^2.0.4",
