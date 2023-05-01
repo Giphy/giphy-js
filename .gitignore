@@ -12,3 +12,6 @@ coverage/
 .cache
 .npmrc
 .idea/
+cjs/
+esm/
+umd/

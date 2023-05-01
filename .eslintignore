@@ -7,3 +7,4 @@ coverage/*
 
 # Built files
 dist
+esm

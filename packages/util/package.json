@@ -1,20 +1,31 @@
 {
     "scripts": {
-        "clean": "rm -rf ./dist",
+        "clean": "rm -rf ./dist ./esm",
         "dev": "tsc --watch",
-        "prepublish": "npm run clean && tsc",
-        "build": "tsc",
+        "build": "tsc && npm run build:esm",
+        "build:esm": "tsc -p ./tsconfig-esm.json",
+        "prepublish": "npm run clean && npm run build",
         "test": "jest --config ./jestconfig.js",
         "test:watch": "jest --config ./jestconfig.js --watchAll"
     },
     "name": "@giphy/js-util",
-    "version": "4.3.0",
+    "version": "4.3.1-alpha.0",
     "main": "dist/index.js",
     "description": "Shared giphy js utils",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/util",
     "types": "dist/index.d.ts",
+    "module": "esm/index.js",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "import": "./esm/index.js",
+            "require": "./dist/index.js"
+        },
+        "./package.json": "./package.json"
+    },
     "files": [
-        "dist/**/*",
+        "dist/",
+        "esm/",
         "src/**/*"
     ],
     "license": "MIT",
@@ -24,11 +35,11 @@
     "dependencies": {
         "@giphy/js-types": "^4.4.0",
         "dompurify": "^2.2.2",
-        "uuid": "^8.3.0"
+        "uuid": "^9.0.0"
     },
     "devDependencies": {
         "@types/dompurify": "^2.0.4",
         "@types/uuid": "^8.3.0",
-        "typescript": "^4.7.3"
+        "typescript": "^5.0.4"
     }
 }

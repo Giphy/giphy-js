@@ -6,10 +6,12 @@ export default defineConfig({
     video: false,
     viewportWidth: 1080,
     projectId: 'zse12i',
+
     retries: {
         runMode: 2,
         openMode: 0,
     },
+
     component: {
         specPattern: ['cypress/**/*.spec.tsx', 'cypress/**/*.spec.ts'],
         devServer: {
@@ -18,4 +20,6 @@ export default defineConfig({
             webpackConfig: require('./cypress/webpack.config'),
         },
     },
+
+    e2e: {},
 })
