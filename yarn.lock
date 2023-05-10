@@ -5991,6 +5991,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/fslib@npm:^3.0.0-rc.43":
+  version: 3.0.0-rc.43
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.43"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: dfe020205d32d92f60b12a614051d89e9c3ab4f00002f3888595a9388a9e03b90449628596c3475302ee87f0bcb546ffec3df5edcc499fa115d11a93ed902195
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/plugin-workspace-tools@npm:^4.0.0-rc.43":
+  version: 4.0.0-rc.43
+  resolution: "@yarnpkg/plugin-workspace-tools@npm:4.0.0-rc.43"
+  dependencies:
+    "@yarnpkg/fslib": ^3.0.0-rc.43
+    clipanion: ^3.2.0-rc.10
+    micromatch: ^4.0.2
+    p-limit: ^2.2.0
+    tslib: ^2.4.0
+    typanion: ^3.3.0
+  peerDependencies:
+    "@yarnpkg/cli": ^4.0.0-rc.43
+    "@yarnpkg/core": ^4.0.0-rc.43
+    "@yarnpkg/plugin-git": ^3.0.0-rc.43
+  checksum: d6cd18ac76aa439319c9dc9c3904c113b9b2a082cfd39ce334e7a1a270d49c78eb40a43256deac9751275cf28123d86fbf55f94560f94739f25e322177f555fd
+  languageName: node
+  linkType: hard
+
 "abab@npm:^2.0.0, abab@npm:^2.0.6":
   version: 2.0.6
   resolution: "abab@npm:2.0.6"
@@ -8134,6 +8161,17 @@ __metadata:
   version: 3.0.0
   resolution: "cli-width@npm:3.0.0"
   checksum: 4c94af3769367a70e11ed69aa6095f1c600c0ff510f3921ab4045af961820d57c0233acfa8b6396037391f31b4c397e1f614d234294f979ff61430a6c166c3f6
+  languageName: node
+  linkType: hard
+
+"clipanion@npm:^3.2.0-rc.10":
+  version: 3.2.0
+  resolution: "clipanion@npm:3.2.0"
+  dependencies:
+    typanion: ^3.8.0
+  peerDependencies:
+    typanion: "*"
+  checksum: e28e6f0d48aecff86097823c604aa486082d76d2a5d3abc71069a0d9f3338af769fd7c6634b2f444c5b1aac0743b503325cc0b30552c094c01ebc602631b273d
   languageName: node
   linkType: hard
 
@@ -12076,6 +12114,7 @@ __metadata:
     "@types/node": ^20.1.2
     "@typescript-eslint/eslint-plugin": ^5.59.5
     "@typescript-eslint/parser": ^5.59.5
+    "@yarnpkg/plugin-workspace-tools": ^4.0.0-rc.43
     dependency-cruiser: ^10.0.7
     eslint: ^8.40.0
     eslint-config-standard: ^17.0.0
@@ -22095,6 +22134,13 @@ __metadata:
   version: 0.14.5
   resolution: "tweetnacl@npm:0.14.5"
   checksum: 6061daba1724f59473d99a7bb82e13f211cdf6e31315510ae9656fefd4779851cb927adad90f3b488c8ed77c106adc0421ea8055f6f976ff21b27c5c4e918487
+  languageName: node
+  linkType: hard
+
+"typanion@npm:^3.3.0, typanion@npm:^3.8.0":
+  version: 3.12.1
+  resolution: "typanion@npm:3.12.1"
+  checksum: a2e26fa216f8a1dbd2ffbaacb75b1e2dc042a0356e9702fba05a968cad95d9f661b24e37f6c6d8c3adad2c8582c99fca4826ff26a2d07cd2ae617ea87e6187eb
   languageName: node
   linkType: hard
 
