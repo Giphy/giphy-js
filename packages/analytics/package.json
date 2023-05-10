@@ -32,8 +32,8 @@
         "access": "public"
     },
     "dependencies": {
-        "@giphy/js-types": "^4.4.0",
-        "@giphy/js-util": "^4.4.0",
+        "@giphy/js-types": "*",
+        "@giphy/js-util": "*",
         "append-query": "^2.1.0",
         "throttle-debounce": "^3.0.1"
     },

@@ -33,7 +33,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@giphy/js-types": "^4.4.0",
+        "@giphy/js-types": "*",
         "dompurify": "^2.2.2",
         "uuid": "^9.0.0"
     },

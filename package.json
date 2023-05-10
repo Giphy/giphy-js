@@ -3,11 +3,11 @@
     "scripts": {
         "lint": "eslint --ext .ts,.tsx ./packages --config ./.eslintrc --ignore-path ./.eslintignore",
         "test": "turbo test",
-        "snapshot": "lerna run snapshot",
-        "cy:run": "lerna run cy:run --",
-        "cy:verify": "lerna run cy:verify",
-        "cy:info": "lerna run cy:info",
-        "test:watch": "lerna run test:watch --stream",
+        "build": "turbo build",
+        "cy:run": "turbo run cy:run --",
+        "cy:verify": "turbo run cy:verify",
+        "cy:info": "turbo run cy:info",
+        "test:watch": "turbo run test:watch --stream",
         "format": "prettier-eslint \"$(pwd)/**/*.{js,ts,tsx}\" --write --print-width 120 --tab-width 4",
         "dependency-cruiser": "depcruise -c .dependency-cruiser.js ./",
         "check-licenses": "node ./scripts/license-checker.js && lerna exec -- node \\$LERNA_ROOT_PATH/scripts/license-checker.js"

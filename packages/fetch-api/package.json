@@ -34,8 +34,8 @@
         "access": "public"
     },
     "dependencies": {
-        "@giphy/js-types": "^4.4.0",
-        "@giphy/js-util": "^4.4.0",
+        "@giphy/js-types": "*",
+        "@giphy/js-util": "*",
         "qs": "^6.9.4"
     },
     "devDependencies": {
