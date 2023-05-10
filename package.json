@@ -2,13 +2,12 @@
     "name": "giphy-js",
     "scripts": {
         "lint": "eslint --ext .ts,.tsx ./packages --config ./.eslintrc --ignore-path ./.eslintignore",
-        "test": "lerna exec -- npm test",
+        "test": "turbo test",
         "snapshot": "lerna run snapshot",
         "cy:run": "lerna run cy:run --",
         "cy:verify": "lerna run cy:verify",
         "cy:info": "lerna run cy:info",
         "test:watch": "lerna run test:watch --stream",
-        "lerna:publish": "lerna publish from-git --yes",
         "format": "prettier-eslint \"$(pwd)/**/*.{js,ts,tsx}\" --write --print-width 120 --tab-width 4",
         "dependency-cruiser": "depcruise -c .dependency-cruiser.js ./",
         "check-licenses": "node ./scripts/license-checker.js && lerna exec -- node \\$LERNA_ROOT_PATH/scripts/license-checker.js"
@@ -28,35 +27,32 @@
         "type": "git",
         "url": "git@github.com:Giphy/giphy-js.git"
     },
-    "jest": {
-        "testEnvironment": "jsdom"
-    },
-    "private": false,
+    "private": true,
     "devDependencies": {
         "@types/jest": "^29.5.1",
-        "@types/node": "^14.14.6",
-        "@typescript-eslint/eslint-plugin": "^4.6.1",
-        "@typescript-eslint/parser": "^4.6.1",
+        "@types/node": "^20.1.2",
+        "@typescript-eslint/eslint-plugin": "^5.59.5",
+        "@typescript-eslint/parser": "^5.59.5",
         "dependency-cruiser": "^10.0.7",
-        "eslint": "^7.12.1",
-        "eslint-config-standard": "^16.0.1",
-        "eslint-import-resolver-typescript": "^2.3.0",
-        "eslint-plugin-import": "^2.22.1",
+        "eslint": "^8.40.0",
+        "eslint-config-standard": "^17.0.0",
+        "eslint-import-resolver-typescript": "^3.5.5",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-plugin-n": "^15.7.0",
         "eslint-plugin-node": "^11.1.0",
-        "eslint-plugin-promise": "^4.2.1",
-        "eslint-plugin-react": "^7.21.5",
-        "eslint-plugin-react-hooks": "^4.2.0",
-        "eslint-plugin-standard": "^4.0.2",
+        "eslint-plugin-promise": "^6.1.1",
+        "eslint-plugin-react": "^7.32.2",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-standard": "^5.0.0",
         "husky": "^4.3.0",
         "jest": "^29.5.0",
         "jest-environment-jsdom": "^29.5.0",
-        "lerna": "^5.0.0",
-        "lerna-changelog": "^1.0.1",
-        "lint-staged": "^10.5.1",
-        "prettier": "^2.1.2",
-        "prettier-eslint-cli": "^5.0.0",
+        "lint-staged": "^13.2.2",
+        "prettier": "^2.8.8",
+        "prettier-eslint-cli": "^7.1.0",
         "ts-jest": "^29.1.0",
-        "typescript": "^4.7.3"
+        "turbo": "^1.9.3",
+        "typescript": "^5.0.4"
     },
     "changelog": {
         "labels": {
@@ -69,5 +65,11 @@
     "volta": {
         "node": "16.15.1",
         "yarn": "1.22.18"
+    },
+    "workspaces": [
+        "packages/*"
+    ],
+    "dependencies": {
+        "@changesets/cli": "^2.26.1"
     }
 }

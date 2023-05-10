@@ -3,7 +3,6 @@ const base = require('../../jestconfig-base.js')
 
 module.exports = {
     ...base,
-    name: '@giphy/js-util',
     displayName: 'util',
     testEnvironment: 'jsdom',
     setupFiles: ['./browser-mock.ts'],

@@ -1,15 +1,14 @@
-import * as React from 'react'
 import { composeStories } from '@storybook/testing-react'
-import { SinonStub } from 'cypress/types/sinon'
+import * as React from 'react'
 
-import * as stories from '../../stories/emoji-variations-list.stories'
 import { EmojiVariationsList, Grid } from '../../src'
+import * as stories from '../../stories/emoji-variations-list.stories'
 import {
-    checkGifSeen,
+    GifTestUtilsContext,
     checkGifIsVisible,
     checkGifKeyboardEvents,
     checkGifMouseEvents,
-    GifTestUtilsContext,
+    checkGifSeen,
     resetGifEventsHistory,
     setupGifTestUtils,
 } from '../utils/gif-test-utils'
@@ -46,7 +45,7 @@ function forEachGif(fn: (gifId: string, index: number) => void) {
 
 describe('Emoji Variations List', () => {
     let gifUtilsCtx: GifTestUtilsContext
-    let onVariationsFetched: SinonStub
+    let onVariationsFetched: typeof Cypress.sinon.stub
     before(() => {
         gifUtilsCtx = setupGifTestUtils('')
         onVariationsFetched = cy.stub().as('onVariationsFetched')

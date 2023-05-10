@@ -1,19 +1,18 @@
-import * as React from 'react'
 import { composeStories, composeStory } from '@storybook/testing-react'
-import { SinonStub } from 'cypress/types/sinon'
+import * as React from 'react'
 
 import { Grid } from '../../src'
 import * as stories from '../../stories/grid.stories'
-import { storiesCompositionToList } from '../utils/storybook'
 import {
-    checkGifSeen,
+    GifTestUtilsContext,
     checkGifIsVisible,
     checkGifKeyboardEvents,
     checkGifMouseEvents,
-    GifTestUtilsContext,
+    checkGifSeen,
     resetGifEventsHistory,
     setupGifTestUtils,
 } from '../utils/gif-test-utils'
+import { storiesCompositionToList } from '../utils/storybook'
 
 const GIFS_COUNT = 5
 
@@ -42,7 +41,7 @@ function forEachGif(fn: (gifId: string, index: number) => void) {
 describe('Grid', () => {
     composedStories.forEach((story) => {
         let gifUtilsCtx: GifTestUtilsContext
-        let onGifsFetched: SinonStub
+        let onGifsFetched: typeof Cypress.sinon.stub
 
         before(() => {
             gifUtilsCtx = setupGifTestUtils('')
