@@ -10,7 +10,7 @@
         "test:watch": "turbo run test:watch --stream",
         "format": "prettier-eslint \"$(pwd)/**/*.{js,ts,tsx}\" --write --print-width 120 --tab-width 4",
         "dependency-cruiser": "depcruise -c .dependency-cruiser.js ./",
-        "check-licenses": "node ./scripts/license-checker.js && lerna exec -- node \\$LERNA_ROOT_PATH/scripts/license-checker.js"
+        "check-licenses": "node ./scripts/license-checker.js"
     },
     "lint-staged": {
         "**/*.{ts,tsx}": [
@@ -33,6 +33,7 @@
         "@types/node": "^20.1.2",
         "@typescript-eslint/eslint-plugin": "^5.59.5",
         "@typescript-eslint/parser": "^5.59.5",
+        "@changesets/cli": "^2.26.1",
         "dependency-cruiser": "^10.0.7",
         "eslint": "^8.40.0",
         "eslint-config-standard": "^17.0.0",
@@ -68,8 +69,5 @@
     },
     "workspaces": [
         "packages/*"
-    ],
-    "dependencies": {
-        "@changesets/cli": "^2.26.1"
-    }
+    ]
 }

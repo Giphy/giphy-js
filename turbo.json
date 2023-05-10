@@ -6,8 +6,12 @@
             "outputs": [".esm/**", "dist/**"]
         },
         "test": {
-            "dependsOn": ["^build"]
+            "dependsOn": ["build"]
         },
+        "cy:run": {
+            "dependsOn": ["build"]
+        },
+        "check-licenses": {},
         "deploy": {
             "dependsOn": ["lint", "test", "build"]
         }

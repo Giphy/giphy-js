@@ -7,12 +7,19 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
+        env:
+            CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+            LICENSE_PROJECT_LOCATION: ${{ secrets.LICENSE_PROJECT_LOCATION }}
+            LICENSE_CATEGORIES_LOCATION: ${{ secrets.LICENSE_CATEGORIES_LOCATION }}
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
               with:
                   node-version: 16.x
+
                   cache: 'yarn'
             - run: yarn install --frozen-lockfile
             - run: yarn run build
             - run: yarn run lint && yarn run test
+            - run: yarn run cy:run --record --key $CYPRESS_RECORD_KEY
+            - run: yarn run check-licenses
