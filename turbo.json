@@ -11,7 +11,9 @@
         "cy:run": {
             "dependsOn": ["build"]
         },
-        "check-licenses": {},
+        "check-licenses": {
+            "inputs": ["package.json", "packages/*/package.json", "yarn.lock", "packages/*/yarn.lock"]
+        },
         "deploy": {
             "dependsOn": ["lint", "test", "build"]
         }
