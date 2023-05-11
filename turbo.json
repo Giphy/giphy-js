@@ -14,6 +14,7 @@
         "check-licenses": {
             "inputs": ["package.json", "packages/*/package.json", "yarn.lock", "packages/*/yarn.lock"]
         },
+        "//#lint": {},
         "deploy": {
             "dependsOn": ["lint", "test", "build"]
         }
