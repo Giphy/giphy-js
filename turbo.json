@@ -3,7 +3,7 @@
     "pipeline": {
         "build": {
             "dependsOn": ["^build"],
-            "outputs": [".esm/**", "dist/**"]
+            "outputs": ["esm/**", "dist/**"]
         },
         "test": {
             "dependsOn": ["build"]
