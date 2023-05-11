@@ -11,10 +11,10 @@
         "cy:run": {
             "dependsOn": ["build"]
         },
-        "check-licenses": {
+        "//#g:check-licenses": {
             "inputs": ["package.json", "packages/*/package.json", "yarn.lock", "packages/*/yarn.lock"]
         },
-        "//#lint": {},
+        "//#g:lint": {},
         "deploy": {
             "dependsOn": ["lint", "test", "build"]
         }

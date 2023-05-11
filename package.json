@@ -1,7 +1,8 @@
 {
     "name": "giphy-js",
     "scripts": {
-        "lint": "eslint --ext .ts,.tsx ./packages --config ./.eslintrc --ignore-path ./.eslintignore",
+        "lint": "turbo g:lint",
+        "g:lint": "eslint --ext .ts,.tsx ./packages --config ./.eslintrc --ignore-path ./.eslintignore",
         "test": "turbo test",
         "build": "turbo build",
         "cy:run": "turbo run cy:run --",
@@ -11,7 +12,8 @@
         "test:watch": "turbo run test:watch --stream",
         "format": "prettier-eslint \"$(pwd)/**/*.{js,ts,tsx}\" --write --print-width 120 --tab-width 4",
         "dependency-cruiser": "depcruise -c .dependency-cruiser.js ./",
-        "check-licenses": "yarn workspaces foreach node $PWD/scripts/license-checker.js"
+        "check-licenses": "turbo run g:check-licenses",
+        "g:check-licenses": "yarn workspaces foreach node $PWD/scripts/license-checker.js"
     },
     "lint-staged": {
         "**/*.{ts,tsx}": [

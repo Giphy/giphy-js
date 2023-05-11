@@ -16,18 +16,17 @@ jobs:
               with:
                   node-version: 16.x
                   cache: 'yarn'
-                  add-path: true
             - run: yarn install --frozen-lockfile
             - name: Build
-              run: turbo build
+              run: yarn run build
             - name: Lint and Test
-              run: turbo lint test
+              run: yarn run lint && yarn run test
             - name: Cypress
-              run: turbo run cy:run --record --key $CYPRESS_RECORD_KEY
+              run: yarn run cy:run --record --key $CYPRESS_RECORD_KEY
               env:
                   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
             - name: License Check
-              run: turbo check-licenses
+              run: yarn run check-licenses
               env:
                   LICENSE_PROJECT_LOCATION: ${{ secrets.LICENSE_PROJECT_LOCATION }}
                   LICENSE_CATEGORIES_LOCATION: ${{ secrets.LICENSE_CATEGORIES_LOCATION }}
