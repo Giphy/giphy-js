@@ -1,8 +1,9 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
-import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
-import { getAltText, getBestRendition, getGifHeight, Logger } from '@giphy/js-util'
+import { IGif, IUser, ImageAllTypes } from '@giphy/js-types'
+import { Logger, getAltText, getBestRendition, getGifHeight } from '@giphy/js-util'
+import 'intersection-observer'
 import React, {
     ElementType,
     HTMLAttributes,

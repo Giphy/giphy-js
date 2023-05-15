@@ -1,3 +1,4 @@
+import 'intersection-observer'
 import React, { FC, ReactNode, useEffect, useRef } from 'react'
 
 type Props = {

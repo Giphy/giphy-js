@@ -1,5 +1,4 @@
 import { appendGiphySDKRequestHeader } from '@giphy/js-util'
-import './pollyfill'
 export { default as Attribution } from './components/attribution'
 export { default as AttributionOverlay } from './components/attribution/overlay'
 export { default as VerifiedBadge } from './components/attribution/verified-badge'

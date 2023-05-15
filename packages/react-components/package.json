@@ -51,7 +51,7 @@
     "types": "dist/index.d.ts",
     "module": "esm/index.js",
     "sideEffects": [
-        "./src/pollyfill.ts"
+        "intersection-observer"
     ],
     "exports": {
         ".": {
