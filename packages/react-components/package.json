@@ -44,7 +44,7 @@
         "webpack": "^5.74.0"
     },
     "name": "@giphy/react-components",
-    "version": "6.9.0",
+    "version": "6.9.1",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/react-components",
     "main": "dist/index.js",
