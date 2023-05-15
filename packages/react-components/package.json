@@ -50,7 +50,9 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "module": "esm/index.js",
-    "sideEffects": false,
+    "sideEffects": [
+        "./src/pollyfill.ts"
+    ],
     "exports": {
         ".": {
             "import": "./esm/index.js",
