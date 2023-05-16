@@ -6,8 +6,8 @@
         "build": "tsc && npm run build:esm",
         "build:esm": "tsc -p ./tsconfig-esm.json",
         "prepublish": "npm run clean && npm run build",
-        "test": "jest --config ./jestconfig.js",
-        "test:watch": "jest --config ./jestconfig.js --watchAll"
+        "test": "run -T jest --config ./jestconfig.js",
+        "test:watch": "run -T jest --config ./jestconfig.js --watchAll"
     },
     "name": "@giphy/js-fetch-api",
     "version": "4.9.0",
@@ -34,8 +34,8 @@
         "access": "public"
     },
     "dependencies": {
-        "@giphy/js-types": "^4.4.0",
-        "@giphy/js-util": "^4.4.0",
+        "@giphy/js-types": "*",
+        "@giphy/js-util": "*",
         "qs": "^6.9.4"
     },
     "devDependencies": {

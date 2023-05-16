@@ -1,14 +1,13 @@
-import * as React from 'react'
 import { composeStories } from '@storybook/testing-react'
-import { SinonStub } from 'cypress/types/sinon'
+import * as React from 'react'
 
 import * as stories from '../../stories/carousel.stories'
 import {
-    checkGifSeen,
+    GifTestUtilsContext,
     checkGifIsVisible,
     checkGifKeyboardEvents,
     checkGifMouseEvents,
-    GifTestUtilsContext,
+    checkGifSeen,
     resetGifEventsHistory,
     setupGifTestUtils,
 } from '../utils/gif-test-utils'
@@ -36,7 +35,7 @@ function forEachGif(fn: (gifId: string, index: number) => void) {
 
 describe('Carousel', () => {
     let gifUtilsCtx: GifTestUtilsContext
-    let onGifsFetched: SinonStub
+    let onGifsFetched: typeof Cypress.sinon.stub
     before(() => {
         gifUtilsCtx = setupGifTestUtils('')
         onGifsFetched = cy.stub().as('onGifsFetched')

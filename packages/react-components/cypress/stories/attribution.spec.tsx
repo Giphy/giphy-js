@@ -1,6 +1,5 @@
-import * as React from 'react'
-import { SinonStub } from 'cypress/types/sinon'
 import { composeStories } from '@storybook/testing-react'
+import * as React from 'react'
 
 import { Gif } from '../../src'
 import * as stories from '../../stories/attribution.stories'
@@ -24,7 +23,7 @@ function checkAttributionIsVisible() {
 }
 
 describe('Attribution', () => {
-    let onClick: SinonStub
+    let onClick: typeof Cypress.sinon.stub
     beforeEach(() => {
         cy.stub(window, 'open')
         onClick = cy.stub().as('onClick')

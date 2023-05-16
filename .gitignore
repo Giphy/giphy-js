@@ -15,3 +15,11 @@ coverage/
 cjs/
 esm/
 umd/
+.turbo
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

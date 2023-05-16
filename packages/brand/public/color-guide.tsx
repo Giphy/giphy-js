@@ -32,8 +32,8 @@ const Color = ({ color, name }) => (
     </div>
 )
 
-const Colors = Object.keys(colors).map(color =>
-    color !== '__esModule' ? <Color color={colors[color]} name={color} /> : null
+const Colors = Object.keys(colors).map((color) =>
+    color !== '__esModule' ? <Color key={color} color={colors[color]} name={color} /> : null
 )
 
 const ColorsGuide = () => (

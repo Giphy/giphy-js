@@ -1,0 +1,22 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "pipeline": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["esm/**", "dist/**"]
+        },
+        "test": {
+            "dependsOn": ["build"]
+        },
+        "cy:run": {
+            "dependsOn": ["build"]
+        },
+        "//#g:check-licenses": {
+            "inputs": ["package.json", "packages/*/package.json", "yarn.lock", "packages/*/yarn.lock"]
+        },
+        "//#g:lint": {},
+        "deploy": {
+            "dependsOn": ["lint", "test", "build"]
+        }
+    }
+}

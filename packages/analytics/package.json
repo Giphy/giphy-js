@@ -5,8 +5,8 @@
         "build": "tsc && npm run build:esm",
         "build:esm": "tsc -p ./tsconfig-esm.json",
         "prepublish": "npm run clean && npm run build",
-        "test": "jest --config ./jestconfig.js",
-        "test:watch": "jest --config ./jestconfig.js --watchAll"
+        "test": "run -T jest --config ./jestconfig.js",
+        "test:watch": "run -T jest --config ./jestconfig.js --watchAll"
     },
     "name": "@giphy/js-analytics",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/analytics",
@@ -32,8 +32,8 @@
         "access": "public"
     },
     "dependencies": {
-        "@giphy/js-types": "^4.4.0",
-        "@giphy/js-util": "^4.4.0",
+        "@giphy/js-types": "*",
+        "@giphy/js-util": "*",
         "append-query": "^2.1.0",
         "throttle-debounce": "^3.0.1"
     },
