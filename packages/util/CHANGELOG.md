@@ -1,5 +1,11 @@
 ## 4.0.0 (2021-08-09)
 
+## 4.4.1
+
+### Patch Changes
+
+-   9418497: dependency upgrades
+
 #### refactor
 
 -   `util`

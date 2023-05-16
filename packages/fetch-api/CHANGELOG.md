@@ -1,5 +1,13 @@
 ## 4.1.1 (2021-08-09)
 
+## 4.9.1
+
+### Patch Changes
+
+-   9418497: dependency upgrades
+-   Updated dependencies [9418497]
+    -   @giphy/js-util@4.4.1
+
 #### refactor
 
 -   `components`, `react-components`, `util`
