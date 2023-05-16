@@ -1,58 +1,74 @@
 ## @giphy/js-components@5.4.1 (2022-03-02)
 
+## 5.12.1
+
+### Patch Changes
+
+-   9418497: dependency upgrades
+-   Updated dependencies [9418497]
+    -   @giphy/js-analytics@4.3.1
+    -   @giphy/js-fetch-api@4.9.1
+    -   @giphy/js-brand@2.3.1
+    -   @giphy/js-util@4.4.1
+
 #### bug
-* `components`, `react-components`
-  * [#281](https://github.com/Giphy/giphy-js/pull/281) Fix - WebP Loading Bug ([@giannif](https://github.com/giannif))
+
+-   `components`, `react-components`
+    -   [#281](https://github.com/Giphy/giphy-js/pull/281) Fix - WebP Loading Bug ([@giannif](https://github.com/giannif))
 
 #### Committers: 1
-- Gianni Ferullo ([@giannif](https://github.com/giannif))
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
 
 ## @giphy/js-components@5.4.0 (2022-03-01)
 
 #### feature
-* `components`, `react-components`
-  * [#280](https://github.com/Giphy/giphy-js/pull/280) feat(gif) Add keypress to GIF Events ([@pshoniuk](https://github.com/pshoniuk))
-  * [#279](https://github.com/Giphy/giphy-js/pull/279) feat(gif) Add keypress to GIF Events ([@robertpin](https://github.com/robertpin))
+
+-   `components`, `react-components`
+    -   [#280](https://github.com/Giphy/giphy-js/pull/280) feat(gif) Add keypress to GIF Events ([@pshoniuk](https://github.com/pshoniuk))
+    -   [#279](https://github.com/Giphy/giphy-js/pull/279) feat(gif) Add keypress to GIF Events ([@robertpin](https://github.com/robertpin))
 
 #### Committers: 2
-- Robert Pintilii ([@robertpin](https://github.com/robertpin))
-- Valentine ([@pshoniuk](https://github.com/pshoniuk))
 
-
+-   Robert Pintilii ([@robertpin](https://github.com/robertpin))
+-   Valentine ([@pshoniuk](https://github.com/pshoniuk))
 
 ## @giphy/js-components@5.3.0 (2022-02-23)
 
 #### feature
-* `components`, `react-components`
-  * [#276](https://github.com/Giphy/giphy-js/pull/276) feat(carousel): add a gifWidth option for fixed width carousel items ([@giannif](https://github.com/giannif))
+
+-   `components`, `react-components`
+    -   [#276](https://github.com/Giphy/giphy-js/pull/276) feat(carousel): add a gifWidth option for fixed width carousel items ([@giannif](https://github.com/giannif))
 
 #### Committers: 2
-- Gianni Ferullo ([@giannif](https://github.com/giannif))
-- Valentine ([@pshoniuk](https://github.com/pshoniuk))
 
-
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+-   Valentine ([@pshoniuk](https://github.com/pshoniuk))
 
 ## @giphy/js-components@5.2.0 (2021-10-21)
 
 #### build tools & continuous integration
-* [#269](https://github.com/Giphy/giphy-js/pull/269) ci: update the license checker tool ([@pshoniuk](https://github.com/pshoniuk))
+
+-   [#269](https://github.com/Giphy/giphy-js/pull/269) ci: update the license checker tool ([@pshoniuk](https://github.com/pshoniuk))
 
 #### Committers: 3
-- Francesco Vasco ([@fvasco](https://github.com/fvasco))
-- Gianni Ferullo ([@giannif](https://github.com/giannif))
-- Valentine ([@pshoniuk](https://github.com/pshoniuk))
 
+-   Francesco Vasco ([@fvasco](https://github.com/fvasco))
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
+-   Valentine ([@pshoniuk](https://github.com/pshoniuk))
 
 ## @giphy/js-components@5.1.6 (2021-09-07)
 
 #### feature
-* `react-components`
-  * [#261](https://github.com/Giphy/giphy-js/pull/261) feat(video): GIPHY CLIPS links to clip ([@giannif](https://github.com/giannif))
-* `react-components`, `types`
-  * [#260](https://github.com/Giphy/giphy-js/pull/260) Feat/video cc support ([@giannif](https://github.com/giannif))
+
+-   `react-components`
+    -   [#261](https://github.com/Giphy/giphy-js/pull/261) feat(video): GIPHY CLIPS links to clip ([@giannif](https://github.com/giannif))
+-   `react-components`, `types`
+    -   [#260](https://github.com/Giphy/giphy-js/pull/260) Feat/video cc support ([@giannif](https://github.com/giannif))
 
 #### Committers: 1
-- Gianni Ferullo ([@giannif](https://github.com/giannif))
+
+-   Gianni Ferullo ([@giannif](https://github.com/giannif))
 
 ## 5.1.5 (2021-08-09)
 

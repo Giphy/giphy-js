@@ -1,5 +1,16 @@
 ## @giphy/react-components@6.0.0 (2022-08-03)
 
+## 6.9.3
+
+### Patch Changes
+
+-   9418497: dependency upgrades
+-   Updated dependencies [9418497]
+    -   @giphy/js-analytics@4.3.1
+    -   @giphy/js-fetch-api@4.9.1
+    -   @giphy/js-brand@2.3.1
+    -   @giphy/js-util@4.4.1
+
 #### feature
 
 -   `fetch-api`, `react-components`
