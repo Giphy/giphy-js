@@ -29,7 +29,7 @@ Choose your flavor!
 ### Install
 
 ```sh
-$ yarn && lerna bootstrap
+$ yarn
 ```
 
 ### Dev
@@ -51,16 +51,16 @@ $ yarn run lint
 
 ### Publishing
 
-```sh
-$ lerna version
-```
+Publishing to npm will be done by the [changeset github action](https://github.com/changesets/action).
 
-[Travis](https://travis-ci.com/Giphy/giphy-js) will publish to npm
-
-### Changelog
-
-Tag PRs in github, and run something like this, then cut and paste from the console. See [more](https://github.com/lerna/lerna-changelog)
+In your pr you will create a changeset by using the changest cli. Readmore [here](https://github.com/changesets/changesets)
 
 ```sh
-lerna-changelog --from=@giphy/react-components@2.1.0 --to=@giphy/react-components@2.1.2
+$ yarn changeset
 ```
+
+Follow the prompts to specify the semver and describe the changes you've made. This will create a changeset file which should be committed. Once you have your changeset ready and the PR is approved, you can merge your PR to master.
+
+The github actions will run and create another PR based on your changeset. When this PR is approved and merged, the Publish github action will run and the packages will be published.
+
+If you're not ready to publish your changeset, you don't have to merge the changeset PR
