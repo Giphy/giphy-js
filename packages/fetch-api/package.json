@@ -19,6 +19,7 @@
     "sideEffects": false,
     "exports": {
         ".": {
+            "types": "./dist/index.d.ts",
             "import": "./esm/index.js",
             "require": "./dist/index.js"
         },
