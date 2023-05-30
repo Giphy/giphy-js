@@ -1,5 +1,11 @@
 ## 4.0.0 (2021-08-09)
 
+## 4.4.2
+
+### Patch Changes
+
+-   8c8e8d6: Add types to package.json export field
+
 ## 4.4.1
 
 ### Patch Changes
