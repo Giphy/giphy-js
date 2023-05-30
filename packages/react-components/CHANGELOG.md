@@ -1,5 +1,16 @@
 ## @giphy/react-components@6.0.0 (2022-08-03)
 
+## 6.9.4
+
+### Patch Changes
+
+-   8c8e8d6: Add types to package.json export field
+-   Updated dependencies [8c8e8d6]
+    -   @giphy/js-analytics@4.3.2
+    -   @giphy/js-fetch-api@4.9.2
+    -   @giphy/js-brand@2.3.2
+    -   @giphy/js-util@4.4.2
+
 ## 6.9.3
 
 ### Patch Changes

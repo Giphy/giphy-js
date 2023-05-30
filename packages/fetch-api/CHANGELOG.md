@@ -1,5 +1,13 @@
 ## 4.1.1 (2021-08-09)
 
+## 4.9.2
+
+### Patch Changes
+
+-   8c8e8d6: Add types to package.json export field
+-   Updated dependencies [8c8e8d6]
+    -   @giphy/js-util@4.4.2
+
 ## 4.9.1
 
 ### Patch Changes
