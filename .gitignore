@@ -5,7 +5,6 @@ public/*
 !public/index.html
 !public/gifs.*
 dist
-lib
 *.log
 .env
 coverage/
@@ -23,3 +22,4 @@ umd/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.hintrc
