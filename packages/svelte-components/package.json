@@ -25,14 +25,15 @@
         "!dist/**/*.spec.*"
     ],
     "peerDependencies": {
-        "svelte": "^3.54.0"
+        "svelte": "^3.59.1"
     },
     "dependencies": {
         "@giphy/js-analytics": "*",
         "@giphy/js-brand": "*",
         "@giphy/js-fetch-api": "*",
         "@giphy/js-types": "*",
-        "@giphy/js-util": "*"
+        "@giphy/js-util": "*",
+        "throttle-debounce": "5.0.0"
     },
     "devDependencies": {
         "@sveltejs/adapter-auto": "^2.0.0",
@@ -40,7 +41,6 @@
         "@sveltejs/package": "^2.0.0",
         "@typescript-eslint/eslint-plugin": "^5.45.0",
         "@typescript-eslint/parser": "^5.45.0",
-        "eslint": "^8.28.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-svelte": "^2.26.0",
         "prettier-plugin-svelte": "^2.8.1",
