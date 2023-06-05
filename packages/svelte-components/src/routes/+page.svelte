@@ -1,5 +1,6 @@
 <script lang="ts">
     import { GiphyFetch } from '@giphy/js-fetch-api'
+    import Loader from '../lib/Loader.svelte'
     import { Gif } from '../lib/index.js'
     const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
     const req = gf.gif('ZEU9ryYGZzttn0Cva7')
@@ -18,3 +19,5 @@
 {:catch error}
     <p style="color: red">{error.message}</p>
 {/await}
+
+<Loader />
