@@ -13,7 +13,7 @@
     // loader config lets us trigger a fetch before the user reaches the bottom
     export let loaderConfig = { rootMargin: '0px 0px 250px 0px' }
     export let gifHeight = 100
-    export let gifWidth: number | undefined
+    export let gifWidth: number | undefined = undefined
 
     let isLoaderVisible = false
     let isFetching = false

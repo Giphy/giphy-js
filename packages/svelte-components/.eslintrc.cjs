@@ -27,6 +27,7 @@ module.exports = {
             },
             rules: {
                 'no-sequences': 0,
+                'no-undef-init': 0,
                 '@typescript-eslint/no-empty-function': 0,
                 '@typescript-eslint/no-unused-expressions': 0,
             },
