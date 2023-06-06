@@ -6,6 +6,8 @@
     export let data: GifResult
 </script>
 
+<h1>GIPHY Svelte Components</h1>
+<h3>{data.data.title}</h3>
 <Gif
     gif={data.data}
     width={300}
@@ -14,4 +16,5 @@
     }}
 />
 
+<h3>Loader</h3>
 <Loader />
