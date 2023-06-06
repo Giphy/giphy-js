@@ -39,7 +39,8 @@
 </script>
 
 <div
-    style="background:{background}; width:{width}px; height:{height}px; border-radius:{borderRadius}px;"
+    style:background
+    style="width:{width}px; height:{height}px; border-radius:{borderRadius}px;"
     on:click={(event) => {
         onGifClick?.(gif, event)
         if (analyticsResponsePayload) {
@@ -58,7 +59,7 @@
         <source type="image/webp" srcSet={rendition.webp} />
         <img
             bind:this={img}
-            style:objectFit
+            style="object-fit:{objectFit}"
             src={rendition.url}
             {width}
             {height}

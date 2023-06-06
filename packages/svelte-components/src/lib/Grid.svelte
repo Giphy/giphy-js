@@ -24,7 +24,7 @@
     let columnTarget: number
     const gutterOffset = gutter * (columns - 1)
     const gifWidth = Math.floor((width - gutterOffset) / columns)
-    let columnHeights: number[] = Array.apply(null, Array(columns)).map((_) => 0)
+    const columnHeights: number[] = Array.apply(null, Array(columns)).map((_) => 0)
     let containerHeight: number
     let isLoaderVisible = false
     let isFetching = false
@@ -44,7 +44,7 @@
         containerHeight = Math.max(...columnHeights) - gutter
         return `translate3d(${left}px, ${top}px, 0)`
     }
-
+    const paginator = gifPaginator(fetchGifs, initialGifs)
     const doFetch = debounce(100, async () => {
         if (isLoaderVisible && !isFetching) {
             isFetching = true
@@ -58,7 +58,6 @@
     $: initialGifs, isLoaderVisible, isFetching, doFetch()
 
     let loader: HTMLDivElement
-    let paginator = gifPaginator(fetchGifs, initialGifs)
     onMount(() => {
         const i = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
             isLoaderVisible = entry.isIntersecting
