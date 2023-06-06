@@ -48,6 +48,7 @@
         "vite": "^4.3.0",
         "vitest": "^0.25.3"
     },
+    "license": "MIT",
     "svelte": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "type": "module"

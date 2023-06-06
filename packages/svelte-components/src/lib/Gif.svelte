@@ -4,13 +4,18 @@
     import type { IGif, ImageAllTypes } from '@giphy/js-types'
     import { getAltText, getBestRendition, getGifHeight } from '@giphy/js-util'
     import { onMount } from 'svelte'
+    import { debounce } from 'throttle-debounce'
+    import Attribution from './Attribution.svelte'
+    import DynamicElement from './DynamicElement.svelte'
 
     export let gif: IGif
+    export let noLink = false
     export let width = 150
     export let height = getGifHeight(gif, width)
     export let borderRadius = 4
     export let objectFit: 'contain' | 'cover' = 'cover'
-    export let onGifClick: (gif: IGif, e: MouseEvent) => void = () => {}
+    export let onGifClick: (e: MouseEvent, gif: IGif) => void = () => {}
+    export let onContextMenu: (e: MouseEvent, gif: IGif) => void = () => {}
 
     const analyticsResponsePayload = gif.analytics_response_payload
     const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow]
@@ -36,44 +41,77 @@
         i.observe(img)
         return () => i.disconnect()
     })
-</script>
-
-<div
-    style:background
-    style="width:{width}px; height:{height}px; border-radius:{borderRadius}px;"
-    on:click={(event) => {
-        onGifClick?.(gif, event)
-        if (analyticsResponsePayload) {
+    let hovered = false
+    const fireHoverPingback = debounce(200, () => {
+        if (hovered && analyticsResponsePayload) {
             pingback({
                 analyticsResponsePayload,
-                actionType: 'CLICK',
+                actionType: 'HOVER',
             })
         }
-    }}
-    on:keydown={() => {}}
-    on:keyup={() => {}}
-    on:mousedown={() => {}}
-    on:mouseup={() => {}}
->
-    <picture>
-        <source type="image/webp" srcSet={rendition.webp} />
-        <img
-            bind:this={img}
-            style="object-fit:{objectFit}"
-            src={rendition.url}
-            {width}
-            {height}
-            alt={getAltText(gif)}
-            loading="lazy"
-        />
-    </picture>
-</div>
+    })
+    $: hovered, fireHoverPingback()
+</script>
+
+<DynamicElement href={noLink ? '' : gif.url}>
+    <div
+        on:click={(event) => {
+            onGifClick?.(event, gif)
+            if (analyticsResponsePayload) {
+                pingback({
+                    analyticsResponsePayload,
+                    actionType: 'CLICK',
+                })
+            }
+        }}
+        on:keydown={() => {}}
+        on:keyup={() => {}}
+        on:focus={() => {}}
+        on:mouseleave={() => {
+            hovered = false
+        }}
+        on:mouseover={() => {
+            hovered = true
+        }}
+        on:mouseup={() => {}}
+        on:contextmenu={(event) => onContextMenu?.(event, gif)}
+        class="container"
+        style:background
+        style="width:{width}px; height:{height}px; border-radius:{borderRadius}px;"
+    >
+        <picture>
+            <source type="image/webp" srcSet={rendition.webp} />
+            <img
+                bind:this={img}
+                style="object-fit:{objectFit}"
+                src={rendition.url}
+                {width}
+                {height}
+                alt={getAltText(gif)}
+                loading="lazy"
+            />
+        </picture>
+        {#if hovered}
+            <slot name="overlay" {gif}>
+                <div class="default-overlay">
+                    <Attribution {gif} />
+                </div>
+            </slot>
+        {/if}
+    </div>
+</DynamicElement>
 
 <style>
-    div {
+    .container {
         overflow: hidden;
+        position: relative;
     }
     img {
         display: block;
+    }
+    .default-overlay {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
     }
 </style>

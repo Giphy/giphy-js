@@ -37,20 +37,20 @@
         position: relative;
         box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
         animation: bouncer cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.75s infinite alternate;
-        &:nth-child(5n + 1) {
-            animation-delay: 0;
-        }
-        &:nth-child(5n + 2) {
-            animation-delay: calc(0s + (0.1s * 1));
-        }
-        &:nth-child(5n + 3) {
-            animation-delay: calc(0s + (0.1s * 2));
-        }
-        &:nth-child(5n + 4) {
-            animation-delay: calc(0s + (0.1s * 3));
-        }
-        &:nth-child(5n + 5) {
-            animation-delay: calc(0s + (0.1s * 4));
-        }
+    }
+    .block:nth-child(5n + 1) {
+        animation-delay: 0;
+    }
+    .block:nth-child(5n + 2) {
+        animation-delay: calc(0s + (0.1s * 1));
+    }
+    .block:nth-child(5n + 3) {
+        animation-delay: calc(0s + (0.1s * 2));
+    }
+    .block:nth-child(5n + 4) {
+        animation-delay: calc(0s + (0.1s * 3));
+    }
+    .block:nth-child(5n + 5) {
+        animation-delay: calc(0s + (0.1s * 4));
     }
 </style>
