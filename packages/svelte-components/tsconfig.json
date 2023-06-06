@@ -8,7 +8,8 @@
         "skipLibCheck": true,
         "sourceMap": true,
         "strict": true,
-        "moduleResolution": "NodeNext"
+        "moduleResolution": "NodeNext",
+        "lib": ["esnext", "dom"]
     },
     "outDir": "dist",
     "exclude": ["node_modules", "dist/**/*"]

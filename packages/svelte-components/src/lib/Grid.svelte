@@ -12,13 +12,13 @@
     // we'll fetch extra gifs when the loader is visible
     export let fetchGifs: (offset: number) => Promise<GifsResult>
     // loader config lets us trigger a fetch before the user reaches the bottom
-    export let loaderConfig: IntersectionObserverInit = { rootMargin: '0px 0px 250px 0px' }
+    export let loaderConfig = { rootMargin: '0px 0px 250px 0px' }
     // the total width of the grid
-    export let width: number = 600
+    export let width = 600
     // the number of columns in the grid
-    export let columns: number = 4
+    export let columns = 4
     // the gutter between gifs
-    export let gutter: number = 6
+    export let gutter = 6
 
     // masonry - css can't do a masonry layout, so we need to calculate the position of each gif
     let columnTarget: number

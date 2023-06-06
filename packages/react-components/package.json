@@ -1,5 +1,6 @@
 {
     "scripts": {
+        "lint": "run -T eslint . --ext .ts,.tsx",
         "clean": "rm -rf ./dist ./esm",
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
         "dev": "start-storybook -p 5001",

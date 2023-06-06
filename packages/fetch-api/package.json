@@ -1,5 +1,6 @@
 {
     "scripts": {
+        "lint": "run -T eslint . --ext .ts,.tsx",
         "clean": "rm -rf ./dist",
         "dev": "parcel public/test.html",
         "docs": "typedoc src/index.ts",

@@ -1,5 +1,6 @@
 {
     "scripts": {
+        "lint": "run -T eslint . --ext .ts,.tsx",
         "clean": "rm -rf ./dist ./esm",
         "dev": "tsc --watch",
         "build": "tsc && npm run build:esm",

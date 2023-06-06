@@ -4,14 +4,20 @@
         "node": true,
         "es6": true
     },
-    "parserOptions": {
-        "sourceType": "module",
-        "ecmaVersion": 2020,
-        "extraFileExtensions": [".svelte"]
-    },
+    "ignorePatterns": [
+        "node_modules/",
+        "dist/",
+        "esm/",
+        "stories/",
+        "build/",
+        "coverage/",
+        "public/",
+        "cypress/",
+        "storybook-static/"
+    ],
     "parser": "@typescript-eslint/parser",
     "plugins": ["@typescript-eslint", "import"],
-    "extends": ["standard", "plugin:svelte/recommended", "plugin:import/errors", "plugin:import/warnings"],
+    "extends": ["standard", "plugin:import/errors", "plugin:import/warnings"],
     "rules": {
         "no-use-before-define": "off",
         "@typescript-eslint/no-use-before-define": ["error"],
@@ -66,17 +72,6 @@
         {
             "files": ["**/cypress/**/*.ts", "**/cypress/**/*.tsx"],
             "rules": {
-                "@typescript-eslint/no-unused-expressions": 0
-            }
-        },
-        {
-            "files": ["*.svelte"],
-            "parser": "svelte-eslint-parser",
-            "parserOptions": {
-                "parser": "@typescript-eslint/parser"
-            },
-            "rules": {
-                "no-sequences": 0,
                 "@typescript-eslint/no-unused-expressions": 0
             }
         }
