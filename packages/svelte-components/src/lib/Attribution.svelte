@@ -1,7 +1,9 @@
 <script lang="ts">
     import type { IGif, IProfileUser } from '@giphy/js-types'
     import Avatar from './Avatar.svelte'
+    import Verified from './Verified.svelte'
     export let gif: IGif
+    export let hovered = true
     let shouldDisplay = true
     const user = gif.user as IProfileUser
     if (!user?.username && !user?.display_name) {
@@ -9,7 +11,7 @@
     }
 </script>
 
-{#if shouldDisplay}
+{#if shouldDisplay && hovered}
     <div
         class="container"
         on:click|preventDefault|stopPropagation={() => {
@@ -20,7 +22,14 @@
         on:keydown={() => {}}
     >
         <Avatar {user} />
-        <div class="user">{user.display_name || user.username}</div>
+        <div class="user">
+            <div class="display-name">
+                {user.display_name || user.username}
+            </div>
+            {#if user.is_verified}
+                <Verified />
+            {/if}
+        </div>
     </div>
 {/if}
 
@@ -31,7 +40,7 @@
         font-family: interface, helvetica, arial;
         cursor: pointer;
     }
-    .user {
+    .display-name {
         color: white;
         font-size: 16px;
         font-weight: 700;
@@ -39,5 +48,10 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         -webkit-font-smoothing: antialiased;
+    }
+    .user {
+        display: flex;
+        align-items: center;
+        min-width: 0;
     }
 </style>

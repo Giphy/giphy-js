@@ -8,6 +8,9 @@
 </script>
 
 <h1>GIPHY Svelte Components</h1>
+
+<a href="/grid">Grid</a>
+<a href="/carousel">Carousel</a>
 <h3>Default Gif</h3>
 <Gif gif={data.data} width={300} />
 

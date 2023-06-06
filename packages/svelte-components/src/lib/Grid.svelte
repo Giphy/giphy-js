@@ -11,6 +11,9 @@
     export let initialGifs: IGif[] = []
     // we'll fetch extra gifs when the loader is visible
     export let fetchGifs: (offset: number) => Promise<GifsResult>
+    // handle gif click
+    export let onGifClick: (e: MouseEvent, gif: IGif) => void = () => {}
+    export let onContextMenu: (e: MouseEvent, gif: IGif) => void = () => {}
     // loader config lets us trigger a fetch before the user reaches the bottom
     export let loaderConfig = { rootMargin: '0px 0px 250px 0px' }
     // the total width of the grid
@@ -70,7 +73,7 @@
 <div class="container" style="width:{width}px; height:{containerHeight}px;">
     {#each initialGifs as gif, index}
         <div class="gif" style="transform:{getStyle(index)};">
-            <Gif {gif} width={gifWidth} />
+            <Gif {gif} width={gifWidth} {onGifClick} {onContextMenu} />
         </div>
     {/each}
 </div>

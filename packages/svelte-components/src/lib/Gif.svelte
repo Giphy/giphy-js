@@ -5,7 +5,7 @@
     import { getAltText, getBestRendition, getGifHeight } from '@giphy/js-util'
     import { onMount } from 'svelte'
     import { debounce } from 'throttle-debounce'
-    import Attribution from './Attribution.svelte'
+    import AttributionOverlay from './AttributionOverlay.svelte'
     import DynamicElement from './DynamicElement.svelte'
 
     export let gif: IGif
@@ -23,10 +23,12 @@
     const bestRendition = getBestRendition(gif.images, width, height)
     const rendition = gif.images[bestRendition.renditionName] as ImageAllTypes
     let img: HTMLImageElement
+    let hasFiredSeen = false
     onMount(() => {
         const i = new IntersectionObserver(
             ([entry]: IntersectionObserverEntry[]) => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && !hasFiredSeen) {
+                    hasFiredSeen = true
                     if (analyticsResponsePayload) {
                         pingback({
                             analyticsResponsePayload,
@@ -91,13 +93,9 @@
                 loading="lazy"
             />
         </picture>
-        {#if hovered}
-            <slot name="overlay" {gif}>
-                <div class="default-overlay">
-                    <Attribution {gif} />
-                </div>
-            </slot>
-        {/if}
+        <slot name="overlay" {gif}>
+            <AttributionOverlay {gif} {hovered} />
+        </slot>
     </div>
 </DynamicElement>
 
@@ -108,10 +106,5 @@
     }
     img {
         display: block;
-    }
-    .default-overlay {
-        position: absolute;
-        bottom: 8px;
-        right: 8px;
     }
 </style>
