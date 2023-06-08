@@ -1,5 +1,11 @@
 ## 4.1.1 (2021-08-09)
 
+## 4.9.3
+
+### Patch Changes
+
+-   8ddfb8c: check for require so esm build doesn't fail
+
 ## 4.9.2
 
 ### Patch Changes
