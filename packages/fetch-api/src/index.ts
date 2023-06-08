@@ -8,12 +8,14 @@ export { gifPaginator } from './paginator'
 export { default as request } from './request'
 export * from './result-types'
 
-const { version } = require('../package.json')
-// since we have multiple SDKs, we're defining a hieracrchy
-// Fetch API is lowest
+if (typeof require !== 'undefined') {
+    const { version } = require('../package.json')
+    // since we have multiple SDKs, we're defining a hieracrchy
+    // Fetch API is lowest
 
-if (!getGiphySDKRequestHeaders()?.get(`X-GIPHY-SDK-NAME`)) {
-    // send headers with library type and version
-    appendGiphySDKRequestHeader(`X-GIPHY-SDK-NAME`, 'FetchAPI')
-    appendGiphySDKRequestHeader(`X-GIPHY-SDK-VERSION`, version)
+    if (!getGiphySDKRequestHeaders()?.get(`X-GIPHY-SDK-NAME`)) {
+        // send headers with library type and version
+        appendGiphySDKRequestHeader(`X-GIPHY-SDK-NAME`, 'FetchAPI')
+        appendGiphySDKRequestHeader(`X-GIPHY-SDK-VERSION`, version)
+    }
 }
