@@ -1,5 +1,11 @@
 ## 4.1.1 (2021-08-09)
 
+## 4.9.3
+
+### Patch Changes
+
+-   a1525d5: Fix require in esm build. require is not defined in esm
+
 ## 4.9.2
 
 ### Patch Changes
