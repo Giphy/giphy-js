@@ -93,7 +93,7 @@
                 loading="lazy"
             />
         </picture>
-        <slot name="overlay" {gif}>
+        <slot name="overlay" {gif} {hovered}>
             <AttributionOverlay {gif} {hovered} />
         </slot>
     </div>

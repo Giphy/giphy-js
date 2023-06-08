@@ -22,8 +22,10 @@
         console.log('clicked', gif.id)
     }}
 >
-    <div slot="overlay" class="overlay" let:gif>
-        <div>{gif.title}</div>
+    <div slot="overlay" class="overlay" let:gif let:hovered>
+        {#if hovered}
+            <div>{gif.title}</div>
+        {/if}
     </div>
 </Gif>
 
