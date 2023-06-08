@@ -1,8 +1,7 @@
 {
     "name": "giphy-js",
     "scripts": {
-        "lint": "turbo g:lint",
-        "g:lint": "eslint --ext .ts,.tsx ./packages --config ./.eslintrc --ignore-path ./.eslintignore",
+        "lint": "turbo lint",
         "test": "turbo test",
         "build": "turbo build",
         "cy:run": "turbo run cy:run --",
