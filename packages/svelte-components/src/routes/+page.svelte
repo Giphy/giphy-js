@@ -18,8 +18,8 @@
 <Gif
     gif={data.data}
     width={300}
-    onGifClick={(_, gif) => {
-        console.log('clicked', gif.id)
+    on:click={(e) => {
+        console.log(`on:click gif:`, e.detail.gif)
     }}
 >
     <div slot="overlay" class="overlay" let:gif let:hovered>

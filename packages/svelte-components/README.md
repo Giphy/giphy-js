@@ -1,6 +1,6 @@
 # @giphy/svelte-components (BETA)
 
-> > > Note this project is in beta and may contain bugs. PRs are welcome! as are issues with suggestions and bug reports
+> Note this project is in beta and may contain bugs. PRs are welcome! as are issues with suggestions and bug reports
 
 This pacakge provides components that help you display gifs on a website. It works in tandom with [@giphy/js-fetch-api](../fetch-api/) and [@giphy/js-types](../types) packages
 
@@ -31,24 +31,63 @@ If you want to display something over the gif you can use a slot. You can use `p
 
 Other props:
 
--   noLink: don't use an href, helpful if the component is nested in another href
+-   showLink: use an href and an a tag to show
 -   height: you can hard-code a height and the image will scale based on the object-fit (default `cover`)
--   onGifClick: handle the gif click in your application
+-   on:click: handle the gif click in your application
+-   hideAttribution: hide the default attribution overlay (using a custom overlay also hides this)
 
-## Developing
+## Layout Components - Grid and Carousel
 
-```bash
-yarn run dev
+```svelte
+<Grid
+    initialGifs={gifs}
+    on:click={(e) => {
+        // do something with the gif
+        console.log(`on:click gif:`, e.detail.gif)
+    }}
+    width={600}
+    fetchGifs={(offset) => gf.trending({ offset })}
+    gifProps={{ borderRadius: 0 }}
+/>
+
+<Carousel initialGifs={gifs} gifHeight={100} fetchGifs={(offset) => gf.trending({ offset })} />
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+Grid/Carousel props:
 
-## Building
+-   initialGifs: if you're doing SSR you'll want to populate the grid before a fetch is triggered
+-   fetchGifs: if there are no initialGifs this will fire immediately upon mount. It will fire subsequently as you scroll.
+-   gifProps: these are forwarded to the gif component in the grid/carousel
 
-To build your library:
+### Refreshing Layout Components
 
-```bash
-yarn run package
+Refresh the grid based on a search term
+
+```svelte
+<script lang="ts">
+    import { Grid } from '@giphy/svelte-components'
+    import { GiphyFetch } from '@giphy/js-fetch-api'
+    import type { PageData } from './$types.js'
+    const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
+    export let data: PageData
+    let term = data.term // the initial term on page load
+    let initialGifs = data.gifs // the initial gifs for ssr
+</script>
+
+<p>
+    Search for gifs:
+    <input bind:value={term} />
+</p>
+<!-- use the term as a key to reset the Grid-->
+{#key term}
+    <Grid
+        initialGifs={data.term === term ? initialGifs : []}
+        on:click={(e) => {
+            console.log(`on:click gif:`, e.detail.gif)
+        }}
+        width={600}
+        fetchGifs={(offset) => gf.search(term, { offset, limit: 10 })}
+        gifProps={{ borderRadius: 0 }}
+    />
+{/key}
 ```
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.

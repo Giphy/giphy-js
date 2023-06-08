@@ -71,7 +71,7 @@
 <div class="container" style="width:{width}px; height:{containerHeight}px;">
     {#each initialGifs as gif, index}
         <div class="gif" style="transform:{getStyle(index)};">
-            <Gif {gif} width={gifWidth} {...gifProps} />
+            <Gif {gif} width={gifWidth} {...gifProps} on:click on:context />
         </div>
     {/each}
 </div>

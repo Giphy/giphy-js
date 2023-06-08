@@ -11,9 +11,4 @@
 <Carousel initialGifs={data.data} gifHeight={100} fetchGifs={(offset) => gf.trending({ offset, limit })} />
 
 <h1>Fixed gif width</h1>
-<Carousel
-    initialGifs={data.data}
-    gifHeight={100}
-    gifWidth={100}
-    fetchGifs={(offset) => gf.trending({ offset, limit })}
-/>
+<Carousel initialGifs={data.data} gifHeight={100} fetchGifs={(offset) => gf.trending({ offset, limit })} />

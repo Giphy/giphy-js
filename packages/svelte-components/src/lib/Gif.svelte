@@ -3,19 +3,21 @@
     import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
     import type { IGif, ImageAllTypes } from '@giphy/js-types'
     import { getAltText, getBestRendition, getGifHeight } from '@giphy/js-util'
-    import { onMount } from 'svelte'
+    import { createEventDispatcher, onMount } from 'svelte'
     import { debounce } from 'throttle-debounce'
     import AttributionOverlay from './AttributionOverlay.svelte'
     import DynamicElement from './DynamicElement.svelte'
 
+    type GifEvent = { gif: IGif }
+    const dispatch = createEventDispatcher<{ click: GifEvent; context: GifEvent }>()
+
     export let gif: IGif
-    export let noLink = false
+    export let showLink = false
     export let width = 150
     export let height = getGifHeight(gif, width)
     export let borderRadius = 4
+    export let hideAttribution = false
     export let objectFit: 'contain' | 'cover' = 'cover'
-    export let onGifClick: (e: MouseEvent, gif: IGif) => void = () => {}
-    export let onContextMenu: (e: MouseEvent, gif: IGif) => void = () => {}
 
     const analyticsResponsePayload = gif.analytics_response_payload
     const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow]
@@ -55,10 +57,14 @@
     $: hovered, fireHoverPingback()
 </script>
 
-<DynamicElement href={noLink ? '' : gif.url}>
+<DynamicElement href={showLink ? gif.url : ''}>
     <div
         on:click={(event) => {
-            onGifClick?.(event, gif)
+            if (!showLink) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            dispatch('click', { gif })
             if (analyticsResponsePayload) {
                 pingback({
                     analyticsResponsePayload,
@@ -76,7 +82,7 @@
             hovered = true
         }}
         on:mouseup={() => {}}
-        on:contextmenu={(event) => onContextMenu?.(event, gif)}
+        on:contextmenu={() => dispatch('context', { gif })}
         class="container"
         style:background
         style="width:{width}px; height:{height}px; border-radius:{borderRadius}px;"
@@ -94,7 +100,9 @@
             />
         </picture>
         <slot name="overlay" {gif} {hovered}>
-            <AttributionOverlay {gif} {hovered} />
+            {#if !hideAttribution}
+                <AttributionOverlay {gif} {hovered} />
+            {/if}
         </slot>
     </div>
 </DynamicElement>
