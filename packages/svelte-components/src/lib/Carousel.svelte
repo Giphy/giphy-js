@@ -2,7 +2,7 @@
     import { gifPaginator, type GifsResult } from '@giphy/js-fetch-api'
     import type { IGif } from '@giphy/js-types'
     import { getGifWidth } from '@giphy/js-util'
-    import { onMount } from 'svelte'
+    import { onMount, type ComponentProps } from 'svelte'
     import { debounce } from 'throttle-debounce'
     import Gif from './Gif.svelte'
 
@@ -14,6 +14,7 @@
     export let loaderConfig = { rootMargin: '0px 0px 250px 0px' }
     export let gifHeight = 100
     export let gifWidth: number | undefined = undefined
+    export let gifProps: Omit<ComponentProps<Gif>, 'gif' | 'width' | 'height'> = {}
 
     let isLoaderVisible = false
     let isFetching = false
@@ -44,7 +45,7 @@
 <div class="container">
     {#each initialGifs as gif}
         <div class="gif">
-            <Gif {gif} width={gifWidth || getGifWidth(gif, gifHeight)} height={gifHeight} />
+            <Gif {gif} width={gifWidth || getGifWidth(gif, gifHeight)} height={gifHeight} {...gifProps} />
         </div>
     {/each}
     <div bind:this={loader} class="loader" />

@@ -2,7 +2,7 @@
     import { gifPaginator, type GifsResult } from '@giphy/js-fetch-api'
     import type { IGif } from '@giphy/js-types'
     import { getGifHeight } from '@giphy/js-util'
-    import { onMount } from 'svelte'
+    import { onMount, type ComponentProps } from 'svelte'
     import { debounce } from 'throttle-debounce'
     import Gif from './Gif.svelte'
     import Loader from './Loader.svelte'
@@ -11,9 +11,6 @@
     export let initialGifs: IGif[] = []
     // we'll fetch extra gifs when the loader is visible
     export let fetchGifs: (offset: number) => Promise<GifsResult>
-    // handle gif click
-    export let onGifClick: (e: MouseEvent, gif: IGif) => void = () => {}
-    export let onContextMenu: (e: MouseEvent, gif: IGif) => void = () => {}
     // loader config lets us trigger a fetch before the user reaches the bottom
     export let loaderConfig = { rootMargin: '0px 0px 250px 0px' }
     // the total width of the grid
@@ -22,7 +19,8 @@
     export let columns = 4
     // the gutter between gifs
     export let gutter = 6
-
+    // props to be passed along to the Gif component
+    export let gifProps: Omit<ComponentProps<Gif>, 'gif' | 'width' | 'height'> = {}
     // masonry - css can't do a masonry layout, so we need to calculate the position of each gif
     let columnTarget: number
     const gutterOffset = gutter * (columns - 1)
@@ -73,7 +71,7 @@
 <div class="container" style="width:{width}px; height:{containerHeight}px;">
     {#each initialGifs as gif, index}
         <div class="gif" style="transform:{getStyle(index)};">
-            <Gif {gif} width={gifWidth} {onGifClick} {onContextMenu} />
+            <Gif {gif} width={gifWidth} {...gifProps} />
         </div>
     {/each}
 </div>

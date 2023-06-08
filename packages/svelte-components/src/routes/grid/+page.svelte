@@ -7,4 +7,9 @@
     export let data: GifsResult
 </script>
 
-<Grid initialGifs={data.data} width={600} fetchGifs={(offset) => gf.trending({ offset, limit })} />
+<Grid
+    initialGifs={data.data}
+    width={600}
+    fetchGifs={(offset) => gf.trending({ offset, limit })}
+    gifProps={{ noLink: true, borderRadius: 0 }}
+/>

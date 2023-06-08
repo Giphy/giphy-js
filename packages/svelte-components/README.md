@@ -1,6 +1,33 @@
-# @giphy/svelte-components
+# @giphy/svelte-components (BETA)
 
-Alpha version of our Gif, Grid, and Carousel components
+> > > Note this project is in beta and may contain bugs. PRs are welcome, as are issues with suggestions
+
+This pacakge provides components that help you display gifs on a website.
+
+There are three main components:
+
+## Gif
+
+```svelte
+<Gif {gif} width={300} />
+```
+
+The Gif component takes a [IGif](../types/src/gif.ts) object. You can use the [@giphy/js-fetch-api](../fetch-api/) to easily fetch data. Then pass the Gif to `result.data` to the gif component.
+It is required to specify a `width` so the correct rendition is selected.
+
+### Overlays
+
+If you want to display something over the gif you can use a slot. You can use `position:absolute` to position it.
+
+```svelte
+<Gif {gif} width={300}>
+    <div slot="overlay" class="overlay" let:gif let:hovered>
+        {#if hovered}
+            <div>{gif.title}</div>
+        {/if}
+    </div>
+</Gif>
+```
 
 ## Developing
 
