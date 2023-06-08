@@ -1,8 +1,8 @@
 # @giphy/svelte-components (BETA)
 
-> > > Note this project is in beta and may contain bugs. PRs are welcome, as are issues with suggestions
+> > > Note this project is in beta and may contain bugs. PRs are welcome! as are issues with suggestions and bug reports
 
-This pacakge provides components that help you display gifs on a website.
+This pacakge provides components that help you display gifs on a website. It works in tandom with [@giphy/js-fetch-api](../fetch-api/) and [@giphy/js-types](../types) packages
 
 There are three main components:
 
@@ -28,6 +28,12 @@ If you want to display something over the gif you can use a slot. You can use `p
     </div>
 </Gif>
 ```
+
+Other props:
+
+-   noLink: don't use an href, helpful if the component is nested in another href
+-   height: you can hard-code a height and the image will scale based on the object-fit (default `cover`)
+-   onGifClick: handle the gif click in your application
 
 ## Developing
 
