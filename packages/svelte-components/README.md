@@ -2,9 +2,9 @@
 
 > Note this project is in beta and may contain bugs. PRs are welcome! as are issues with suggestions and bug reports
 
-This pacakge provides components that help you display gifs on a website. It works in tandom with [@giphy/js-fetch-api](../fetch-api/) and [@giphy/js-types](../types) packages
+This package provides components that help you display gifs on a website. It works in tandem with [@giphy/js-fetch-api](../fetch-api/) and [@giphy/js-types](../types) packages
 
-There are three main components:
+There are three main components: Gif, Grid, and Carousel described below. Feel free to poke around the `src/routes` dir for working examples
 
 ## Gif
 
