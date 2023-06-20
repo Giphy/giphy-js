@@ -11,12 +11,14 @@ import MasonryGrid from './masonry-grid'
 import PingbackContextManager from './pingback-context-manager'
 import type { GifOverlayProps } from './types'
 
+export const DEFAULT_GRID_CLASS_NAME = 'giphy-grid'
+
 type Props = {
     className?: string
     width: number
-    user: Partial<IUser>
+    user?: Partial<IUser>
     columns: number
-    gutter: number
+    gutter?: number
     layoutType?: 'GRID' | 'MIXED'
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
@@ -80,7 +82,7 @@ const initialState: State = {
 }
 
 const Grid = ({
-    className = 'giphy-grid',
+    className = DEFAULT_GRID_CLASS_NAME,
     width,
     user = {},
     columns,
