@@ -1,5 +1,16 @@
 # @giphy/js-analytics
 
+## 0.0.0-canary-20230620165510
+
+### Patch Changes
+
+-   Update esm and cjs builds
+
+    The dist dir has changed
+
+-   Updated dependencies
+    -   @giphy/js-util@0.0.0-canary-20230620165510
+
 ## 4.3.2
 
 ### Patch Changes

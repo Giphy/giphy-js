@@ -1,6 +1,6 @@
 {
     "name": "@giphy/svelte-components",
-    "version": "0.0.2",
+    "version": "0.0.0-canary-20230620165510",
     "scripts": {
         "dev": "vite dev",
         "build": "vite build && npm run package",
@@ -26,11 +26,11 @@
         "svelte": "^3.59.1"
     },
     "dependencies": {
-        "@giphy/js-analytics": "*",
-        "@giphy/js-brand": "*",
-        "@giphy/js-fetch-api": "*",
+        "@giphy/js-analytics": "0.0.0-canary-20230620165510",
+        "@giphy/js-brand": "0.0.0-canary-20230620165510",
+        "@giphy/js-fetch-api": "0.0.0-canary-20230620165510",
         "@giphy/js-types": "*",
-        "@giphy/js-util": "*",
+        "@giphy/js-util": "0.0.0-canary-20230620165510",
         "throttle-debounce": "5.0.0"
     },
     "devDependencies": {

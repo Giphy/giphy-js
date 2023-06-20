@@ -14,7 +14,7 @@
         "typescript": "^5.0.4"
     },
     "name": "@giphy/js-brand",
-    "version": "2.3.2",
+    "version": "0.0.0-canary-20230620165510",
     "description": "colors, fonts, and other shared css",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/brand",
     "main": "dist/index.cjs",

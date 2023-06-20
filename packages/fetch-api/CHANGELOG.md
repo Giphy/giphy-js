@@ -1,5 +1,16 @@
 ## 4.1.1 (2021-08-09)
 
+## 0.0.0-canary-20230620165510
+
+### Patch Changes
+
+-   Update esm and cjs builds
+
+    The dist dir has changed
+
+-   Updated dependencies
+    -   @giphy/js-util@0.0.0-canary-20230620165510
+
 ## 4.9.3
 
 ### Patch Changes
