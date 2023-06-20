@@ -1,11 +1,10 @@
 {
     "scripts": {
         "lint": "run -T eslint . --ext .ts,.tsx",
-        "clean": "rm -rf ./dist ./esm",
+        "clean": "rm -rf ./dist",
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
         "dev": "start-storybook -p 5001",
-        "build": "tsc && npm run build:esm",
-        "build:esm": "tsc -p ./tsconfig-esm.json",
+        "build": "run -T tsup src/index.ts --format cjs,esm --dts && run -T publint",
         "prepublish": "npm run clean && npm run build",
         "deploy-storybook": "storybook-to-ghpages",
         "snapshot": "NODE_ENV=PERCY build-storybook && percy storybook ./storybook-static",
@@ -48,23 +47,23 @@
     "version": "6.9.4",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/react-components",
-    "main": "dist/index.js",
+    "main": "dist/index.cjs",
     "types": "dist/index.d.ts",
-    "module": "esm/index.js",
+    "module": "dist/index.js",
+    "type": "module",
     "sideEffects": [
         "intersection-observer"
     ],
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./esm/index.js",
-            "require": "./dist/index.js"
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
         },
         "./package.json": "./package.json"
     },
     "files": [
         "dist/",
-        "esm/",
         "src/**/*"
     ],
     "author": "giannif",

@@ -1,10 +1,9 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "ES2016",
         "forceConsistentCasingInFileNames": true,
         "module": "commonjs",
         "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true, // this enables import React from "react" instead of import * as React from "react"
         "noUnusedLocals": true,

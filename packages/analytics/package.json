@@ -1,10 +1,9 @@
 {
     "scripts": {
         "lint": "run -T eslint . --ext .ts,.tsx",
-        "clean": "rm -rf ./dist ./esm",
+        "clean": "rm -rf ./dist",
         "dev": "tsc --watch",
-        "build": "tsc && npm run build:esm",
-        "build:esm": "tsc -p ./tsconfig-esm.json",
+        "build": "run -T tsup src/index.ts --format cjs,esm --dts && run -T publint",
         "prepublish": "npm run clean && npm run build",
         "test": "run -T jest --config ./jestconfig.js",
         "test:watch": "run -T jest --config ./jestconfig.js --watchAll"
@@ -12,21 +11,21 @@
     "name": "@giphy/js-analytics",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/analytics",
     "version": "4.3.2",
-    "main": "dist/index.js",
+    "main": "dist/index.cjs",
     "types": "dist/index.d.ts",
-    "module": "esm/index.js",
+    "module": "dist/index.js",
+    "type": "module",
     "sideEffects": false,
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./esm/index.js",
-            "require": "./dist/index.js"
+            "import": "./dist/index.js",
+            "require": "./dist/index.cjs"
         },
         "./package.json": "./package.json"
     },
     "files": [
         "dist/",
-        "esm/",
         "src/**/*"
     ],
     "license": "MIT",
