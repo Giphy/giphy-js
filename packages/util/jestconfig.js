@@ -1,7 +1,7 @@
 // Jest configuration for api
-const base = require('../../jestconfig-base.js')
+import base from '../../jestconfig-base.js'
 
-module.exports = {
+export default {
     ...base,
     displayName: 'util',
     testEnvironment: 'jsdom',
