@@ -161,13 +161,13 @@ const Grid = ({
     useEffect(() => {
         unmounted.current = false
         if (unmounted.current === false) {
-            handleFetchGifs(0)
+            handleFetchGifs(initialGifs.length)
         }
 
         return () => {
             unmounted.current = true
         }
-    }, [handleFetchGifs])
+    }, [handleFetchGifs, initialGifs])
 
     const { gifs, isDoneFetching, isError } = state
     const itemHeights = useMemo(() => gifs.map((gif) => getGifHeight(gif, gifWidth)), [gifs, gifWidth])
@@ -203,7 +203,7 @@ const Grid = ({
                 </MasonryGrid>
                 {!showLoader && gifs.length === 0 && noResultsMessage}
                 {isError ? (
-                    <FetchError onClick={handleFetchGifs} />
+                    <FetchError onClick={() => handleFetchGifs(state.gifs.length)} />
                 ) : (
                     showLoader &&
                     !isFirstLoad && (
