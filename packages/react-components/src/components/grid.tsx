@@ -167,7 +167,7 @@ const Grid = ({
         return () => {
             unmounted.current = true
         }
-    }, [handleFetchGifs, initialGifs])
+    }, [handleFetchGifs])
 
     const { gifs, isDoneFetching, isError } = state
     const itemHeights = useMemo(() => gifs.map((gif) => getGifHeight(gif, gifWidth)), [gifs, gifWidth])
