@@ -162,9 +162,7 @@ const Grid = ({
 
     useEffect(() => {
         unmounted.current = false
-        if (unmounted.current === false) {
-            handleFetchGifs(initialGifs.length)
-        }
+        handleFetchGifs(initialGifs.length)
 
         return () => {
             unmounted.current = true
