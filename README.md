@@ -28,17 +28,30 @@ Choose your flavor!
 
 ### Install
 
+Make sure your node and yarn versions are correct. You can do this with [volta](https://volta.sh/), a tool for managing global dependencies.
+
 ```sh
+$ curl https://get.volta.sh | bash
+```
+
+```sh
+$ yarn set version berry
 $ yarn
 ```
 
 ### Dev
 
-Some packages have
+Some packages have a dev script. You can cd and run the command
 
 ```sh
 $ cd packages/components
 $ yarn run dev
+```
+
+or you can use `yarn workspace` commands
+
+```sh
+$ yarn workspace @giphy/react-components dev
 ```
 
 ### Lint
@@ -47,6 +60,14 @@ From root of project:
 
 ```sh
 $ yarn run lint
+```
+
+### Test
+
+From root of project:
+
+```sh
+$ yarn run test
 ```
 
 ### Publishing
