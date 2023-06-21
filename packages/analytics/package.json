@@ -16,14 +16,6 @@
     "types": "dist/index.d.ts",
     "module": "esm/index.js",
     "sideEffects": false,
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./esm/index.js",
-            "require": "./dist/index.js"
-        },
-        "./package.json": "./package.json"
-    },
     "files": [
         "dist/",
         "esm/",

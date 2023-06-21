@@ -24,14 +24,6 @@
     "sideEffects": [
         "./src/typography.ts"
     ],
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./esm/index.js",
-            "require": "./dist/index.js"
-        },
-        "./package.json": "./package.json"
-    },
     "files": [
         "dist/",
         "esm/",
