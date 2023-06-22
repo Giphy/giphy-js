@@ -4,7 +4,7 @@
         "clean": "rm -rf ./dist",
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
         "dev": "start-storybook -p 5001",
-        "build": "run -T tsup src/index.ts --format cjs,esm --dts && run -T publint",
+        "build": "run -T tsup src/index.ts --format cjs,esm --dts --legacyOutput",
         "prepublish": "npm run clean && npm run build",
         "deploy-storybook": "storybook-to-ghpages",
         "snapshot": "NODE_ENV=PERCY build-storybook && percy storybook ./storybook-static",
@@ -47,23 +47,15 @@
     "version": "0.0.0-canary-20230620165510",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/react-components",
-    "main": "dist/index.cjs",
+    "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "module": "dist/index.js",
-    "type": "module",
+    "module": "esm/index.js",
     "sideEffects": [
         "intersection-observer"
     ],
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./dist/index.js",
-            "require": "./dist/index.cjs"
-        },
-        "./package.json": "./package.json"
-    },
     "files": [
         "dist/",
+        "esm/",
         "src/**/*"
     ],
     "author": "giannif",
