@@ -44,18 +44,17 @@
         "webpack": "^5.74.0"
     },
     "name": "@giphy/react-components",
-    "version": "",
+    "version": "6.9.4",
     "description": "A lightweight set of components, focused on easy-of-use and performance.",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/react-components",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "module": "esm/index.js",
+    "module": "dist/esm/index.js",
     "sideEffects": [
         "intersection-observer"
     ],
     "files": [
         "dist/",
-        "esm/",
         "src/**/*"
     ],
     "author": "giannif",
