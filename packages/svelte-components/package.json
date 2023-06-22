@@ -22,6 +22,9 @@
         "!dist/**/*.test.*",
         "!dist/**/*.spec.*"
     ],
+    "publishConfig": {
+        "access": "public"
+    },
     "peerDependencies": {
         "svelte": "^3.59.1"
     },
