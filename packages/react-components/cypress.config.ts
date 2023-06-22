@@ -1,5 +1,4 @@
 import { defineConfig } from 'cypress'
-import webpackConfig from './cypress/webpack.config'
 
 export default defineConfig({
     requestTimeout: 30000,
@@ -18,7 +17,7 @@ export default defineConfig({
         devServer: {
             framework: 'react',
             bundler: 'webpack',
-            webpackConfig,
+            webpackConfig: require('./cypress/webpack.config'),
         },
     },
 
