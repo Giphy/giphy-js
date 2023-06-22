@@ -1,13 +1,3 @@
-## 4.0.0 (2021-08-09)
-
-## 0.0.0-canary-20230620165510
-
-### Patch Changes
-
--   Update esm and cjs builds
-
-    The dist dir has changed
-
 ## 4.4.2
 
 ### Patch Changes

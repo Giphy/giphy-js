@@ -1,13 +1,5 @@
 # @giphy/js-brand
 
-## 0.0.0-canary-20230620165510
-
-### Patch Changes
-
--   Update esm and cjs builds
-
-    The dist dir has changed
-
 ## 2.3.2
 
 ### Patch Changes

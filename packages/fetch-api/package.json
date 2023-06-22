@@ -10,7 +10,7 @@
         "test:watch": "run -T jest --config ./jestconfig.js --watchAll"
     },
     "name": "@giphy/js-fetch-api",
-    "version": "0.0.0-canary-20230620165510",
+    "version": "4.9.3",
     "description": "Javascript API to fetch gifs and stickers from the GIPHY API.",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/fetch-api",
     "main": "dist/index.cjs",
@@ -36,7 +36,7 @@
     },
     "dependencies": {
         "@giphy/js-types": "*",
-        "@giphy/js-util": "0.0.0-canary-20230620165510",
+        "@giphy/js-util": "*",
         "qs": "^6.9.4"
     },
     "devDependencies": {
