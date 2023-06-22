@@ -3,6 +3,6 @@ import base from '../../jestconfig-base.js'
 export default {
     ...base,
     displayName: 'fetch-api',
-    testEnvironment: 'jsdom',
+    automock: false,
     setupFiles: ['./set-up-jest.ts'],
 }
