@@ -12,7 +12,7 @@
             "dependsOn": ["build"]
         },
         "//#g:check-licenses": {
-            "inputs": ["package.json", "packages/*/package.json", "yarn.lock", "packages/*/yarn.lock"]
+            "inputs": ["package.json", "packages/*/package.json", "yarn.lock", "packages/*/yarn.lock", "scripts/license-checker.js"]
         },
         "lint": {},
         "deploy": {

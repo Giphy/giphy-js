@@ -19,21 +19,24 @@ async function fetchJSON(url) {
                     data += chunk
                 })
                 resp.on('end', () => {
-                    const json = JSON.parse(data.replace(/(\/\/|#).*/g, ''))
-                    resolve(json)
+                    resolve(JSON.parse(data))
                 })
             })
             .on('error', reject)
     })
 }
 
-async function fetchLicenseCategories(categories) {
-    const data = {}
-    const uniqueCategories = [...new Set([...categories])]
-    for (const category of uniqueCategories) {
-        data[category] = await fetchJSON(`${LICENSE_CATEGORIES_LOCATION}/${category}.json`)
+async function fetchCategoryLicenses(categories) {
+    let result = []
+    for (const category of categories) {
+        const ctgLicenses = await fetchJSON(`${LICENSE_CATEGORIES_LOCATION}/${category}.json`)
+        const flatCtgLicenses = Object.entries(ctgLicenses).flatMap(([licenseName, license]) => [
+            licenseName,
+            ...license.aliases,
+        ])
+        result = [...result, ...flatCtgLicenses]
     }
-    return data
+    return result
 }
 
 function toSemicolonList(list) {
@@ -43,20 +46,16 @@ function toSemicolonList(list) {
     return list.join(';')
 }
 
-function pickLicensesForCategories(categoriesMapping, categories) {
-    return categories.flatMap((category) => categoriesMapping[category])
-}
-
 async function main() {
     const projCfg = await fetchJSON(LICENSE_PROJECT_LOCATION)
-    const categories = await fetchLicenseCategories(projCfg.license_categories)
+    const allowedLicenses = await fetchCategoryLicenses(projCfg.license_categories)
 
     try {
         console.log(`\x1b[33mChecking dependencies in ${process.cwd()}\x1b[0m`)
         execSync(`npx license-checker \
             --start '${process.cwd()}' \
             --excludePackages='${toSemicolonList(projCfg.package_ignore)}' \
-            --onlyAllow="${toSemicolonList(pickLicensesForCategories(categories, projCfg.license_categories))}"`)
+            --onlyAllow="${toSemicolonList(allowedLicenses)}"`)
         console.log('\x1b[32mAll licenses are valid.\x1b[0m')
     } catch (e) {
         throw new Error(e.message)

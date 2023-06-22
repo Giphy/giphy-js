@@ -29,4 +29,4 @@ jobs:
               run: yarn run check-licenses
               env:
                   LICENSE_PROJECT_LOCATION: ${{ secrets.LICENSE_PROJECT_LOCATION }}
-                  LICENSE_CATEGORIES_LOCATION: ${{ secrets.LICENSE_CATEGORIES_LOCATION }}
+                  LICENSE_CATEGORIES_LOCATION: ${{ secrets.LICENSE_CATEGORIES_V2_LOCATION }}
