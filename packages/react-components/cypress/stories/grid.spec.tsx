@@ -1,7 +1,5 @@
 import { composeStories, composeStory } from '@storybook/testing-react'
 import * as React from 'react'
-
-import { Grid } from '../../src'
 import * as stories from '../../stories/grid.stories'
 import {
     GifTestUtilsContext,
@@ -13,6 +11,7 @@ import {
     setupGifTestUtils,
 } from '../utils/gif-test-utils'
 import { storiesCompositionToList } from '../utils/storybook'
+import { DEFAULT_GRID_CLASS_NAME } from '../../src/components/grid'
 
 const GIFS_COUNT = 5
 
@@ -22,7 +21,7 @@ const composedStories = storiesCompositionToList(composeStories(stories)).filter
 )
 
 function getGridRoot() {
-    return cy.get(`.${Grid.className}`)
+    return cy.get(`.${DEFAULT_GRID_CLASS_NAME}`)
 }
 
 function getGridGifs() {

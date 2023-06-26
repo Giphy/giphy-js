@@ -1,8 +1,7 @@
-import styled from '@emotion/styled'
+import React, { useEffect, useCallback, useRef, useMemo, useReducer } from 'react'
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
-import React, { ElementType, GetDerivedStateFromProps, PureComponent } from 'react'
 import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'
 import FetchError from './fetch-error'
@@ -12,17 +11,19 @@ import MasonryGrid from './masonry-grid'
 import PingbackContextManager from './pingback-context-manager'
 import type { GifOverlayProps } from './types'
 
+export const DEFAULT_GRID_CLASS_NAME = 'giphy-grid'
+
 type Props = {
     className?: string
     width: number
-    user: Partial<IUser>
+    user?: Partial<IUser>
     columns: number
-    gutter: number
+    gutter?: number
     layoutType?: 'GRID' | 'MIXED'
     fetchGifs: (offset: number) => Promise<GifsResult>
     onGifsFetched?: (gifs: IGif[]) => void
     onGifsFetchError?: (e: Error) => void
-    overlay?: ElementType<GifOverlayProps>
+    overlay?: React.ElementType<GifOverlayProps>
     hideAttribution?: boolean
     noLink?: boolean
     noResultsMessage?: string | JSX.Element
@@ -33,14 +34,10 @@ type Props = {
     borderRadius?: number
     tabIndex?: number
     loaderConfig?: IntersectionObserverInit
-    loader?: ElementType
+    loader?: React.ElementType
 } & EventProps
 
-const Loader = styled.div<{ isFirstLoad: boolean }>`
-    opacity: ${(props) => (props.isFirstLoad ? 0 : 1)};
-`
-
-const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
+const FETCH_DEBOUNCE = 250
 
 type State = {
     gifWidth: number
@@ -51,162 +48,173 @@ type State = {
     isDoneFetching: boolean
 }
 
-const initialState = Object.freeze({
+type Action =
+    | { type: 'START_FETCH' }
+    | { type: 'FETCH_SUCCESS'; gifs: IGif[] }
+    | { type: 'FETCH_FAILURE'; error: Error }
+    | { type: 'LOADER_VISIBLE'; isVisible: boolean }
+    | { type: 'DONE_FETCHING' }
+
+function reducer(state: State, action: Action): State {
+    switch (action.type) {
+        case 'START_FETCH':
+            return { ...state, isFetching: true, isError: false }
+        case 'FETCH_SUCCESS':
+            return { ...state, gifs: action.gifs, isFetching: false }
+        case 'FETCH_FAILURE':
+            return { ...state, isFetching: false, isError: true }
+        case 'LOADER_VISIBLE':
+            return { ...state, isLoaderVisible: action.isVisible }
+        case 'DONE_FETCHING':
+            return { ...state, isDoneFetching: true }
+        default:
+            return state
+    }
+}
+
+const initialState: State = {
+    gifWidth: 0,
     isFetching: false,
     isError: false,
-    gifWidth: 0,
-    gifs: [] as IGif[],
+    gifs: [],
     isLoaderVisible: false,
     isDoneFetching: false,
-})
+}
 
-class Grid extends PureComponent<Props, State> {
-    static className = 'giphy-grid'
-    static loaderClassName = 'loader'
-    static fetchDebounce = 250
-    static readonly defaultProps = defaultProps
-    readonly state = { ...initialState, gifs: this.props.initialGifs || [] }
-    bricks?: any
-    el?: HTMLDivElement | null
-    unmounted: boolean = false
-    paginator = gifPaginator(this.props.fetchGifs, this.state.gifs)
-    static getDerivedStateFromProps: GetDerivedStateFromProps<Props, State> = (
-        { columns, gutter, width }: Props,
-        prevState: State
-    ) => {
-        const gutterOffset = gutter * (columns - 1)
-        const gifWidth = Math.floor((width - gutterOffset) / columns)
-        if (prevState.gifWidth !== gifWidth) {
-            return { gifWidth }
-        }
-        return null
-    }
-
-    componentDidMount() {
-        this.unmounted = false
-        this.onFetch()
-    }
-
-    componentWillUnmount() {
-        this.unmounted = true
-    }
-
-    onLoaderVisible = (isVisible: boolean) => {
-        if (this.unmounted) return
-        this.setState({ isLoaderVisible: isVisible }, this.onFetch)
-    }
-
-    fetchGifs = debounce(Grid.fetchDebounce, async (prefetchCount) => {
-        let gifs
-        try {
-            gifs = await this.paginator()
-            if (this.unmounted) return
-        } catch (error) {
-            if (this.unmounted) return
-            this.setState({ isFetching: false, isError: true })
-            const { onGifsFetchError } = this.props
-            if (onGifsFetchError) onGifsFetchError(error as Error)
-        }
-        if (gifs) {
-            // if we've just fetched and we don't have
-            // any more gifs, we're done fetching
-            if (prefetchCount === gifs.length) {
-                this.setState({ isDoneFetching: true })
-            } else {
-                this.setState({ gifs, isFetching: false })
-                const { onGifsFetched } = this.props
-                if (onGifsFetched) onGifsFetched(gifs)
-                this.onFetch()
-            }
-        }
+const Grid = ({
+    className = DEFAULT_GRID_CLASS_NAME,
+    width,
+    user = {},
+    columns,
+    gutter = 6,
+    layoutType = 'GRID',
+    fetchGifs,
+    onGifsFetched,
+    onGifsFetchError,
+    overlay,
+    hideAttribution,
+    noLink,
+    noResultsMessage,
+    initialGifs = [],
+    useTransform,
+    columnOffsets,
+    backgroundColor,
+    borderRadius,
+    tabIndex = 0,
+    loaderConfig,
+    loader: LoaderVisual = DotsLoader,
+    ...gifEvents
+}: Props) => {
+    const [state, dispatch] = useReducer(reducer, {
+        ...initialState,
+        gifs: initialGifs,
     })
+    const gifWidth = useMemo(() => {
+        const gutterOffset = gutter * (columns - 1)
+        return Math.floor((width - gutterOffset) / columns)
+    }, [width, gutter, columns])
+    const paginator = useRef(gifPaginator(fetchGifs, initialGifs))
+    const unmounted = useRef(false)
 
-    onFetch = async () => {
-        if (this.unmounted) return
-        const { isFetching, isLoaderVisible, gifs } = this.state
-        if (!isFetching && isLoaderVisible) {
-            this.setState({ isFetching: true, isError: false })
-            this.fetchGifs(gifs.length)
+    const handleFetchGifs = useCallback(
+        (prefetchCount: number) => {
+            const debounceFetchGifs = debounce(FETCH_DEBOUNCE, async (prefetchCount: number) => {
+                let gifs
+                try {
+                    gifs = await paginator.current()
+                    if (unmounted.current) return
+                } catch (e) {
+                    const error = e as Error
+                    if (unmounted.current) return
+                    dispatch({ type: 'FETCH_FAILURE', error })
+                    if (onGifsFetchError) onGifsFetchError(error)
+                    return
+                }
+
+                if (gifs) {
+                    if (prefetchCount === gifs.length) {
+                        dispatch({ type: 'DONE_FETCHING' })
+                    } else {
+                        dispatch({ type: 'FETCH_SUCCESS', gifs })
+                        if (onGifsFetched) onGifsFetched(gifs)
+                    }
+                }
+            })
+
+            if (unmounted.current) return
+
+            debounceFetchGifs(prefetchCount)
+        },
+        [onGifsFetched, onGifsFetchError]
+    )
+
+    const onLoaderVisible = useCallback(
+        (isVisible: boolean) => {
+            if (unmounted.current) return
+            dispatch({ type: 'LOADER_VISIBLE', isVisible })
+            if (!state.isFetching && isVisible) {
+                dispatch({ type: 'START_FETCH' })
+                handleFetchGifs(state.gifs.length)
+            }
+        },
+        [state.gifs.length, state.isFetching, handleFetchGifs]
+    )
+
+    useEffect(() => {
+        unmounted.current = false
+        handleFetchGifs(initialGifs.length)
+
+        return () => {
+            unmounted.current = true
         }
-    }
+    }, [handleFetchGifs])
 
-    render() {
-        const {
-            onGifVisible,
-            onGifRightClick,
-            className = Grid.className,
-            onGifSeen,
-            onGifClick,
-            onGifKeyPress,
-            user,
-            overlay,
-            hideAttribution,
-            noLink,
-            borderRadius,
-            noResultsMessage,
-            columns,
-            width,
-            gutter,
-            useTransform,
-            columnOffsets,
-            backgroundColor,
-            loaderConfig,
-            tabIndex = 0,
-            layoutType = 'GRID',
-            loader: LoaderVisual = DotsLoader,
-        } = this.props
-        const { gifWidth, gifs, isError, isDoneFetching } = this.state
-        const showLoader = !isDoneFetching
-        const isFirstLoad = gifs.length === 0
-        // get the height of each grid item
-        const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
-        return (
-            <PingbackContextManager attributes={{ layout_type: layoutType }}>
-                <div className={className} style={{ width }}>
-                    <MasonryGrid
-                        itemHeights={itemHeights}
-                        useTransform={useTransform}
-                        itemWidth={gifWidth}
-                        columns={columns}
-                        gutter={gutter}
-                        columnOffsets={columnOffsets}
-                    >
-                        {gifs.map((gif) => (
-                            <Gif
-                                gif={gif}
-                                tabIndex={tabIndex}
-                                key={gif.id}
-                                width={gifWidth}
-                                onGifClick={onGifClick}
-                                onGifKeyPress={onGifKeyPress}
-                                onGifSeen={onGifSeen}
-                                onGifVisible={onGifVisible}
-                                onGifRightClick={onGifRightClick}
-                                user={user}
-                                overlay={overlay}
-                                backgroundColor={backgroundColor}
-                                hideAttribution={hideAttribution}
-                                noLink={noLink}
-                                borderRadius={borderRadius}
-                            />
-                        ))}
-                    </MasonryGrid>
-                    {!showLoader && gifs.length === 0 && noResultsMessage}
-                    {isError ? (
-                        <FetchError onClick={this.onFetch} />
-                    ) : (
-                        showLoader && (
-                            <Observer onVisibleChange={this.onLoaderVisible} config={loaderConfig}>
-                                <Loader isFirstLoad={isFirstLoad}>
-                                    <LoaderVisual className={Grid.loaderClassName} />
-                                </Loader>
-                            </Observer>
-                        )
-                    )}
-                </div>
-            </PingbackContextManager>
-        )
-    }
+    const { gifs, isDoneFetching, isError } = state
+    const itemHeights = useMemo(() => gifs.map((gif) => getGifHeight(gif, gifWidth)), [gifs, gifWidth])
+    const isFirstLoad = gifs.length === 0
+    const showLoader = !isDoneFetching
+
+    return (
+        <PingbackContextManager attributes={{ layout_type: layoutType }}>
+            <div className={className} style={{ width }}>
+                <MasonryGrid
+                    itemHeights={itemHeights}
+                    useTransform={useTransform}
+                    itemWidth={gifWidth}
+                    columns={columns}
+                    gutter={gutter}
+                    columnOffsets={columnOffsets}
+                >
+                    {gifs.map((gif) => (
+                        <Gif
+                            gif={gif}
+                            tabIndex={tabIndex}
+                            key={gif.id}
+                            width={gifWidth}
+                            user={user}
+                            overlay={overlay}
+                            backgroundColor={backgroundColor}
+                            hideAttribution={hideAttribution}
+                            noLink={noLink}
+                            borderRadius={borderRadius}
+                            {...gifEvents}
+                        />
+                    ))}
+                </MasonryGrid>
+                {!showLoader && gifs.length === 0 && noResultsMessage}
+                {isError ? (
+                    <FetchError onClick={() => handleFetchGifs(state.gifs.length)} />
+                ) : (
+                    showLoader &&
+                    !isFirstLoad && (
+                        <Observer onVisibleChange={onLoaderVisible} config={loaderConfig}>
+                            <LoaderVisual />
+                        </Observer>
+                    )
+                )}
+            </div>
+        </PingbackContextManager>
+    )
 }
 
 export default Grid
