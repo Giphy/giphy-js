@@ -1,5 +1,21 @@
 ## @giphy/react-components
 
+## 7.0.1
+
+### Patch Changes
+
+-   9914802: util, analytics, fetch-api and brand are all type: module now. See [here](https://github.com/Giphy/giphy-js/pull/391#issue-1770394467) for more info
+
+    ## Possible breaking change
+
+    The output format has changed. If you are accessing files in dist, your build will fail.
+
+-   Updated dependencies [9914802]
+    -   @giphy/js-analytics@5.0.0
+    -   @giphy/js-fetch-api@5.0.0
+    -   @giphy/js-brand@3.0.0
+    -   @giphy/js-util@5.0.0
+
 ## 7.0.0
 
 ### Major Changes

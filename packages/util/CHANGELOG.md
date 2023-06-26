@@ -1,5 +1,15 @@
 ## 4.4.2
 
+## 5.0.0
+
+### Major Changes
+
+-   9914802: util, analytics, fetch-api and brand are all type: module now. See [here](https://github.com/Giphy/giphy-js/pull/391#issue-1770394467) for more info
+
+    ## Possible breaking change
+
+    The output format has changed. If you are accessing files in dist, your build will fail.
+
 ### Patch Changes
 
 -   8c8e8d6: Add types to package.json export field
