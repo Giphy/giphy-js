@@ -1,11 +1,10 @@
 {
     "scripts": {
         "lint": "run -T eslint . --ext .ts,.tsx",
-        "clean": "rm -rf ./dist ./esm",
+        "clean": "rm -rf ./dist",
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
         "dev": "start-storybook -p 5001",
-        "build": "tsc && npm run build:esm",
-        "build:esm": "tsc -p ./tsconfig-esm.json",
+        "build": "run -T tsup src/index.ts --format cjs,esm --dts --legacyOutput",
         "prepublish": "npm run clean && npm run build",
         "deploy-storybook": "storybook-to-ghpages",
         "snapshot": "NODE_ENV=PERCY build-storybook && percy storybook ./storybook-static",
@@ -50,21 +49,12 @@
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/react-components",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "module": "esm/index.js",
+    "module": "dist/esm/index.js",
     "sideEffects": [
         "intersection-observer"
     ],
-    "exports": {
-        ".": {
-            "types": "./dist/index.d.ts",
-            "import": "./esm/index.js",
-            "require": "./dist/index.js"
-        },
-        "./package.json": "./package.json"
-    },
     "files": [
         "dist/",
-        "esm/",
         "src/**/*"
     ],
     "author": "giannif",

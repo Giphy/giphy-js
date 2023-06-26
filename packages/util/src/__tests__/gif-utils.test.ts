@@ -3,12 +3,7 @@ import { forEach, mapValues, pick, take, without } from '../collections'
 import getPingbackId from '../get-pingback-id'
 import { getAltText, getBestRenditionUrl, getGifHeight, getGifWidth, getSpecificRendition } from '../gif-utils'
 
-jest.mock('../webp-check')
-
 describe('response parsing', () => {
-    afterEach(() => {
-        require('../webp-check').__setWebP(false)
-    })
     test('getGifHeight getGifWidth', () => {
         const gif = {
             images: {
@@ -73,9 +68,8 @@ describe('response parsing', () => {
         expect(getBestRenditionUrl(dummyGif as IGif, 10, 10)).toBe(fixedWidth.url)
         expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, { isStill: true })).toBe(fixedWidthStill.url)
         expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, { useVideo: true })).toBe(fixedWidth.mp4)
-        require('../webp-check').__setWebP(true)
-        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10)).toBe(fixedWidth.webp)
-        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, { isStill: true })).toBe(fixedWidthStill.webp)
+        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10)).toBe(fixedWidth.url)
+        expect(getBestRenditionUrl(dummyGif as IGif, 10, 10, { isStill: true })).toBe(fixedWidthStill.url)
     })
 
     test('getSpecificRendition', () => {
@@ -104,8 +98,7 @@ describe('response parsing', () => {
         expect(getSpecificRendition(dummyGif as IGif, 'fixed_width', true)).toBe(fixedWidthStill.url)
         expect(getSpecificRendition(dummyGif as IGif, 'fixed_width', true, true)).toBe(fixedWidth.mp4)
         expect(getSpecificRendition(dummyGif as IGif, 'fixed_width_still', true, true)).toBe(fixedWidthStill.mp4)
-        require('../webp-check').__setWebP(true)
-        expect(getSpecificRendition(dummyGif as IGif, 'fixed_width')).toBe(fixedWidth.webp)
+        expect(getSpecificRendition(dummyGif as IGif, 'fixed_width')).toBe(fixedWidth.url)
         expect(getSpecificRendition(dummyGif as IGif, 'dsakfjslkj')).toBe('')
         expect(getSpecificRendition({} as IGif, 'fixed_width')).toBe('')
     })

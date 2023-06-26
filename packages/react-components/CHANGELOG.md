@@ -1,4 +1,4 @@
-## @giphy/react-components@6.0.0 (2022-08-03)
+## @giphy/react-components
 
 ## 7.0.0
 
