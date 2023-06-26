@@ -1,5 +1,11 @@
 ## @giphy/react-components@6.0.0 (2022-08-03)
 
+## 7.0.0
+
+### Major Changes
+
+-   c57c246: Upgrading Grid from React Classes to React Hooks
+
 ## 6.9.4
 
 ### Patch Changes
