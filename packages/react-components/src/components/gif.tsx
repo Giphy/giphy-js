@@ -23,9 +23,6 @@ import { GifOverlayProps } from './types'
 
 const GifContainer = styled.div<{ borderRadius?: number }>`
     display: block;
-    &:focus {
-        outline: unset;
-    }
     ${(props) =>
         props.borderRadius &&
         css`
