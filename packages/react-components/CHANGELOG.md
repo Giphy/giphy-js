@@ -1,5 +1,11 @@
 ## @giphy/react-components
 
+## 7.1.0
+
+### Minor Changes
+
+-   cda870e: a11y: remove css that hides keyboard focus
+
 ## 7.0.1
 
 ### Patch Changes
