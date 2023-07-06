@@ -1,0 +1,44 @@
+name: Licenses
+
+on:
+    push:
+        branches:
+            - 'master'
+        paths:
+            - 'yarn.lock'
+            - 'package.json'
+            - 'packages/*/yarn.lock'
+            - 'packages/*/package.json'
+
+env:
+    REGISTRY: ghcr.io
+
+permissions:
+    contents: read
+    packages: read
+
+jobs:
+    licnse-checker:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v3
+
+            -   name: Log in to the Container registry
+                uses: docker/login-action@v2
+                with:
+                    registry: ${{ env.REGISTRY }}
+                    username: ${{ github.actor }}
+                    password: ${{ secrets.GITHUB_TOKEN }}
+
+            -   name: Pull License Checker image
+                run: docker pull --quiet '${{ env.REGISTRY }}/${{ secrets.LICENSE_CHECKER_IMAGE }}'
+
+            -   name: Run License Checker
+                env:
+                    LICENSE_CHECKER_IMAGE: ${{ secrets.LICENSE_CHECKER_IMAGE }}
+                    SERVICE_DICTIONARY_API_KEY: ${{ secrets.SD_API_KEY }}
+                    SERVICE_DICTIONARY_CHECK_APP_ENABLED: 'false'
+                    SERVICE_DICTIONARY_UPLOAD_LICENSES: ${{ github.ref == 'refs/heads/master' }}
+                    SERVICE_DICTIONARY_URL: ${{ secrets.SD_URL }}
+                run: scripts/license-checker.docker.sh
