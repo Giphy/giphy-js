@@ -1,6 +1,6 @@
-# @giphy/svelte-components (BETA)
+# @giphy/svelte-components
 
-> Note this project is in beta and may contain bugs. PRs are welcome! as are issues with suggestions and bug reports
+Try it out on [Codesandbox](https://codesandbox.io/p/sandbox/mystifying-architecture-xhsthm?file=%2Fsrc%2Froutes%2F%2Bpage.svelte%3A10%2C36)
 
 This package provides components that help you display gifs on a website. It works in tandem with [@giphy/js-fetch-api](../fetch-api/) and [@giphy/js-types](../types) packages
 
