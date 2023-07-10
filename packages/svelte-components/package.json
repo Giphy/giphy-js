@@ -1,6 +1,6 @@
 {
     "name": "@giphy/svelte-components",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "scripts": {
         "dev": "vite dev",
         "build": "vite build && npm run package",

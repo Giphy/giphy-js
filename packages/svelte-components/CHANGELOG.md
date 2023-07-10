@@ -1,5 +1,11 @@
 # @giphy/svelte-components
 
+## 1.0.0
+
+### Major Changes
+
+-   20e66bf: Svelte Components - Gif, Grid, and Carousel
+
 ## 0.1.0
 
 ### Minor Changes
