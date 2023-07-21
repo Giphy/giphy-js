@@ -11,6 +11,8 @@
         "test": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
         "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
     },
+    "description": "GIPHY components for Svelte",
+    "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/svelte-components",
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
