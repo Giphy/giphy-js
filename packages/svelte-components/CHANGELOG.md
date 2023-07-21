@@ -1,5 +1,11 @@
 # @giphy/svelte-components
 
+## 1.0.1
+
+### Patch Changes
+
+-   49567dd: add fields to package.json with repository info for svelte-components
+
 ## 1.0.0
 
 ### Major Changes
