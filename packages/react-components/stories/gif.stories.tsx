@@ -1,12 +1,12 @@
 // @ts-ignore TS2783
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
-import { Story } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
+import { number } from '@storybook/addon-knobs'
+import { Meta, StoryObj } from '@storybook/react'
 import React, { useCallback, useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
-import { Gif as GifComponent, GifOverlayProps, PingbackContext } from '../src'
+import { Gif as GifComponent, GifOverlayProps } from '../src'
 import VideoOverlay from '../src/components/video/video-overlay'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
@@ -21,8 +21,6 @@ type GifDemoProps = Omit<GifComponentProps, 'gif'> & {
     id: string
 }
 
-type GifStoryProps = Partial<GifDemoProps>
-
 const GifDemo = ({ id, width, height, noLink, borderRadius, overlay, ...other }: GifDemoProps) => {
     const [gif, setGif] = useState<IGif>()
 
@@ -35,9 +33,9 @@ const GifDemo = ({ id, width, height, noLink, borderRadius, overlay, ...other }:
         fetch()
     }, [fetch, id])
 
-    return gif ? (
+    return gif && width > 0 ? (
         <GifComponent
-            key={`gif-${noLink}`}
+            key={`gif-${noLink} ${gif.id}`}
             tabIndex={1}
             borderRadius={borderRadius}
             gif={gif}
@@ -54,67 +52,54 @@ const GifDemo = ({ id, width, height, noLink, borderRadius, overlay, ...other }:
     ) : null
 }
 
-export default {
+const meta: Meta<typeof GifDemo> = {
+    component: GifDemo,
     title: 'React Components/Gif',
-    decorators: [withKnobs, jsxDecorator],
+    decorators: [jsxDecorator],
+    argTypes: {
+        id: {
+            control: { type: 'text' },
+        },
+        width: {
+            control: { type: 'number' },
+        },
+        noLink: {
+            control: { type: 'boolean' },
+        },
+    },
+    args: {
+        id: 'ZEU9ryYGZzttn0Cva7',
+        width: 300,
+        noLink: false,
+    },
 }
 
-export const Gif: Story<GifStoryProps> = (props) => (
-    <GifDemo
-        id={text('id', 'ZEU9ryYGZzttn0Cva7')}
-        width={number('width', 300)}
-        noLink={boolean('noLink', false)}
-        {...props}
-    />
-)
+export default meta
 
-export const GifWithVideoOverlay: Story<GifStoryProps> = (props) => (
-    <GifDemo
-        id={text('id', 'D068R9Ziv1iCjezKzG')}
-        width={number('width', 500)}
-        noLink={boolean('noLink', false)}
-        overlay={(props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 500)} />}
-        {...props}
-    />
-)
+type Story = StoryObj<typeof meta>
 
-export const GifWithVideoOverlayFillVideo: Story<GifStoryProps> = (props) => (
-    <GifDemo
-        id={text('id', '3BNRWBatePBETD7Bfg')}
-        width={number('width', 500)}
-        height={number('height', 300)}
-        noLink={boolean('noLink', false)}
-        overlay={(props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 500)} />}
-        {...props}
-    />
-)
+export const Gif: Story = {}
 
-export const GifNoBorderRadius: Story<GifStoryProps> = (props) => (
-    <GifDemo
-        id={text('id', 'ZEU9ryYGZzttn0Cva7')}
-        borderRadius={0}
-        width={number('width', 300)}
-        noLink={boolean('noLink', false)}
-        {...props}
-    />
-)
+export const GifWithOverlay: Story = {
+    args: {
+        overlay: (props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 500)} />,
+    },
+}
 
-export const Sticker: Story<GifStoryProps> = (props) => (
-    <GifDemo
-        id={text('id', 'l1J9FvenuBnI4GTeg')}
-        width={number('width', 300)}
-        noLink={boolean('noLink', false)}
-        {...props}
-    />
-)
+export const GifWithVideoOverlayFillVideo: Story = {
+    args: {
+        id: '3BNRWBatePBETD7Bfg',
+        height: 300,
+        overlay: (props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 500)} />,
+    },
+}
 
-export const CustomPingbackGif: Story<GifStoryProps> = (props) => (
-    <PingbackContext.Provider value={{ attributes: { 'some key': 'some value' } }}>
-        <GifDemo
-            id={text('id', 'ZEU9ryYGZzttn0Cva7')}
-            width={number('width', 300)}
-            noLink={boolean('noLink', false)}
-            {...props}
-        />
-    </PingbackContext.Provider>
-)
+export const GifNoBorderRadius: Story = {
+    args: {
+        borderRadius: 0,
+    },
+}
+
+export const Sticker: Story = {
+    args: { id: 'l1J9FvenuBnI4GTeg' },
+}

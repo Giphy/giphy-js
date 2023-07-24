@@ -2,14 +2,14 @@ import styled from '@emotion/styled'
 import { giphyLightestGrey } from '@giphy/js-brand'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
-import { boolean, text, withKnobs } from '@storybook/addon-knobs'
+import { boolean, text } from '@storybook/addon-knobs'
+import { Meta } from '@storybook/react'
 import fetchMock from 'fetch-mock'
 import React, { useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { Attribution as AttributionComponent, Gif } from '../src'
 import inTestsRunner from './in-tests-runner'
 import mockGifResult from './mock-data/gif.json'
-import { Story } from '@storybook/react'
 
 const Container = styled.div`
     font-family: interface;
@@ -27,11 +27,6 @@ const Gifs = styled.div`
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
-export default {
-    title: 'React Components/Attribution',
-    decorators: [withKnobs, jsxDecorator],
-}
-
 const makeDummy = (gif: IGif) => {
     gif.user = {
         ...gif.user,
@@ -44,9 +39,7 @@ const makeDummy = (gif: IGif) => {
     return gif
 }
 
-type StoryProps = Partial<React.ComponentProps<typeof AttributionComponent>>
-
-export const Attribution: Story<StoryProps> = (props) => {
+export const Attribution = () => {
     const [gif, setGif] = useState<IGif | undefined>()
     useEffect(() => {
         const f = async () => {
@@ -63,7 +56,7 @@ export const Attribution: Story<StoryProps> = (props) => {
     return gif ? (
         <Container>
             <h3>Standalone attribution</h3>
-            <AttributionComponent gif={makeDummy({ ...gif })} {...props} />
+            <AttributionComponent gif={makeDummy({ ...gif })} />
             <h3>Attribution in GIF component</h3>
             <Gifs>
                 <Gif gif={makeDummy({ ...gif })} width={248} />
@@ -74,3 +67,27 @@ export const Attribution: Story<StoryProps> = (props) => {
         <div>Loading...</div>
     )
 }
+
+const meta: Meta<typeof Attribution> = {
+    component: Attribution,
+    title: 'React Components/Attribution',
+    decorators: [jsxDecorator],
+    argTypes: {
+        id: {
+            control: { type: 'text' },
+        },
+        width: {
+            control: { type: 'number' },
+        },
+        noLink: {
+            control: { type: 'boolean' },
+        },
+    },
+    args: {
+        id: 'ZEU9ryYGZzttn0Cva7',
+        width: 300,
+        noLink: false,
+    },
+}
+
+export default meta

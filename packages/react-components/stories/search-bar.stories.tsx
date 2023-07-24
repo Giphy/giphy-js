@@ -1,10 +1,7 @@
 import styled from '@emotion/styled'
-import { withKnobs } from '@storybook/addon-knobs'
 import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport'
-import { Story } from '@storybook/react'
 import fetchMock from 'fetch-mock'
 import React, { useContext, useLayoutEffect } from 'react'
-import { jsxDecorator } from 'storybook-addon-jsx'
 import Grid_ from '../src/components/grid'
 import SearchBarComponent_ from '../src/components/search-bar'
 import SearchContextManager, { SearchContext } from '../src/components/search-bar/context'
@@ -24,7 +21,6 @@ const SearchBarComponent = styled(SearchBarComponent_)`
 
 export default {
     title: 'React Components/Search Experience',
-    decorators: [withKnobs, jsxDecorator],
     parameters: {
         viewport: {
             viewports: MINIMAL_VIEWPORTS,
@@ -59,37 +55,37 @@ const Components = () => {
     )
 }
 
-export const SearchExperience: Story = () => (
+export const SearchExperience = () => (
     <SearchContextManager apiKey={apiKey}>
         <Components />
     </SearchContextManager>
 )
 
-export const SearchExperienceNoCancel: Story = () => (
+export const SearchExperienceNoCancel = () => (
     <SearchContextManager apiKey={apiKey} theme={{ hideCancelButton: true }}>
         <Components />
     </SearchContextManager>
 )
 
-export const SearchExperienceStickersDefault: Story = () => (
+export const SearchExperienceStickersDefault = () => (
     <SearchContextManager apiKey={apiKey} options={{ type: 'stickers' }}>
         <Components />
     </SearchContextManager>
 )
 
-export const SearchExperienceNoDefault: Story = () => (
+export const SearchExperienceNoDefault = () => (
     <SearchContextManager apiKey={apiKey} shouldDefaultToTrending={false}>
         <Components />
     </SearchContextManager>
 )
 
-export const SearchExperienceCondensed: Story = () => (
+export const SearchExperienceCondensed = () => (
     <SearchContextManager apiKey={apiKey} theme={{ condensedMode: true }}>
         <Components />
     </SearchContextManager>
 )
 
-export const SearchExperienceInitialTerm: Story = () => {
+export const SearchExperienceInitialTerm = () => {
     return (
         <SearchContextManager apiKey={apiKey} initialTerm="skateboard">
             <Components />
@@ -97,7 +93,7 @@ export const SearchExperienceInitialTerm: Story = () => {
     )
 }
 
-export const SearchExperienceInitialChannelSearch: Story = () => {
+export const SearchExperienceInitialChannelSearch = () => {
     return (
         <SearchContextManager apiKey={apiKey} initialTerm="@nba">
             <Components />

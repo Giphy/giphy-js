@@ -1,10 +1,9 @@
 import styled from '@emotion/styled'
 import { GiphyFetch } from '@giphy/js-fetch-api'
-import { boolean, number, withKnobs } from '@storybook/addon-knobs'
-import { Story } from '@storybook/react'
+import { number } from '@storybook/addon-knobs'
+import { Meta, StoryObj } from '@storybook/react'
 import fetchMock from 'fetch-mock'
 import React, { useEffect, useRef, useState } from 'react'
-import { jsxDecorator } from 'storybook-addon-jsx'
 import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
 import inTestsRunner from './in-tests-runner'
@@ -12,11 +11,6 @@ import mockGifsResult from './mock-data/gifs.json'
 
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
 const gf = new GiphyFetch(apiKey)
-
-export default {
-    title: 'React Components/Grid',
-    decorators: [withKnobs, jsxDecorator],
-}
 
 const OverlayContainer = styled.div`
     position: absolute;
@@ -38,7 +32,7 @@ const Overlay = ({ gif, isHovered }: GifOverlayProps) => <OverlayContainer>{isHo
 
 type GridProps = Partial<React.ComponentProps<typeof GridComponent>>
 
-export const Grid: Story<GridProps> = ({ loader, ...other }) => {
+const Grid = ({ loader, ...other }: GridProps) => {
     const [term, setTerm] = useState('always sunny')
     const [width, setWidth] = useState(innerWidth)
     const onResize = throttle(500, () => setWidth(innerWidth))
@@ -77,7 +71,7 @@ export const Grid: Story<GridProps> = ({ loader, ...other }) => {
                     noResultsMessage={NoResults}
                     loader={loader}
                     fetchGifs={fetchGifs}
-                    overlay={boolean('show overlay', true) ? Overlay : undefined}
+                    overlay={Overlay}
                     {...other}
                 />
             )}
@@ -85,11 +79,30 @@ export const Grid: Story<GridProps> = ({ loader, ...other }) => {
     )
 }
 
-export const GridCustomLoader: Story<GridProps> = (props) => (
-    <Grid loader={() => <h1 style={{ textAlign: 'center' }}> 🌀 </h1>} {...props} />
-)
+const meta: Meta<typeof Grid> = {
+    component: Grid,
+    title: 'React Components/Grid',
+    argTypes: {
+        noLink: {
+            control: { type: 'boolean' },
+        },
+    },
+    args: {
+        noLink: false,
+    },
+}
 
-export const GridAPIError: Story<GridProps> = (props) => {
+export default meta
+
+type Stor = StoryObj<typeof meta>
+
+export const GridCustomLoader: Stor = {
+    args: {
+        loader: () => <h1 style={{ textAlign: 'center' }}> 🌀 </h1>,
+    },
+}
+
+export const GridAPIError = () => {
     const [width, setWidth] = useState(innerWidth)
     const mockRequest = useRef(true)
     const onResize = throttle(500, () => setWidth(innerWidth))
@@ -113,14 +126,5 @@ export const GridAPIError: Story<GridProps> = (props) => {
         }
         return gf.search('hello', { offset })
     }
-    return (
-        <GridComponent
-            width={width}
-            columns={columns}
-            gutter={gutter}
-            fetchGifs={fetchGifs}
-            overlay={boolean('show overlay', true) ? Overlay : undefined}
-            {...props}
-        />
-    )
+    return <GridComponent width={width} columns={columns} gutter={gutter} fetchGifs={fetchGifs} overlay={Overlay} />
 }

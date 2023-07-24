@@ -1,9 +1,9 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
-import { number, withKnobs } from '@storybook/addon-knobs'
+import { number } from '@storybook/addon-knobs'
 import { useState } from '@storybook/addons'
+import { Story } from '@storybook/react'
 import fetchMock from 'fetch-mock'
 import * as React from 'react'
-import { Story } from '@storybook/react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { Carousel as CarouselComponent } from '../src'
 import inTestsRunner from './in-tests-runner'
@@ -14,7 +14,7 @@ const gf = new GiphyFetch(apiKey)
 
 export default {
     title: 'React Components/Carousel',
-    decorators: [withKnobs, jsxDecorator],
+    decorators: [jsxDecorator],
 }
 
 type StoryProps = Partial<React.ComponentProps<typeof CarouselComponent>>
