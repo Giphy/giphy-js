@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import { IUser } from '@giphy/js-types'
 import React, { useRef } from 'react'
+import styled from 'styled-components'
 
 const getSmallAvatar = (avatar: string) => {
     if (!avatar) return ''

@@ -1,36 +1,27 @@
-import { keyframes } from '@emotion/react'
-import styled from '@emotion/styled'
-import { giphyCharcoal, giphyDarkCharcoal, giphyWhite, giphyWhiteSmoke } from '@giphy/colors'
+import { giphyDarkCharcoal, giphyWhiteSmoke } from '@giphy/colors'
 import React, { useContext } from 'react'
+import styled, { keyframes } from 'styled-components'
 import Avatar_ from '../attribution/avatar'
 import VerifiedBadge from '../attribution/verified-badge'
-import { SearchContext } from './context'
-import { SearchTheme } from './theme'
+import { CssVars, SearchContext } from './context'
 
 const channelMargin = 6
-
-const channelSearchHeight = (theme: SearchTheme) => theme.searchbarHeight - channelMargin * 2
-const smallChannelSearchHeight = (theme: SearchTheme) => theme.smallSearchbarHeight - 3 * 2
-
-const animateAvatar = (h: number) => keyframes`
+const innerHeight = `calc(var(${CssVars.searchbarHeight}) - ${channelMargin * 2}px)`
+const animateAvatar = keyframes`
 to {
-    width: ${h}px;
+    width: ${innerHeight};
 }
 `
 
 const Avatar = styled(Avatar_)`
-    height: ${(props) => channelSearchHeight(props.theme)}px;
+    height: ${innerHeight};
     margin: 0;
     width: 0;
-    animation: ${(props) => animateAvatar(channelSearchHeight(props.theme as SearchTheme))} 100ms ease-in-out forwards;
-    @media (${(props) => props.theme.condensedMediaQuery}) {
-        height: ${(props) => smallChannelSearchHeight(props.theme)}px;
-        animation: ${(props) => animateAvatar(smallChannelSearchHeight(props.theme))} 100ms ease-in-out forwards;
-    }
+    animation: ${animateAvatar} 100ms ease-in-out forwards;
 `
 
 const Username = styled.div`
-    background: ${(props) => (props.theme.mode === 'dark' ? giphyCharcoal : giphyWhite)};
+    background: var(${CssVars.bgColor2});
     display: flex;
     align-items: center;
     padding-left: ${channelMargin}px;
@@ -45,8 +36,8 @@ const UsernamePill = styled.div`
     font-weight: 600;
     font-size: 12px;
     align-items: center;
-    height: ${(props) => channelSearchHeight(props.theme)}px;
-    @media (${(props) => props.theme.condensedMediaQuery}) {
+    height: ${innerHeight};
+    @media (max-width: 480px) {
         display: none;
     }
 `

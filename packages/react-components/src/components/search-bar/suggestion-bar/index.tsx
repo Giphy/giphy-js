@@ -1,7 +1,6 @@
-import styled from '@emotion/styled'
 import React, { useContext } from 'react'
-import { SearchContext } from '../context'
-import { getSize } from '../theme'
+import styled from 'styled-components'
+import { CssVars, SearchContext } from '../context'
 import { ChannelPill, TrendingSearchPill } from './pills'
 
 const Container = styled.div`
@@ -15,7 +14,7 @@ const Container = styled.div`
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: 10px;
-    ${(props) => getSize(props.theme)}
+    height: var(${CssVars.searchbarHeight});
 `
 
 const SuggestionBar = () => {

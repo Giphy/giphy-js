@@ -1,11 +1,10 @@
-import styled from '@emotion/styled'
 import { giphyDarkestGrey } from '@giphy/colors'
 import { IChannel } from '@giphy/js-types'
 import React, { useContext } from 'react'
+import styled from 'styled-components'
 import Avatar_ from '../../attribution/avatar'
 import VerifiedBadge from '../../attribution/verified-badge'
-import { SearchContext } from '../context'
-import { getSize } from '../theme'
+import { CssVars, SearchContext } from '../context'
 import TrendingIcon_ from './trending-icon'
 
 const margin = 9
@@ -31,7 +30,8 @@ const TrendingSearchPillContainer = styled.div`
 `
 
 const Avatar = styled(Avatar_)`
-    ${(props) => getSize(props.theme, true)}
+    height: var(${CssVars.searchbarHeight});
+    width: var(${CssVars.searchbarHeight});
 `
 
 const TrendingIcon = styled(TrendingIcon_)`

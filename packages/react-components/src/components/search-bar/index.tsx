@@ -1,13 +1,11 @@
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-import { giphyBlack, giphyCharcoal, giphyIndigo, giphyLightGrey, giphyWhite } from '@giphy/colors'
+import { giphyIndigo, giphyLightGrey } from '@giphy/colors'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import useDebounce from 'react-use/lib/useDebounce'
+import styled, { css } from 'styled-components'
 import CancelIcon from './cancel-icon'
-import { SearchContext, _SearchContext } from './context'
+import { CssVars, SearchContext, _SearchContext } from './context'
 import SearchBarChannel from './search-bar-channel'
 import SearchButton from './search-button'
-import { getSize } from './theme'
 
 function usePrevious<T>(value: T) {
     const ref = useRef<T>(value)
@@ -36,11 +34,12 @@ const Container = styled.div`
     background: white;
     align-items: center;
     border-radius: 4px;
-    ${(props) => getSize(props.theme)}
+    height: var(${CssVars.searchbarHeight});
+    background: var(${CssVars.bgColor2});
 `
 
 const Input = styled.input<{ isUsernameSearch: boolean }>`
-    background: ${(props) => (props.theme.mode === 'dark' ? giphyCharcoal : giphyWhite)};
+    background: inherit;
     box-sizing: border-box;
     border: 0;
     appearance: none;
@@ -51,9 +50,9 @@ const Input = styled.input<{ isUsernameSearch: boolean }>`
     padding: 0 10px;
     border-radius: 0;
     text-overflow: ellipsis;
-    color: ${(props) => (props.theme.mode === 'dark' ? giphyWhite : giphyBlack)};
+    color: var(${CssVars.fgColor});
     &::placeholder {
-        color: ${(props) => (props.theme.mode === 'dark' ? giphyLightGrey : giphyLightGrey)};
+        color: ${giphyLightGrey};
     }
     min-width: 150px;
     flex: 1;

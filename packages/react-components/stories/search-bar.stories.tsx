@@ -61,8 +61,8 @@ export const SearchExperience = () => (
     </SearchContextManager>
 )
 
-export const SearchExperienceNoCancel = () => (
-    <SearchContextManager apiKey={apiKey} theme={{ hideCancelButton: true }}>
+export const SearchExperienceDarkMode = () => (
+    <SearchContextManager apiKey={apiKey} theme={{ darkMode: true }}>
         <Components />
     </SearchContextManager>
 )
@@ -80,7 +80,7 @@ export const SearchExperienceNoDefault = () => (
 )
 
 export const SearchExperienceCondensed = () => (
-    <SearchContextManager apiKey={apiKey} theme={{ condensedMode: true }}>
+    <SearchContextManager apiKey={apiKey} theme={{ searchbarHeight: 44 }}>
         <Components />
     </SearchContextManager>
 )

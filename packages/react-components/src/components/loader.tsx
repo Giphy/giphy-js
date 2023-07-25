@@ -1,7 +1,6 @@
-import { keyframes } from '@emotion/react'
-import styled from '@emotion/styled'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/colors'
 import React from 'react'
+import styled, { keyframes } from 'styled-components'
 
 const bouncer = keyframes`
      to {

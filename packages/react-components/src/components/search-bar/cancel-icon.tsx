@@ -1,6 +1,5 @@
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
 import React, { useContext } from 'react'
+import styled from 'styled-components'
 import { SearchContext } from './context'
 
 const Icon = styled.svg`
@@ -8,11 +7,6 @@ const Icon = styled.svg`
     right: 10px;
     margin-left: 5px;
     cursor: pointer;
-    ${(props) =>
-        props.theme.hideCancelButton &&
-        css`
-            display: none;
-        `};
 `
 
 type Props = { width?: number; height?: number; setCleared: (clear: boolean) => void }
