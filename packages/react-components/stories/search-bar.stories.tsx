@@ -85,6 +85,12 @@ export const SearchExperienceCondensed = () => (
     </SearchContextManager>
 )
 
+export const SearchExperienceHideCancelButton = () => (
+    <SearchContextManager apiKey={apiKey} theme={{ hideCancelButton: true }}>
+        <Components />
+    </SearchContextManager>
+)
+
 export const SearchExperienceInitialTerm = () => {
     return (
         <SearchContextManager apiKey={apiKey} initialTerm="skateboard">

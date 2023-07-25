@@ -32,9 +32,10 @@ export const CssVars = {
     bgColor: `--searchbar-bg-color`,
     bgColor2: `--searchbar-bg-color-2`,
     fgColor: `--searchbar-fg-color`,
+    cancelButtonDisplay: `--searchbar-cancel-button-display`,
 }
 
-const Container = styled.div<{ darkMode?: boolean; searchbarHeight?: number }>`
+const Container = styled.div<{ darkMode?: boolean; searchbarHeight?: number; hideCancelButton?: boolean }>`
     ${CssVars.searchbarHeight}: ${(props) => props.searchbarHeight || 42}px;
     ${CssVars.bgColor}: ${giphyWhite};
     ${CssVars.bgColor2}: ${giphyWhite};
@@ -46,6 +47,7 @@ const Container = styled.div<{ darkMode?: boolean; searchbarHeight?: number }>`
             ${CssVars.bgColor}: ${giphyBlack};
             ${CssVars.bgColor2}: ${giphyCharcoal};
         `}
+    ${CssVars.cancelButtonDisplay}: ${(props) => (props.hideCancelButton ? 'none' : 'block')};
 `
 
 export const SearchContext = createContext({} as SearchContextProps)
@@ -63,6 +65,7 @@ type Props = {
     theme?: {
         darkMode?: boolean
         searchbarHeight?: number
+        hideCancelButton?: boolean
     }
 }
 
@@ -206,7 +209,11 @@ const SearchContextManager = ({
             }}
         >
             <_SearchContext.Provider value={{ setIsFocused, _setSearch, _inputValOverride }}>
-                <Container darkMode={theme?.darkMode} searchbarHeight={theme?.searchbarHeight}>
+                <Container
+                    darkMode={theme?.darkMode}
+                    searchbarHeight={theme?.searchbarHeight}
+                    hideCancelButton={theme?.hideCancelButton}
+                >
                     <PingbackContextManager attributes={{ layout_type: 'SEARCH' }}>{children}</PingbackContextManager>
                 </Container>
             </_SearchContext.Provider>

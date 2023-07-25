@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import styled from 'styled-components'
-import { SearchContext } from './context'
+import { CssVars, SearchContext } from './context'
 
 const Icon = styled.svg`
     position: relative;
     right: 10px;
     margin-left: 5px;
     cursor: pointer;
+    display: var(${CssVars.cancelButtonDisplay});
 `
 
 type Props = { width?: number; height?: number; setCleared: (clear: boolean) => void }
