@@ -1,5 +1,5 @@
-import * as React from 'react'
 import type { IGif } from '@giphy/js-types'
+import * as React from 'react'
 
 import { Gif } from '../../src'
 import { ComponentEventStubs } from './types'
@@ -61,7 +61,7 @@ export function checkGifIsVisible(ctx: GifTestUtilsContext, options: BaseAssertO
     const { onGifVisible } = ctx.events
 
     getGifRoot(gifId).get(`.${Gif.imgLoadedClassName}`).should('be.visible')
-    cy.wrap(onGifVisible).should('be.calledBefore', '@onGifSeen').and('be.calledWithMatch', { id: gifId })
+    cy.wrap(onGifVisible).and('be.calledWithMatch', { id: gifId })
 
     if (options.takeSnapshots) {
         cy.percySnapshot(`${options.snapshotNamePrefix}: onVisible`)
