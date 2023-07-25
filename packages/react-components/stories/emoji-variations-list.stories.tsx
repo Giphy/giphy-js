@@ -3,8 +3,6 @@ import type { GifID, IGif } from '@giphy/js-types'
 import { Meta, StoryObj } from '@storybook/react'
 import fetchMock from 'fetch-mock'
 import React, { useState } from 'react'
-import { jsxDecorator } from 'storybook-addon-jsx'
-
 import { EmojiVariationsList, Grid } from '../src'
 import inTestsRunner from './in-tests-runner'
 import mockDefaultEmojiVariationsResult from './mock-data/default-emoji-variations.json'
@@ -72,7 +70,6 @@ export const Demo = (props: EmojiVariationsListProps) => {
 const meta: Meta<typeof Demo> = {
     component: Demo,
     title: 'React Components/Emoji Variations List',
-    decorators: [jsxDecorator],
     argTypes: {
         backgroundColor: {
             control: { type: 'text' },

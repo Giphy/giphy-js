@@ -1,4 +1,4 @@
-import { giphyBlack } from '@giphy/js-brand'
+import { giphyBlack } from '@giphy/colors'
 import React from 'react'
 type Props = {
     className?: string

@@ -5,7 +5,6 @@ import { action } from '@storybook/addon-actions'
 import { number } from '@storybook/addon-knobs'
 import { Meta, StoryObj } from '@storybook/react'
 import React, { useCallback, useEffect, useState } from 'react'
-import { jsxDecorator } from 'storybook-addon-jsx'
 import { Gif as GifComponent, GifOverlayProps } from '../src'
 import VideoOverlay from '../src/components/video/video-overlay'
 
@@ -55,7 +54,6 @@ const GifDemo = ({ id, width, height, noLink, borderRadius, overlay, ...other }:
 const meta: Meta<typeof GifDemo> = {
     component: GifDemo,
     title: 'React Components/Gif',
-    decorators: [jsxDecorator],
     argTypes: {
         id: {
             control: { type: 'text' },

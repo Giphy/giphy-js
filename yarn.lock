@@ -2396,6 +2396,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@giphy/colors@*, @giphy/colors@workspace:packages/colors":
+  version: 0.0.0-use.local
+  resolution: "@giphy/colors@workspace:packages/colors"
+  dependencies:
+    typescript: ^5.0.4
+  languageName: unknown
+  linkType: soft
+
 "@giphy/embed-sdk@workspace:packages/embed-sdk":
   version: 0.0.0-use.local
   resolution: "@giphy/embed-sdk@workspace:packages/embed-sdk"
@@ -2502,8 +2510,8 @@ __metadata:
     "@cypress/react18": ^2.0.0
     "@emotion/react": 11.9.3
     "@emotion/styled": 11.9.3
+    "@giphy/colors": "*"
     "@giphy/js-analytics": "*"
-    "@giphy/js-brand": "*"
     "@giphy/js-fetch-api": "*"
     "@giphy/js-types": "*"
     "@giphy/js-util": "*"
@@ -2537,7 +2545,6 @@ __metadata:
     react-dom: ^18.2.0
     react-use: 17.4.0
     storybook: ^7.1.0
-    storybook-addon-jsx: ^7.3.14
     throttle-debounce: ^3.0.1
     ts-loader: ^9.3.1
     typescript: ^5.0.4
@@ -3113,13 +3120,6 @@ __metadata:
   dependencies:
     semver: ^7.3.5
   checksum: a50a6818de5fc557d0b0e6f50ec780a7a02ab8ad07e5ac8b16bf519e0ad60a144ac64f97d05c443c3367235d337182e1d012bbac0eb8dbae8dc7b40b193efd0e
-  languageName: node
-  linkType: hard
-
-"@one-ini/wasm@npm:0.1.1":
-  version: 0.1.1
-  resolution: "@one-ini/wasm@npm:0.1.1"
-  checksum: 11de17108eae57c797e552e36b259398aede999b4a689d78be6459652edc37f3428472410590a9d328011a8751b771063a5648dd5c4205631c55d1d58e313156
   languageName: node
   linkType: hard
 
@@ -8321,16 +8321,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"config-chain@npm:^1.1.13":
-  version: 1.1.13
-  resolution: "config-chain@npm:1.1.13"
-  dependencies:
-    ini: ^1.3.4
-    proto-list: ~1.2.1
-  checksum: 828137a28e7c2fc4b7fb229bd0cd6c1397bcf83434de54347e608154008f411749041ee392cbe42fab6307e02de4c12480260bf769b7d44b778fdea3839eafab
-  languageName: node
-  linkType: hard
-
 "console-browserify@npm:^1.1.0":
   version: 1.2.0
   resolution: "console-browserify@npm:1.2.0"
@@ -8403,7 +8393,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"copy-to-clipboard@npm:^3.0.8, copy-to-clipboard@npm:^3.3.1, copy-to-clipboard@npm:^3.3.3":
+"copy-to-clipboard@npm:^3.3.1, copy-to-clipboard@npm:^3.3.3":
   version: 3.3.3
   resolution: "copy-to-clipboard@npm:3.3.3"
   dependencies:
@@ -9673,20 +9663,6 @@ __metadata:
     jsbn: ~0.1.0
     safer-buffer: ^2.1.0
   checksum: 22fef4b6203e5f31d425f5b711eb389e4c6c2723402e389af394f8411b76a488fa414d309d866e2b577ce3e8462d344205545c88a8143cc21752a5172818888a
-  languageName: node
-  linkType: hard
-
-"editorconfig@npm:^1.0.3":
-  version: 1.0.4
-  resolution: "editorconfig@npm:1.0.4"
-  dependencies:
-    "@one-ini/wasm": 0.1.1
-    commander: ^10.0.0
-    minimatch: 9.0.1
-    semver: ^7.5.3
-  bin:
-    editorconfig: bin/editorconfig
-  checksum: 09904f19381b3ddf132cea0762971aba887236f387be3540909e96b8eb9337e1793834e10f06890cd8e8e7bb1ba80cb13e7d50a863f227806c9ca74def4165fb
   languageName: node
   linkType: hard
 
@@ -11853,7 +11829,7 @@ __metadata:
     publint: ^0.1.12
     ts-jest: ^29.1.0
     tsup: ^7.0.0
-    turbo: ^1.9.3
+    turbo: 1.10.11
     typescript: ^5.0.4
   languageName: unknown
   linkType: soft
@@ -11994,7 +11970,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^8.0.1, glob@npm:^8.1.0":
+"glob@npm:^8.0.1":
   version: 8.1.0
   resolution: "glob@npm:8.1.0"
   dependencies:
@@ -12818,13 +12794,6 @@ __metadata:
   version: 2.0.0
   resolution: "ini@npm:2.0.0"
   checksum: e7aadc5fb2e4aefc666d74ee2160c073995a4061556b1b5b4241ecb19ad609243b9cceafe91bae49c219519394bbd31512516cb22a3b1ca6e66d869e0447e84e
-  languageName: node
-  linkType: hard
-
-"ini@npm:^1.3.4":
-  version: 1.3.8
-  resolution: "ini@npm:1.3.8"
-  checksum: dfd98b0ca3a4fc1e323e38a6c8eb8936e31a97a918d3b377649ea15bdb15d481207a0dda1021efbd86b464cae29a0d33c1d7dcaf6c5672bee17fa849bc50a1b3
   languageName: node
   linkType: hard
 
@@ -14236,22 +14205,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-beautify@npm:^1.8.8":
-  version: 1.14.9
-  resolution: "js-beautify@npm:1.14.9"
-  dependencies:
-    config-chain: ^1.1.13
-    editorconfig: ^1.0.3
-    glob: ^8.1.0
-    nopt: ^6.0.0
-  bin:
-    css-beautify: js/bin/css-beautify.js
-    html-beautify: js/bin/html-beautify.js
-    js-beautify: js/bin/js-beautify.js
-  checksum: aea5af03d0e8d5bcdfc9f98d6c6ebdc17076c762123ae79557d271a921438e2c0c422bc56a955119d770bb0f01cb411003534d8ae8dc138eb7af4821f21f8352
-  languageName: node
-  linkType: hard
-
 "js-cookie@npm:^2.2.1":
   version: 2.2.1
   resolution: "js-cookie@npm:2.2.1"
@@ -15547,15 +15500,6 @@ __metadata:
   version: 1.0.1
   resolution: "minimalistic-crypto-utils@npm:1.0.1"
   checksum: 6e8a0422b30039406efd4c440829ea8f988845db02a3299f372fceba56ffa94994a9c0f2fd70c17f9969eedfbd72f34b5070ead9656a34d3f71c0bd72583a0ed
-  languageName: node
-  linkType: hard
-
-"minimatch@npm:9.0.1":
-  version: 9.0.1
-  resolution: "minimatch@npm:9.0.1"
-  dependencies:
-    brace-expansion: ^2.0.1
-  checksum: 97f5f5284bb57dc65b9415dec7f17a0f6531a33572193991c60ff18450dcfad5c2dad24ffeaf60b5261dccd63aae58cc3306e2209d57e7f88c51295a532d8ec3
   languageName: node
   linkType: hard
 
@@ -17931,13 +17875,6 @@ preact@next:
   languageName: node
   linkType: hard
 
-"proto-list@npm:~1.2.1":
-  version: 1.2.4
-  resolution: "proto-list@npm:1.2.4"
-  checksum: 4d4826e1713cbfa0f15124ab0ae494c91b597a3c458670c9714c36e8baddf5a6aad22842776f2f5b137f259c8533e741771445eb8df82e861eea37a6eaba03f7
-  languageName: node
-  linkType: hard
-
 "protocols@npm:^2.0.0, protocols@npm:^2.0.1":
   version: 2.0.1
   resolution: "protocols@npm:2.0.1"
@@ -18349,7 +18286,7 @@ preact@next:
   languageName: node
   linkType: hard
 
-"react-element-to-jsx-string@npm:^14.0.2, react-element-to-jsx-string@npm:^14.3.1":
+"react-element-to-jsx-string@npm:^14.0.2":
   version: 14.3.4
   resolution: "react-element-to-jsx-string@npm:14.3.4"
   dependencies:
@@ -20283,35 +20220,6 @@ preact@next:
   languageName: node
   linkType: hard
 
-"storybook-addon-jsx@npm:^7.3.14":
-  version: 7.3.14
-  resolution: "storybook-addon-jsx@npm:7.3.14"
-  dependencies:
-    copy-to-clipboard: ^3.0.8
-    js-beautify: ^1.8.8
-    react-element-to-jsx-string: ^14.3.1
-    storybook-pretty-props: ^1.0.3
-  peerDependencies:
-    "@storybook/addons": ">= 5.x"
-    "@storybook/channels": ">= 5.x"
-    "@storybook/components": ">= 5.x"
-    "@storybook/core-events": ">= 5.x"
-    "@storybook/theming": ">= 5.x"
-    react: ^16.2.0 || ^17.0.0
-    react-dom: ^16.2.0 || ^17.0.0
-  checksum: 89f0bbd0ddbee72423b6f818738801a6fa2cd66b13a1c50d118ba5d668b1873fa079421f5d2885650fbc3cd358a9b8415e5985c9bcc7a7a302cedc2addfa082a
-  languageName: node
-  linkType: hard
-
-"storybook-pretty-props@npm:^1.0.3":
-  version: 1.2.1
-  resolution: "storybook-pretty-props@npm:1.2.1"
-  peerDependencies:
-    react: "*"
-  checksum: adc0a5e62c0838cfc860d02abb4692e67f76f0161599c14108203ea8e53c68f7ff3854bb6b59ee624b38d4360ff6ddbe97d0be5e4897fa7d4b84fc11054d014e
-  languageName: node
-  linkType: hard
-
 "storybook@npm:^7.1.0":
   version: 7.1.0
   resolution: "storybook@npm:7.1.0"
@@ -21554,58 +21462,58 @@ preact@next:
   languageName: node
   linkType: hard
 
-"turbo-darwin-64@npm:1.10.10":
-  version: 1.10.10
-  resolution: "turbo-darwin-64@npm:1.10.10"
+"turbo-darwin-64@npm:1.10.11":
+  version: 1.10.11
+  resolution: "turbo-darwin-64@npm:1.10.11"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-darwin-arm64@npm:1.10.10":
-  version: 1.10.10
-  resolution: "turbo-darwin-arm64@npm:1.10.10"
+"turbo-darwin-arm64@npm:1.10.11":
+  version: 1.10.11
+  resolution: "turbo-darwin-arm64@npm:1.10.11"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo-linux-64@npm:1.10.10":
-  version: 1.10.10
-  resolution: "turbo-linux-64@npm:1.10.10"
+"turbo-linux-64@npm:1.10.11":
+  version: 1.10.11
+  resolution: "turbo-linux-64@npm:1.10.11"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-linux-arm64@npm:1.10.10":
-  version: 1.10.10
-  resolution: "turbo-linux-arm64@npm:1.10.10"
+"turbo-linux-arm64@npm:1.10.11":
+  version: 1.10.11
+  resolution: "turbo-linux-arm64@npm:1.10.11"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo-windows-64@npm:1.10.10":
-  version: 1.10.10
-  resolution: "turbo-windows-64@npm:1.10.10"
+"turbo-windows-64@npm:1.10.11":
+  version: 1.10.11
+  resolution: "turbo-windows-64@npm:1.10.11"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"turbo-windows-arm64@npm:1.10.10":
-  version: 1.10.10
-  resolution: "turbo-windows-arm64@npm:1.10.10"
+"turbo-windows-arm64@npm:1.10.11":
+  version: 1.10.11
+  resolution: "turbo-windows-arm64@npm:1.10.11"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"turbo@npm:^1.9.3":
-  version: 1.10.10
-  resolution: "turbo@npm:1.10.10"
+"turbo@npm:1.10.11":
+  version: 1.10.11
+  resolution: "turbo@npm:1.10.11"
   dependencies:
-    turbo-darwin-64: 1.10.10
-    turbo-darwin-arm64: 1.10.10
-    turbo-linux-64: 1.10.10
-    turbo-linux-arm64: 1.10.10
-    turbo-windows-64: 1.10.10
-    turbo-windows-arm64: 1.10.10
+    turbo-darwin-64: 1.10.11
+    turbo-darwin-arm64: 1.10.11
+    turbo-linux-64: 1.10.11
+    turbo-linux-arm64: 1.10.11
+    turbo-windows-64: 1.10.11
+    turbo-windows-arm64: 1.10.11
   dependenciesMeta:
     turbo-darwin-64:
       optional: true
@@ -21621,7 +21529,7 @@ preact@next:
       optional: true
   bin:
     turbo: bin/turbo
-  checksum: b11665b90d1f79616c9472f0d767c6e19b3fa0f4dca9a55292ba21582f2f855def7b99e02ed90d79e5b498e5c2fa6e4c322163278db2ddc7ef0a9be9bdcbc4b9
+  checksum: caa5f4e6e6f9b340e8b44424d83b5e9b1ad478ae646d3a5cb6784dc68c420e0237a7e293e6ac7ab5776fad9d08bf886bcecb898a69f7bfb151d3446fa885ec3f
   languageName: node
   linkType: hard
 

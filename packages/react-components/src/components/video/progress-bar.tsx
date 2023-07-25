@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { giphyWhite } from '@giphy/js-brand'
+import { giphyWhite } from '@giphy/colors'
 import React from 'react'
 import useRaf from 'react-use/lib/useRaf'
 

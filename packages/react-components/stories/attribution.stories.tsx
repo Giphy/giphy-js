@@ -1,93 +1,101 @@
-import styled from '@emotion/styled'
-import { giphyLightestGrey } from '@giphy/js-brand'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
-import { boolean, text } from '@storybook/addon-knobs'
-import { Meta } from '@storybook/react'
+import { Meta, StoryObj } from '@storybook/react'
 import fetchMock from 'fetch-mock'
-import React, { useEffect, useState } from 'react'
-import { jsxDecorator } from 'storybook-addon-jsx'
-import { Attribution as AttributionComponent, Gif } from '../src'
+import React, { ComponentProps, useEffect, useState } from 'react'
+import { Attribution, Gif } from '../src'
 import inTestsRunner from './in-tests-runner'
 import mockGifResult from './mock-data/gif.json'
 
-const Container = styled.div`
-    font-family: interface;
-    h3 {
-        color: ${giphyLightestGrey};
-    }
-`
-
-const Gifs = styled.div`
-    display: flex;
-    .${Gif.className} {
-        margin-right: 10px;
-    }
-`
-
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
 
-const makeDummy = (gif: IGif) => {
+const updateGif = (gif: IGif, display_name: string, is_verified: boolean = true, defaultAvatar: boolean = false) => {
     gif.user = {
         ...gif.user,
-        display_name: text('Display Name', 'Lorem ipsum dolor sit amet consectetur adipiscing elit'),
-        is_verified: boolean('Verified', true),
+        display_name,
+        is_verified,
     }
-    if (!boolean('Avatar', true)) {
+    if (defaultAvatar) {
         gif.user.avatar_url = ''
     }
     return gif
 }
 
-export const Attribution = () => {
+type AttrProps = ComponentProps<typeof Attribution> & {
+    id: string
+    displayName: string
+    isVerified: boolean
+    defaultAvatar: boolean
+}
+
+function useGif(id: string) {
     const [gif, setGif] = useState<IGif | undefined>()
     useEffect(() => {
         const f = async () => {
-            const id = 'l0HlyLQsbvhciAuKA'
             if (inTestsRunner()) {
                 fetchMock.restore().getOnce(`begin:https://api.giphy.com/v1/gifs/${id}`, { body: mockGifResult })
             }
-            const { data } = await gf.gif(text('gif id', id))
+            const { data } = await gf.gif(id)
             setGif(data)
         }
         f()
     }, [])
-
+    return gif
+}
+const Demo = (props: AttrProps) => {
+    const gif = useGif(props.id)
     return gif ? (
-        <Container>
-            <h3>Standalone attribution</h3>
-            <AttributionComponent gif={makeDummy({ ...gif })} />
-            <h3>Attribution in GIF component</h3>
-            <Gifs>
-                <Gif gif={makeDummy({ ...gif })} width={248} />
-                <Gif gif={makeDummy({ ...gif })} width={448} />
-            </Gifs>
-        </Container>
+        <Gif gif={updateGif({ ...gif }, props.displayName, props.isVerified)} width={248} />
     ) : (
         <div>Loading...</div>
     )
 }
 
-const meta: Meta<typeof Attribution> = {
-    component: Attribution,
+const meta: Meta<typeof Demo> = {
+    component: Demo,
     title: 'React Components/Attribution',
-    decorators: [jsxDecorator],
     argTypes: {
         id: {
             control: { type: 'text' },
         },
-        width: {
-            control: { type: 'number' },
+        displayName: {
+            control: { type: 'text' },
         },
-        noLink: {
+        isVerified: {
+            control: { type: 'boolean' },
+        },
+        defaultAvatar: {
             control: { type: 'boolean' },
         },
     },
     args: {
         id: 'ZEU9ryYGZzttn0Cva7',
-        width: 300,
-        noLink: false,
+        displayName: 'Lorem ipsum dolor sit amet consectetur adipiscing elit',
+        isVerified: true,
     },
 }
 
 export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Default = (props: AttrProps | {} = {}) => {
+    const gif = useGif('l0HlyLQsbvhciAuKA')
+    return gif ? (
+        <div style={{ backgroundColor: 'grey' }}>
+            <Attribution {...props} gif={updateGif({ ...gif }, 'Display Name')} />
+        </div>
+    ) : null
+}
+
+export const NotVerfied: Story = {
+    args: {
+        isVerified: false,
+    },
+}
+
+export const NoAvatar: Story = {
+    args: {
+        defaultAvatar: true,
+    },
+}

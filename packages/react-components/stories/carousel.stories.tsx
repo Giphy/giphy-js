@@ -4,7 +4,6 @@ import { useState } from '@storybook/addons'
 import { Story } from '@storybook/react'
 import fetchMock from 'fetch-mock'
 import * as React from 'react'
-import { jsxDecorator } from 'storybook-addon-jsx'
 import { Carousel as CarouselComponent } from '../src'
 import inTestsRunner from './in-tests-runner'
 import mockGifsResult from './mock-data/gifs.json'
@@ -14,7 +13,6 @@ const gf = new GiphyFetch(apiKey)
 
 export default {
     title: 'React Components/Carousel',
-    decorators: [jsxDecorator],
 }
 
 type StoryProps = Partial<React.ComponentProps<typeof CarouselComponent>>
