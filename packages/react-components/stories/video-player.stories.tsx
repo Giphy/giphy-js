@@ -3,7 +3,6 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { Meta, StoryObj } from '@storybook/react'
 import React, { ComponentProps, useCallback, useEffect, useState } from 'react'
-import { jsxDecorator } from 'storybook-addon-jsx'
 import VideoPlayer from '../src/components/video'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
@@ -32,7 +31,6 @@ const Demo = (props: DemoProps) => {
 const meta: Meta<typeof Demo> = {
     component: Demo,
     title: 'React Components/VideoPlayer',
-    decorators: [jsxDecorator],
     argTypes: {
         height: {
             control: { type: 'number' },

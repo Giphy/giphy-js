@@ -3,7 +3,6 @@ import { IGif } from '@giphy/js-types'
 import { action } from '@storybook/addon-actions'
 import { Meta, StoryObj } from '@storybook/react'
 import React, { ComponentProps, useCallback, useEffect, useState } from 'react'
-import { jsxDecorator } from 'storybook-addon-jsx'
 import { Video as VideoComponent } from '../src'
 
 const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh')
@@ -44,7 +43,6 @@ const VideoDemo = (props: Props) => {
 const meta: Meta<typeof VideoDemo> = {
     component: VideoDemo,
     title: 'React Components/Video',
-    decorators: [jsxDecorator],
     argTypes: {
         height: {
             control: { type: 'number' },
