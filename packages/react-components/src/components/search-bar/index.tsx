@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
-import { giphyBlack, giphyCharcoal, giphyIndigo, giphyLightGrey, giphyWhite } from '@giphy/js-brand'
+import { giphyBlack, giphyCharcoal, giphyIndigo, giphyLightGrey, giphyWhite } from '@giphy/colors'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import useDebounce from 'react-use/lib/useDebounce'
 import CancelIcon from './cancel-icon'

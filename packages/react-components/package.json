@@ -76,8 +76,8 @@
     "dependencies": {
         "@emotion/react": "11.9.3",
         "@emotion/styled": "11.9.3",
+        "@giphy/colors": "*",
         "@giphy/js-analytics": "*",
-        "@giphy/js-brand": "*",
         "@giphy/js-fetch-api": "*",
         "@giphy/js-types": "*",
         "@giphy/js-util": "*",
