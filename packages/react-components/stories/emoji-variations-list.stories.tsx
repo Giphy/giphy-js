@@ -46,13 +46,13 @@ export const Demo = (props: EmojiVariationsListProps) => {
                     key={`${gif.id}-${props.gifHeight}-${props.gifWidth}`}
                     backgroundColor={props.backgroundColor}
                     dividerColor={props.dividerColor}
-                    fetchVariations={fetchVariations}
-                    gif={gif}
-                    gifHeight={props.gifHeight}
                     gifWidth={props.gifWidth}
                     gutter={props.gutter}
                     hideAttribution={props.hideAttribution}
-                    noLink={props.noLink}
+                    noLink
+                    {...props}
+                    fetchVariations={fetchVariations}
+                    gif={gif}
                 />
             ) : null}
             <div style={{ margin: '24px 0' }}>

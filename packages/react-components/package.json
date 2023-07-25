@@ -8,7 +8,7 @@
         "prepublish": "npm run clean && npm run build",
         "deploy-storybook": "storybook-to-ghpages",
         "snapshot": "NODE_ENV=PERCY storybook build && percy storybook ./storybook-static",
-        "cy:run": "percy exec -- cypress run --component -b chrome",
+        "cy:run": "cypress run --component -b chrome",
         "cy:open": "cypress open --component -b chrome",
         "cy:verify": "cypress verify",
         "cy:info": "cypress info",
