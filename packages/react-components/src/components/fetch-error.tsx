@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { fontFamily, giphyBlue, giphyLightGrey } from '@giphy/colors'
+import { giphyBlue, giphyLightGrey } from '@giphy/colors'
 import React, { SyntheticEvent } from 'react'
 
 const Message = styled.div`
@@ -7,7 +7,7 @@ const Message = styled.div`
     display: flex;
     justify-content: center;
     margin: 30px 0;
-    font-family: ${fontFamily.body};
+    font-family: interface, Helvetica Neue, helvetica, sans-serif;
     font-size: 16px;
     font-weight: 600;
     a {
