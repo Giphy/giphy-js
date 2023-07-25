@@ -2524,7 +2524,6 @@ __metadata:
     "@storybook/react-vite": ^7.1.0
     "@storybook/storybook-deployer": ^2.8.16
     "@storybook/testing-library": ^0.2.0
-    "@storybook/testing-react": ^2.0.1
     "@types/react": ^18.2.15
     "@types/react-dom": ^18.2.7
     "@types/storybook__react": ^5.2.1
@@ -4795,21 +4794,6 @@ __metadata:
     "@testing-library/user-event": ^14.0.0
     ts-dedent: ^2.2.0
   checksum: 1c1c16aea6f961de344f5d43bdfd2847bc5f44df1037c2e1383312bb6b842e2c17a805670fc9cfe1a8425f9e48e240fe5d025ab3d4802a198cfe9eb6ed8e7636
-  languageName: node
-  linkType: hard
-
-"@storybook/testing-react@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@storybook/testing-react@npm:2.0.1"
-  dependencies:
-    "@storybook/csf": ^0.1.0
-  peerDependencies:
-    "@storybook/client-logger": ^7.0.0-beta.0 || ^7.0.0-rc.0 || ^7.0.0
-    "@storybook/preview-api": ^7.0.0-beta.0 || ^7.0.0-rc.0 || ^7.0.0
-    "@storybook/react": ^7.0.0-beta.0 || ^7.0.0-rc.0 || ^7.0.0
-    "@storybook/types": ^7.0.0-beta.0 || ^7.0.0-rc.0 || ^7.0.0
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: efc32621c0b606409b622887832a2c86bc94f1d1012957f59c4d804d4b9414146dae7e50c8419bba1c85c0fc08feafbc4a4179a21cbda05fdb3ca4b891892dac
   languageName: node
   linkType: hard
 
