@@ -1,26 +1,12 @@
-import { composeStories } from '@storybook/testing-react'
 import fetchMock from 'fetch-mock'
 import React, { useContext, useLayoutEffect } from 'react'
 import { SearchBar, SearchContext, SearchContextManager, SuggestionBar } from '../../src'
 import CancelIcon from '../../src/components/search-bar/cancel-icon'
 import { data } from '../../stories/mock-data/trending-searches.json'
 import { mockSearchBar } from '../../stories/mock-requests'
-import * as stories from '../../stories/search-bar.stories'
-import { storiesCompositionToList } from '../utils/storybook'
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
 
-const composedStories = storiesCompositionToList(composeStories(stories))
-
 describe('Search Bar', () => {
-    composedStories.forEach((story) => {
-        before(() => {})
-
-        it(story.key, () => {
-            cy.mount(<story.Component />)
-            cy.percySnapshot(`Search Bar / ${story.key}`)
-        })
-    })
-
     describe('input and channel behavior', () => {
         const Test = () => {
             const { term, activeChannel } = useContext(SearchContext)

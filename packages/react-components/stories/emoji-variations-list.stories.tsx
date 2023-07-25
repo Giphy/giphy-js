@@ -15,7 +15,7 @@ const gf = new GiphyFetch(apiKey)
 
 type EmojiVariationsListProps = React.ComponentProps<typeof EmojiVariationsList>
 
-const Demo = (props: EmojiVariationsListProps) => {
+export const Demo = (props: EmojiVariationsListProps) => {
     const [gif, setGif] = useState<IGif | null>(null)
 
     const fetchDefaultVariations = async (offset: number) => {

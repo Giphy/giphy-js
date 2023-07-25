@@ -94,15 +94,17 @@ const meta: Meta<typeof Grid> = {
 
 export default meta
 
-type Stor = StoryObj<typeof meta>
+type Story = StoryObj<typeof meta>
 
-export const GridCustomLoader: Stor = {
+export const GridStory: Story = {}
+
+export const GridCustomLoader: Story = {
     args: {
         loader: () => <h1 style={{ textAlign: 'center' }}> 🌀 </h1>,
     },
 }
 
-export const GridAPIError = () => {
+export const GridAPIError = (props: GridProps) => {
     const [width, setWidth] = useState(innerWidth)
     const mockRequest = useRef(true)
     const onResize = throttle(500, () => setWidth(innerWidth))
@@ -126,5 +128,14 @@ export const GridAPIError = () => {
         }
         return gf.search('hello', { offset })
     }
-    return <GridComponent width={width} columns={columns} gutter={gutter} fetchGifs={fetchGifs} overlay={Overlay} />
+    return (
+        <GridComponent
+            width={width}
+            columns={columns}
+            gutter={gutter}
+            fetchGifs={fetchGifs}
+            overlay={Overlay}
+            {...props}
+        />
+    )
 }
