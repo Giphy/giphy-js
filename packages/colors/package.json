@@ -9,7 +9,7 @@
         "typescript": "^5.0.4"
     },
     "name": "@giphy/colors",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "GIPHY color palette",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/colors",
     "main": "dist/index.cjs",
