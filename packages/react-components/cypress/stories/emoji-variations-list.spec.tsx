@@ -1,7 +1,8 @@
-import { composeStories } from '@storybook/testing-react'
+import { composeStories } from '@storybook/react'
 import * as React from 'react'
 
 import { EmojiVariationsList } from '../../src'
+import { DEFAULT_GRID_CLASS_NAME } from '../../src/components/grid'
 import * as stories from '../../stories/emoji-variations-list.stories'
 import {
     GifTestUtilsContext,
@@ -12,12 +13,11 @@ import {
     resetGifEventsHistory,
     setupGifTestUtils,
 } from '../utils/gif-test-utils'
-import { DEFAULT_GRID_CLASS_NAME } from '../../src/components/grid'
 
 const GIFS_COUNT = 6
 const EMOJI_ID = 'dalJ0CpF7hwmN1nZXe'
 
-const { Default: DefaultStory } = composeStories(stories)
+const { Demo: DefaultStory } = composeStories(stories)
 
 function getGridRoot() {
     return cy.get(`.${DEFAULT_GRID_CLASS_NAME}`)

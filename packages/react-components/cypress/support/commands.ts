@@ -1,7 +1,5 @@
 import { mount } from '@cypress/react18'
 
-import { resetKnobs } from '../utils/storybook'
-
 function stopVideo(elements: JQuery<HTMLVideoElement> | void) {
     const source = elements ? cy.wrap(elements) : cy.get('video')
     source
@@ -36,12 +34,10 @@ declare global {
     namespace Cypress {
         interface Chainable {
             mount: typeof mount
-            resetKnobs: typeof resetKnobs
             stopVideo: () => void
         }
     }
 }
 
 Cypress.Commands.add('mount', mount)
-Cypress.Commands.add('resetKnobs', resetKnobs)
 Cypress.Commands.add('stopVideo', { prevSubject: ['optional'] }, stopVideo)

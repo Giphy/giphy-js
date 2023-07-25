@@ -1,8 +1,7 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
-import { Story } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { boolean, number, text, withKnobs } from '@storybook/addon-knobs'
+import { Meta, StoryObj } from '@storybook/react'
 import React, { ComponentProps, useCallback, useEffect, useState } from 'react'
 import { jsxDecorator } from 'storybook-addon-jsx'
 import { Video as VideoComponent } from '../src'
@@ -13,28 +12,22 @@ const eventAction = (event: string) => {
     action(`Video ${event}`)()
 }
 
-type Props = { id: string } & Partial<ComponentProps<typeof VideoComponent>>
+type Props = { id: string } & ComponentProps<typeof VideoComponent>
 
-type StoryProps = Partial<Props>
-
-const VideoDemo = ({ id, width, height, muted, ccEnabled, ...other }: Props) => {
+const VideoDemo = (props: Props) => {
     const [gif, setGif] = useState<IGif>()
 
     const fetch = useCallback(async () => {
-        const { data: gif } = await gf.gif(id)
+        const { data: gif } = await gf.gif(props.id)
         setGif(gif)
-    }, [id])
+    }, [props.id])
 
     useEffect(() => {
         fetch()
-    }, [fetch, id])
+    }, [fetch, props.id])
 
     return gif ? (
         <VideoComponent
-            gif={gif}
-            width={width as number}
-            height={height}
-            muted={muted}
             onFirstPlay={(ms: number) => eventAction(`can play in ${ms / 1000}`)}
             onStateChange={(state: 'playing' | 'paused') => eventAction(`state: ${state}`)}
             onEnded={() => eventAction('on ended')}
@@ -42,58 +35,55 @@ const VideoDemo = ({ id, width, height, muted, ccEnabled, ...other }: Props) => 
             onQuartile={(qt) => eventAction(`on quartile ${qt}`)}
             onMuted={() => eventAction('on muted')}
             onWaiting={(count: number) => eventAction(`on waiting: ${count}`)}
-            ccEnabled={ccEnabled}
-            // onTimeUpdate={(t) => console.log(t)}
-            {...other}
+            {...props}
+            gif={gif}
         />
     ) : null
 }
 
-export default {
+const meta: Meta<typeof VideoDemo> = {
+    component: VideoDemo,
     title: 'React Components/Video',
-    decorators: [withKnobs, jsxDecorator],
+    decorators: [jsxDecorator],
+    argTypes: {
+        height: {
+            control: { type: 'number' },
+        },
+        width: {
+            control: { type: 'number' },
+        },
+        muted: {
+            control: { type: 'boolean' },
+        },
+        id: {
+            control: { type: 'string' },
+        },
+    },
+    args: {
+        id: 'D068R9Ziv1iCjezKzG',
+        width: 300,
+        controls: true,
+    },
 }
 
-export const Video: Story<StoryProps> = (props) => (
-    <VideoDemo
-        id={text('id', 'D068R9Ziv1iCjezKzG')}
-        width={number('width', 300)}
-        height={number('height', 0)}
-        muted={boolean('muted', false)}
-        {...props}
-    />
-)
+export default meta
 
-export const VideoCaptionsBeta: Story<StoryProps> = (props) => (
-    <>
-        <h3 style={{ color: 'white' }}>Beta Feature</h3>
-        <VideoDemo
-            id={text('id', 'D068R9Ziv1iCjezKzG')}
-            width={number('width', 300)}
-            height={number('height', 0)}
-            muted={boolean('muted', true)}
-            ccEnabled={boolean('ccEnabled', true)}
-            {...props}
-        />
-    </>
-)
+type Story = StoryObj<typeof meta>
 
-export const VideoUserMuted: Story<StoryProps> = (props) => (
-    <VideoDemo
-        id={text('id', 'obhOJFSwuTRN7VDY55')}
-        width={number('width', 300)}
-        height={number('height', 0)}
-        muted={boolean('muted', true)}
-        {...props}
-    />
-)
+export const Video: Story = {}
+export const VideoCaptionsBeta: Story = {
+    args: {
+        ccEnabled: true,
+    },
+}
+export const VideoUserMuted: Story = {
+    args: {
+        muted: true,
+    },
+}
 
-export const VideoNoContent: Story<StoryProps> = (props) => (
-    <VideoDemo
-        id={text('id', 'ZEU9ryYGZzttn0Cva7')}
-        width={number('width', 300)}
-        height={number('height', 0)}
-        muted={boolean('muted', true)}
-        {...props}
-    />
-)
+export const VideoNoContent: Story = {
+    args: {
+        id: 'ZEU9ryYGZzttn0Cva7',
+    },
+}

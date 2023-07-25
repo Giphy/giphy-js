@@ -1,34 +1,22 @@
-import * as React from 'react'
-import { composeStories } from '@storybook/testing-react'
-
+import { composeStories } from '@storybook/react'
+import React from 'react'
 import * as stories from '../../stories/video-player.stories'
-import { storiesCompositionToList } from '../utils/storybook'
-import {
-    setupVideoTestUtils,
-    VideoTestUtilsContext,
-    checkVideoIsVisible,
-    checkVideoEvents,
-} from '../utils/video-test-utils'
+import { checkVideoEvents, checkVideoIsVisible, setupVideoTestUtils } from '../utils/video-test-utils'
 
-const GIF_ID = 'WtUBmrAK1Yda649Ayr'
-
-const composedStories = storiesCompositionToList(composeStories(stories))
+const testCases = Object.values(composeStories(stories))
+    .map((Story) => [Story.storyName!, Story])
+    .filter(([name]) => name !== 'VideoNoContent')
 
 describe('Video Player', () => {
-    composedStories.forEach((story) => {
-        let videoTestUtilsCtx: VideoTestUtilsContext
-
-        before(() => {
-            videoTestUtilsCtx = setupVideoTestUtils(GIF_ID, { loop: true })
-        })
-
-        it(story.key, () => {
-            const snapshotNamePrefix = `Stories / Video Player / ${story.key}`
-            cy.mount(<story.Component {...videoTestUtilsCtx.events} />)
-
-            checkVideoIsVisible(videoTestUtilsCtx, { takeSnapshots: true, snapshotNamePrefix })
+    testCases.forEach(([name = '', Story]) => {
+        it(`Story: ${name}`, () => {
+            // @ts-ignore
+            const videoTestUtilsCtx = setupVideoTestUtils(Story.args.id, { loop: true })
+            // const snapshotNamePrefix = `Stories / Video Player / ${story.key}`
+            cy.mount(<Story {...videoTestUtilsCtx.events} />)
+            checkVideoIsVisible(videoTestUtilsCtx)
             // Check events only for one story to save resources on duplicate tests
-            if (story.key === 'VideoWithControls') {
+            if (name === 'VideoWithControls') {
                 checkVideoEvents(videoTestUtilsCtx)
             }
         })

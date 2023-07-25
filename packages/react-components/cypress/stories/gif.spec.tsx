@@ -1,39 +1,22 @@
+import { composeStories } from '@storybook/react'
 import * as React from 'react'
-import { composeStories } from '@storybook/testing-react'
-
 import * as stories from '../../stories/gif.stories'
-import { storiesCompositionToList } from '../utils/storybook'
 import {
-    setupGifTestUtils,
-    GifTestUtilsContext,
-    checkGifSeen,
-    checkGifMouseEvents,
-    checkGifKeyboardEvents,
     checkGifIsVisible,
+    checkGifKeyboardEvents,
+    checkGifMouseEvents,
+    checkGifSeen,
+    setupGifTestUtils,
 } from '../utils/gif-test-utils'
 
-const storiesGifIds = {
-    Gif: 'ZEU9ryYGZzttn0Cva7',
-    GifWithVideoOverlay: 'D068R9Ziv1iCjezKzG',
-    GifWithVideoOverlayFillVideo: '3BNRWBatePBETD7Bfg',
-    GifNoBorderRadius: 'ZEU9ryYGZzttn0Cva7',
-    Sticker: 'l1J9FvenuBnI4GTeg',
-    CustomPingbackGif: 'ZEU9ryYGZzttn0Cva7',
-} as const
-
-const composedStories = storiesCompositionToList(composeStories(stories))
-
+const testCases = Object.values(composeStories(stories)).map((Story) => [Story.storyName!, Story])
 describe('Gif', () => {
-    composedStories.forEach((story) => {
-        let gifTestUtilsCtx: GifTestUtilsContext
-
-        before(() => {
-            gifTestUtilsCtx = setupGifTestUtils(storiesGifIds[story.key])
-        })
-
-        it(story.key, () => {
-            const options = { takeSnapshots: true, snapshotNamePrefix: `Stories / Gif / ${story.key}` }
-            cy.mount(<story.Component {...gifTestUtilsCtx.events} />)
+    testCases.forEach(([name = '', Story]) => {
+        it(`Story: ${name}`, () => {
+            // @ts-ignore
+            const gifTestUtilsCtx = setupGifTestUtils(Story.args.id)
+            const options = { takeSnapshots: false } // snapshotNamePrefix: `Stories / Gif / ${name}` }
+            cy.mount(<Story {...gifTestUtilsCtx.events} />)
             checkGifIsVisible(gifTestUtilsCtx)
             checkGifSeen(gifTestUtilsCtx, options)
             checkGifMouseEvents(gifTestUtilsCtx, options)

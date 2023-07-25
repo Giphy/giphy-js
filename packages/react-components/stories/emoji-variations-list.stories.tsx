@@ -1,27 +1,21 @@
-import React, { useState } from 'react'
-import fetchMock from 'fetch-mock'
-import { jsxDecorator } from 'storybook-addon-jsx'
-import { boolean, color, number, withKnobs } from '@storybook/addon-knobs'
-import { Story } from '@storybook/react'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import type { GifID, IGif } from '@giphy/js-types'
+import { Meta, StoryObj } from '@storybook/react'
+import fetchMock from 'fetch-mock'
+import React, { useState } from 'react'
+import { jsxDecorator } from 'storybook-addon-jsx'
 
+import { EmojiVariationsList, Grid } from '../src'
 import inTestsRunner from './in-tests-runner'
 import mockDefaultEmojiVariationsResult from './mock-data/default-emoji-variations.json'
 import mockEmojiVariationsResult from './mock-data/emoji-variations.json'
-import { EmojiVariationsList, EmojiVariationsListProps, Grid } from '../src'
 
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
 const gf = new GiphyFetch(apiKey)
 
-export default {
-    title: 'React Components/Emoji Variations List',
-    decorators: [withKnobs, jsxDecorator],
-}
+type EmojiVariationsListProps = React.ComponentProps<typeof EmojiVariationsList>
 
-type StoryProps = Partial<EmojiVariationsListProps>
-
-export const Default: Story<StoryProps> = (props) => {
+export const Demo = (props: EmojiVariationsListProps) => {
     const [gif, setGif] = useState<IGif | null>(null)
 
     const fetchDefaultVariations = async (offset: number) => {
@@ -45,21 +39,20 @@ export const Default: Story<StoryProps> = (props) => {
         fetchMock.restore()
         return result
     }
-
     return (
         <div style={{ maxWidth: '400px' }}>
             {gif ? (
                 <EmojiVariationsList
-                    backgroundColor={color('background color', '#2e2e2e')}
-                    dividerColor={color('divider color', '#4e4e4e')}
+                    key={`${gif.id}-${props.gifHeight}-${props.gifWidth}`}
+                    backgroundColor={props.backgroundColor}
+                    dividerColor={props.dividerColor}
+                    gifWidth={props.gifWidth}
+                    gutter={props.gutter}
+                    hideAttribution={props.hideAttribution}
+                    noLink
+                    {...props}
                     fetchVariations={fetchVariations}
                     gif={gif}
-                    gifHeight={number('gif height', 100)}
-                    gifWidth={number('gif width', undefined as any)}
-                    gutter={number('gutter', 10)}
-                    hideAttribution={boolean('hide attribution', true)}
-                    noLink={boolean('no link', true)}
-                    {...props}
                 />
             ) : null}
             <div style={{ margin: '24px 0' }}>
@@ -75,3 +68,41 @@ export const Default: Story<StoryProps> = (props) => {
         </div>
     )
 }
+
+const meta: Meta<typeof Demo> = {
+    component: Demo,
+    title: 'React Components/Emoji Variations List',
+    decorators: [jsxDecorator],
+    argTypes: {
+        backgroundColor: {
+            control: { type: 'text' },
+        },
+        dividerColor: {
+            control: { type: 'text' },
+        },
+        gutter: {
+            control: { type: 'number' },
+        },
+        // TODO these don't seem to trigger a rerender of the component
+        gifHeight: {
+            control: { type: 'number' },
+        },
+        gifWidth: {
+            control: { type: 'number' },
+        },
+        hideAttribution: {
+            control: { type: 'boolean' },
+        },
+    },
+    args: {
+        backgroundColor: '#2e2e2e',
+        dividerColor: '#4e4e4e',
+        gifHeight: 100,
+    },
+}
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Emoji: Story = {}

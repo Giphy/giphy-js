@@ -1,4 +1,4 @@
-import { composeStories } from '@storybook/testing-react'
+import { composeStories } from '@storybook/react'
 import * as React from 'react'
 
 import * as stories from '../../stories/carousel.stories'

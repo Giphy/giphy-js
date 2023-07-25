@@ -17,9 +17,3 @@ import '@percy/cypress'
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-
-// The Storybook Knobs addon has an issue with resetting values when you go to a new story.
-// To solve this problem, we have to clear the Knobs state manually every time before running story tests
-afterEach(() => {
-    cy.resetKnobs()
-})
