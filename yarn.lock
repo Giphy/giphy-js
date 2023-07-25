@@ -2396,6 +2396,14 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@giphy/colors@*, @giphy/colors@workspace:packages/colors":
+  version: 0.0.0-use.local
+  resolution: "@giphy/colors@workspace:packages/colors"
+  dependencies:
+    typescript: ^5.0.4
+  languageName: unknown
+  linkType: soft
+
 "@giphy/embed-sdk@workspace:packages/embed-sdk":
   version: 0.0.0-use.local
   resolution: "@giphy/embed-sdk@workspace:packages/embed-sdk"
@@ -2502,8 +2510,8 @@ __metadata:
     "@cypress/react18": ^2.0.0
     "@emotion/react": 11.9.3
     "@emotion/styled": 11.9.3
+    "@giphy/colors": "*"
     "@giphy/js-analytics": "*"
-    "@giphy/js-brand": "*"
     "@giphy/js-fetch-api": "*"
     "@giphy/js-types": "*"
     "@giphy/js-util": "*"

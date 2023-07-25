@@ -23,3 +23,4 @@ umd/
 !.yarn/sdks
 !.yarn/versions
 .hintrc
+.vscode/
