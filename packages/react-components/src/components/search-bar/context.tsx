@@ -35,8 +35,17 @@ export const CssVars = {
     cancelButtonDisplay: `--searchbar-cancel-button-display`,
 }
 
-const Container = styled.div<{ darkMode?: boolean; searchbarHeight?: number; hideCancelButton?: boolean }>`
+const Container = styled.div<{
+    darkMode?: boolean
+    searchbarHeight?: number
+    hideCancelButton?: boolean
+    mobileMediaQuery: string
+    mobileSearchbarHeight?: number
+}>`
     ${CssVars.searchbarHeight}: ${(props) => props.searchbarHeight || 42}px;
+    @media (${(props) => props.mobileMediaQuery}) {
+        ${CssVars.searchbarHeight}: ${(props) => props.mobileSearchbarHeight || 35}px;
+    }
     ${CssVars.bgColor}: ${giphyWhite};
     ${CssVars.bgColor2}: ${giphyWhite};
     ${CssVars.fgColor}: ${giphyBlack};
@@ -66,6 +75,8 @@ type Props = {
         darkMode?: boolean
         searchbarHeight?: number
         hideCancelButton?: boolean
+        mobileMediaQuery?: string
+        mobileSearchbarHeight?: number
     }
 }
 
@@ -213,6 +224,8 @@ const SearchContextManager = ({
                     darkMode={theme?.darkMode}
                     searchbarHeight={theme?.searchbarHeight}
                     hideCancelButton={theme?.hideCancelButton}
+                    mobileSearchbarHeight={theme?.mobileSearchbarHeight}
+                    mobileMediaQuery={theme?.mobileMediaQuery || 'max-width: 480px'}
                 >
                     <PingbackContextManager attributes={{ layout_type: 'SEARCH' }}>{children}</PingbackContextManager>
                 </Container>

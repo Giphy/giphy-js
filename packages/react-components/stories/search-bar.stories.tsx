@@ -122,6 +122,19 @@ export const SearchExperienceMobile: Story = {
     },
 }
 
+export const SearchExperienceMobileSmall: Story = {
+    args: {
+        theme: {
+            mobileSearchbarHeight: 30,
+        },
+    },
+    parameters: {
+        viewport: {
+            defaultViewport: 'mobile1',
+        },
+    },
+}
+
 export const SearchExperienceStickersDefault: Story = {
     args: {
         options: {
