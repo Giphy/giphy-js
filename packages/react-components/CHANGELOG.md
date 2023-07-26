@@ -1,5 +1,20 @@
 ## @giphy/react-components
 
+## 8.0.0
+
+### Major Changes
+
+-   22868d0: Switch from emotion to styled components.
+
+    Some of the theme properties on search bar have been renamed:
+
+    -   smallSearchbarHeight: use `mobileSearchbarHeight` instead
+    -   condensedMediaQuery: use `mobileMediaQuery` instead
+
+### Patch Changes
+
+-   207beac: Revert grid refactor to hooks - too many edge case bugs
+
 ## 7.1.1
 
 ### Patch Changes
