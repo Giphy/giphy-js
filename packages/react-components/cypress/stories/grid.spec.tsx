@@ -1,6 +1,6 @@
 import { composeStories } from '@storybook/react'
 import * as React from 'react'
-import { DEFAULT_GRID_CLASS_NAME } from '../../src/components/grid'
+import Grid from '../../src/components/grid'
 import * as stories from '../../stories/grid.stories'
 import {
     GifTestUtilsContext,
@@ -16,7 +16,7 @@ const GIFS_COUNT = 5
 const { GridAPIError, GridStory } = composeStories(stories)
 
 function getGridRoot() {
-    return cy.get(`.${DEFAULT_GRID_CLASS_NAME}`)
+    return cy.get(`.${Grid.className}`)
 }
 
 function getGridGifs() {
