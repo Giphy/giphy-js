@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import { IGif, IProfileUser } from '@giphy/js-types'
 import React from 'react'
+import styled from 'styled-components'
 import Avatar_ from '../attribution/avatar'
 import User from '../attribution/user'
 import GIPHYClips from './clips-branding'

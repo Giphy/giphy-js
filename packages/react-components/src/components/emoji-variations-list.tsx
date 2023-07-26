@@ -1,4 +1,3 @@
-import styled from '@emotion/styled'
 import { giphyCharcoal, giphyDarkGrey } from '@giphy/colors'
 import type { NonPaginatedGifsResult } from '@giphy/js-fetch-api'
 import type { GifID, IGif, IUser } from '@giphy/js-types'
@@ -6,6 +5,7 @@ import { getGifWidth } from '@giphy/js-util'
 import React, { ElementType, useEffect } from 'react'
 import useAsyncFn from 'react-use/lib/useAsyncFn'
 import useLatest from 'react-use/lib/useLatest'
+import styled from 'styled-components'
 
 import FetchError from './fetch-error'
 import Gif, { EventProps } from './gif'

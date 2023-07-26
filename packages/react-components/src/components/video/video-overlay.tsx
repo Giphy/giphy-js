@@ -1,5 +1,5 @@
-import styled from '@emotion/styled'
 import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
 import { GifOverlayProps } from '../types'
 import Video from './'
 import { VolumeOffIcon, VolumeOnIcon } from './controls/volume'

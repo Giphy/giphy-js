@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import { giphyBlue, giphyLightGrey } from '@giphy/colors'
 import React, { SyntheticEvent } from 'react'
+import styled from 'styled-components'
 
 const Message = styled.div`
     color: ${giphyLightGrey};

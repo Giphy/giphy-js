@@ -1,10 +1,10 @@
-import { ThemeProvider } from '@emotion/react'
-import { GifsResult, GiphyFetch, request, Result, SearchOptions } from '@giphy/js-fetch-api'
+import { giphyBlack, giphyCharcoal, giphyWhite } from '@giphy/colors'
+import { GifsResult, GiphyFetch, Result, SearchOptions, request } from '@giphy/js-fetch-api'
 import { IChannel } from '@giphy/js-types'
 import { Logger } from '@giphy/js-util'
-import React, { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { ReactNode, createContext, useCallback, useEffect, useMemo, useState } from 'react'
+import styled, { css } from 'styled-components'
 import PingbackContextManager from '../pingback-context-manager'
-import { initTheme, SearchTheme } from './theme'
 
 export type SearchContextProps = {
     setSearch: (searchTerm: string) => void
@@ -27,6 +27,38 @@ export type _SearchContextProps = {
     _inputValOverride: string
 }
 
+export const CssVars = {
+    searchbarHeight: `--searchbar-height`,
+    bgColor: `--searchbar-bg-color`,
+    bgColor2: `--searchbar-bg-color-2`,
+    fgColor: `--searchbar-fg-color`,
+    cancelButtonDisplay: `--searchbar-cancel-button-display`,
+}
+
+const Container = styled.div<{
+    darkMode?: boolean
+    searchbarHeight?: number
+    hideCancelButton?: boolean
+    mobileMediaQuery: string
+    mobileSearchbarHeight?: number
+}>`
+    ${CssVars.searchbarHeight}: ${(props) => props.searchbarHeight || 42}px;
+    @media (${(props) => props.mobileMediaQuery}) {
+        ${CssVars.searchbarHeight}: ${(props) => props.mobileSearchbarHeight || 35}px;
+    }
+    ${CssVars.bgColor}: ${giphyWhite};
+    ${CssVars.bgColor2}: ${giphyWhite};
+    ${CssVars.fgColor}: ${giphyBlack};
+    ${(props) =>
+        props.darkMode &&
+        css`
+            ${CssVars.fgColor}: ${giphyWhite};
+            ${CssVars.bgColor}: ${giphyBlack};
+            ${CssVars.bgColor2}: ${giphyCharcoal};
+        `}
+    ${CssVars.cancelButtonDisplay}: ${(props) => (props.hideCancelButton ? 'none' : 'block')};
+`
+
 export const SearchContext = createContext({} as SearchContextProps)
 // for internal components
 export const _SearchContext = createContext({} as _SearchContextProps)
@@ -35,11 +67,17 @@ type Props = {
     children: ReactNode
     options?: SearchOptions
     apiKey: string
-    theme?: Partial<SearchTheme>
     initialTerm?: string
     initialChannel?: IChannel
     shouldDefaultToTrending?: boolean
     shouldFetchChannels?: boolean
+    theme?: {
+        darkMode?: boolean
+        searchbarHeight?: number
+        hideCancelButton?: boolean
+        mobileMediaQuery?: string
+        mobileSearchbarHeight?: number
+    }
 }
 
 const emptyChannels: IChannel[] = []
@@ -52,11 +90,11 @@ const SearchContextManager = ({
     children,
     options = {},
     apiKey,
-    theme,
     initialTerm = '',
     initialChannel,
     shouldDefaultToTrending = true,
     shouldFetchChannels = true,
+    theme,
 }: Props) => {
     const gf = useMemo(() => new GiphyFetch(apiKey), [apiKey])
 
@@ -182,9 +220,15 @@ const SearchContextManager = ({
             }}
         >
             <_SearchContext.Provider value={{ setIsFocused, _setSearch, _inputValOverride }}>
-                <ThemeProvider theme={initTheme(theme)}>
+                <Container
+                    darkMode={theme?.darkMode}
+                    searchbarHeight={theme?.searchbarHeight}
+                    hideCancelButton={theme?.hideCancelButton}
+                    mobileSearchbarHeight={theme?.mobileSearchbarHeight}
+                    mobileMediaQuery={theme?.mobileMediaQuery || 'max-width: 480px'}
+                >
                     <PingbackContextManager attributes={{ layout_type: 'SEARCH' }}>{children}</PingbackContextManager>
-                </ThemeProvider>
+                </Container>
             </_SearchContext.Provider>
         </SearchContext.Provider>
     )

@@ -1,7 +1,7 @@
-import styled from '@emotion/styled'
 import { getGifHeight, Logger } from '@giphy/js-util'
 import React, { ComponentProps, ElementType, useCallback, useEffect, useState } from 'react'
 import useTimeoutFn from 'react-use/lib/useTimeoutFn'
+import styled from 'styled-components'
 import { GifOverlayProps } from '../types'
 import Attribution from './attribution'
 import { VolumeOffIcon, VolumeOnIcon } from './controls/volume'

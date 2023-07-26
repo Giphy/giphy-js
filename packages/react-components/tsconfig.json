@@ -5,5 +5,5 @@
         "resolveJsonModule": true,
         "outDir": "./dist"
     },
-    "files": ["src/index.ts", "src/emotion.d.ts"]
+    "files": ["src/index.ts"]
 }

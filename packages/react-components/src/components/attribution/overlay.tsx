@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import { IGif } from '@giphy/js-types'
 import React, { useRef } from 'react'
+import styled from 'styled-components'
 import Attribution_ from '.'
 import type { GifOverlayProps } from '../types'
 

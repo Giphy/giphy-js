@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport'
+import { Meta, StoryObj } from '@storybook/react'
 import fetchMock from 'fetch-mock'
 import React, { useContext, useLayoutEffect } from 'react'
 import Grid_ from '../src/components/grid'
@@ -9,7 +9,6 @@ import SuggestionBar from '../src/components/search-bar/suggestion-bar'
 import inTestsRunner from './in-tests-runner'
 import { mockSearchBar } from './mock-requests'
 import useWindowSize from './use-window-size'
-const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
 
 const Grid = styled(Grid_)`
     margin-top: 20px;
@@ -18,15 +17,6 @@ const Grid = styled(Grid_)`
 const SearchBarComponent = styled(SearchBarComponent_)`
     margin-bottom: 10px;
 `
-
-export default {
-    title: 'React Components/Search Experience',
-    parameters: {
-        viewport: {
-            viewports: MINIMAL_VIEWPORTS,
-        },
-    },
-}
 
 const Components = () => {
     const { fetchGifs, searchKey } = useContext(SearchContext)
@@ -55,48 +45,106 @@ const Components = () => {
     )
 }
 
-export const SearchExperience = () => (
-    <SearchContextManager apiKey={apiKey}>
-        <Components />
-    </SearchContextManager>
-)
+type SearchBarProps = React.ComponentProps<typeof SearchContextManager>
 
-export const SearchExperienceNoCancel = () => (
-    <SearchContextManager apiKey={apiKey} theme={{ hideCancelButton: true }}>
-        <Components />
-    </SearchContextManager>
-)
-
-export const SearchExperienceStickersDefault = () => (
-    <SearchContextManager apiKey={apiKey} options={{ type: 'stickers' }}>
-        <Components />
-    </SearchContextManager>
-)
-
-export const SearchExperienceNoDefault = () => (
-    <SearchContextManager apiKey={apiKey} shouldDefaultToTrending={false}>
-        <Components />
-    </SearchContextManager>
-)
-
-export const SearchExperienceCondensed = () => (
-    <SearchContextManager apiKey={apiKey} theme={{ condensedMode: true }}>
-        <Components />
-    </SearchContextManager>
-)
-
-export const SearchExperienceInitialTerm = () => {
+export const Demo = (props: SearchBarProps) => {
     return (
-        <SearchContextManager apiKey={apiKey} initialTerm="skateboard">
+        <SearchContextManager {...props}>
             <Components />
         </SearchContextManager>
     )
 }
 
-export const SearchExperienceInitialChannelSearch = () => {
-    return (
-        <SearchContextManager apiKey={apiKey} initialTerm="@nba">
-            <Components />
-        </SearchContextManager>
-    )
+const meta: Meta<typeof Demo> = {
+    component: Demo,
+    title: 'React Components/Search Experience',
+    argTypes: {
+        apiKey: {
+            control: { type: 'text' },
+        },
+        initialTerm: {
+            control: { type: 'text' },
+        },
+        theme: {
+            control: { type: 'object' },
+        },
+        options: {
+            control: { type: 'object' },
+        },
+        shouldDefaultToTrending: {
+            control: { type: 'boolean' },
+        },
+    },
+    args: {
+        apiKey: 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh',
+    },
+}
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const SearchExperience: Story = {}
+
+export const SearchExperienceInitialChannelSearch: Story = {
+    args: {
+        initialTerm: `@nba`,
+    },
+}
+
+export const SearchExperienceInitialTerm: Story = {
+    args: {
+        initialTerm: `skateboard`,
+    },
+}
+
+export const SearchExperienceHideCancelButton: Story = {
+    args: {
+        theme: {
+            hideCancelButton: true,
+        },
+    },
+}
+
+export const SearchExperienceDarkmode: Story = {
+    args: {
+        theme: {
+            darkMode: true,
+        },
+    },
+}
+
+export const SearchExperienceMobile: Story = {
+    parameters: {
+        viewport: {
+            defaultViewport: 'mobile1',
+        },
+    },
+}
+
+export const SearchExperienceMobileSmall: Story = {
+    args: {
+        theme: {
+            mobileSearchbarHeight: 30,
+        },
+    },
+    parameters: {
+        viewport: {
+            defaultViewport: 'mobile1',
+        },
+    },
+}
+
+export const SearchExperienceStickersDefault: Story = {
+    args: {
+        options: {
+            type: 'stickers',
+        },
+    },
+}
+
+export const SearchExperienceNoDefault: Story = {
+    args: {
+        shouldDefaultToTrending: false,
+    },
 }

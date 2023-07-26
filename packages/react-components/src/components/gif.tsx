@@ -1,5 +1,3 @@
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/colors'
 import { IGif, IUser, ImageAllTypes } from '@giphy/js-types'
 import { Logger, getAltText, getBestRendition, getGifHeight } from '@giphy/js-util'
@@ -15,6 +13,7 @@ import React, {
     useRef,
     useState,
 } from 'react'
+import styled, { css } from 'styled-components'
 import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'

@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
 import { IUser } from '@giphy/js-types'
 import React from 'react'
+import styled from 'styled-components'
 import VerifiedBadge_ from './verified-badge'
 
 export const Username = styled.div`
