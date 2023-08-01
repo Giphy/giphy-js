@@ -2,32 +2,17 @@ import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giph
 import { IGif, IUser, ImageAllTypes } from '@giphy/js-types'
 import { Logger, getAltText, getBestRendition, getGifHeight } from '@giphy/js-util'
 import 'intersection-observer'
-import React, {
-    ElementType,
-    HTMLAttributes,
-    HTMLProps,
-    ReactNode,
-    SyntheticEvent,
-    useContext,
-    useEffect,
-    useRef,
-    useState,
-} from 'react'
-import styled, { css } from 'styled-components'
+import React, { ElementType, ReactNode, SyntheticEvent, useContext, useEffect, useRef, useState } from 'react'
+import styled from 'styled-components'
 import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
 import { PingbackContext } from './pingback-context-manager'
 import { GifOverlayProps } from './types'
 
-const GifContainer = styled.div<{ borderRadius?: number }>`
+const Container = styled.div`
+    position: relative;
     display: block;
-    ${(props) =>
-        props.borderRadius &&
-        css`
-            border-radius: ${props.borderRadius}px;
-            overflow: hidden;
-        `}
     img {
         display: block;
     }
@@ -45,11 +30,6 @@ export const GRID_COLORS = [giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyY
 export const getColor = () => GRID_COLORS[Math.round(Math.random() * (GRID_COLORS.length - 1))]
 
 const hoverTimeoutDelay = 200
-
-type ContainerProps = HTMLProps<HTMLElement> & { href?: string; borderRadius: number }
-const Container = (props: ContainerProps) => (
-    <GifContainer as={props.href ? 'a' : 'div'} {...(props as HTMLAttributes<HTMLDivElement>)} />
-)
 
 export type EventProps = {
     // fired every time the gif is show
@@ -247,17 +227,21 @@ const Gif = ({
         (gif.is_sticker
             ? `url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AQMAAACSSKldAAAABlBMVEUhIiIWFhYoSqvJAAAAGElEQVQY02MAAv7///8PWxqIPwDZw5UGABtgwz2xhFKxAAAAAElFTkSuQmCC') 0 0`
             : defaultBgColor.current)
+
+    const overflow = borderRadius ? 'hidden' : 'unset'
     return (
         <Container
+            as={noLink ? 'div' : 'a'}
             href={noLink ? undefined : gif.url}
             data-giphy-id={gif.id}
             data-giphy-is-sticker={gif.is_sticker}
             style={{
                 width,
                 height,
+                overflow,
+                borderRadius,
                 ...style,
             }}
-            borderRadius={borderRadius}
             className={[Gif.className, className].join(' ')}
             onMouseOver={onMouseOver}
             onMouseLeave={onMouseLeave}
@@ -265,33 +249,32 @@ const Gif = ({
             onContextMenu={(e: SyntheticEvent<HTMLElement, Event>) => onGifRightClick(gif, e)}
             onKeyPress={onKeyPress}
             tabIndex={tabIndex}
+            ref={container}
         >
-            <div style={{ position: 'relative' }} ref={container}>
-                <picture>
-                    <source
-                        type="image/webp"
-                        srcSet={shouldShowMedia ? rendition.webp : placeholder}
-                        suppressHydrationWarning
-                    />
-                    <img
-                        ref={image}
-                        suppressHydrationWarning
-                        className={[Gif.imgClassName, loadedClassname].join(' ')}
-                        src={shouldShowMedia ? rendition.url : placeholder}
-                        style={{ background }}
-                        width="100%"
-                        height="100%"
-                        alt={getAltText(gif)}
-                        onLoad={shouldShowMedia ? onImageLoad : () => {}}
-                    />
-                </picture>
-                {Overlay && (
-                    // only render the overlay on the client since it depends on shouldShowMedia
-                    <RenderOnClient>
-                        {shouldShowMedia && <Overlay gif={gif} isHovered={isHovered} width={width} height={height} />}
-                    </RenderOnClient>
-                )}
-            </div>
+            <picture>
+                <source
+                    type="image/webp"
+                    srcSet={shouldShowMedia ? rendition.webp : placeholder}
+                    suppressHydrationWarning
+                />
+                <img
+                    ref={image}
+                    suppressHydrationWarning
+                    className={[Gif.imgClassName, loadedClassname].join(' ')}
+                    src={shouldShowMedia ? rendition.url : placeholder}
+                    style={{ background }}
+                    width="100%"
+                    height="100%"
+                    alt={getAltText(gif)}
+                    onLoad={shouldShowMedia ? onImageLoad : () => {}}
+                />
+            </picture>
+            {Overlay && (
+                // only render the overlay on the client since it depends on shouldShowMedia
+                <RenderOnClient>
+                    {shouldShowMedia && <Overlay gif={gif} isHovered={isHovered} width={width} height={height} />}
+                </RenderOnClient>
+            )}
         </Container>
     )
 }
