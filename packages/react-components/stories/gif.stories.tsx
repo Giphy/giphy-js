@@ -88,7 +88,7 @@ export const GifWithVideoOverlayFillVideo: Story = {
     args: {
         id: '3BNRWBatePBETD7Bfg',
         height: 300,
-        overlay: (props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 500)} />,
+        overlay: (props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 300)} />,
     },
 }
 

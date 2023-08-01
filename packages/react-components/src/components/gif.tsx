@@ -266,7 +266,7 @@ const Gif = ({
             onKeyPress={onKeyPress}
             tabIndex={tabIndex}
         >
-            <div style={{ width, height, position: 'relative' }} ref={container}>
+            <div style={{ position: 'relative' }} ref={container}>
                 <picture>
                     <source
                         type="image/webp"
@@ -279,8 +279,8 @@ const Gif = ({
                         className={[Gif.imgClassName, loadedClassname].join(' ')}
                         src={shouldShowMedia ? rendition.url : placeholder}
                         style={{ background }}
-                        width={width}
-                        height={height}
+                        width="100%"
+                        height="100%"
                         alt={getAltText(gif)}
                         onLoad={shouldShowMedia ? onImageLoad : () => {}}
                     />

@@ -86,6 +86,12 @@ const meta: Meta<typeof Grid> = {
         noLink: {
             control: { type: 'boolean' },
         },
+        columns: {
+            control: { type: 'number' },
+        },
+        gutter: {
+            control: { type: 'number' },
+        },
     },
     args: {
         noLink: false,
