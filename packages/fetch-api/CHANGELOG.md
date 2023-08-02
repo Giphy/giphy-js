@@ -1,5 +1,13 @@
 ## 4.1.1 (2021-08-09)
 
+## 5.1.0
+
+### Minor Changes
+
+-   ad0f108: react-components: percentWidth prop on gif allows you to display a Gif component using a css percentage value
+
+    fetch-api: add type videos to related end point
+
 ## 5.0.0
 
 ### Major Changes
