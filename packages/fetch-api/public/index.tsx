@@ -36,10 +36,19 @@ const gifByCategory = async () => {
 }
 const related = async () => {
     try {
-        const result = await gf.related('3oEjHGr1Fhz0kyv8Ig')
+        const result = await gf.related('3oEjHGr1Fhz0kyv8Ig', { limit: 4 })
         console.log('related', result)
     } catch (error) {
         console.error('related', error)
+    }
+}
+
+const relatedClips = async () => {
+    try {
+        const result = await gf.related('W2nuhlWbyVmV73jIsc', { type: 'videos' })
+        console.log('related videos', result)
+    } catch (error) {
+        console.error('related videos', error)
     }
 }
 
@@ -145,3 +154,4 @@ text()
 textTrending()
 animate()
 searchVideos()
+relatedClips()

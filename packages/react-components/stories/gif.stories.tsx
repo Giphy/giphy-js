@@ -18,9 +18,10 @@ type GifComponentProps = React.ComponentProps<typeof GifComponent>
 
 type GifDemoProps = Omit<GifComponentProps, 'gif'> & {
     id: string
+    scale: string
 }
 
-const GifDemo = ({ id, width, height, noLink, borderRadius, overlay, ...other }: GifDemoProps) => {
+const GifDemo = ({ id, width, height, noLink, borderRadius, percentWidth, overlay, ...other }: GifDemoProps) => {
     const [gif, setGif] = useState<IGif>()
 
     const fetch = useCallback(async () => {
@@ -38,6 +39,7 @@ const GifDemo = ({ id, width, height, noLink, borderRadius, overlay, ...other }:
             tabIndex={1}
             borderRadius={borderRadius}
             gif={gif}
+            percentWidth={percentWidth}
             width={width}
             height={height}
             noLink={noLink}
@@ -64,6 +66,9 @@ const meta: Meta<typeof GifDemo> = {
         noLink: {
             control: { type: 'boolean' },
         },
+        percentWidth: {
+            control: { type: 'text' },
+        },
     },
     args: {
         id: 'ZEU9ryYGZzttn0Cva7',
@@ -84,11 +89,17 @@ export const GifWithOverlay: Story = {
     },
 }
 
+export const GifThatStretches: Story = {
+    args: {
+        percentWidth: '50%',
+    },
+}
+
 export const GifWithVideoOverlayFillVideo: Story = {
     args: {
         id: '3BNRWBatePBETD7Bfg',
         height: 300,
-        overlay: (props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 500)} />,
+        overlay: (props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 300)} />,
     },
 }
 
