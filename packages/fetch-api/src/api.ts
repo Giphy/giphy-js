@@ -1,4 +1,5 @@
 /* eslint-disable no-dupe-class-members */
+import { GifID } from '@giphy/js-types'
 import { getPingbackId } from '@giphy/js-util'
 import qs from 'qs'
 import { normalizeGif, normalizeGifs } from './normalize/gif'
@@ -14,7 +15,6 @@ import {
     TypeOption,
 } from './option-types'
 import request from './request'
-import { GifID } from '@giphy/js-types'
 import { CategoriesResult, ChannelsResult, GifResult, GifsResult, NonPaginatedGifsResult } from './result-types'
 
 const getType = (options?: TypeOption): MediaType => (options && options.type ? options.type : 'gifs')
@@ -172,9 +172,10 @@ export class GiphyFetch {
      * @param {SubcategoriesOptions} options
      * @returns {Promise<GifsResult>}
      **/
-    related(id: string, options?: RelatedOptions): Promise<GifsResult> {
+    related(id: string, options: RelatedOptions = {}): Promise<GifsResult> {
+        const { type = 'gifs' } = options
         return request(
-            `${options?.type === 'stickers' ? 'stickers' : 'gifs'}/related?${this.getQS({
+            `${type}/related?${this.getQS({
                 gif_id: id,
                 rating: 'pg-13',
                 ...options,

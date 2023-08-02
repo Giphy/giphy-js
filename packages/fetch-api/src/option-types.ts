@@ -24,7 +24,7 @@ export interface PaginationOptions {
 export interface CategoriesOptions extends PaginationOptions {}
 export interface SubcategoriesOptions extends PaginationOptions {}
 export interface RelatedOptions extends PaginationOptions {
-    type?: 'gifs' | 'stickers' // no 'text' support, overrride MediaType
+    type?: 'gifs' | 'stickers' | 'videos' // no 'text' support, overrride MediaType
     rating?: Rating
 }
 
