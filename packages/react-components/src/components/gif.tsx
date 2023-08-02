@@ -47,6 +47,7 @@ export type EventProps = {
 type GifProps = {
     gif: IGif
     width: number
+    percentWidth?: string
     height?: number
     backgroundColor?: string
     className?: string
@@ -79,6 +80,7 @@ const RenderOnClient = ({ children }: { children: ReactNode }) => {
 const Gif = ({
     gif,
     width,
+    percentWidth,
     height: forcedHeight,
     onGifRightClick = noop,
     className = '',
@@ -219,6 +221,11 @@ const Gif = ({
         }
     }, [])
     const height = forcedHeight || getGifHeight(gif, width)
+    let percentHeight: string | undefined
+    if (percentWidth) {
+        const ratio = Math.round((height / width) * 100)
+        percentHeight = `${ratio}%`
+    }
     const bestRendition = getBestRendition(gif.images, width, height)
     const rendition = gif.images[bestRendition.renditionName] as ImageAllTypes
     const background =
@@ -236,8 +243,8 @@ const Gif = ({
             data-giphy-id={gif.id}
             data-giphy-is-sticker={gif.is_sticker}
             style={{
-                width,
-                height,
+                width: percentWidth || width,
+                height: percentHeight || height,
                 overflow,
                 borderRadius,
                 ...style,

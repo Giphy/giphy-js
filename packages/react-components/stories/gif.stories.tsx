@@ -1,7 +1,6 @@
 // @ts-ignore TS2783
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
-import { getGifHeight } from '@giphy/js-util'
 import { action } from '@storybook/addon-actions'
 import { number } from '@storybook/addon-knobs'
 import { Meta, StoryObj } from '@storybook/react'
@@ -22,7 +21,7 @@ type GifDemoProps = Omit<GifComponentProps, 'gif'> & {
     scale: string
 }
 
-const GifDemo = ({ id, width, height, noLink, borderRadius, scale, overlay, ...other }: GifDemoProps) => {
+const GifDemo = ({ id, width, height, noLink, borderRadius, percentWidth, overlay, ...other }: GifDemoProps) => {
     const [gif, setGif] = useState<IGif>()
 
     const fetch = useCallback(async () => {
@@ -40,7 +39,7 @@ const GifDemo = ({ id, width, height, noLink, borderRadius, scale, overlay, ...o
             tabIndex={1}
             borderRadius={borderRadius}
             gif={gif}
-            style={{ width: scale ? scale : width, height: scale ? getHeightPerc(gif, width) : height }}
+            percentWidth={percentWidth}
             width={width}
             height={height}
             noLink={noLink}
@@ -67,8 +66,8 @@ const meta: Meta<typeof GifDemo> = {
         noLink: {
             control: { type: 'boolean' },
         },
-        scale: {
-            control: { type: 'string' },
+        percentWidth: {
+            control: { type: 'text' },
         },
     },
     args: {
@@ -92,7 +91,7 @@ export const GifWithOverlay: Story = {
 
 export const GifThatStretches: Story = {
     args: {
-        scale: '50%',
+        percentWidth: '50%',
     },
 }
 
@@ -112,10 +111,4 @@ export const GifNoBorderRadius: Story = {
 
 export const Sticker: Story = {
     args: { id: 'l1J9FvenuBnI4GTeg' },
-}
-function getHeightPerc(gif: IGif | undefined, width: number) {
-    if (!gif) return '100%'
-    const gifHeight = getGifHeight(gif, width)
-    const heightPercentage = `${Math.round((gifHeight / width) * 100)}%`
-    return heightPercentage
 }
