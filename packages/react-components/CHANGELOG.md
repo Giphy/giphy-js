@@ -1,5 +1,18 @@
 ## @giphy/react-components
 
+## 8.1.0
+
+### Minor Changes
+
+-   ad0f108: react-components: percentWidth prop on gif allows you to display a Gif component using a css percentage value
+
+    fetch-api: add type videos to related end point
+
+### Patch Changes
+
+-   Updated dependencies [ad0f108]
+    -   @giphy/js-fetch-api@5.1.0
+
 ## 8.0.0
 
 ### Major Changes
