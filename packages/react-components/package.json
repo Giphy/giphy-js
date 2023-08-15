@@ -46,6 +46,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "storybook": "^7.1.0",
+        "styled-components": "^6.0.7",
         "ts-loader": "^9.3.1",
         "typescript": "^5.0.4",
         "webpack": "^5.74.0"
@@ -70,7 +71,8 @@
         "access": "public"
     },
     "peerDependencies": {
-        "react": "16.10.2 - 18"
+        "react": "16.10.2 - 18",
+        "styled-components": ">= 5"
     },
     "dependencies": {
         "@giphy/colors": "*",
@@ -80,7 +82,6 @@
         "@giphy/js-util": "*",
         "intersection-observer": "^0.12.2",
         "react-use": "17.4.0",
-        "styled-components": "^6.0.5",
         "throttle-debounce": "^3.0.1"
     }
 }
