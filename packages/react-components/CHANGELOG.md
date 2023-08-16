@@ -1,5 +1,13 @@
 ## @giphy/react-components
 
+## 9.0.0
+
+### Major Changes
+
+-   02aa2b7: styled components is a peer/dev dependency as requested in the [documentation](https://styled-components.com/docs/faqs#i-am-a-library-author.-should-i-bundle-styled-components-with-my-library)
+
+    Depending on your package manager, you may need to install peer dependencies
+
 ## 8.1.0
 
 ### Minor Changes
