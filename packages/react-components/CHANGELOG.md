@@ -1,5 +1,11 @@
 ## @giphy/react-components
 
+## 9.0.1
+
+### Patch Changes
+
+-   3013bfd: Fix React warnings about styled component props
+
 ## 9.0.0
 
 ### Major Changes
