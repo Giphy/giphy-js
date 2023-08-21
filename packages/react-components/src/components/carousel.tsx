@@ -17,11 +17,11 @@ const Container = styled.div`
     position: relative;
 `
 
-const Gif = styled(Gif_)<{ ml: number }>`
+const Gif = styled(Gif_)<{ $ml: number }>`
     position: relative;
     display: inline-block;
     list-style: none;
-    margin-left: ${(props) => props.ml}px;
+    margin-left: ${(props) => props.$ml}px;
     /* make sure gifs are fully visible with a scrollbar */
     margin-bottom: 1px;
 
@@ -39,11 +39,11 @@ const Observer = styled(ObserverShared)`
     display: inline-block;
 `
 
-const Loader = styled.div<{ isFirstLoad: boolean; height: number }>`
+const Loader = styled.div<{ $isFirstLoad: boolean; $height: number }>`
     width: 30px;
     display: inline-block;
-    opacity: ${(props) => (props.isFirstLoad ? 0 : 1)};
-    height: ${(props) => props.height}px;
+    opacity: ${(props) => (props.$isFirstLoad ? 0 : 1)};
+    height: ${(props) => props.$height}px;
 `
 
 type Props = {
@@ -164,7 +164,7 @@ class Carousel extends PureComponent<Props, State> {
                                 onGifVisible={onGifVisible}
                                 onGifRightClick={onGifRightClick}
                                 user={user}
-                                ml={gutter}
+                                $ml={gutter}
                                 overlay={overlay}
                                 hideAttribution={hideAttribution}
                                 noLink={noLink}
@@ -176,7 +176,7 @@ class Carousel extends PureComponent<Props, State> {
                     {!showLoader && gifs.length === 0 && noResultsMessage}
                     {showLoader && (
                         <Observer onVisibleChange={this.onLoaderVisible} config={loaderConfig}>
-                            <Loader isFirstLoad={isFirstLoad} height={gifHeight} />
+                            <Loader $isFirstLoad={isFirstLoad} $height={gifHeight} />
                         </Observer>
                     )}
                 </Container>

@@ -48,7 +48,7 @@ const Volume = styled.div`
     cursor: pointer;
 `
 
-const Controls = styled.div<{ isHovered: boolean }>`
+const Controls = styled.div<{ $isHovered: boolean }>`
     position: absolute;
     top: 10px;
     right: 10px;
@@ -56,7 +56,7 @@ const Controls = styled.div<{ isHovered: boolean }>`
     bottom: 0;
     display: flex;
     justify-content: space-between;
-    opacity: ${(props) => (props.isHovered ? 1 : 0)};
+    opacity: ${(props) => (props.$isHovered ? 1 : 0)};
     transition: opacity ease-out 250ms;
     align-items: flex-start;
 `
@@ -77,11 +77,11 @@ const TitleContainer = styled.div`
     min-width: 0;
 `
 
-const Gradient = styled.div<{ isLargePlayer: boolean }>`
+const Gradient = styled.div<{ $isLargePlayer: boolean }>`
     &:before {
         background: linear-gradient(rgba(18, 18, 18, 0.6), rgba(0, 0, 0, 0));
         content: '';
-        height: ${(props) => (props.isLargePlayer ? 125 : 75)}px;
+        height: ${(props) => (props.$isLargePlayer ? 125 : 75)}px;
         left: 0;
         pointer-events: none;
         position: absolute;
@@ -91,7 +91,7 @@ const Gradient = styled.div<{ isLargePlayer: boolean }>`
     &:after {
         background: linear-gradient(rgba(0, 0, 0, 0), rgba(18, 18, 18, 0.6));
         content: '';
-        height: ${(props) => (props.isLargePlayer ? 125 : 75)}px;
+        height: ${(props) => (props.$isLargePlayer ? 125 : 75)}px;
         left: 0;
         pointer-events: none;
         position: absolute;
@@ -181,8 +181,8 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
             }}
         >
             <Video {...props} onMuted={combinedOnMuted} setVideoEl={combinedSetVideoEl} muted={muted} />
-            {showControls && <Gradient isLargePlayer={isLargePlayer} />}
-            <Controls isHovered={showControls}>
+            {showControls && <Gradient $isLargePlayer={isLargePlayer} />}
+            <Controls $isHovered={showControls}>
                 <TitleContainer>
                     {isLargePlayer && (
                         <Title

@@ -19,7 +19,7 @@ const Container = styled.div`
     animation: pulse 0.8s ease-in-out 0s infinite alternate backwards;
 `
 
-const Dot = styled.div<{ color: string; delay: string }>`
+const Dot = styled.div<{ $color: string; $delay: string }>`
     display: inline-block;
     height: 10px;
     width: 10px;
@@ -27,17 +27,17 @@ const Dot = styled.div<{ color: string; delay: string }>`
     position: relative;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
     animation: ${bouncer} cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.75s infinite alternate;
-    background: ${(props) => props.color};
-    animation-delay: ${(props) => props.delay};
+    background: ${(props) => props.$color};
+    animation-delay: ${(props) => props.$delay};
 `
 
 const Loader = ({ className = '' }: { className?: string }) => (
     <Container className={className}>
-        <Dot color={giphyGreen} delay="0" />
-        <Dot color={giphyBlue} delay=".1s" />
-        <Dot color={giphyPurple} delay=".2s" />
-        <Dot color={giphyRed} delay=".3s" />
-        <Dot color={giphyYellow} delay=".4s" />
+        <Dot $color={giphyGreen} $delay="0" />
+        <Dot $color={giphyBlue} $delay=".1s" />
+        <Dot $color={giphyPurple} $delay=".2s" />
+        <Dot $color={giphyRed} $delay=".3s" />
+        <Dot $color={giphyYellow} $delay=".4s" />
     </Container>
 )
 

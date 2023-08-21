@@ -38,7 +38,7 @@ const Container = styled.div`
     background: var(${CssVars.bgColor2});
 `
 
-const Input = styled.input<{ isUsernameSearch: boolean }>`
+const Input = styled.input<{ $isUsernameSearch: boolean }>`
     background: inherit;
     box-sizing: border-box;
     border: 0;
@@ -57,7 +57,7 @@ const Input = styled.input<{ isUsernameSearch: boolean }>`
     min-width: 150px;
     flex: 1;
     ${(props) =>
-        props.isUsernameSearch &&
+        props.$isUsernameSearch &&
         css`
             color: ${giphyIndigo};
         `}
@@ -153,7 +153,7 @@ const SearchBar = ({
         <Container className={[SearchBar.className, className].join(' ')}>
             <SearchBarChannel />
             <Input
-                isUsernameSearch={term.indexOf('@') === 0}
+                $isUsernameSearch={term.indexOf('@') === 0}
                 onChange={({ target: { value } }) => {
                     if (!isCleared || value !== '') {
                         setCleared(false)

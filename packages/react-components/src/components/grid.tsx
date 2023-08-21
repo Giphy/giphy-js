@@ -36,8 +36,8 @@ type Props = {
     loader?: ElementType
 } & EventProps
 
-const Loader = styled.div<{ isFirstLoad: boolean }>`
-    opacity: ${(props) => (props.isFirstLoad ? 0 : 1)};
+const Loader = styled.div<{ $isFirstLoad: boolean }>`
+    opacity: ${(props) => (props.$isFirstLoad ? 0 : 1)};
 `
 
 const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
@@ -194,7 +194,7 @@ class Grid extends PureComponent<Props, State> {
                     ) : (
                         showLoader && (
                             <Observer onVisibleChange={this.onLoaderVisible} config={loaderConfig}>
-                                <Loader isFirstLoad={isFirstLoad}>
+                                <Loader $isFirstLoad={isFirstLoad}>
                                     <LoaderVisual className={Grid.loaderClassName} />
                                 </Loader>
                             </Observer>

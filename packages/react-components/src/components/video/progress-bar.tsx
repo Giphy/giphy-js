@@ -3,9 +3,9 @@ import React from 'react'
 import useRaf from 'react-use/lib/useRaf'
 import styled from 'styled-components'
 
-const Bar = styled.div<{ barHeight: number }>`
+const Bar = styled.div<{ $barHeight: number }>`
     background: ${giphyWhite};
-    height: ${(props) => props.barHeight}px;
+    height: ${(props) => props.$barHeight}px;
     position: absolute;
     width: 5px;
     bottom: 0;
@@ -25,7 +25,7 @@ const ProgressBar = ({ videoEl }: { videoEl: HTMLVideoElement }) => {
         barHeight = 4
     }
     percentage = duration < 10 && percentage > 98 ? 100 : percentage
-    return <Bar style={{ width: `${percentage}%` }} barHeight={barHeight} className="hide-in-percy" />
+    return <Bar style={{ width: `${percentage}%` }} $barHeight={barHeight} className="hide-in-percy" />
 }
 
 export default ProgressBar
