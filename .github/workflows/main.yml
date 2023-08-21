@@ -16,7 +16,7 @@ jobs:
               with:
                   node-version: 16.x
                   cache: 'yarn'
-            - run: yarn install --frozen-lockfile
+            - run: yarn install --immutable --immutable-cache
             - name: Build
               run: yarn run build
             - name: Lint and Test
