@@ -34,9 +34,9 @@ const DEFAULT_BG_COLOR = giphyDarkGrey
 const DEFAULT_DIVIDER_COLOR = giphyCharcoal
 const DIVIDER_RELATIVE_HEIGHT = 0.75
 
-const Root = styled.div<{ backgroundColor?: string }>`
+const Root = styled.div<{ $backgroundColor?: string }>`
     align-items: center;
-    background-color: ${({ backgroundColor }) => backgroundColor};
+    background-color: ${({ $backgroundColor }) => $backgroundColor};
     border-radius: 16px;
     display: flex;
     max-width: fit-content;
@@ -51,19 +51,19 @@ const VariationsViewport = styled.div`
     -webkit-overflow-scrolling: touch;
 `
 
-const VariationsContainer = styled.div<{ width: number }>`
+const VariationsContainer = styled.div<{ $width: number }>`
     display: inline-flex;
     justify-content: space-between;
     overflow: hidden;
     white-space: nowrap;
-    width: ${({ width }) => `${width}px`};
+    width: ${({ $width }) => `${$width}px`};
 `
 
-const Divider = styled.div<{ color?: string; gifHeight: number; gutter: number }>`
-    background-color: ${({ color }) => color};
+const Divider = styled.div<{ $color?: string; $gifHeight: number; $gutter: number }>`
+    background-color: ${({ $color: color }) => color};
     box-sizing: border-box;
-    height: ${({ gifHeight }) => `${Math.round(gifHeight * DIVIDER_RELATIVE_HEIGHT)}px`};
-    margin: ${({ gutter }) => `0 ${gutter}px`};
+    height: ${({ $gifHeight }) => `${Math.round($gifHeight * DIVIDER_RELATIVE_HEIGHT)}px`};
+    margin: ${({ $gutter }) => `0 ${$gutter}px`};
     width: 2px;
 `
 
@@ -168,7 +168,7 @@ export function EmojiVariationsList(props: EmojiVariationsListProps) {
 
     return (
         <Root
-            backgroundColor={backgroundColor}
+            $backgroundColor={backgroundColor}
             className={[EmojiVariationsList.className, className].join(' ')}
             {...other}
         >
@@ -176,15 +176,15 @@ export function EmojiVariationsList(props: EmojiVariationsListProps) {
             {variationCount ? (
                 <Divider
                     className={EmojiVariationsList.dividerClassName}
-                    color={dividerColor}
-                    gifHeight={gifHeight}
-                    gutter={gutter}
+                    $color={dividerColor}
+                    $gifHeight={gifHeight}
+                    $gutter={gutter}
                 />
             ) : null}
             <VariationsViewport className={EmojiVariationsList.variationsViewportClassName}>
                 <VariationsContainer
                     className={EmojiVariationsList.variationsContainerClassName}
-                    width={variationsContainerWidth}
+                    $width={variationsContainerWidth}
                 >
                     {getVariationsContent()}
                 </VariationsContainer>

@@ -36,27 +36,27 @@ export const CssVars = {
 }
 
 const Container = styled.div<{
-    darkMode?: boolean
-    searchbarHeight?: number
-    hideCancelButton?: boolean
-    mobileMediaQuery: string
-    mobileSearchbarHeight?: number
+    $darkMode?: boolean
+    $searchbarHeight?: number
+    $hideCancelButton?: boolean
+    $mobileMediaQuery: string
+    $mobileSearchbarHeight?: number
 }>`
-    ${CssVars.searchbarHeight}: ${(props) => props.searchbarHeight || 42}px;
-    @media (${(props) => props.mobileMediaQuery}) {
-        ${CssVars.searchbarHeight}: ${(props) => props.mobileSearchbarHeight || 35}px;
+    ${CssVars.searchbarHeight}: ${(props) => props.$searchbarHeight || 42}px;
+    @media (${(props) => props.$mobileMediaQuery}) {
+        ${CssVars.searchbarHeight}: ${(props) => props.$mobileSearchbarHeight || 35}px;
     }
     ${CssVars.bgColor}: ${giphyWhite};
     ${CssVars.bgColor2}: ${giphyWhite};
     ${CssVars.fgColor}: ${giphyBlack};
     ${(props) =>
-        props.darkMode &&
+        props.$darkMode &&
         css`
             ${CssVars.fgColor}: ${giphyWhite};
             ${CssVars.bgColor}: ${giphyBlack};
             ${CssVars.bgColor2}: ${giphyCharcoal};
         `}
-    ${CssVars.cancelButtonDisplay}: ${(props) => (props.hideCancelButton ? 'none' : 'block')};
+    ${CssVars.cancelButtonDisplay}: ${(props) => (props.$hideCancelButton ? 'none' : 'block')};
 `
 
 export const SearchContext = createContext({} as SearchContextProps)
@@ -221,11 +221,11 @@ const SearchContextManager = ({
         >
             <_SearchContext.Provider value={{ setIsFocused, _setSearch, _inputValOverride }}>
                 <Container
-                    darkMode={theme?.darkMode}
-                    searchbarHeight={theme?.searchbarHeight}
-                    hideCancelButton={theme?.hideCancelButton}
-                    mobileSearchbarHeight={theme?.mobileSearchbarHeight}
-                    mobileMediaQuery={theme?.mobileMediaQuery || 'max-width: 480px'}
+                    $darkMode={theme?.darkMode}
+                    $searchbarHeight={theme?.searchbarHeight}
+                    $hideCancelButton={theme?.hideCancelButton}
+                    $mobileSearchbarHeight={theme?.mobileSearchbarHeight}
+                    $mobileMediaQuery={theme?.mobileMediaQuery || 'max-width: 480px'}
                 >
                     <PingbackContextManager attributes={{ layout_type: 'SEARCH' }}>{children}</PingbackContextManager>
                 </Container>

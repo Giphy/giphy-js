@@ -21,12 +21,12 @@ const VideoStyled = styled(Video)`
     pointer-events: none;
     background: rgb(0, 0, 0, 0);
 `
-const Button = styled.div<{ isHovered: boolean }>`
+const Button = styled.div<{ $isHovered: boolean }>`
     position: absolute;
     top: 6px;
     right: 6px;
     cursor: pointer;
-    opacity: ${(props) => (props.isHovered ? 1 : 0.8)};
+    opacity: ${(props) => (props.$isHovered ? 1 : 0.8)};
     transition: opacity ease-out 800ms;
 `
 
@@ -45,7 +45,7 @@ const VolumeButton = ({ muted, toggleMute, mutedByBrowser, isHovered }: VolumeBu
             e.stopPropagation()
             toggleMute()
         }}
-        isHovered={isHovered}
+        $isHovered={isHovered}
     >
         {muted || mutedByBrowser || !isHovered ? <VolumeOffIcon /> : <VolumeOnIcon />}
     </Button>
