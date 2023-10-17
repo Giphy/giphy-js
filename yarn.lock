@@ -2533,8 +2533,8 @@ __metadata:
     jest-fetch-mock: ^3.0.3
     parcel-bundler: latest
     qs: ^6.9.4
-    typedoc: ^0.20.36
-    typedoc-thunder-theme: ^0.0.2
+    typedoc: ^0.20.37
+    typedoc-thunder-theme: ^0.0.3
     typescript: ^5.0.4
   languageName: unknown
   linkType: soft
@@ -21879,14 +21879,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc-thunder-theme@npm:^0.0.2":
-  version: 0.0.2
-  resolution: "typedoc-thunder-theme@npm:0.0.2"
-  checksum: 0d41937b831aff3cd653a436f05d0eba0757315ac712171aab497cd108f3e0fbc8ee82eaa28e3db0af41ad7eb790ea8c2dffd6e97a7aae39f3bcb4af43c112ec
+"typedoc-thunder-theme@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "typedoc-thunder-theme@npm:0.0.3"
+  checksum: f19ce94290fe2c145170dfb7d52e90dfe16da1c8c6e7b38b6e997ccf3cb943c6e85f9bcff2efeac0dfbfbac747dedb558b59f5dbfe9594d5d9bc5cfcde938e28
   languageName: node
   linkType: hard
 
-"typedoc@npm:^0.20.36":
+"typedoc@npm:^0.20.37":
   version: 0.20.37
   resolution: "typedoc@npm:0.20.37"
   dependencies:
