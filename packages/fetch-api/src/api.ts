@@ -21,21 +21,28 @@ const getType = (options?: TypeOption): MediaType => (options && options.type ? 
 /**
  * @class GiphyFetch
  * @param {string} apiKey
+ * @param {object} qsParams
  */
 export class GiphyFetch {
-    constructor(apiKey: string) {
+    constructor(apiKey: string, qsParams: Record<string, string> = {}) {
         this.apiKey = apiKey
+        this.qsParams = qsParams
     }
 
     /**
      * @hidden
      */
     private apiKey: string
+
+    /**
+     * @hidden
+     */
+    private qsParams: Record<string, string>
     /**
      * @hidden
      */
     private getQS = (options: any = {}) => {
-        return qs.stringify({ ...options, api_key: this.apiKey, pingback_id: getPingbackId() })
+        return qs.stringify({ ...options, api_key: this.apiKey, pingback_id: getPingbackId(), ...this.qsParams })
     }
 
     /**
