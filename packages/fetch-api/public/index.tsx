@@ -138,6 +138,19 @@ const textTrending = async () => {
         console.error('textTrending', error)
     }
 }
+
+const extraQS = async () => {
+    try {
+        const gf = new GiphyFetch('sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh', { countryCode: 'us' })
+        const result = await gf.trending({
+            limit: 2,
+            type: 'text',
+        })
+        console.log('extra qs', result)
+    } catch (error) {
+        console.error('extra qs', error)
+    }
+}
 categories()
 search()
 searchChannel()
@@ -154,4 +167,5 @@ text()
 textTrending()
 animate()
 searchVideos()
+extraQS()
 relatedClips()
