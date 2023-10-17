@@ -1,5 +1,13 @@
 ## 4.1.1 (2021-08-09)
 
+## 5.2.0
+
+### Minor Changes
+
+-   bb4b82c: add optional qs params argument to GiphyFetch constructor
+
+    Any params passed here will be apppened to all requests
+
 ## 5.1.0
 
 ### Minor Changes
