@@ -5,7 +5,7 @@ import { CssVars, SearchContext } from './context'
 import SearchIcon_ from './search-icon'
 
 const time = '2s'
-const purp = '#9933FF'
+const purp = '#E646B6'
 const pink = '#FF6666'
 const strongEasing = 'cubic-bezier(0.920, 0.240, 0.185, 0.730)'
 
@@ -63,7 +63,7 @@ const GradientBox = styled.div`
     height: 100%;
     width: 100%;
     background: linear-gradient(45deg, ${purp} 0%, ${pink} 100%);
-    border-radius: 4px;
+    border-radius: 0 4px 4px 0;
     overflow: hidden;
     &:before {
         animation: ${gradientFade} ${time} linear 0s infinite;
@@ -110,8 +110,8 @@ const Scanner = styled.div`
 const SearchIcon = styled(SearchIcon_)`
     z-index: 1;
     display: flex;
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    height: 50%;
 `
 
 const SearchButton = () => {
