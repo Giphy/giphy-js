@@ -1,5 +1,15 @@
 ## @giphy/react-components
 
+## 9.1.0
+
+### Minor Changes
+
+-   a0cb3bb: update search bar button design
+
+    -   change gradient colors of search button
+    -   reduce size of magnifying glass in search button
+    -   remove border radius of search button on left side
+
 ## 9.0.1
 
 ### Patch Changes
