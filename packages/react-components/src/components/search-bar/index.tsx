@@ -176,7 +176,7 @@ const SearchBar = ({
                 onKeyDown={onKeyDown}
             />
             <CancelIcon setCleared={() => setVal('')} />
-            <SearchButton />
+            <SearchButton onClick={() => onEnter?.(val)} />
         </Container>
     )
 }

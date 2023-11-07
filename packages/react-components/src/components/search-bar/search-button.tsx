@@ -114,12 +114,13 @@ const SearchIcon = styled(SearchIcon_)`
     height: 50%;
 `
 
-const SearchButton = () => {
+type Props = { onClick?: () => void }
+const SearchButton = ({ onClick }: Props) => {
     const { isFetching } = useContext(SearchContext)
     // let the animation run by throttling isFetching
     const throttledFetch = useThrottle(isFetching, 1000)
     return (
-        <Container>
+        <Container onClick={() => onClick?.()}>
             <GradientBox />
             <SearchIcon />
             {throttledFetch && (
