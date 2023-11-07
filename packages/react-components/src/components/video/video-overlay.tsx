@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { GifOverlayProps } from '../types'
 import Video from './'
@@ -70,6 +70,7 @@ const VideoOverlay = ({
 }) => {
     const [muted, setMuted] = useState<boolean | undefined>(userPrefMuted)
     const [mutedByBrowser, setMutedByBrowser] = useState(false)
+    const lastMutedState = useRef(muted)
 
     const toggleMute = () => {
         if (mutedByBrowser) {
@@ -83,6 +84,17 @@ const VideoOverlay = ({
     useEffect(() => {
         setMuted(userPrefMuted)
     }, [userPrefMuted, setMuted])
+
+    useEffect(() => {
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                lastMutedState.current = muted
+                setMuted(true)
+            } else {
+                setMuted(lastMutedState.current)
+            }
+        })
+    }, [muted, setMuted])
 
     const props = { toggleMute, muted, mutedByBrowser }
     return (

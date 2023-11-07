@@ -97,8 +97,10 @@ export const GifThatStretches: Story = {
 
 export const GifWithVideoOverlayFillVideo: Story = {
     args: {
-        id: '3BNRWBatePBETD7Bfg',
+        id: 'yDeItRIQG8gW34Hsfi',
+        width: 200,
         height: 300,
+        hideAttribution: true,
         overlay: (props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 300)} />,
     },
 }
