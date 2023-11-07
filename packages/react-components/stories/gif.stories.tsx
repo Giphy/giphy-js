@@ -21,6 +21,7 @@ type GifDemoProps = Omit<GifComponentProps, 'gif'> & {
     scale: string
 }
 
+
 const GifDemo = ({ id, width, height, noLink, borderRadius, percentWidth, overlay, ...other }: GifDemoProps) => {
     const [gif, setGif] = useState<IGif>()
 
@@ -99,9 +100,11 @@ export const GifWithVideoOverlayFillVideo: Story = {
     args: {
         id: 'CWuHC9Nv5CKV8u7WeO',
         width: 340,
-        height: 200,
+        height: 340,
         hideAttribution: true,
-        overlay: (props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 300)} />,
+        overlay: (props: GifOverlayProps) => (
+            <VideoOverlay {...props} width={number('width', 340)} height={number('width', 340)} />
+        ),
     },
 }
 
