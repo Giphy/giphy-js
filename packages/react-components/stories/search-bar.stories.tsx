@@ -33,7 +33,11 @@ const Components = () => {
     }, [])
     return (
         <>
-            <SearchBarComponent />
+            <SearchBarComponent
+                onEnter={(val) => {
+                    console.log(val)
+                }}
+            />
             <SuggestionBar />
             <Grid
                 key={searchKey}
