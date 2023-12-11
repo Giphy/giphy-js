@@ -1,5 +1,11 @@
 ## @giphy/react-components
 
+## 9.2.1
+
+### Patch Changes
+
+-   30ccd9f: fix ssr hydration warning in styled component
+
 ## 9.2.0
 
 ### Minor Changes
