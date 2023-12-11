@@ -121,11 +121,11 @@ const SearchButton = ({ onClick }: Props) => {
     const throttledFetch = useThrottle(isFetching, 1000)
     return (
         <Container onClick={() => onClick?.()}>
-            <GradientBox />
+            <GradientBox suppressHydrationWarning />
             <SearchIcon />
             {throttledFetch && (
-                <Fx>
-                    <Scanner />
+                <Fx suppressHydrationWarning>
+                    <Scanner suppressHydrationWarning />
                 </Fx>
             )}
         </Container>
