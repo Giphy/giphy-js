@@ -1,3 +1,4 @@
+'use client'
 import { appendGiphySDKRequestHeader } from '@giphy/js-util'
 export { default as Attribution } from './components/attribution'
 export { default as AttributionOverlay } from './components/attribution/overlay'
