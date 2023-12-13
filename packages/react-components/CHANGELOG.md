@@ -1,5 +1,11 @@
 ## @giphy/react-components
 
+## 9.2.2
+
+### Patch Changes
+
+-   4313749: add 'use client' in react components so they can be used in Next.js App Router more easily
+
 ## 9.2.1
 
 ### Patch Changes
