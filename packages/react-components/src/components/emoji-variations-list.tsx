@@ -1,3 +1,4 @@
+'use client'
 import { giphyCharcoal, giphyDarkGrey } from '@giphy/colors'
 import type { NonPaginatedGifsResult } from '@giphy/js-fetch-api'
 import type { GifID, IGif, IUser } from '@giphy/js-types'

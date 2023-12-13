@@ -1,3 +1,4 @@
+'use client'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/colors'
 import { IGif, IUser, ImageAllTypes } from '@giphy/js-types'
 import { Logger, getAltText, getBestRendition, getGifHeight } from '@giphy/js-util'

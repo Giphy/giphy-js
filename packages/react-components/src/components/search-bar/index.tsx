@@ -1,3 +1,4 @@
+'use client'
 import { giphyIndigo, giphyLightGrey } from '@giphy/colors'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import useDebounce from 'react-use/lib/useDebounce'

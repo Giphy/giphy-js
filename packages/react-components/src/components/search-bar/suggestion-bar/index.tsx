@@ -1,3 +1,4 @@
+'use client'
 import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { CssVars, SearchContext } from '../context'

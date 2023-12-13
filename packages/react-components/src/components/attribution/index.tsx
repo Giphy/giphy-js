@@ -1,3 +1,4 @@
+'use client'
 import { IGif, IProfileUser } from '@giphy/js-types'
 import React from 'react'
 import styled from 'styled-components'
