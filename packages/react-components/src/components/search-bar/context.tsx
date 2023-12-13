@@ -1,3 +1,4 @@
+'use client'
 import { giphyBlack, giphyCharcoal, giphyWhite } from '@giphy/colors'
 import { GifsResult, GiphyFetch, Result, SearchOptions, request } from '@giphy/js-fetch-api'
 import { IChannel } from '@giphy/js-types'

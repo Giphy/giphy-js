@@ -1,3 +1,4 @@
+'use client'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/colors'
 import React from 'react'
 import styled, { keyframes } from 'styled-components'

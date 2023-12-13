@@ -1,3 +1,4 @@
+'use client'
 import { getGifHeight, Logger } from '@giphy/js-util'
 import React, { ComponentProps, ElementType, useCallback, useEffect, useState } from 'react'
 import useTimeoutFn from 'react-use/lib/useTimeoutFn'
