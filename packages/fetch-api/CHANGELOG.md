@@ -1,5 +1,11 @@
 ## 4.1.1 (2021-08-09)
 
+## 5.3.0
+
+### Minor Changes
+
+-   357c1b9: fetch-api: internal option for extra gif metadata
+
 ## 5.2.0
 
 ### Minor Changes
