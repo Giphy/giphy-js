@@ -60,8 +60,10 @@ export class GiphyFetch {
      * @param {string} id
      * @returns {Promise<GifsResult>}
      **/
-    gif(id: string): Promise<GifResult> {
-        return request(`gifs/${id}?${this.getQS()}`, { normalizer: normalizeGif }) as Promise<GifResult>
+    gif(id: string, options?: { internal?: boolean }): Promise<GifResult> {
+        // there is an internal endpoint that has more metadata available only specific api keys
+        const prefix = options?.internal ? 'internal/' : ''
+        return request(`${prefix}gifs/${id}?${this.getQS()}`, { normalizer: normalizeGif }) as Promise<GifResult>
     }
 
     /**
