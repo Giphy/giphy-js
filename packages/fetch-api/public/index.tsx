@@ -18,6 +18,16 @@ const gif = async () => {
         console.error('gif', error)
     }
 }
+
+const internalGif = async () => {
+    try {
+        const result = await gf.gif('3oEjHGr1Fhz0kyv8Ig', { internal: true })
+        console.log('gif', result)
+    } catch (error) {
+        // console.error('expected error here with a public api key', error)
+    }
+}
+
 const gifs = async () => {
     try {
         const result = await gf.gifs(['3oEjHGr1Fhz0kyv8Ig'])
@@ -155,6 +165,7 @@ categories()
 search()
 searchChannel()
 gif()
+internalGif()
 gifs()
 gifByCategory()
 categories()
