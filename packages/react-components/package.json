@@ -4,7 +4,7 @@
         "clean": "rm -rf ./dist",
         "types": "tsc ./src/index.tsx -d --emitDeclarationOnly -declarationDir ./dist",
         "dev": "storybook dev -p 5001",
-        "build": "run -T tsup src/index.ts --format cjs,esm --dts --legacyOutput",
+        "build": "run -T tsup --format cjs,esm --dts --legacyOutput",
         "prepublish": "npm run clean && npm run build",
         "deploy-storybook": "storybook-to-ghpages",
         "snapshot": "NODE_ENV=PERCY storybook build && percy storybook ./storybook-static",
@@ -73,6 +73,15 @@
     "peerDependencies": {
         "react": "16.10.2 - 18",
         "styled-components": ">= 5"
+    },
+    "tsup": {
+        "entry": [
+            "src/index.ts",
+            "src/components/**.tsx",
+            "src/components/attribution/**.tsx",
+            "src/components/video/**.tsx",
+            "src/components/search-bar/**.tsx"
+        ]
     },
     "dependencies": {
         "@giphy/colors": "*",
