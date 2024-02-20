@@ -22,6 +22,10 @@ Choose your flavor!
 
 ## _Now go build something!_
 
+## A note about pingbacks
+
+This SDK sends analytics events back to GIPHY in the form of pingbacks to help us improve the quality of search results for your users. You may want to consider advising your users of this in your app's privacy policy.
+
 ![Go do it](https://giphy.com/static/img/sdk/cat.gif)
 
 ## GIPHY-JS Developer Section
