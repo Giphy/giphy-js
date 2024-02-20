@@ -1,3 +1,4 @@
+
 # @giphy/svelte-components
 
 Try it out on [Codesandbox](https://codesandbox.io/p/sandbox/mystifying-architecture-xhsthm?file=%2Fsrc%2Froutes%2F%2Bpage.svelte%3A10%2C36)
@@ -5,6 +6,10 @@ Try it out on [Codesandbox](https://codesandbox.io/p/sandbox/mystifying-architec
 This package provides components that help you display gifs on a website. It works in tandem with [@giphy/js-fetch-api](../fetch-api/) and [@giphy/js-types](../types) packages
 
 There are three main components: Gif, Grid, and Carousel described below. Feel free to poke around the `src/routes` dir for working examples
+
+## A note about pingbacks
+
+This SDK sends analytics events back to GIPHY in the form of pingbacks to help us improve the quality of search results for your users. You may want to consider advising your users of this in your app's privacy policy.
 
 ## Gif
 
