@@ -2529,10 +2529,8 @@ __metadata:
   dependencies:
     "@giphy/js-types": "*"
     "@giphy/js-util": "*"
-    "@types/qs": ^6.9.4
     jest-fetch-mock: ^3.0.3
     parcel-bundler: latest
-    qs: ^6.9.4
     typedoc: ^0.20.37
     typedoc-thunder-theme: ^0.0.3
     typescript: ^5.0.4
@@ -5507,7 +5505,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/qs@npm:*, @types/qs@npm:^6.9.4, @types/qs@npm:^6.9.5":
+"@types/qs@npm:*, @types/qs@npm:^6.9.5":
   version: 6.9.7
   resolution: "@types/qs@npm:6.9.7"
   checksum: 7fd6f9c25053e9b5bb6bc9f9f76c1d89e6c04f7707a7ba0e44cc01f17ef5284adb82f230f542c2d5557d69407c9a40f0f3515e8319afd14e1e16b5543ac6cdba
@@ -18158,7 +18156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.10.0, qs@npm:^6.11.0, qs@npm:^6.11.1, qs@npm:^6.6.0, qs@npm:^6.9.4":
+"qs@npm:^6.10.0, qs@npm:^6.11.0, qs@npm:^6.11.1, qs@npm:^6.6.0":
   version: 6.11.2
   resolution: "qs@npm:6.11.2"
   dependencies:

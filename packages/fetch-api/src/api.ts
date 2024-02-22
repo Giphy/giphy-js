@@ -1,7 +1,6 @@
 /* eslint-disable no-dupe-class-members */
 import { GifID } from '@giphy/js-types'
 import { getPingbackId } from '@giphy/js-util'
-import qs from 'qs'
 import { normalizeGif, normalizeGifs } from './normalize/gif'
 import {
     CategoriesOptions,
@@ -42,7 +41,13 @@ export class GiphyFetch {
      * @hidden
      */
     private getQS = (options: any = {}) => {
-        return qs.stringify({ ...options, api_key: this.apiKey, pingback_id: getPingbackId(), ...this.qsParams })
+        const searchParams = new URLSearchParams({
+            ...options,
+            api_key: this.apiKey,
+            pingback_id: getPingbackId(),
+            ...this.qsParams,
+        })
+        return searchParams.toString()
     }
 
     /**
