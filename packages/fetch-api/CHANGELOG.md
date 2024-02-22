@@ -1,5 +1,11 @@
 ## 4.1.1 (2021-08-09)
 
+## 5.4.0
+
+### Minor Changes
+
+-   3b5e333: remove qs library, use URLSearchParams
+
 ## 5.3.0
 
 ### Minor Changes
