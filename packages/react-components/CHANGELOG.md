@@ -1,5 +1,16 @@
 ## @giphy/react-components
 
+## 9.3.0
+
+### Minor Changes
+
+-   6534ea6: add fetchpriority prop to Gif component
+
+### Patch Changes
+
+-   Updated dependencies [3b5e333]
+    -   @giphy/js-fetch-api@5.4.0
+
 ## 9.2.3
 
 ### Patch Changes
