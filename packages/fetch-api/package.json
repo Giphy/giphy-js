@@ -36,11 +36,9 @@
     },
     "dependencies": {
         "@giphy/js-types": "*",
-        "@giphy/js-util": "*",
-        "qs": "^6.9.4"
+        "@giphy/js-util": "*"
     },
     "devDependencies": {
-        "@types/qs": "^6.9.4",
         "jest-fetch-mock": "^3.0.3",
         "parcel-bundler": "latest",
         "typedoc": "^0.20.37",
