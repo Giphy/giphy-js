@@ -1,5 +1,11 @@
 # @giphy/svelte-components
 
+## 1.1.0
+
+### Minor Changes
+
+-   eef27e2: Readme updates for react, js, and svelte components to provide information re: pingbacks
+
 ## 1.0.1
 
 ### Patch Changes
