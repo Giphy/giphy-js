@@ -19,7 +19,7 @@ To try out it out before integrating, click on the code sandbox below. You may h
 
 ## A note about pingbacks
 
-This SDK sends analytics events back to GIPHY in the form of pingbacks to help us improve the quality of search results for your users. You may want to consider advising your users of this in your app's privacy policy.
+This SDK sends analytics events back to GIPHY in the form of pingbacks to help us improve the quality of search results for your users.
 
 ### If React isn’t right for you, check out our other SDK repos that may be a better fit:
 
