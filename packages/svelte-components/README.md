@@ -6,6 +6,10 @@ This package provides components that help you display gifs on a website. It wor
 
 There are three main components: Gif, Grid, and Carousel described below. Feel free to poke around the `src/routes` dir for working examples
 
+## A note about pingbacks
+
+This SDK sends analytics events back to GIPHY in the form of pingbacks to help us improve the quality of search results for your users.
+
 ## Gif
 
 ```svelte

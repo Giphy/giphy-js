@@ -6,6 +6,10 @@ A lightweight set of components, focused on ease-of-use and performance.
 
 [![Edit @giphy/js-components](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/1wq52x1w44?fontsize=14)
 
+## A note about pingbacks
+
+This SDK sends analytics events back to GIPHY in the form of pingbacks to help us improve the quality of search results for your users.
+
 ## Grid
 
 Use `renderGrid(props, target)` to render a grid to a target element
@@ -91,16 +95,16 @@ grid.remove()
 
 _renderCarousel options_
 
-| property                                | type                                     | default   | description                                                                                           |
-| --------------------------------------- | ---------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------- |
-| gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                                               |
-| gifWidth                               | `number`                                 | undefined | The width of the gifs and the carousel (you may want to set Gif.imgClassName to have object-fit: cover to avoid stretching)                                                              |
-| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                              |
-| gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                    |
-| noResultsMessage                        | `string \| element`                      | undefined | Customise the "No results" message                                                                    |
-| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a                                                         |
-| noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
-| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                             |
+| property                                | type                                     | default   | description                                                                                                                 |
+| --------------------------------------- | ---------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------- |
+| gifHeight                               | `number`                                 | undefined | The height of the gifs and the carousel                                                                                     |
+| gifWidth                                | `number`                                 | undefined | The width of the gifs and the carousel (you may want to set Gif.imgClassName to have object-fit: cover to avoid stretching) |
+| fetchGifs                               | `(offset:number) => Promise<GifsResult>` | undefined | A function that returns a Promise<GifsResult>. Use `@giphy/js-fetch-api`                                                    |
+| gutter                                  | `number`                                 | 6         | The space between columns and rows                                                                                          |
+| noResultsMessage                        | `string \| element`                      | undefined | Customise the "No results" message                                                                                          |
+| [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a                                                                               |
+| noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick`                       |
+| [Gif Events](#gif-events)               | \*                                       | \*        | see below                                                                                                                   |
 
 ```typescript
 import { renderCarousel } from '@giphy/js-components'
@@ -206,4 +210,4 @@ If a GIF has an associated user, an overlay with their avatar and display name w
 
 ```
 
-To stop fonts from loading set the environment variable `GIPHY_SDK_NO_FONTS=true`, this is not recommended as it could cause inconsistencies in the ui components 
+To stop fonts from loading set the environment variable `GIPHY_SDK_NO_FONTS=true`, this is not recommended as it could cause inconsistencies in the ui components

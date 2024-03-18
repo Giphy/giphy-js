@@ -17,6 +17,10 @@ The GIPHY React SDK lets you and your users easily access the world’s largest 
 
 To try out it out before integrating, click on the code sandbox below. You may have also seen it in action on Google Chrome extention or Facebook Messenger bot.
 
+## A note about pingbacks
+
+This SDK sends analytics events back to GIPHY in the form of pingbacks to help us improve the quality of search results for your users.
+
 ### If React isn’t right for you, check out our other SDK repos that may be a better fit:
 
 -   [GIPHY JS SDK](https://github.com/Giphy/giphy-js/blob/master/packages/components/README.md)
