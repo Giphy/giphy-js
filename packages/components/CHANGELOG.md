@@ -1,5 +1,11 @@
 ## @giphy/js-components@5.4.1 (2022-03-02)
 
+## 5.13.0
+
+### Minor Changes
+
+-   eef27e2: Readme updates for react, js, and svelte components to provide information re: pingbacks
+
 ## 5.12.1
 
 ### Patch Changes

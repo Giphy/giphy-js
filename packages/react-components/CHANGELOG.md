@@ -1,5 +1,11 @@
 ## @giphy/react-components
 
+## 9.4.0
+
+### Minor Changes
+
+-   eef27e2: Readme updates for react, js, and svelte components to provide information re: pingbacks
+
 ## 9.3.0
 
 ### Minor Changes
