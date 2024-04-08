@@ -2512,6 +2512,7 @@ __metadata:
     "@giphy/js-fetch-api": "*"
     "@giphy/js-types": "*"
     "@giphy/js-util": "*"
+    "@giphy/moat-loader": ^2.0.1
     "@types/bricks.js": ^1.8.1
     "@types/throttle-debounce": ^2.1.0
     bricks.js: ^1.8.0
@@ -2557,6 +2558,13 @@ __metadata:
     uuid: ^9.0.0
   languageName: unknown
   linkType: soft
+
+"@giphy/moat-loader@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@giphy/moat-loader@npm:2.0.1"
+  checksum: 9d35fe2baee8efe5d6aa7619d2de346a63422e81127d587e28f23d49f9d540ec339e6765444c1f892c116f093b1f632b78754f570ac489fdaeebbe51014d81ca
+  languageName: node
+  linkType: hard
 
 "@giphy/react-components@workspace:packages/react-components":
   version: 0.0.0-use.local
