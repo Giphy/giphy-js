@@ -35,6 +35,7 @@
         "@giphy/js-fetch-api": "*",
         "@giphy/js-types": "*",
         "@giphy/js-util": "*",
+        "@giphy/moat-loader": "^2.0.1",
         "bricks.js": "^1.8.0",
         "intersection-observer": "^0.11.0",
         "preact": "10.4.8",
