@@ -1,6 +1,13 @@
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
-import { getAltText, getBestRendition, getGifHeight, Logger, constructMoatData, injectTrackingPixel } from '@giphy/js-util'
+import {
+    getAltText,
+    getBestRendition,
+    getGifHeight,
+    Logger,
+    constructMoatData,
+    injectTrackingPixel,
+} from '@giphy/js-util'
 import moat from '@giphy/moat-loader'
 import { css, cx } from '@emotion/css'
 import { h } from 'preact'
@@ -10,7 +17,7 @@ import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
 import { PingbackContext } from './pingback-context-manager'
 
-const moatLoader = moat.loadMoatTag('giphydisplay879451385633')
+const moatLoader = moat.loadMoatTag('giphydisplay879451385633', 'https://giphyscripts.s3.amazonaws.com/moat/moatad.js')
 const gifCss = css`
     display: block;
     &:focus {
@@ -75,7 +82,7 @@ export type Props = GifProps & EventProps
 
 const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
 
-const noop = () => { }
+const noop = () => {}
 
 const Gif = ({
     gif,
@@ -281,7 +288,7 @@ const Gif = ({
                         width={width}
                         height={height}
                         alt={getAltText(gif)}
-                        onLoad={shouldShowMedia ? onImageLoad : () => { }}
+                        onLoad={shouldShowMedia ? onImageLoad : () => {}}
                     />
                 </picture>
                 {shouldShowMedia ? (
