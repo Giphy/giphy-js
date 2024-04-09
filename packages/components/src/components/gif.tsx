@@ -224,7 +224,7 @@ const Gif = ({
     // if this component goes from showing an ad to not an ad
     useEffect(() => {
         if (!shouldShowMedia) {
-            stopTracking()
+            return () => stopTracking()
         }
     }, [shouldShowMedia])
 
