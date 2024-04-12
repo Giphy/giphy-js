@@ -2553,7 +2553,7 @@ __metadata:
     "@giphy/js-types": "*"
     "@types/dompurify": ^2.0.4
     "@types/uuid": ^8.3.0
-    dompurify: ^2.2.2
+    dompurify: 3.1.0
     typescript: ^5.0.4
     uuid: ^9.0.0
   languageName: unknown
@@ -9659,10 +9659,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:^2.2.2":
-  version: 2.4.7
-  resolution: "dompurify@npm:2.4.7"
-  checksum: 13c047e772a1998348191554dda403950d45ef2ec75fa0b9915cc179ccea0a39ef780d283109bd72cf83a2a085af6c77664281d4d0106a737bc5f39906364efe
+"dompurify@npm:3.1.0":
+  version: 3.1.0
+  resolution: "dompurify@npm:3.1.0"
+  checksum: 06fc76607cd076e394b2ea5479ab6f0407b8fedb6877ae95e94207b878365e5e1cd914055dacce152a5f419818afb8d4cd284b780246cf35363f0747c179a0ba
   languageName: node
   linkType: hard
 
