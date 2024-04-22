@@ -1,5 +1,16 @@
 ## @giphy/react-components
 
+## 9.4.0
+
+### Minor Changes
+
+-   eef27e2: Readme updates for react, js, and svelte components to provide information re: pingbacks
+
+### Patch Changes
+
+-   69c5a20: - Grid supports editableGifs
+    -   make fetchpriority lowercase to avoid runtime warning
+
 ## 9.3.0
 
 ### Minor Changes
