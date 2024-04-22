@@ -1,5 +1,7 @@
 import styled from '@emotion/styled'
+import { giphyPurple } from '@giphy/colors'
 import { GiphyFetch } from '@giphy/js-fetch-api'
+import { IGif } from '@giphy/js-types'
 import { Meta, StoryObj } from '@storybook/react'
 import fetchMock from 'fetch-mock'
 import React, { useEffect, useState } from 'react'
@@ -7,8 +9,6 @@ import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
 import inTestsRunner from './in-tests-runner'
 import mockGifsResult from './mock-data/gifs.json'
-import { IGif } from '@giphy/js-types'
-import { giphyPurple } from '@giphy/colors'
 
 const apiKey = 'sXpGFDGZs0Dv1mmNFvYaGUvYwKX0PWIh'
 const gf = new GiphyFetch(apiKey)
@@ -61,10 +61,12 @@ const Grid = ({ loader, ...other }: GridProps) => {
                     <Button
                         onClick={() => {
                             const result = prompt('Edit Title', gif.title) || 'New Title'
-                            const editGif = externalGifs?.find((g) => g.id === gif.id)
-                            if (editGif) {
-                                editGif.title = result
-                                setExternalGifs(externalGifs)
+                            if (externalGifs) {
+                                const editGif = externalGifs?.find((g) => g.id === gif.id)
+                                if (editGif) {
+                                    editGif.title = result
+                                    setExternalGifs([...externalGifs])
+                                }
                             }
                         }}
                     >
