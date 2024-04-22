@@ -36,9 +36,6 @@ const normalize = (gif: any, responseId: string = '') => {
     if (!newGif.bottle_data) {
         newGif.bottle_data = {} as any
     }
-    if (responseId) {
-        newGif.response_id = responseId
-    }
     newGif.response_id = responseId
     BOOL_PROPS.forEach(makeBool(newGif))
     Object.keys(newGif.images || {}).forEach((name: string) => {
