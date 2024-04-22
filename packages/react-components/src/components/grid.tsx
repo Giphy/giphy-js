@@ -28,6 +28,7 @@ type Props = {
     noLink?: boolean
     noResultsMessage?: string | JSX.Element
     initialGifs?: IGif[]
+    externalGifs?: IGif[]
     useTransform?: boolean
     columnOffsets?: number[]
     backgroundColor?: string
@@ -73,13 +74,16 @@ class Grid extends PureComponent<Props, State> {
     unmounted: boolean = false
     paginator = gifPaginator(this.props.fetchGifs, this.state.gifs)
     static getDerivedStateFromProps: GetDerivedStateFromProps<Props, State> = (
-        { columns, gutter, width }: Props,
+        { columns, gutter, width, externalGifs }: Props,
         prevState: State
     ) => {
         const gutterOffset = gutter * (columns - 1)
         const gifWidth = Math.floor((width - gutterOffset) / columns)
         if (prevState.gifWidth !== gifWidth) {
             return { gifWidth }
+        }
+        if (externalGifs && externalGifs !== prevState.gifs) {
+            return { gifs: externalGifs }
         }
         return null
     }
@@ -100,8 +104,13 @@ class Grid extends PureComponent<Props, State> {
 
     onFetch = debounce(Grid.fetchDebounce, async () => {
         if (this.unmounted) return
-        const { isFetching, isLoaderVisible, gifs } = this.state
-        const prefetchCount = gifs.length
+        const { isFetching, isLoaderVisible } = this.state
+        const { externalGifs, fetchGifs } = this.props
+        const prefetchCount = (externalGifs || this.state.gifs).length
+        if (externalGifs) {
+            // reinitialize the paginator every fetch with the new external gifs
+            this.paginator = gifPaginator(fetchGifs, externalGifs)
+        }
         if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true, isError: false })
             let gifs

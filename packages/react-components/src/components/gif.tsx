@@ -277,7 +277,7 @@ const Gif = ({
                     suppressHydrationWarning
                     // @ts-ignore - fetchPriority is not recognized by React typescript
                     // eslint-disable-next-line react/no-unknown-property
-                    fetchPriority={fetchPriority}
+                    fetchpriority={fetchPriority}
                     className={[Gif.imgClassName, loadedClassname].join(' ')}
                     src={shouldShowMedia ? rendition.url : placeholder}
                     style={{ background }}
