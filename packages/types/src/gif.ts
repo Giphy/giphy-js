@@ -5,6 +5,9 @@ import IVideo from './video'
 interface IBottleData {
     tid?: string
     tags?: string[]
+    tdata?: {
+        click_out_url?: string
+    }
 }
 
 export type GifID = string | number
