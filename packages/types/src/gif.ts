@@ -2,11 +2,6 @@ import { IImages } from './images'
 import IUser from './user'
 import IVideo from './video'
 
-interface IBottleData {
-    tid?: string
-    tags?: string[]
-}
-
 export type GifID = string | number
 
 export default interface IGif {
@@ -34,7 +29,7 @@ export default interface IGif {
     is_scheduled: boolean
     is_removed: boolean
     tags: string[]
-    bottle_data: IBottleData
+    bottle_data: any
     response_id: string
     analytics_response_payload: string
     video?: IVideo

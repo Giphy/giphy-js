@@ -168,8 +168,8 @@ const Gif = ({
     }
     const trackWithMoat = async () => {
         if (shouldShowMedia && container.current) {
-            const { bottle_data: bottleData, response_id } = gif
-            const moatCompatibleData = constructMoatData(bottleData as any)
+            const { bottle_data, response_id } = gif
+            const moatCompatibleData = constructMoatData(bottle_data as any)
             if (moatCompatibleData) {
                 moatCompatibleData.zMoatSession = response_id
                 await moatLoader
