@@ -2,7 +2,6 @@
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/colors'
 import { IGif, IUser, ImageAllTypes } from '@giphy/js-types'
 import { Logger, getAltText, getBestRendition, getGifHeight } from '@giphy/js-util'
-import MoatTracking from './moat-tracking'
 import 'intersection-observer'
 import React, { ElementType, ReactNode, SyntheticEvent, useContext, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
@@ -290,8 +289,11 @@ const Gif = ({
                     alt={getAltText(gif)}
                     onLoad={shouldShowMedia ? onImageLoad : () => {}}
                 />
+                {isAd &&
+                    bottleData?.tags?.map((tag: string, index: number) => (
+                        <div dangerouslySetInnerHTML={{ __html: tag }} key={index} />
+                    ))}
             </picture>
-            {isAd && <MoatTracking bottleData={bottleData} />}
             {Overlay && (
                 // only render the overlay on the client since it depends on shouldShowMedia
                 <RenderOnClient>
