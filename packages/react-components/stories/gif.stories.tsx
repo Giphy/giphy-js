@@ -19,14 +19,27 @@ type GifComponentProps = React.ComponentProps<typeof GifComponent>
 type GifDemoProps = Omit<GifComponentProps, 'gif'> & {
     id: string
     scale: string
+    bottle_data: IGif['bottle_data']
 }
 
-
-const GifDemo = ({ id, width, height, noLink, borderRadius, percentWidth, overlay, ...other }: GifDemoProps) => {
+const GifDemo = ({
+    id,
+    width,
+    height,
+    noLink,
+    borderRadius,
+    percentWidth,
+    overlay,
+    bottle_data,
+    ...other
+}: GifDemoProps) => {
     const [gif, setGif] = useState<IGif>()
 
     const fetch = useCallback(async () => {
         const { data: gif } = await gf.gif(id)
+        if (bottle_data) {
+            gif.bottle_data = bottle_data
+        }
         setGif(gif)
     }, [id])
 
@@ -87,6 +100,34 @@ export const Gif: Story = {}
 export const GifWithOverlay: Story = {
     args: {
         overlay: (props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 500)} />,
+    },
+}
+
+export const GifWithAd: Story = {
+    args: {
+        bottle_data: {
+            tid: 'd7494a8384b6906a880ff6dcc16a7151d3f2a3e8413be76e9ddb4ee1f8dc9fd0',
+            tags: [],
+            tdata: {
+                om: [],
+                bartab: [],
+                web: [
+                    {
+                        vendor: 'Moat',
+                        verificationParameters: {
+                            moatClientLevel1: 'Giphy',
+                            moatClientLevel2: 'Giphy',
+                            moatClientLevel3: 'Giphy',
+                            moatClientLevel4: 'Giphy',
+                            moatClientSlicer1: 'Giphy',
+                            moatClientSlicer2: 'Giphy',
+                            zMoatPosition: 'Giphy',
+                        },
+                    },
+                ],
+                click_out_url: '',
+            },
+        },
     },
 }
 

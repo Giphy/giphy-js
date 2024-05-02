@@ -14,5 +14,4 @@ export {
 } from './gif-utils'
 export * from './log'
 export * from './sdk-headers'
-export { default as injectTrackingPixel } from './tracking-pixel'
 export { checkIfWebP } from './webp-check'
