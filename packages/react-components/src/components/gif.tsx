@@ -64,6 +64,8 @@ type GifProps = {
     borderRadius?: number
     tabIndex?: number
     style?: any
+    // issues with this will be resolved in the next React release:
+    // https://github.com/facebook/react/issues/27233
     fetchPriority?: 'auto' | 'high' | 'low'
 }
 
@@ -104,7 +106,6 @@ const Gif = ({
     borderRadius = 4,
     style,
     tabIndex,
-    fetchPriority,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -278,9 +279,6 @@ const Gif = ({
                 <img
                     ref={image}
                     suppressHydrationWarning
-                    // @ts-ignore - fetchPriority is not recognized by React typescript
-                    // eslint-disable-next-line react/no-unknown-property
-                    fetchpriority={fetchPriority}
                     className={[Gif.imgClassName, loadedClassname].join(' ')}
                     src={shouldShowMedia ? rendition.url : placeholder}
                     style={{ background }}
