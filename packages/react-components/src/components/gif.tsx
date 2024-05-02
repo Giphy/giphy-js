@@ -1,16 +1,9 @@
 'use client'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/colors'
 import { IGif, IUser, ImageAllTypes } from '@giphy/js-types'
-import {
-    Logger,
-    getAltText,
-    getBestRendition,
-    getGifHeight,
-    constructMoatData,
-    injectTrackingPixel,
-} from '@giphy/js-util'
+import { Logger, getAltText, getBestRendition, getGifHeight } from '@giphy/js-util'
+import MoatTracking from './moat-tracking'
 import 'intersection-observer'
-import moat from '@giphy/moat-loader'
 import React, { ElementType, ReactNode, SyntheticEvent, useContext, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import * as pingback from '../util/pingback'
@@ -18,8 +11,6 @@ import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
 import { PingbackContext } from './pingback-context-manager'
 import { GifOverlayProps } from './types'
-
-const moatLoader = moat.loadMoatTag('giphydisplay879451385633', 'https://giphyscripts.s3.amazonaws.com/moat/moatad.js')
 
 const Container = styled.div`
     position: relative;
@@ -58,11 +49,6 @@ export type EventProps = {
     onGifRightClick?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
     // fired when the gif is selected and a key is pressed
     onGifKeyPress?: (gif: IGif, e: SyntheticEvent<HTMLElement, Event>) => void
-}
-
-function useMutableRef<T>(initialValue?: T) {
-    const [ref] = useState<{ current: T | undefined }>({ current: initialValue })
-    return ref
 }
 
 type GifProps = {
@@ -144,8 +130,6 @@ const Gif = ({
     const hoverTimeout = useRef<number>()
     // fire onseen ref (changes per gif, so need a ref)
     const sendOnSeen = useRef<(_: IntersectionObserverEntry) => void>(noop)
-    // moat ad number
-    const moatAdNumber = useMutableRef<number>()
     // are we displaying an ad
     const isAd = Object.keys(bottleData).length > 0
     // custom pingback
@@ -212,28 +196,8 @@ const Gif = ({
         }
     }
 
-    const trackWithMoat = async () => {
-        if (shouldShowMedia && container.current) {
-            const { bottle_data: bottleData, response_id } = gif
-            const moatCompatibleData = constructMoatData(bottleData as any)
-            if (moatCompatibleData) {
-                moatCompatibleData.zMoatSession = response_id
-                await moatLoader
-                if (container.current) {
-                    moatAdNumber.current = moat.startTracking(container.current, moatCompatibleData)
-                }
-            }
-        }
-    }
-
     const onImageLoad = (e: SyntheticEvent<HTMLElement, Event>) => {
         watchGif()
-        if (isAd) {
-            if (moatAdNumber.current === undefined) {
-                trackWithMoat()
-            }
-            injectTrackingPixel(bottleData.tags)
-        }
         onGifVisible(gif, e) // gif is visible, perhaps just partially
         setLoadedClassName(Gif.imgLoadedClassName)
     }
@@ -249,23 +213,6 @@ const Gif = ({
         // We only want to fire this when gif id changes
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gif.id])
-
-    const stopTracking = () => {
-        // if we have a moat ad number
-        if (moatAdNumber.current !== undefined) {
-            // stop tracking
-            moat.stopTracking(moatAdNumber.current)
-            // remove the moat ad number
-            moatAdNumber.current = undefined
-        }
-    }
-
-    // if this component goes from showing an ad to not an ad
-    useEffect(() => {
-        if (!shouldShowMedia) {
-            return () => stopTracking()
-        }
-    }, [shouldShowMedia])
 
     useEffect(() => {
         showGifObserver.current = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
@@ -283,7 +230,6 @@ const Gif = ({
             if (showGifObserver.current) showGifObserver.current.disconnect()
             if (fullGifObserver.current) fullGifObserver.current.disconnect()
             if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
-            stopTracking()
         }
     }, [])
     const height = forcedHeight || getGifHeight(gif, width)
@@ -345,6 +291,7 @@ const Gif = ({
                     onLoad={shouldShowMedia ? onImageLoad : () => {}}
                 />
             </picture>
+            {isAd && <MoatTracking bottleData={bottleData} />}
             {Overlay && (
                 // only render the overlay on the client since it depends on shouldShowMedia
                 <RenderOnClient>
