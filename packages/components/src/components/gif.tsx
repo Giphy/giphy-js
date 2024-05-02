@@ -1,14 +1,6 @@
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/js-brand'
 import { IGif, ImageAllTypes, IUser } from '@giphy/js-types'
-import {
-    getAltText,
-    getBestRendition,
-    getGifHeight,
-    Logger,
-    constructMoatData,
-    injectTrackingPixel,
-} from '@giphy/js-util'
-import moat from '@giphy/moat-loader'
+import { getAltText, getBestRendition, getGifHeight, Logger } from '@giphy/js-util'
 import { css, cx } from '@emotion/css'
 import { h } from 'preact'
 import { useContext, useEffect, useRef, useState } from 'preact/hooks'
@@ -17,7 +9,6 @@ import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
 import { PingbackContext } from './pingback-context-manager'
 
-const moatLoader = moat.loadMoatTag('giphydisplay879451385633', 'https://giphyscripts.s3.amazonaws.com/moat/moatad.js')
 const gifCss = css`
     display: block;
     &:focus {
@@ -86,7 +77,6 @@ const noop = () => {}
 
 const Gif = ({
     gif,
-    gif: { bottle_data: bottleData = {} },
     width,
     height: forcedHeight,
     onGifRightClick = noop,
@@ -122,10 +112,6 @@ const Gif = ({
     const hoverTimeout = useMutableRef<number>()
     // fire onseen ref (changes per gif, so need a ref)
     const sendOnSeen = useRef<(_: IntersectionObserverEntry) => void>(noop)
-    // moat ad number
-    const moatAdNumber = useMutableRef<number>()
-    // are we displaying an ad
-    const isAd = Object.keys(bottleData).length > 0
     // custom pingback
     const { attributes } = useContext(PingbackContext)
 
@@ -166,19 +152,7 @@ const Gif = ({
             fullGifObserver.current.disconnect()
         }
     }
-    const trackWithMoat = async () => {
-        if (shouldShowMedia && container.current) {
-            const { bottle_data, response_id } = gif
-            const moatCompatibleData = constructMoatData(bottle_data as any)
-            if (moatCompatibleData) {
-                moatCompatibleData.zMoatSession = response_id
-                await moatLoader
-                if (container.current) {
-                    moatAdNumber.current = moat.startTracking(container.current, moatCompatibleData)
-                }
-            }
-        }
-    }
+
     const onImageLoad = (e: Event) => {
         if (!fullGifObserver.current) {
             fullGifObserver.current = new IntersectionObserver(
@@ -194,12 +168,6 @@ const Gif = ({
             // observe img for full gif view
             fullGifObserver.current.observe(container.current)
         }
-        if (isAd) {
-            if (moatAdNumber.current === undefined) {
-                trackWithMoat()
-            }
-            injectTrackingPixel(bottleData.tags)
-        }
         onGifVisible(gif, e) // gif is visible, perhaps just partially
         setLoadedClassName(Gif.imgLoadedClassName)
     }
@@ -210,23 +178,6 @@ const Gif = ({
         }
         setHasFiredSeen(false)
     }, [gif.id])
-
-    const stopTracking = () => {
-        // if we have a moat ad number
-        if (moatAdNumber.current !== undefined) {
-            // stop tracking
-            moat.stopTracking(moatAdNumber.current)
-            // remove the moat ad number
-            moatAdNumber.current = undefined
-        }
-    }
-
-    // if this component goes from showing an ad to not an ad
-    useEffect(() => {
-        if (!shouldShowMedia) {
-            return () => stopTracking()
-        }
-    }, [shouldShowMedia])
 
     useEffect(() => {
         showGifObserver.current = new IntersectionObserver(([entry]: IntersectionObserverEntry[]) => {
@@ -244,7 +195,6 @@ const Gif = ({
             if (showGifObserver.current) showGifObserver.current.disconnect()
             if (fullGifObserver.current) fullGifObserver.current.disconnect()
             if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
-            stopTracking()
         }
     }, [])
     const height = forcedHeight || getGifHeight(gif, width)
