@@ -1,5 +1,19 @@
 ## 4.4.2
 
+## 5.1.0
+
+### Minor Changes
+
+-   94158d9: - moat tracking in react components
+    -   remove unused deps in util
+    -   append bottle data in fetch-api
+    -   update types for gif to include bottle_data
+
+### Patch Changes
+
+-   Updated dependencies [94158d9]
+    -   @giphy/js-types@5.1.0
+
 ## 5.0.0
 
 ### Major Changes
