@@ -9,7 +9,7 @@
         "test:watch": "run -T jest --config ./jestconfig.js --watchAll"
     },
     "name": "@giphy/js-util",
-    "version": "5.0.0",
+    "version": "5.1.0",
     "description": "Shared giphy js utils",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/util",
     "main": "dist/index.cjs",
