@@ -29,6 +29,8 @@ export default interface IGif {
     is_scheduled: boolean
     is_removed: boolean
     tags: string[]
+    bottle_data: any
+    response_id: string
     analytics_response_payload: string
     video?: IVideo
     emoji_group_id?: number

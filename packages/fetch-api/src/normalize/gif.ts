@@ -29,10 +29,14 @@ type Tag = { text: string }
 // tags sometimes are objects that have a text prop, sometimes they're strings
 const getTag = (tag: Tag | string) => (typeof tag === 'string' ? (tag as string) : (tag as Tag).text)
 
-const normalize = (gif: any) => {
+const normalize = (gif: any, responseId: string = '') => {
     const newGif: IGif = { ...gif }
     newGif.id = String(newGif.id)
     newGif.tags = (newGif.tags || []).map(getTag)
+    if (!newGif.bottle_data) {
+        newGif.bottle_data = {} as any
+    }
+    newGif.response_id = responseId
     BOOL_PROPS.forEach(makeBool(newGif))
     Object.keys(newGif.images || {}).forEach((name: string) => {
         const img = newGif.images[name]
@@ -53,7 +57,8 @@ const normalize = (gif: any) => {
  * @hidden
  */
 export const normalizeGif = (result: GifResult) => {
-    result.data = normalize(result.data)
+    const { response_id } = result.meta
+    result.data = normalize(result.data, response_id)
     return result
 }
 
@@ -61,6 +66,7 @@ export const normalizeGif = (result: GifResult) => {
  * @hidden
  */
 export const normalizeGifs = (result: GifsResult) => {
-    result.data = result.data.map((gif) => normalize(gif))
+    const { response_id } = result.meta
+    result.data = result.data.map((gif) => normalize(gif, response_id))
     return result
 }

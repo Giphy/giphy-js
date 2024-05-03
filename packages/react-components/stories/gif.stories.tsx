@@ -19,14 +19,27 @@ type GifComponentProps = React.ComponentProps<typeof GifComponent>
 type GifDemoProps = Omit<GifComponentProps, 'gif'> & {
     id: string
     scale: string
+    bottle_data: IGif['bottle_data']
 }
 
-
-const GifDemo = ({ id, width, height, noLink, borderRadius, percentWidth, overlay, ...other }: GifDemoProps) => {
+const GifDemo = ({
+    id,
+    width,
+    height,
+    noLink,
+    borderRadius,
+    percentWidth,
+    overlay,
+    bottle_data,
+    ...other
+}: GifDemoProps) => {
     const [gif, setGif] = useState<IGif>()
 
     const fetch = useCallback(async () => {
         const { data: gif } = await gf.gif(id)
+        if (bottle_data) {
+            gif.bottle_data = bottle_data
+        }
         setGif(gif)
     }, [id])
 
@@ -87,6 +100,17 @@ export const Gif: Story = {}
 export const GifWithOverlay: Story = {
     args: {
         overlay: (props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 500)} />,
+    },
+}
+
+export const GifWithAd: Story = {
+    args: {
+        bottle_data: {
+            tid: '8691c382d3eed000da83ecc2ceef747b91190ab0e5bc0bc95ff5c80eeda242fa',
+            tags: [
+                '<noscript class="MOAT-giphydisplay879451385633?moatClientLevel1=ff6046d1-7125-462a-809c-efa338464775&amp;moatClientLevel2=e66d47a2-1b13-4b74-a34d-23fbdc10ddb5&amp;moatClientLevel3=82&amp;moatClientLevel4=3o7WIw8TV4UJROSElW&amp;moatClientSlicer1=e26c89fe-fb01-4442-9e8f-37940600265c&amp;moatClientSlicer2=giphytrending"></noscript><script src="https://z.moatads.com/giphydisplay879451385633/moatad.js#moatClientLevel1=ff6046d1-7125-462a-809c-efa338464775&moatClientLevel2=e66d47a2-1b13-4b74-a34d-23fbdc10ddb5&moatClientLevel3=82&moatClientLevel4=3o7WIw8TV4UJROSElW&moatClientSlicer1=e26c89fe-fb01-4442-9e8f-37940600265c&moatClientSlicer2=giphytrending" type="text/javascript"></script>',
+            ],
+        },
     },
 }
 

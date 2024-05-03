@@ -88,6 +88,7 @@ const RenderOnClient = ({ children }: { children: ReactNode }) => {
 
 const Gif = ({
     gif,
+    gif: { bottle_data: bottleData = {} },
     width,
     percentWidth,
     height: forcedHeight,
@@ -129,6 +130,8 @@ const Gif = ({
     const hoverTimeout = useRef<number>()
     // fire onseen ref (changes per gif, so need a ref)
     const sendOnSeen = useRef<(_: IntersectionObserverEntry) => void>(noop)
+    // are we displaying an ad
+    const isAd = Object.keys(bottleData).length > 0
     // custom pingback
     const { attributes } = useContext(PingbackContext)
     // user's overlay
@@ -284,6 +287,10 @@ const Gif = ({
                     alt={getAltText(gif)}
                     onLoad={shouldShowMedia ? onImageLoad : () => {}}
                 />
+                {isAd &&
+                    bottleData?.tags?.map((tag: string, index: number) => (
+                        <div dangerouslySetInnerHTML={{ __html: tag }} key={index} />
+                    ))}
             </picture>
             {Overlay && (
                 // only render the overlay on the client since it depends on shouldShowMedia
