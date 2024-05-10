@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
+import DangerousElement from './dangerous-element'
 import { PingbackContext } from './pingback-context-manager'
 import { GifOverlayProps } from './types'
 
@@ -201,7 +202,6 @@ const Gif = ({
         onGifVisible(gif, e) // gif is visible, perhaps just partially
         setLoadedClassName(Gif.imgLoadedClassName)
     }
-
     useEffect(() => {
         // the id has changed, maybe the image has loaded
         if (image.current?.complete) {
@@ -289,7 +289,7 @@ const Gif = ({
                 />
                 {isAd &&
                     bottleData?.tags?.map((tag: string, index: number) => (
-                        <div dangerouslySetInnerHTML={{ __html: tag }} key={index} />
+                        <DangerousElement markup={tag} key={index} />
                     ))}
             </picture>
             {Overlay && (
