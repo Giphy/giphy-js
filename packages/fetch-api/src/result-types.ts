@@ -19,6 +19,7 @@ export interface Result {
 
 export interface ErrorResult {
     message?: string
+    meta?: ResultMeta
 }
 export interface GifResult extends Result {
     data: IGif
