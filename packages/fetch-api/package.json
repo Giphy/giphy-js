@@ -10,7 +10,7 @@
         "test:watch": "run -T jest --config ./jestconfig.js --watchAll"
     },
     "name": "@giphy/js-fetch-api",
-    "version": "5.5.0",
+    "version": "5.6.0",
     "description": "Javascript API to fetch gifs and stickers from the GIPHY API.",
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/fetch-api",
     "main": "dist/index.cjs",

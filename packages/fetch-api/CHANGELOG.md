@@ -1,5 +1,11 @@
 ## 4.1.1 (2021-08-09)
 
+## 5.6.0
+
+### Minor Changes
+
+-   7dd9a5b: Handle geo-blocked response from API
+
 ## 5.5.0
 
 ### Minor Changes
