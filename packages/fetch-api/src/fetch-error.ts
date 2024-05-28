@@ -10,4 +10,6 @@ class FetchError extends Error {
     }
 }
 
+export class GeoFetchError extends FetchError {}
+
 export default FetchError

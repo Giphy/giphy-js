@@ -1,5 +1,5 @@
 import { serverUrl } from './constants'
-import FetchError from './fetch-error'
+import FetchError, { GeoFetchError } from './fetch-error'
 import { ErrorResult, Result } from './result-types'
 
 export const ERROR_PREFIX = `@giphy/js-fetch-api: `
@@ -60,6 +60,7 @@ function request(url: string, options: RequestOptions = {}) {
                         // error results have a different format than regular results
                         const result = (await response.json()) as ErrorResult
                         if (result.message) message = result.message
+                        if (result.meta?.msg) message = result.meta.msg
                     } catch (_) {}
                     if (requestMap[url]) {
                         // we got a specific error,
@@ -69,12 +70,11 @@ function request(url: string, options: RequestOptions = {}) {
                     }
 
                     // we got an error response, throw with the message in the response body json
-                    fetchError = new FetchError(
-                        `${ERROR_PREFIX}${message}`,
-                        fullUrl,
-                        response.status,
-                        response.statusText
-                    )
+                    let Cls = FetchError
+                    if (message === 'This content is not available in your location') {
+                        Cls = GeoFetchError
+                    }
+                    fetchError = new Cls(`${ERROR_PREFIX}${message}`, fullUrl, response.status, response.statusText)
                 }
             } catch (unexpectedError: any) {
                 fetchError = new FetchError(unexpectedError.message, fullUrl)
