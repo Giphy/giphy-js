@@ -1,5 +1,11 @@
 ## @giphy/react-components
 
+## 9.5.1
+
+### Patch Changes
+
+-   6096058: Video player can use percentage width
+
 ## 9.5.0
 
 ### Minor Changes
