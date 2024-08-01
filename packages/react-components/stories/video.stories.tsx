@@ -85,3 +85,9 @@ export const VideoNoContent: Story = {
         id: 'ZEU9ryYGZzttn0Cva7',
     },
 }
+
+export const VideoPercentageWidth: Story = {
+    args: {
+        percentWidth: '80%',
+    },
+}
