@@ -1,6 +1,6 @@
 'use client'
 import { getGifHeight, Logger } from '@giphy/js-util'
-import React, { ComponentProps, ElementType, useCallback, useEffect, useState } from 'react'
+import React, { ComponentProps, CSSProperties, ElementType, useCallback, useEffect, useState } from 'react'
 import useTimeoutFn from 'react-use/lib/useTimeoutFn'
 import styled from 'styled-components'
 import { GifOverlayProps } from '../types'
@@ -10,6 +10,7 @@ import ProgressBar from './progress-bar'
 import Video from './video'
 
 type Props = {
+    style?: CSSProperties
     // turns on all controls
     controls?: boolean
     // if controls is true, hides progress bar
@@ -105,7 +106,9 @@ const LARGE_PLAYER_HEIGHT = 300
 const AUTO_HIDE_TIMEOUT = 4000
 const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     const {
+        style,
         width,
+        percentWidth,
         hideMute,
         hideAttribution,
         hideProgressBar,
@@ -120,6 +123,11 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     const [mutedByBrowser, setMutedByBrowser] = useState(false)
     const { setVideoEl, onMuted, onUserMuted } = props
     const height = props.height || getGifHeight(gif, width)
+    let percentHeight: string | undefined
+    if (percentWidth) {
+        const ratio = Math.round((height / width) * 100)
+        percentHeight = `${ratio}%`
+    }
     const [, cancelHideTimeout, resetHideTimeout] = useTimeoutFn(() => {
         setIsHovered(false)
     }, AUTO_HIDE_TIMEOUT)
@@ -163,7 +171,7 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
     return (
         <Container
             className={className}
-            style={{ width, height }}
+            style={{ width: percentWidth || width, height: percentHeight || height, ...style }}
             onMouseOver={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onMouseMove={() => {
@@ -181,7 +189,7 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
                 toggleMute()
             }}
         >
-            <Video {...props} onMuted={combinedOnMuted} setVideoEl={combinedSetVideoEl} muted={muted} />
+            <Video {...props} isInPlayer onMuted={combinedOnMuted} setVideoEl={combinedSetVideoEl} muted={muted} />
             {showControls && <Gradient $isLargePlayer={isLargePlayer} />}
             <Controls $isHovered={showControls}>
                 <TitleContainer>

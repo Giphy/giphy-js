@@ -39,9 +39,11 @@ type Props = {
     loop?: boolean
     gif: IGif
     width: number
+    percentWidth?: string
     height?: number
     volume?: number
     className?: string
+    isInPlayer?: boolean
 }
 const Video = ({
     muted,
@@ -62,12 +64,18 @@ const Video = ({
     setVideoEl,
     gif,
     width,
+    percentWidth,
     height: height_,
     volume = 0.7,
     className = videoClassName,
+    isInPlayer,
 }: Props) => {
     const height = height_ || getGifHeight(gif, width)
-
+    let percentHeight: string | undefined
+    if (percentWidth) {
+        const ratio = Math.round((height / width) * 100)
+        percentHeight = `${ratio}%`
+    }
     // state
     const [media, setMedia] = useState(getBestVideo(gif.video, width, height))
     const seek = useRef(0)
@@ -236,8 +244,8 @@ const Video = ({
             crossOrigin="anonymous"
             draggable={true}
             className={className}
-            width={width}
-            height={height}
+            width={isInPlayer ? '100%' : percentWidth || width}
+            height={isInPlayer ? '100%' : percentHeight || height}
             muted={muted}
             autoPlay
             playsInline
