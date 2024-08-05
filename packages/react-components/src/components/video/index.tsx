@@ -15,6 +15,8 @@ type Props = {
     controls?: boolean
     // if controls is true, hides progress bar
     hideProgressBar?: boolean
+    // if controls is true, hides the title
+    hideTitle?: boolean
     // if controls is true, hides mute
     hideMute?: boolean
     // hide attribution
@@ -112,6 +114,7 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
         hideMute,
         hideAttribution,
         hideProgressBar,
+        hideTitle,
         className,
         persistentControls,
         gif,
@@ -193,7 +196,7 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
             {showControls && <Gradient $isLargePlayer={isLargePlayer} />}
             <Controls $isHovered={showControls}>
                 <TitleContainer>
-                    {isLargePlayer && (
+                    {!hideTitle && isLargePlayer && (
                         <Title
                             onClick={(e) => {
                                 e.preventDefault()

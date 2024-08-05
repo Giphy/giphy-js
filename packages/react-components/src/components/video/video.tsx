@@ -167,15 +167,15 @@ const Video = ({
         }
     }, [onWaiting])
     const _onEnded = useCallback(() => {
-        // helps prevent two ended events when changing media
-        if (!hasPlayingFired.current) {
-            return
-        }
         if (loop && videoEl.current) {
             videoEl.current.play()
         }
         onLoop?.(loopNumber.current)
         loopNumber.current = loopNumber.current + 1
+        // helps prevent two ended events when changing media
+        if (!hasPlayingFired.current) {
+            return
+        }
         onEnded?.()
     }, [onEnded, loop, onLoop])
     const _onEndFullscreen = useCallback(() => onEndFullscreen?.(), [onEndFullscreen])
