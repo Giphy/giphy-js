@@ -1,5 +1,11 @@
 ## @giphy/react-components
 
+## 9.6.0
+
+### Minor Changes
+
+-   7eb17c5: video player tweaks: hide title / fix SSR loop error
+
 ## 9.5.1
 
 ### Patch Changes
