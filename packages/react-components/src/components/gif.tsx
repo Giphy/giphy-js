@@ -1,7 +1,7 @@
 'use client'
 import { giphyBlue, giphyGreen, giphyPurple, giphyRed, giphyYellow } from '@giphy/colors'
 import { IGif, IUser, ImageAllTypes } from '@giphy/js-types'
-import { Logger, getAltText, getBestRendition, getGifHeight } from '@giphy/js-util'
+import { Logger, getAltText, getBestRendition, getGifHeight, noUUIDRandom } from '@giphy/js-util'
 import 'intersection-observer'
 import React, { ElementType, ReactNode, SyntheticEvent, useContext, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
@@ -76,6 +76,15 @@ const placeholder = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAAL
 
 // used to detect if we're on the server or client
 const canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement)
+
+function processTag(tag: string) {
+    tag = tag.replace(`%%CACHEBUSTER%%`, noUUIDRandom())
+    tag = tag.replace('%%TIMESTAMP%%', `${Date.now()}`)
+    tag = tag.replace('%%APPBUNDLE%%', `web`)
+    tag = tag.replace('%%APP_WINDOW_SIZE%%', `${window.innerWidth},${window.innerHeight}`)
+    tag = tag.replace('%%DEVICE_LANGUAGE%%', `${navigator.language}`)
+    return tag
+}
 
 const noop = () => {}
 
@@ -289,7 +298,7 @@ const Gif = ({
                 />
                 {isAd &&
                     bottleData?.tags?.map((tag: string, index: number) => (
-                        <DangerousElement markup={tag} key={index} />
+                        <DangerousElement markup={processTag(tag)} key={index} />
                     ))}
             </picture>
             {Overlay && (
