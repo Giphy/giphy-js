@@ -4,7 +4,7 @@ let pingbackId = ''
 const idLength = 16
 
 /* istanbul ignore next */
-const noUUIDRandom = () => {
+export const noUUIDRandom = () => {
     let result = ''
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
     const charactersLength = characters.length
