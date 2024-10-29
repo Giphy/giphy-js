@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import * as pingback from '../util/pingback'
 import AttributionOverlay from './attribution/overlay'
 import VerifiedBadge from './attribution/verified-badge'
+import BottleData from './bottle-data'
 import { PingbackContext } from './pingback-context-manager'
 import { GifOverlayProps } from './types'
 
@@ -201,7 +202,6 @@ const Gif = ({
         onGifVisible(gif, e) // gif is visible, perhaps just partially
         setLoadedClassName(Gif.imgLoadedClassName)
     }
-
     useEffect(() => {
         // the id has changed, maybe the image has loaded
         if (image.current?.complete) {
@@ -287,10 +287,7 @@ const Gif = ({
                     alt={getAltText(gif)}
                     onLoad={shouldShowMedia ? onImageLoad : () => {}}
                 />
-                {isAd &&
-                    bottleData?.tags?.map((tag: string, index: number) => (
-                        <div dangerouslySetInnerHTML={{ __html: tag }} key={index} />
-                    ))}
+                {isAd && bottleData?.tags?.map((tag: string, index: number) => <BottleData markup={tag} key={index} />)}
             </picture>
             {Overlay && (
                 // only render the overlay on the client since it depends on shouldShowMedia
