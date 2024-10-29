@@ -1,5 +1,11 @@
 ## 4.4.2
 
+## 5.2.0
+
+### Minor Changes
+
+-   1125e6e: fix bottle data injection and replace magic tags
+
 ## 5.1.0
 
 ### Minor Changes
