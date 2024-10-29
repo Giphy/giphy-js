@@ -1,5 +1,16 @@
 ## @giphy/react-components
 
+## 9.7.0
+
+### Minor Changes
+
+-   1125e6e: fix bottle data injection and replace magic tags
+
+### Patch Changes
+
+-   Updated dependencies [1125e6e]
+    -   @giphy/js-util@5.2.0
+
 ## 9.6.0
 
 ### Minor Changes
