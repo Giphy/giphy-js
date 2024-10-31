@@ -239,6 +239,14 @@ const Gif = ({
         percentHeight = `${ratio}%`
     }
     const bestRendition = getBestRendition(gif.images, width, height)
+    if (!bestRendition) {
+        if (gif.images) {
+            console.error(`no rendition for ${gif.id}, rendition names: ${Object.keys(gif.images)}`)
+        } else {
+            console.error(`no rendition for ${gif.id} - no images`)
+        }
+        return null
+    }
     const rendition = gif.images[bestRendition.renditionName] as ImageAllTypes
     const background =
         backgroundColor || // <- specified background prop
