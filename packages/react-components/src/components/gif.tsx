@@ -241,7 +241,7 @@ const Gif = ({
     const bestRendition = getBestRendition(gif.images, width, height)
     if (!bestRendition) {
         if (gif.images) {
-            console.error(`no rendition for ${gif.id}, rendition names: ${Object.keys(gif.images)}`)
+            console.error(`no rendition for ${gif.id}, rendition names: ${Object.keys(gif.images).join(', ')}`)
         } else {
             console.error(`no rendition for ${gif.id} - no images`)
         }
@@ -295,7 +295,7 @@ const Gif = ({
                     alt={getAltText(gif)}
                     onLoad={shouldShowMedia ? onImageLoad : () => {}}
                 />
-                {isAd && bottleData?.tags?.map((tag: string, index: number) => <BottleData markup={tag} key={index} />)}
+                {isAd && bottleData?.tags?.map((tag: string, index: number) => <BottleData src={tag} key={index} />)}
             </picture>
             {Overlay && (
                 // only render the overlay on the client since it depends on shouldShowMedia
