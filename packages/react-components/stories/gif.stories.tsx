@@ -108,13 +108,8 @@ export const GifWithAd: Story = {
         bottle_data: {
             tid: '8691c382d3eed000da83ecc2ceef747b91190ab0e5bc0bc95ff5c80eeda242fa',
             tags: [
-                `<noscript class="MOAT-giphydisplay879451385633?moatClientLevel1=ff6046d1-7125-462a-809c-efa338464775&amp;moatClientLevel2=e66d47a2-1b13-4b74-a34d-23fbdc10ddb5&amp;moatClientLevel3=82&amp;moatClientLevel4=3o7WIw8TV4UJROSElW&amp;moatClientSlicer1=e26c89fe-fb01-4442-9e8f-37940600265c&amp;moatClientSlicer2=giphytrending"></noscript>
-                <script type="text/javascript">
-              console.log('cache:%%CACHEBUSTER%%')
-              console.log('timestamp:%%TIMESTAMP%%')
-              console.log('window size:%%APP_WINDOW_SIZE%%')
-              console.log('lang:%%DEVICE_LANGUAGE%%')
-            </script>`,
+                `https://www.giphy.com/test.js?cache=%%CACHEBUSTER%%&ts=%%TIMESTAMP%%&window=%%APP_WINDOW_SIZE%%&lang=%%DEVICE_LANGUAGE%%`,
+                `https://www.giphy.com/test2.js?cache=%%CACHEBUSTER%%&ts=%%TIMESTAMP%%&window=%%APP_WINDOW_SIZE%%&lang=%%DEVICE_LANGUAGE%%`,
             ],
         },
     },
@@ -122,6 +117,7 @@ export const GifWithAd: Story = {
 
 export const GifThatStretches: Story = {
     args: {
+        id: 'sTczweWUTxLqg',
         percentWidth: '50%',
     },
 }

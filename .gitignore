@@ -24,3 +24,4 @@ umd/
 !.yarn/versions
 .hintrc
 .vscode/
+.zed/

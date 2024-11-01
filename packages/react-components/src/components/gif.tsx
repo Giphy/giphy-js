@@ -239,6 +239,14 @@ const Gif = ({
         percentHeight = `${ratio}%`
     }
     const bestRendition = getBestRendition(gif.images, width, height)
+    if (!bestRendition) {
+        if (gif.images) {
+            console.error(`no rendition for ${gif.id}, rendition names: ${Object.keys(gif.images).join(', ')}`)
+        } else {
+            console.error(`no rendition for ${gif.id} - no images`)
+        }
+        return null
+    }
     const rendition = gif.images[bestRendition.renditionName] as ImageAllTypes
     const background =
         backgroundColor || // <- specified background prop
@@ -287,7 +295,7 @@ const Gif = ({
                     alt={getAltText(gif)}
                     onLoad={shouldShowMedia ? onImageLoad : () => {}}
                 />
-                {isAd && bottleData?.tags?.map((tag: string, index: number) => <BottleData markup={tag} key={index} />)}
+                {isAd && bottleData?.tags?.map((tag: string, index: number) => <BottleData src={tag} key={index} />)}
             </picture>
             {Overlay && (
                 // only render the overlay on the client since it depends on shouldShowMedia
