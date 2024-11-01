@@ -117,6 +117,7 @@ export const GifWithAd: Story = {
 
 export const GifThatStretches: Story = {
     args: {
+        id: 'sTczweWUTxLqg',
         percentWidth: '50%',
     },
 }

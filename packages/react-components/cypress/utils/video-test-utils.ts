@@ -93,10 +93,10 @@ export function checkVideoEvents(ctx: VideoTestUtilsContext) {
         .then(async (elems) => {
             const el = elems.get(0)
             await el.play()
-            return new Promise((resolve) => {
+            return new Promise<void>((resolve) => {
                 function listener() {
                     el.removeEventListener('ended', listener)
-                    resolve(null)
+                    resolve()
                 }
                 el.addEventListener('ended', listener)
             })
