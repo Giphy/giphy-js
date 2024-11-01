@@ -1,5 +1,11 @@
 ## @giphy/react-components
 
+## 9.7.1
+
+### Patch Changes
+
+-   f3dcc43: change bottle tag approach
+
 ## 9.7.0
 
 ### Minor Changes
