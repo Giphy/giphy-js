@@ -1,5 +1,11 @@
 ## @giphy/react-components
 
+## 9.8.0
+
+### Minor Changes
+
+-   e73400e: move bottle data outside of picture tag
+
 ## 9.7.1
 
 ### Patch Changes
