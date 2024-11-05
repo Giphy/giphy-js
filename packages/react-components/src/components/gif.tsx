@@ -295,8 +295,8 @@ const Gif = ({
                     alt={getAltText(gif)}
                     onLoad={shouldShowMedia ? onImageLoad : () => {}}
                 />
-                {isAd && bottleData?.tags?.map((tag: string, index: number) => <BottleData src={tag} key={index} />)}
             </picture>
+            {isAd && bottleData?.tags?.map((tag: string, index: number) => <BottleData src={tag} key={index} />)}
             {Overlay && (
                 // only render the overlay on the client since it depends on shouldShowMedia
                 <RenderOnClient>
