@@ -171,7 +171,7 @@ class Grid extends PureComponent<Props, State> {
         const isFirstLoad = gifs.length === 0
         // get the height of each grid item
         const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
-        const gifPercentWidth = percentWidth ? `${Math.round((gifWidth / width) * 100)}%` : undefined
+        const gifPercentWidth = percentWidth ? `${(gifWidth / width) * 100}%` : undefined
         return (
             <PingbackContextManager attributes={{ layout_type: layoutType }}>
                 <div className={className} style={{ width: percentWidth || width }}>
