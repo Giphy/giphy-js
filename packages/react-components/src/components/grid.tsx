@@ -15,6 +15,7 @@ import type { GifOverlayProps } from './types'
 
 type Props = {
     className?: string
+    percentWidth?: string
     width: number
     user: Partial<IUser>
     columns: number
@@ -155,6 +156,7 @@ class Grid extends PureComponent<Props, State> {
             columns,
             width,
             gutter,
+            percentWidth,
             useTransform,
             columnOffsets,
             backgroundColor,
@@ -169,9 +171,10 @@ class Grid extends PureComponent<Props, State> {
         const isFirstLoad = gifs.length === 0
         // get the height of each grid item
         const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
+        const gifPercentWidth = percentWidth ? `${Math.round((gifWidth / width) * 100)}%` : undefined
         return (
             <PingbackContextManager attributes={{ layout_type: layoutType }}>
-                <div className={className} style={{ width }}>
+                <div className={className} style={{ width: percentWidth || width }}>
                     <MasonryGrid
                         itemHeights={itemHeights}
                         useTransform={useTransform}
@@ -179,13 +182,16 @@ class Grid extends PureComponent<Props, State> {
                         columns={columns}
                         gutter={gutter}
                         columnOffsets={columnOffsets}
+                        percentWidth={percentWidth}
                     >
-                        {gifs.map((gif) => (
+                        {gifs.map((gif, index) => (
                             <Gif
                                 gif={gif}
                                 tabIndex={tabIndex}
                                 key={gif.id}
                                 width={gifWidth}
+                                height={percentWidth ? itemHeights[index] : undefined}
+                                percentWidth={gifPercentWidth}
                                 onGifClick={onGifClick}
                                 onGifKeyPress={onGifKeyPress}
                                 onGifSeen={onGifSeen}

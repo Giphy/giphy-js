@@ -7,6 +7,7 @@ function fillArray(length: number, columnOffsets: number[] = []) {
 type Props = {
     columns: number
     gutter: number
+    percentWidth?: string
     useTransform?: boolean
     children: ReactNode
     itemHeights: number[]
@@ -16,29 +17,36 @@ type Props = {
 const MasonryGrid = ({
     columns,
     gutter,
-    useTransform = true,
     itemWidth,
     itemHeights,
     children,
     columnOffsets = [],
+    percentWidth,
 }: Props) => {
     const containerStyle: any = {}
-    function getChildren() {
+
+    function getChildren2() {
         let columnTarget: number
+        const totalHeights: number[] = fillArray(columns, columnOffsets)
+        const totalWidth = columns * itemWidth + (columns - 1) * gutter
+        React.Children.forEach(children, (_, index: number) => {
+            columnTarget = totalHeights.indexOf(Math.min.apply(Math, totalHeights))
+            const height = itemHeights[index]
+            if (height) {
+                totalHeights[columnTarget] += height + gutter
+            }
+        })
+        const totalHeight = Math.max.apply(Math, totalHeights) - gutter
         const columnHeights: number[] = fillArray(columns, columnOffsets)
         const result = React.Children.map(children, (child: React.ReactNode, index: number) => {
+            columnTarget = columnHeights.indexOf(Math.min.apply(Math, columnHeights))
+            const top = `${(columnHeights[columnTarget] / totalHeight) * 100}%`
+            const w = (itemWidth + gutter) * columnTarget
+            const left = `${(w / totalWidth) * 100}%`
             const style: any = {
                 position: 'absolute',
-            }
-            columnTarget = columnHeights.indexOf(Math.min.apply(Math, columnHeights))
-            const top = `${columnHeights[columnTarget]}px`
-            const left = `${columnTarget * itemWidth + columnTarget * gutter}px`
-            if (useTransform) {
-                style.transform = `translate3d(${left}, ${top}, 0)`
-            } else {
-                // support positioned elements (default) or transformed elements
-                style.top = top
-                style.left = left
+                top,
+                left,
             }
             const height = itemHeights[index]
             if (height) {
@@ -47,12 +55,12 @@ const MasonryGrid = ({
             return React.cloneElement(child as React.ReactElement, { style })
         })
         containerStyle.position = 'relative'
-        containerStyle.width = `${columns * itemWidth + (columns - 1) * gutter}px`
+        containerStyle.width = percentWidth
         containerStyle.height = `${Math.max.apply(Math, columnHeights) - gutter}px`
         return result
     }
 
-    return <div style={containerStyle}>{getChildren()}</div>
+    return <div style={containerStyle}>{getChildren2()}</div>
 }
 
 export default memo(MasonryGrid)

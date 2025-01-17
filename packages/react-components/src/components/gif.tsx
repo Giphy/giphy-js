@@ -234,7 +234,7 @@ const Gif = ({
     }, [])
     const height = forcedHeight || getGifHeight(gif, width)
     let percentHeight: string | undefined
-    if (percentWidth) {
+    if (!forcedHeight && percentWidth) {
         const ratio = Math.round((height / width) * 100)
         percentHeight = `${ratio}%`
     }

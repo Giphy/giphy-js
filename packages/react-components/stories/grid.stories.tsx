@@ -104,6 +104,12 @@ type Story = StoryObj<typeof meta>
 
 export const GridStory: Story = {}
 
+export const GridResponsive: Story = {
+    args: {
+        percentWidth: '100%',
+    },
+}
+
 export const GridCustomLoader: Story = {
     args: {
         loader: () => <h1 style={{ textAlign: 'center' }}> 🌀 </h1>,
