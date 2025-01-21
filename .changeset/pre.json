@@ -1,0 +1,19 @@
+{
+  "mode": "pre",
+  "tag": "beta",
+  "initialVersions": {
+    "@giphy/js-analytics": "5.0.0",
+    "@giphy/js-brand": "3.0.0",
+    "@giphy/colors": "1.0.1",
+    "@giphy/js-components": "5.13.0",
+    "@giphy/embed-sdk": "1.0.1",
+    "@giphy/js-fetch-api": "5.6.0",
+    "@giphy/react-components": "9.8.0",
+    "@giphy/svelte-components": "1.1.0",
+    "@giphy/js-types": "5.1.0",
+    "@giphy/js-util": "5.2.0"
+  },
+  "changesets": [
+    "silver-gorillas-look"
+  ]
+}

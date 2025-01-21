@@ -1,5 +1,11 @@
 ## @giphy/react-components
 
+## 9.8.1-beta.0
+
+### Patch Changes
+
+-   24cedc5: responsive grid
+
 ## 9.8.0
 
 ### Minor Changes
