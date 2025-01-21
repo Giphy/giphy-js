@@ -55,6 +55,7 @@ type GifProps = {
     gif: IGif
     width: number
     percentWidth?: string
+    percentHeight?: string
     height?: number
     backgroundColor?: string
     className?: string
@@ -92,6 +93,7 @@ const Gif = ({
     gif: { bottle_data: bottleData = {} },
     width,
     percentWidth,
+    percentHeight,
     height: forcedHeight,
     onGifRightClick = noop,
     className = '',
@@ -233,11 +235,6 @@ const Gif = ({
         }
     }, [])
     const height = forcedHeight || getGifHeight(gif, width)
-    let percentHeight: string | undefined
-    if (!forcedHeight && percentWidth) {
-        const ratio = Math.round((height / width) * 100)
-        percentHeight = `${ratio}%`
-    }
     const bestRendition = getBestRendition(gif.images, width, height)
     if (!bestRendition) {
         if (gif.images) {

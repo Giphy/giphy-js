@@ -3,7 +3,7 @@ import { GiphyFetch } from '@giphy/js-fetch-api'
 import { number } from '@storybook/addon-knobs'
 import { Meta, StoryObj } from '@storybook/react'
 import fetchMock from 'fetch-mock'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 import { throttle } from 'throttle-debounce'
 import { GifOverlayProps, Grid as GridComponent } from '../src'
 import inTestsRunner from './in-tests-runner'
@@ -30,9 +30,9 @@ const NoResultsContainer = styled.div`
 
 const Overlay = ({ gif, isHovered }: GifOverlayProps) => <OverlayContainer>{isHovered ? gif.id : ''}</OverlayContainer>
 
-type GridProps = Partial<React.ComponentProps<typeof GridComponent>>
+type GridProps = Partial<React.ComponentProps<typeof GridComponent>> & { containerStyles: CSSProperties }
 
-const Grid = ({ loader, ...other }: GridProps) => {
+const Grid = ({ loader, containerStyles, ...other }: GridProps) => {
     const [term, setTerm] = useState('always sunny')
     const [width, setWidth] = useState(innerWidth)
     const onResize = throttle(500, () => setWidth(innerWidth))
@@ -63,17 +63,19 @@ const Grid = ({ loader, ...other }: GridProps) => {
                 value={term}
             />
             {term && (
-                <GridComponent
-                    key={term}
-                    width={width}
-                    columns={columns}
-                    gutter={gutter}
-                    noResultsMessage={NoResults}
-                    loader={loader}
-                    fetchGifs={fetchGifs}
-                    overlay={Overlay}
-                    {...other}
-                />
+                <div style={containerStyles}>
+                    <GridComponent
+                        key={term}
+                        width={width}
+                        columns={columns}
+                        noResultsMessage={NoResults}
+                        loader={loader}
+                        gutter={gutter}
+                        fetchGifs={fetchGifs}
+                        overlay={Overlay}
+                        {...other}
+                    />
+                </div>
             )}
         </>
     )
@@ -107,6 +109,19 @@ export const GridStory: Story = {}
 export const GridResponsive: Story = {
     args: {
         percentWidth: '100%',
+        width: 400,
+        columns: 2,
+        gutter: 10,
+    },
+}
+
+export const GridResponsiveContainer: Story = {
+    args: {
+        percentWidth: '100%',
+        width: 200,
+        columns: 2,
+        gutter: 10,
+        containerStyles: { width: 400, backgroundColor: 'aquamarine' },
     },
 }
 

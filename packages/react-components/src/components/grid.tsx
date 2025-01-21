@@ -8,8 +8,7 @@ import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'
 import FetchError from './fetch-error'
 import Gif, { EventProps } from './gif'
-import DotsLoader from './loader'
-import MasonryGrid from './masonry-grid'
+import MasonryGrid, { fillArray } from './masonry-grid'
 import PingbackContextManager from './pingback-context-manager'
 import type { GifOverlayProps } from './types'
 
@@ -163,19 +162,30 @@ class Grid extends PureComponent<Props, State> {
             loaderConfig,
             tabIndex = 0,
             layoutType = 'GRID',
-            loader: LoaderVisual = DotsLoader,
             fetchPriority,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = !isDoneFetching
         const isFirstLoad = gifs.length === 0
         // get the height of each grid item
-        const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
         const gifPercentWidth = percentWidth ? `${(gifWidth / width) * 100}%` : undefined
+        const totalHeights: number[] = fillArray(columns, columnOffsets)
+        const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
+        gifs.forEach((_, index: number) => {
+            const columnTarget = totalHeights.indexOf(Math.min(...totalHeights))
+            const height = itemHeights[index]
+            if (height) {
+                totalHeights[columnTarget] += height + gutter
+            }
+        })
+        const totalHeight = Math.round(Math.max(...totalHeights) - gutter)
+        const percentHeights = itemHeights.map((h) => `${(h / totalHeight) * 100}%`)
         return (
             <PingbackContextManager attributes={{ layout_type: layoutType }}>
                 <div className={className} style={{ width: percentWidth || width }}>
                     <MasonryGrid
+                        totalWidth={width}
+                        totalHeight={totalHeight}
                         itemHeights={itemHeights}
                         useTransform={useTransform}
                         itemWidth={gifWidth}
@@ -192,6 +202,7 @@ class Grid extends PureComponent<Props, State> {
                                 width={gifWidth}
                                 height={percentWidth ? itemHeights[index] : undefined}
                                 percentWidth={gifPercentWidth}
+                                percentHeight={percentHeights[index]}
                                 onGifClick={onGifClick}
                                 onGifKeyPress={onGifKeyPress}
                                 onGifSeen={onGifSeen}
@@ -208,18 +219,16 @@ class Grid extends PureComponent<Props, State> {
                         ))}
                     </MasonryGrid>
                     {!showLoader && gifs.length === 0 && noResultsMessage}
-                    {isError ? (
-                        <FetchError onClick={this.onFetch} />
-                    ) : (
-                        showLoader && (
-                            <Observer onVisibleChange={this.onLoaderVisible} config={loaderConfig}>
-                                <Loader $isFirstLoad={isFirstLoad}>
-                                    <LoaderVisual className={Grid.loaderClassName} />
-                                </Loader>
-                            </Observer>
-                        )
-                    )}
                 </div>
+                {isError ? (
+                    <FetchError onClick={this.onFetch} />
+                ) : (
+                    showLoader && (
+                        <Observer onVisibleChange={this.onLoaderVisible} config={loaderConfig}>
+                            <Loader $isFirstLoad={isFirstLoad}></Loader>
+                        </Observer>
+                    )
+                )}
             </PingbackContextManager>
         )
     }

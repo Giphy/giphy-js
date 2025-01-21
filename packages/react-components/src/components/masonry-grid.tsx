@@ -1,10 +1,12 @@
 import React, { CSSProperties, memo, ReactNode } from 'react'
 
-function fillArray(length: number, columnOffsets: number[] = []) {
+export function fillArray(length: number, columnOffsets: number[] = []) {
     return Array.apply(null, Array(length)).map((_, index) => columnOffsets[index] || 0)
 }
 
 type Props = {
+    totalHeight: number
+    totalWidth: number
     columns: number
     gutter: number
     percentWidth?: string
@@ -15,6 +17,8 @@ type Props = {
     columnOffsets?: number[]
 }
 const MasonryGrid = ({
+    totalHeight,
+    totalWidth,
     columns,
     gutter,
     itemWidth,
@@ -23,22 +27,15 @@ const MasonryGrid = ({
     columnOffsets = [],
     percentWidth,
 }: Props) => {
-    const containerStyle: CSSProperties = {}
+    const containerStyle: CSSProperties = {
+        position: 'relative',
+    }
     function getChildren() {
-        const totalHeights: number[] = fillArray(columns, columnOffsets)
-        const totalWidth = columns * itemWidth + (columns - 1) * gutter
-        React.Children.forEach(children, (_, index: number) => {
-            const columnTarget = totalHeights.indexOf(Math.min(...totalHeights))
-            const height = itemHeights[index]
-            if (height) {
-                totalHeights[columnTarget] += height + gutter
-            }
-        })
-        const totalHeight = Math.max(...totalHeights) - gutter
         const columnHeights: number[] = fillArray(columns, columnOffsets)
         const result = React.Children.map(children, (child: React.ReactNode, index: number) => {
-            const columnTarget = columnHeights.indexOf(Math.min.apply(Math, columnHeights))
-            const top = `${(columnHeights[columnTarget] / totalHeight) * 100}%`
+            const columnTarget = columnHeights.indexOf(Math.min(...columnHeights))
+            const topPerc = (columnHeights[columnTarget] / totalHeight) * 100
+            const top = `${topPerc}%`
             const leftPixelTarget = (itemWidth + gutter) * columnTarget
             const left = `${(leftPixelTarget / totalWidth) * 100}%`
             const height = itemHeights[index]
@@ -53,9 +50,8 @@ const MasonryGrid = ({
                 },
             })
         })
-        containerStyle.position = 'relative'
         containerStyle.width = percentWidth
-        containerStyle.height = `${Math.max(...columnHeights) - gutter}px`
+        containerStyle.aspectRatio = `${totalWidth} / ${totalHeight}`
         return result
     }
 
