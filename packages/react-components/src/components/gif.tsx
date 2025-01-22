@@ -235,6 +235,10 @@ const Gif = ({
         }
     }, [])
     const height = forcedHeight || getGifHeight(gif, width)
+    if (percentWidth && !percentHeight) {
+        const ratio = Math.round((height / width) * 100)
+        percentHeight = `${ratio}%`
+    }
     const bestRendition = getBestRendition(gif.images, width, height)
     if (!bestRendition) {
         if (gif.images) {

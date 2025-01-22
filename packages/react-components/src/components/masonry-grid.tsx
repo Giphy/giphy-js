@@ -1,8 +1,5 @@
 import React, { CSSProperties, memo, ReactNode } from 'react'
-
-export function fillArray(length: number, columnOffsets: number[] = []) {
-    return Array.apply(null, Array(length)).map((_, index) => columnOffsets[index] || 0)
-}
+import { fillArray } from '../util/array'
 
 type Props = {
     totalHeight: number

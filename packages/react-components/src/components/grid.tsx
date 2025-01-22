@@ -5,10 +5,12 @@ import { getGifHeight } from '@giphy/js-util'
 import React, { ComponentProps, ElementType, GetDerivedStateFromProps, PureComponent } from 'react'
 import styled from 'styled-components'
 import { debounce } from 'throttle-debounce'
+import { fillArray } from '../util/array'
 import Observer from '../util/observer'
 import FetchError from './fetch-error'
 import Gif, { EventProps } from './gif'
-import MasonryGrid, { fillArray } from './masonry-grid'
+import DotsLoader from './loader'
+import MasonryGrid from './masonry-grid'
 import PingbackContextManager from './pingback-context-manager'
 import type { GifOverlayProps } from './types'
 
@@ -162,6 +164,7 @@ class Grid extends PureComponent<Props, State> {
             loaderConfig,
             tabIndex = 0,
             layoutType = 'GRID',
+            loader: LoaderVisual = DotsLoader,
             fetchPriority,
         } = this.props
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
@@ -219,16 +222,18 @@ class Grid extends PureComponent<Props, State> {
                         ))}
                     </MasonryGrid>
                     {!showLoader && gifs.length === 0 && noResultsMessage}
+                    {isError ? (
+                        <FetchError onClick={this.onFetch} />
+                    ) : (
+                        showLoader && (
+                            <Observer onVisibleChange={this.onLoaderVisible} config={loaderConfig}>
+                                <Loader $isFirstLoad={isFirstLoad}>
+                                    <LoaderVisual className={Grid.loaderClassName} />
+                                </Loader>
+                            </Observer>
+                        )
+                    )}
                 </div>
-                {isError ? (
-                    <FetchError onClick={this.onFetch} />
-                ) : (
-                    showLoader && (
-                        <Observer onVisibleChange={this.onLoaderVisible} config={loaderConfig}>
-                            <Loader $isFirstLoad={isFirstLoad}></Loader>
-                        </Observer>
-                    )
-                )}
             </PingbackContextManager>
         )
     }
