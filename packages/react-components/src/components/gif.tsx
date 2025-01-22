@@ -245,12 +245,17 @@ const Gif = ({
         return null
     }
     const rendition = gif.images[bestRendition.renditionName] as ImageAllTypes
-    const background =
+    let background =
         backgroundColor || // <- specified background prop
         // sticker has black if no backgroundColor is specified
         (gif.is_sticker
             ? `url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AQMAAACSSKldAAAABlBMVEUhIiIWFhYoSqvJAAAAGElEQVQY02MAAv7///8PWxqIPwDZw5UGABtgwz2xhFKxAAAAAElFTkSuQmCC') 0 0`
             : defaultBgColor.current)
+
+    // the background will peek through when subpixel rendering
+    if (loadedClassname === Gif.imgLoadedClassName && !gif.is_sticker) {
+        background = 'unset'
+    }
 
     const overflow = borderRadius ? 'hidden' : 'unset'
     return (
