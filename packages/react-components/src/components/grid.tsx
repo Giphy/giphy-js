@@ -5,6 +5,7 @@ import { getGifHeight } from '@giphy/js-util'
 import React, { ComponentProps, ElementType, GetDerivedStateFromProps, PureComponent } from 'react'
 import styled from 'styled-components'
 import { debounce } from 'throttle-debounce'
+import { fillArray } from '../util/array'
 import Observer from '../util/observer'
 import FetchError from './fetch-error'
 import Gif, { EventProps } from './gif'
@@ -170,12 +171,24 @@ class Grid extends PureComponent<Props, State> {
         const showLoader = !isDoneFetching
         const isFirstLoad = gifs.length === 0
         // get the height of each grid item
-        const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
         const gifPercentWidth = percentWidth ? `${(gifWidth / width) * 100}%` : undefined
+        const totalHeights: number[] = fillArray(columns, columnOffsets)
+        const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
+        gifs.forEach((_, index: number) => {
+            const columnTarget = totalHeights.indexOf(Math.min(...totalHeights))
+            const height = itemHeights[index]
+            if (height) {
+                totalHeights[columnTarget] += height + gutter
+            }
+        })
+        const totalHeight = Math.round(Math.max(...totalHeights) - gutter)
+        const percentHeights = itemHeights.map((h) => `${(h / totalHeight) * 100}%`)
         return (
             <PingbackContextManager attributes={{ layout_type: layoutType }}>
                 <div className={className} style={{ width: percentWidth || width }}>
                     <MasonryGrid
+                        totalWidth={width}
+                        totalHeight={totalHeight}
                         itemHeights={itemHeights}
                         useTransform={useTransform}
                         itemWidth={gifWidth}
@@ -192,6 +205,7 @@ class Grid extends PureComponent<Props, State> {
                                 width={gifWidth}
                                 height={percentWidth ? itemHeights[index] : undefined}
                                 percentWidth={gifPercentWidth}
+                                percentHeight={percentHeights[index]}
                                 onGifClick={onGifClick}
                                 onGifKeyPress={onGifKeyPress}
                                 onGifSeen={onGifSeen}
