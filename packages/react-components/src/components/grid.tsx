@@ -2,7 +2,7 @@
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
-import React, { ComponentProps, ElementType, GetDerivedStateFromProps, PureComponent } from 'react'
+import React, { ComponentProps, CSSProperties, ElementType, GetDerivedStateFromProps, PureComponent } from 'react'
 import styled from 'styled-components'
 import { debounce } from 'throttle-debounce'
 import { fillArray } from '../util/array'
@@ -10,7 +10,6 @@ import Observer from '../util/observer'
 import FetchError from './fetch-error'
 import Gif, { EventProps } from './gif'
 import DotsLoader from './loader'
-import MasonryGrid from './masonry-grid'
 import PingbackContextManager from './pingback-context-manager'
 import type { GifOverlayProps } from './types'
 
@@ -158,7 +157,6 @@ class Grid extends PureComponent<Props, State> {
             width,
             gutter,
             percentWidth,
-            useTransform,
             columnOffsets,
             backgroundColor,
             loaderConfig,
@@ -170,57 +168,73 @@ class Grid extends PureComponent<Props, State> {
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = !isDoneFetching
         const isFirstLoad = gifs.length === 0
-        // get the height of each grid item
-        const gifPercentWidth = percentWidth ? `${(gifWidth / width) * 100}%` : undefined
-        const totalHeights: number[] = fillArray(columns, columnOffsets)
-        const itemHeights = gifs.map((gif) => getGifHeight(gif, gifWidth))
-        gifs.forEach((_, index: number) => {
-            const columnTarget = totalHeights.indexOf(Math.min(...totalHeights))
-            const height = itemHeights[index]
+        const gutterOffset = (gutter * (columns - 1)) / columns
+        const gifPercentWidth = percentWidth ? `calc(${(gifWidth / width) * 100}% + ${gutterOffset}px)` : undefined
+
+        // put gifs into their columns
+        const sorter: [IGif[]][] = []
+        const columnHeights: number[] = fillArray(columns, columnOffsets)
+        gifs.forEach((gif) => {
+            const columnTarget = columnHeights.indexOf(Math.min(...columnHeights))
+            const height = getGifHeight(gif, gifWidth)
+            const [existingGifs = []] = sorter[columnTarget] || []
+            sorter[columnTarget] = [[...existingGifs, gif]]
             if (height) {
-                totalHeights[columnTarget] += height + gutter
+                columnHeights[columnTarget] += height
             }
         })
-        const totalHeight = Math.round(Math.max(...totalHeights) - gutter)
-        const percentHeights = itemHeights.map((h) => `${(h / totalHeight) * 100}%`)
+        // calculate the unscaled height to set the aspect ratio
+        const containerStyle: CSSProperties = {
+            width: percentWidth,
+            display: 'flex',
+            gap: gutter,
+        }
         return (
             <PingbackContextManager attributes={{ layout_type: layoutType }}>
                 <div className={className} style={{ width: percentWidth || width }}>
-                    <MasonryGrid
-                        totalWidth={width}
-                        totalHeight={totalHeight}
-                        itemHeights={itemHeights}
-                        useTransform={useTransform}
-                        itemWidth={gifWidth}
-                        columns={columns}
-                        gutter={gutter}
-                        columnOffsets={columnOffsets}
-                        percentWidth={percentWidth}
-                    >
-                        {gifs.map((gif, index) => (
-                            <Gif
-                                gif={gif}
-                                tabIndex={tabIndex}
-                                key={gif.id}
-                                width={gifWidth}
-                                height={percentWidth ? itemHeights[index] : undefined}
-                                percentWidth={gifPercentWidth}
-                                percentHeight={percentHeights[index]}
-                                onGifClick={onGifClick}
-                                onGifKeyPress={onGifKeyPress}
-                                onGifSeen={onGifSeen}
-                                onGifVisible={onGifVisible}
-                                onGifRightClick={onGifRightClick}
-                                user={user}
-                                overlay={overlay}
-                                backgroundColor={backgroundColor}
-                                hideAttribution={hideAttribution}
-                                noLink={noLink}
-                                borderRadius={borderRadius}
-                                fetchPriority={fetchPriority}
-                            />
-                        ))}
-                    </MasonryGrid>
+                    <div style={containerStyle}>
+                        {(sorter || []).map(([_gifs], gifIndex) => {
+                            return (
+                                <div
+                                    key={gifIndex}
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: gutter,
+                                        width: gifPercentWidth,
+                                    }}
+                                >
+                                    {(_gifs || []).map((gif) => {
+                                        const aspectRatio = gif.images.original.width / gif.images.original.height
+                                        return (
+                                            <Gif
+                                                style={{
+                                                    aspectRatio,
+                                                }}
+                                                gif={gif}
+                                                tabIndex={tabIndex}
+                                                key={gif.id}
+                                                width={gifWidth}
+                                                percentWidth={'100%'}
+                                                onGifClick={onGifClick}
+                                                onGifKeyPress={onGifKeyPress}
+                                                onGifSeen={onGifSeen}
+                                                onGifVisible={onGifVisible}
+                                                onGifRightClick={onGifRightClick}
+                                                user={user}
+                                                overlay={overlay}
+                                                backgroundColor={backgroundColor}
+                                                hideAttribution={hideAttribution}
+                                                noLink={noLink}
+                                                borderRadius={borderRadius}
+                                                fetchPriority={fetchPriority}
+                                            />
+                                        )
+                                    })}
+                                </div>
+                            )
+                        })}
+                    </div>
                     {!showLoader && gifs.length === 0 && noResultsMessage}
                     {isError ? (
                         <FetchError onClick={this.onFetch} />

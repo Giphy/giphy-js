@@ -234,12 +234,16 @@ const Gif = ({
             if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
         }
     }, [])
-    const height = forcedHeight || getGifHeight(gif, width)
-    if (percentWidth && !percentHeight) {
+    const useAspect = !!style?.aspectRatio
+    let height: number | undefined = forcedHeight || getGifHeight(gif, width)
+    if (percentWidth && !percentHeight && !useAspect) {
         const ratio = Math.round((height / width) * 100)
         percentHeight = `${ratio}%`
     }
     const bestRendition = getBestRendition(gif.images, width, height)
+    if (useAspect) {
+        height = undefined
+    }
     if (!bestRendition) {
         if (gif.images) {
             console.error(`no rendition for ${gif.id}, rendition names: ${Object.keys(gif.images).join(', ')}`)
@@ -273,6 +277,7 @@ const Gif = ({
                 height: percentHeight || height,
                 overflow,
                 borderRadius,
+                aspectRatio: gif.images.original.width / gif.images.original.height,
                 ...style,
             }}
             className={[Gif.className, className].join(' ')}
@@ -295,7 +300,7 @@ const Gif = ({
                     suppressHydrationWarning
                     className={[Gif.imgClassName, loadedClassname].join(' ')}
                     src={shouldShowMedia ? rendition.url : placeholder}
-                    style={{ background }}
+                    style={{ background, aspectRatio: gif.images.original.width / gif.images.original.height }}
                     width="100%"
                     height="100%"
                     alt={getAltText(gif)}
