@@ -176,14 +176,10 @@ class Grid extends PureComponent<Props, State> {
         const columnHeights: number[] = fillArray(columns, columnOffsets)
         gifs.forEach((gif) => {
             const columnTarget = columnHeights.indexOf(Math.min(...columnHeights))
-            const height = getGifHeight(gif, gifWidth)
             const [existingGifs = []] = sorter[columnTarget] || []
             sorter[columnTarget] = [[...existingGifs, gif]]
-            if (height) {
-                columnHeights[columnTarget] += height
-            }
+            columnHeights[columnTarget] += getGifHeight(gif, gifWidth)
         })
-        // calculate the unscaled height to set the aspect ratio
         const containerStyle: CSSProperties = {
             width: percentWidth,
             display: 'flex',
@@ -193,10 +189,10 @@ class Grid extends PureComponent<Props, State> {
             <PingbackContextManager attributes={{ layout_type: layoutType }}>
                 <div className={className} style={{ width: percentWidth || width }}>
                     <div style={containerStyle}>
-                        {(sorter || []).map(([_gifs], gifIndex) => {
+                        {(sorter || []).map(([_gifs], columnIndex) => {
                             return (
                                 <div
-                                    key={gifIndex}
+                                    key={columnIndex}
                                     style={{
                                         display: 'flex',
                                         flexDirection: 'column',
@@ -205,11 +201,10 @@ class Grid extends PureComponent<Props, State> {
                                     }}
                                 >
                                     {(_gifs || []).map((gif) => {
-                                        const aspectRatio = gif.images.original.width / gif.images.original.height
                                         return (
                                             <Gif
                                                 style={{
-                                                    aspectRatio,
+                                                    aspectRatio: gif.images.original.width / gif.images.original.height,
                                                 }}
                                                 gif={gif}
                                                 tabIndex={tabIndex}

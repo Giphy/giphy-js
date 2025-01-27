@@ -55,7 +55,6 @@ type GifProps = {
     gif: IGif
     width: number
     percentWidth?: string
-    percentHeight?: string
     height?: number
     backgroundColor?: string
     className?: string
@@ -93,7 +92,6 @@ const Gif = ({
     gif: { bottle_data: bottleData = {} },
     width,
     percentWidth,
-    percentHeight,
     height: forcedHeight,
     onGifRightClick = noop,
     className = '',
@@ -236,7 +234,8 @@ const Gif = ({
     }, [])
     const useAspect = !!style?.aspectRatio
     let height: number | undefined = forcedHeight || getGifHeight(gif, width)
-    if (percentWidth && !percentHeight && !useAspect) {
+    let percentHeight: string | undefined
+    if (percentWidth && !useAspect) {
         const ratio = Math.round((height / width) * 100)
         percentHeight = `${ratio}%`
     }
