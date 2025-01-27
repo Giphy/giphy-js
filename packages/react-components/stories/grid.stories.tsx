@@ -126,6 +126,16 @@ export const GridResponsiveContainer: Story = {
     },
 }
 
+export const GridResponsiveLowRes: Story = {
+    args: {
+        percentWidth: '100%',
+        width: 100,
+        columns: 4,
+        gutter: 10,
+        containerStyles: { width: 800, backgroundColor: 'aquamarine' },
+    },
+}
+
 export const GridResponsiveContainerWithOffsets: Story = {
     args: {
         width: 1040,

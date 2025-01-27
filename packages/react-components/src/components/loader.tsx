@@ -8,12 +8,11 @@ const bouncer = keyframes`
     transform: scale(1.75) translateY(-20px);
   }
 `
-const loaderHeight = 37
+const loaderHeight = 52
 const Container = styled.div`
     display: flex;
     align-items: center;
     height: ${loaderHeight}px;
-    padding-top: 15px;
     margin: 0 auto;
     text-align: center;
     justify-content: center;

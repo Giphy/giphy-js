@@ -53,8 +53,9 @@ function getColumns(columns: number, columnOffsets: number[] | undefined, gifs: 
     gifs.forEach((gif) => {
         // get the shortest column
         const columnTarget = columnHeights.indexOf(Math.min(...columnHeights))
-        const existingGifs = sorter[columnTarget] || []
-        sorter[columnTarget] = [...existingGifs, gif]
+        // add gif to column
+        sorter[columnTarget] = [...sorter[columnTarget], gif]
+        // add gif height to column height total
         columnHeights[columnTarget] += getGifHeight(gif, gifWidth)
     })
     return sorter
@@ -63,7 +64,6 @@ function getColumns(columns: number, columnOffsets: number[] | undefined, gifs: 
 const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
 
 type State = {
-    gifWidth: number
     isFetching: boolean
     isError: boolean
     gifs: IGif[]
@@ -74,7 +74,6 @@ type State = {
 const initialState = Object.freeze({
     isFetching: false,
     isError: false,
-    gifWidth: 0,
     gifs: [] as IGif[],
     isLoaderVisible: false,
     isDoneFetching: false,
@@ -91,14 +90,9 @@ class Grid extends PureComponent<Props, State> {
     unmounted: boolean = false
     paginator = gifPaginator(this.props.fetchGifs, this.state.gifs)
     static getDerivedStateFromProps: GetDerivedStateFromProps<Props, State> = (
-        { columns, gutter, width, externalGifs }: Props,
+        { externalGifs }: Props,
         prevState: State
     ) => {
-        const gutterOffset = gutter * (columns - 1)
-        const gifWidth = Math.floor((width - gutterOffset) / columns)
-        if (prevState.gifWidth !== gifWidth) {
-            return { gifWidth }
-        }
         if (externalGifs && externalGifs !== prevState.gifs) {
             return { gifs: externalGifs }
         }
@@ -181,14 +175,16 @@ class Grid extends PureComponent<Props, State> {
             loader: LoaderVisual = DotsLoader,
             fetchPriority,
         } = this.props
-        const { gifWidth, gifs, isError, isDoneFetching } = this.state
+        const { gifs, isError, isDoneFetching } = this.state
+
         const showLoader = !isDoneFetching
         const isFirstLoad = gifs.length === 0
-        let columnWidth = `${Math.floor((width - gutter * (columns - 1)) / columns)}px`
-        if (percentWidth) {
-            const gutterOffset = (gutter * (columns - 1)) / columns
-            columnWidth = `calc(${(gifWidth / width) * 100}% + ${gutterOffset}px)`
-        }
+
+        const totalGutterPx = gutter * (columns - 1)
+
+        // gif width to determine rendition and display size (when not percentage)
+        const gifWidth = (width - totalGutterPx) / columns
+
         // put gifs into their columns
         const sortedIntoColumns = getColumns(columns, columnOffsets, gifs, gifWidth)
         return (
@@ -208,7 +204,9 @@ class Grid extends PureComponent<Props, State> {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     gap: gutter,
-                                    width: columnWidth,
+                                    width: percentWidth
+                                        ? `calc(${(width / columns) * 100}% + ${totalGutterPx / columns}px)`
+                                        : gifWidth,
                                     marginTop: columnOffsets?.[columnIndex],
                                 }}
                             >
