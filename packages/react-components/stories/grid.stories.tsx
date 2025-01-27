@@ -34,7 +34,8 @@ type GridProps = Partial<React.ComponentProps<typeof GridComponent>> & { contain
 
 const Grid = ({ loader, containerStyles, ...other }: GridProps) => {
     const [term, setTerm] = useState('always sunny')
-    const [width, setWidth] = useState(innerWidth)
+    let [width, setWidth] = useState(innerWidth)
+    width = width - 30
     const onResize = throttle(500, () => setWidth(innerWidth))
     useEffect(() => {
         window.addEventListener('resize', onResize, false)

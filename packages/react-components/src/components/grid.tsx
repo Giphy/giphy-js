@@ -170,7 +170,11 @@ class Grid extends PureComponent<Props, State> {
         const isFirstLoad = gifs.length === 0
         const gutterOffset = (gutter * (columns - 1)) / columns
         const gifPercentWidth = percentWidth ? `calc(${(gifWidth / width) * 100}% + ${gutterOffset}px)` : undefined
-
+        let itemWidth: number | undefined
+        if (!gifPercentWidth) {
+            const gutterOffset2 = gutter * (columns - 1)
+            itemWidth = Math.floor((width - gutterOffset2) / columns)
+        }
         // put gifs into their columns
         const sorter: [IGif[]][] = []
         const columnHeights: number[] = fillArray(columns, columnOffsets)
@@ -181,7 +185,7 @@ class Grid extends PureComponent<Props, State> {
             columnHeights[columnTarget] += getGifHeight(gif, gifWidth)
         })
         const containerStyle: CSSProperties = {
-            width: percentWidth,
+            width: percentWidth || width,
             display: 'flex',
             gap: gutter,
         }
@@ -197,7 +201,7 @@ class Grid extends PureComponent<Props, State> {
                                         display: 'flex',
                                         flexDirection: 'column',
                                         gap: gutter,
-                                        width: gifPercentWidth,
+                                        width: gifPercentWidth || itemWidth,
                                     }}
                                 >
                                     {(_gifs || []).map((gif) => {
