@@ -43,18 +43,18 @@ const Loader = styled.div<{ $isFirstLoad: boolean }>`
     opacity: ${(props) => (props.$isFirstLoad ? 0 : 1)};
 `
 
-function fillArray(length: number, columnOffsets: number[] = []) {
-    return Array.apply(null, Array(length)).map((_, index: number) => columnOffsets[index] || 0)
+function fillArray<T>(length: number, defaultValue: T, initArray: T[] = []) {
+    return Array.apply(null, Array(length)).map((_, index: number) => initArray[index] || defaultValue)
 }
 
 function getColumns(columns: number, columnOffsets: number[] | undefined, gifs: IGif[], gifWidth: number) {
-    const sorter: [IGif[]][] = []
-    const columnHeights: number[] = fillArray(columns, columnOffsets)
+    const sorter: IGif[][] = fillArray(columns, [])
+    const columnHeights: number[] = fillArray(columns, 0, columnOffsets)
     gifs.forEach((gif) => {
         // get the shortest column
         const columnTarget = columnHeights.indexOf(Math.min(...columnHeights))
-        const [existingGifs = []] = sorter[columnTarget] || []
-        sorter[columnTarget] = [[...existingGifs, gif]]
+        const existingGifs = sorter[columnTarget] || []
+        sorter[columnTarget] = [...existingGifs, gif]
         columnHeights[columnTarget] += getGifHeight(gif, gifWidth)
     })
     return sorter
@@ -201,7 +201,7 @@ class Grid extends PureComponent<Props, State> {
                             gap: gutter,
                         }}
                     >
-                        {sortedIntoColumns.map(([columnGifs = []], columnIndex) => (
+                        {sortedIntoColumns.map((columnGifs = [], columnIndex) => (
                             <div
                                 key={columnIndex}
                                 style={{
