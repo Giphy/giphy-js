@@ -169,16 +169,15 @@ class Grid extends PureComponent<Props, State> {
         const showLoader = !isDoneFetching
         const isFirstLoad = gifs.length === 0
         const gutterOffset = (gutter * (columns - 1)) / columns
-        const gifPercentWidth = percentWidth ? `calc(${(gifWidth / width) * 100}% + ${gutterOffset}px)` : undefined
-        let itemWidth: number | undefined
-        if (!gifPercentWidth) {
-            const gutterOffset2 = gutter * (columns - 1)
-            itemWidth = Math.floor((width - gutterOffset2) / columns)
+        let columnWidth: string = `${Math.floor((width - gutter * (columns - 1)) / columns)}px`
+        if (percentWidth) {
+            columnWidth = `calc(${(gifWidth / width) * 100}% + ${gutterOffset}px)`
         }
         // put gifs into their columns
         const sorter: [IGif[]][] = []
         const columnHeights: number[] = fillArray(columns, columnOffsets)
         gifs.forEach((gif) => {
+            // get the shortest column
             const columnTarget = columnHeights.indexOf(Math.min(...columnHeights))
             const [existingGifs = []] = sorter[columnTarget] || []
             sorter[columnTarget] = [[...existingGifs, gif]]
@@ -191,48 +190,45 @@ class Grid extends PureComponent<Props, State> {
         }
         return (
             <PingbackContextManager attributes={{ layout_type: layoutType }}>
-                <div className={className} style={{ width: percentWidth || width }}>
+                <div className={className}>
                     <div style={containerStyle}>
-                        {(sorter || []).map(([_gifs], columnIndex) => {
-                            return (
-                                <div
-                                    key={columnIndex}
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        gap: gutter,
-                                        width: gifPercentWidth || itemWidth,
-                                    }}
-                                >
-                                    {(_gifs || []).map((gif) => {
-                                        return (
-                                            <Gif
-                                                style={{
-                                                    aspectRatio: gif.images.original.width / gif.images.original.height,
-                                                }}
-                                                gif={gif}
-                                                tabIndex={tabIndex}
-                                                key={gif.id}
-                                                width={gifWidth}
-                                                percentWidth={'100%'}
-                                                onGifClick={onGifClick}
-                                                onGifKeyPress={onGifKeyPress}
-                                                onGifSeen={onGifSeen}
-                                                onGifVisible={onGifVisible}
-                                                onGifRightClick={onGifRightClick}
-                                                user={user}
-                                                overlay={overlay}
-                                                backgroundColor={backgroundColor}
-                                                hideAttribution={hideAttribution}
-                                                noLink={noLink}
-                                                borderRadius={borderRadius}
-                                                fetchPriority={fetchPriority}
-                                            />
-                                        )
-                                    })}
-                                </div>
-                            )
-                        })}
+                        {sorter.map(([columnGifs = []], columnIndex) => (
+                            <div
+                                key={columnIndex}
+                                style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: gutter,
+                                    width: columnWidth,
+                                    marginTop: columnOffsets?.[columnIndex],
+                                }}
+                            >
+                                {columnGifs.map((gif) => (
+                                    <Gif
+                                        style={{
+                                            aspectRatio: gif.images.original.width / gif.images.original.height,
+                                        }}
+                                        gif={gif}
+                                        tabIndex={tabIndex}
+                                        key={gif.id}
+                                        width={gifWidth}
+                                        percentWidth={'100%'}
+                                        onGifClick={onGifClick}
+                                        onGifKeyPress={onGifKeyPress}
+                                        onGifSeen={onGifSeen}
+                                        onGifVisible={onGifVisible}
+                                        onGifRightClick={onGifRightClick}
+                                        user={user}
+                                        overlay={overlay}
+                                        backgroundColor={backgroundColor}
+                                        hideAttribution={hideAttribution}
+                                        noLink={noLink}
+                                        borderRadius={borderRadius}
+                                        fetchPriority={fetchPriority}
+                                    />
+                                ))}
+                            </div>
+                        ))}
                     </div>
                     {!showLoader && gifs.length === 0 && noResultsMessage}
                     {isError ? (

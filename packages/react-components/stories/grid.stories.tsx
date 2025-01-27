@@ -126,6 +126,16 @@ export const GridResponsiveContainer: Story = {
     },
 }
 
+export const GridResponsiveContainerWithOffsets: Story = {
+    args: {
+        width: 1040,
+        columns: 4,
+        gutter: 10,
+        columnOffsets: [0, 0, 350, 350],
+        containerStyles: { width: 1040, backgroundColor: 'mediumpurple' },
+    },
+}
+
 export const GridCustomLoader: Story = {
     args: {
         loader: () => <h1 style={{ textAlign: 'center' }}> 🌀 </h1>,
