@@ -2,10 +2,9 @@
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
-import React, { ComponentProps, CSSProperties, ElementType, GetDerivedStateFromProps, PureComponent } from 'react'
+import React, { ComponentProps, ElementType, GetDerivedStateFromProps, PureComponent } from 'react'
 import styled from 'styled-components'
 import { debounce } from 'throttle-debounce'
-import { fillArray } from '../util/array'
 import Observer from '../util/observer'
 import FetchError from './fetch-error'
 import Gif, { EventProps } from './gif'
@@ -43,6 +42,23 @@ type Props = {
 const Loader = styled.div<{ $isFirstLoad: boolean }>`
     opacity: ${(props) => (props.$isFirstLoad ? 0 : 1)};
 `
+
+function fillArray(length: number, columnOffsets: number[] = []) {
+    return Array.apply(null, Array(length)).map((_, index: number) => columnOffsets[index] || 0)
+}
+
+function getColumns(columns: number, columnOffsets: number[] | undefined, gifs: IGif[], gifWidth: number) {
+    const sorter: [IGif[]][] = []
+    const columnHeights: number[] = fillArray(columns, columnOffsets)
+    gifs.forEach((gif) => {
+        // get the shortest column
+        const columnTarget = columnHeights.indexOf(Math.min(...columnHeights))
+        const [existingGifs = []] = sorter[columnTarget] || []
+        sorter[columnTarget] = [[...existingGifs, gif]]
+        columnHeights[columnTarget] += getGifHeight(gif, gifWidth)
+    })
+    return sorter
+}
 
 const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
 
@@ -168,31 +184,24 @@ class Grid extends PureComponent<Props, State> {
         const { gifWidth, gifs, isError, isDoneFetching } = this.state
         const showLoader = !isDoneFetching
         const isFirstLoad = gifs.length === 0
-        const gutterOffset = (gutter * (columns - 1)) / columns
-        let columnWidth: string = `${Math.floor((width - gutter * (columns - 1)) / columns)}px`
+        let columnWidth = `${Math.floor((width - gutter * (columns - 1)) / columns)}px`
         if (percentWidth) {
+            const gutterOffset = (gutter * (columns - 1)) / columns
             columnWidth = `calc(${(gifWidth / width) * 100}% + ${gutterOffset}px)`
         }
         // put gifs into their columns
-        const sorter: [IGif[]][] = []
-        const columnHeights: number[] = fillArray(columns, columnOffsets)
-        gifs.forEach((gif) => {
-            // get the shortest column
-            const columnTarget = columnHeights.indexOf(Math.min(...columnHeights))
-            const [existingGifs = []] = sorter[columnTarget] || []
-            sorter[columnTarget] = [[...existingGifs, gif]]
-            columnHeights[columnTarget] += getGifHeight(gif, gifWidth)
-        })
-        const containerStyle: CSSProperties = {
-            width: percentWidth || width,
-            display: 'flex',
-            gap: gutter,
-        }
+        const sortedIntoColumns = getColumns(columns, columnOffsets, gifs, gifWidth)
         return (
             <PingbackContextManager attributes={{ layout_type: layoutType }}>
                 <div className={className}>
-                    <div style={containerStyle}>
-                        {sorter.map(([columnGifs = []], columnIndex) => (
+                    <div
+                        style={{
+                            width: percentWidth || width,
+                            display: 'flex',
+                            gap: gutter,
+                        }}
+                    >
+                        {sortedIntoColumns.map(([columnGifs = []], columnIndex) => (
                             <div
                                 key={columnIndex}
                                 style={{
@@ -212,7 +221,7 @@ class Grid extends PureComponent<Props, State> {
                                         tabIndex={tabIndex}
                                         key={gif.id}
                                         width={gifWidth}
-                                        percentWidth={'100%'}
+                                        percentWidth={percentWidth ? '100%' : undefined}
                                         onGifClick={onGifClick}
                                         onGifKeyPress={onGifKeyPress}
                                         onGifSeen={onGifSeen}
