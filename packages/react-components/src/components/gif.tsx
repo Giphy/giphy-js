@@ -232,8 +232,8 @@ const Gif = ({
             if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
         }
     }, [])
-    const useAspect = !!style?.aspectRatio
     let height: number | undefined = forcedHeight || getGifHeight(gif, width)
+    const useAspect = !!style?.aspectRatio
     let percentHeight: string | undefined
     if (percentWidth && !useAspect) {
         const ratio = Math.round((height / width) * 100)
@@ -252,17 +252,14 @@ const Gif = ({
         return null
     }
     const rendition = gif.images[bestRendition.renditionName] as ImageAllTypes
-    let background =
-        backgroundColor || // <- specified background prop
-        // sticker has black if no backgroundColor is specified
-        (gif.is_sticker
-            ? `url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AQMAAACSSKldAAAABlBMVEUhIiIWFhYoSqvJAAAAGElEQVQY02MAAv7///8PWxqIPwDZw5UGABtgwz2xhFKxAAAAAElFTkSuQmCC') 0 0`
-            : defaultBgColor.current)
-
-    // the background will peek through when subpixel rendering
-    if (loadedClassname === Gif.imgLoadedClassName && !gif.is_sticker) {
-        background = 'unset'
-    }
+    const removeBackground = loadedClassname === Gif.imgLoadedClassName && !gif.is_sticker
+    const background = removeBackground
+        ? 'unset' // the background will peek through if there's subpixel rendering, remove it after the gif loads
+        : backgroundColor || // <- specified background prop
+          // sticker has black if no backgroundColor is specified
+          (gif.is_sticker
+              ? `url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AQMAAACSSKldAAAABlBMVEUhIiIWFhYoSqvJAAAAGElEQVQY02MAAv7///8PWxqIPwDZw5UGABtgwz2xhFKxAAAAAElFTkSuQmCC') 0 0`
+              : defaultBgColor.current)
 
     const overflow = borderRadius ? 'hidden' : 'unset'
     return (
@@ -276,7 +273,6 @@ const Gif = ({
                 height: percentHeight || height,
                 overflow,
                 borderRadius,
-                aspectRatio: gif.images.original.width / gif.images.original.height,
                 ...style,
             }}
             className={[Gif.className, className].join(' ')}
@@ -299,7 +295,7 @@ const Gif = ({
                     suppressHydrationWarning
                     className={[Gif.imgClassName, loadedClassname].join(' ')}
                     src={shouldShowMedia ? rendition.url : placeholder}
-                    style={{ background, aspectRatio: gif.images.original.width / gif.images.original.height }}
+                    style={{ background }}
                     width="100%"
                     height="100%"
                     alt={getAltText(gif)}
