@@ -232,8 +232,8 @@ const Gif = ({
             if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
         }
     }, [])
-    let height: number | undefined = forcedHeight || getGifHeight(gif, width)
     const useAspect = !!style?.aspectRatio
+    let height: number | undefined = forcedHeight || getGifHeight(gif, width)
     let percentHeight: string | undefined
     if (percentWidth && !useAspect) {
         const ratio = Math.round((height / width) * 100)
@@ -241,7 +241,8 @@ const Gif = ({
     }
     const bestRendition = getBestRendition(gif.images, width, height)
     if (useAspect) {
-        height = undefined
+        // this could be undefined, and that's ok because aspect ratio
+        height = forcedHeight
     }
     if (!bestRendition) {
         if (gif.images) {

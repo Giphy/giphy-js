@@ -29,7 +29,6 @@ type Props = {
     noResultsMessage?: string | JSX.Element
     initialGifs?: IGif[]
     externalGifs?: IGif[]
-    useTransform?: boolean
     columnOffsets?: number[]
     backgroundColor?: string
     borderRadius?: number
