@@ -4,7 +4,7 @@ import { IGif } from '@giphy/js-types'
 import { action } from '@storybook/addon-actions'
 import { number } from '@storybook/addon-knobs'
 import { Meta, StoryObj } from '@storybook/react'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { CSSProperties, useCallback, useEffect, useState } from 'react'
 import { Gif as GifComponent, GifOverlayProps } from '../src'
 import VideoOverlay from '../src/components/video/video-overlay'
 
@@ -20,6 +20,7 @@ type GifDemoProps = Omit<GifComponentProps, 'gif'> & {
     id: string
     scale: string
     bottle_data: IGif['bottle_data']
+    contaierStyles?: CSSProperties
 }
 
 const GifDemo = ({
@@ -31,6 +32,7 @@ const GifDemo = ({
     percentWidth,
     overlay,
     bottle_data,
+    contaierStyles,
     ...other
 }: GifDemoProps) => {
     const [gif, setGif] = useState<IGif>()
@@ -48,22 +50,24 @@ const GifDemo = ({
     }, [fetch, id])
 
     return gif && width > 0 ? (
-        <GifComponent
-            key={`gif-${noLink} ${gif.id}`}
-            tabIndex={1}
-            borderRadius={borderRadius}
-            gif={gif}
-            percentWidth={percentWidth}
-            width={width}
-            height={height}
-            noLink={noLink}
-            onGifClick={eventAction('click')}
-            onGifSeen={eventAction('seen')}
-            onGifVisible={eventAction('visible')}
-            onGifKeyPress={eventAction('keyPress')}
-            overlay={overlay}
-            {...other}
-        />
+        <div style={contaierStyles}>
+            <GifComponent
+                key={`gif-${noLink} ${gif.id}`}
+                tabIndex={1}
+                borderRadius={borderRadius}
+                gif={gif}
+                percentWidth={percentWidth}
+                width={width}
+                height={height}
+                noLink={noLink}
+                onGifClick={eventAction('click')}
+                onGifSeen={eventAction('seen')}
+                onGifVisible={eventAction('visible')}
+                onGifKeyPress={eventAction('keyPress')}
+                overlay={overlay}
+                {...other}
+            />
+        </div>
     ) : null
 }
 
@@ -115,13 +119,61 @@ export const GifWithAd: Story = {
     },
 }
 
-export const GifThatStretches: Story = {
+export const ResponsiveGif100Percent: Story = {
     args: {
+        contaierStyles: { width: 500, background: 'purple', height: 800 },
         id: 'sTczweWUTxLqg',
-        percentWidth: '50%',
+        percentWidth: '100%',
+        style: {
+            aspectRatio: 280 / 200,
+        },
     },
 }
 
+export const ResponsiveGif50Percent: Story = {
+    args: {
+        contaierStyles: { width: 500, background: 'purple', height: 800 },
+        id: 'sTczweWUTxLqg',
+        percentWidth: '50%',
+        overlay: (props: GifOverlayProps) =>
+            props.isHovered ? (
+                <div
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'absolute',
+                        inset: 0,
+                        background: `rgba(0,0,0,.2)`,
+                    }}
+                >
+                    {props.gif.id}
+                </div>
+            ) : null,
+    },
+}
+
+export const ResponsiveGifScaled: Story = {
+    args: {
+        contaierStyles: { width: 500, background: 'purple', height: 800 },
+        id: 'sTczweWUTxLqg',
+        percentWidth: '100%',
+        percentHeight: '100%',
+        overlay: (props: GifOverlayProps) =>
+            props.isHovered ? (
+                <div
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        position: 'absolute',
+                        inset: 0,
+                        background: `rgba(0,0,0,.2)`,
+                    }}
+                >
+                    {props.gif.id}
+                </div>
+            ) : null,
+    },
+}
 export const GifWithVideoOverlayFillVideo: Story = {
     args: {
         id: 'CWuHC9Nv5CKV8u7WeO',
@@ -129,7 +181,7 @@ export const GifWithVideoOverlayFillVideo: Story = {
         height: 340,
         hideAttribution: true,
         overlay: (props: GifOverlayProps) => (
-            <VideoOverlay {...props} width={number('width', 340)} height={number('width', 340)} />
+            <VideoOverlay width={number('width', 340)} height={number('height', 340)} {...props} />
         ),
     },
 }

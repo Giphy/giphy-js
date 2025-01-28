@@ -53,9 +53,21 @@ export type EventProps = {
 
 type GifProps = {
     gif: IGif
+    /**
+     * The width of the grid in pixels. This size will also determine the renditions of the grid items.
+     */
     width: number
+    /**
+     * A percentage value for the container to scale into. If the container scales up to a large size
+     * and there is a small `width` property, the resolution of the grid items may be poor
+     */
     percentWidth?: string
+    /**
+     * Usually you don't need to define a height, as it can be calculated from the width provided in the gif data.
+     * Two use cases would be using your own aspect ratio, and when you need to animate the height.
+     */
     height?: number
+    percentHeight?: string
     backgroundColor?: string
     className?: string
     user?: Partial<IUser>
@@ -92,6 +104,7 @@ const Gif = ({
     gif: { bottle_data: bottleData = {} },
     width,
     percentWidth,
+    percentHeight,
     height: forcedHeight,
     onGifRightClick = noop,
     className = '',
@@ -232,18 +245,13 @@ const Gif = ({
             if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
         }
     }, [])
-    const useAspect = !!style?.aspectRatio
-    let height: number | undefined = forcedHeight || getGifHeight(gif, width)
-    let percentHeight: string | undefined
-    if (percentWidth && !useAspect) {
-        const ratio = Math.round((height / width) * 100)
-        percentHeight = `${ratio}%`
-    }
-    const bestRendition = getBestRendition(gif.images, width, height)
-    if (useAspect) {
-        // this could be undefined, and that's ok because aspect ratio
-        height = forcedHeight
-    }
+
+    const heightBasedOnWidth = getGifHeight(gif, width)
+    const height = style?.aspectRatio
+        ? forcedHeight // if we have aspect ratio set, then don't use heightBasedOnWidth
+        : heightBasedOnWidth
+
+    const bestRendition = getBestRendition(gif.images, width, forcedHeight || heightBasedOnWidth)
     if (!bestRendition) {
         if (gif.images) {
             console.error(`no rendition for ${gif.id}, rendition names: ${Object.keys(gif.images).join(', ')}`)
