@@ -2,7 +2,7 @@
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifHeight } from '@giphy/js-util'
-import React, { ComponentProps, ElementType, GetDerivedStateFromProps, PureComponent } from 'react'
+import React, { ElementType, GetDerivedStateFromProps, PureComponent } from 'react'
 import styled from 'styled-components'
 import { debounce } from 'throttle-debounce'
 import Observer from '../util/observer'
@@ -35,7 +35,7 @@ type Props = {
     tabIndex?: number
     loaderConfig?: IntersectionObserverInit
     loader?: ElementType
-    fetchPriority?: ComponentProps<typeof Gif>[`fetchPriority`]
+    priorityIds?: IGif['id'][]
 } & EventProps
 
 const Loader = styled.div<{ $isFirstLoad: boolean }>`
@@ -172,7 +172,7 @@ class Grid extends PureComponent<Props, State> {
             tabIndex = 0,
             layoutType = 'GRID',
             loader: LoaderVisual = DotsLoader,
-            fetchPriority,
+            priorityIds,
         } = this.props
         const { gifs, isError, isDoneFetching } = this.state
 
@@ -230,7 +230,7 @@ class Grid extends PureComponent<Props, State> {
                                         hideAttribution={hideAttribution}
                                         noLink={noLink}
                                         borderRadius={borderRadius}
-                                        fetchPriority={fetchPriority}
+                                        priority={priorityIds?.includes(gif.id)}
                                     />
                                 ))}
                             </div>

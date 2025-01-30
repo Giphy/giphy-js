@@ -77,9 +77,7 @@ type GifProps = {
     borderRadius?: number
     tabIndex?: number
     style?: any
-    // issues with this will be resolved in the next React release:
-    // https://github.com/facebook/react/issues/27233
-    fetchPriority?: 'auto' | 'high' | 'low'
+    priority?: boolean
 }
 
 type Props = GifProps & EventProps
@@ -120,6 +118,7 @@ const Gif = ({
     borderRadius = 4,
     style,
     tabIndex,
+    priority,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -127,7 +126,7 @@ const Gif = ({
     const [isHovered, setHovered] = useState(false)
     // only show the gif if it's on the screen
     // if we can't use the dom (SSR), then we show the gif by default
-    const [shouldShowMedia, setShouldShowMedia] = useState(!canUseDOM)
+    const [shouldShowMedia, setShouldShowMedia] = useState(!canUseDOM || priority)
     // classname to target animations on image load
     const [loadedClassname, setLoadedClassName] = useState('')
     // the background color shouldn't change unless it comes from a prop or we have a sticker

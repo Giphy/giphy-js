@@ -29,7 +29,6 @@
         "@storybook/addon-links": "^7.1.1",
         "@storybook/addon-onboarding": "^1.0.8",
         "@storybook/addon-viewport": "7.1.1",
-        "@storybook/addons": "^7.1.1",
         "@storybook/blocks": "^7.1.1",
         "@storybook/react": "^7.1.1",
         "@storybook/react-vite": "^7.1.0",
