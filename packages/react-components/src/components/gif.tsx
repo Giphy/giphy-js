@@ -77,6 +77,7 @@ type GifProps = {
     borderRadius?: number
     tabIndex?: number
     style?: any
+    eager?: boolean
     priority?: boolean
 }
 
@@ -118,6 +119,7 @@ const Gif = ({
     borderRadius = 4,
     style,
     tabIndex,
+    eager,
     priority,
 }: Props) => {
     // only fire seen once per gif id
@@ -126,7 +128,7 @@ const Gif = ({
     const [isHovered, setHovered] = useState(false)
     // only show the gif if it's on the screen
     // if we can't use the dom (SSR), then we show the gif by default
-    const [shouldShowMedia, setShouldShowMedia] = useState(!canUseDOM || priority)
+    const [shouldShowMedia, setShouldShowMedia] = useState(!canUseDOM || eager || priority)
     // classname to target animations on image load
     const [loadedClassname, setLoadedClassName] = useState('')
     // the background color shouldn't change unless it comes from a prop or we have a sticker

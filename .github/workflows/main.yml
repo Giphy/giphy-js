@@ -13,8 +13,10 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - uses: actions/setup-node@v4
+              env:
+                  LIBGL_ALWAYS_SOFTWARE: 1
               with:
-                  node-version: 18.x
+                  node-version: 22.x
                   cache: 'yarn'
             - run: yarn install --immutable
             - name: Build
@@ -22,7 +24,11 @@ jobs:
             - name: Lint and Test
               run: yarn run lint && yarn run test
             - name: Cypress
-              run: yarn run cy:run --record --key $CYPRESS_RECORD_KEY
+              uses: cypress-io/github-action@v6
+              with:
+                  record: true
+                  component: true
+                  working-directory: packages/react-components
               env:
                   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
             - name: License Check
