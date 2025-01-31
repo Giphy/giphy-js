@@ -35,7 +35,7 @@ type Props = {
     tabIndex?: number
     loaderConfig?: IntersectionObserverInit
     loader?: ElementType
-    priorityIds?: IGif['id'][]
+    eagerLoading?: IGif['id'][]
 } & EventProps
 
 const Loader = styled.div<{ $isFirstLoad: boolean }>`
@@ -172,7 +172,7 @@ class Grid extends PureComponent<Props, State> {
             tabIndex = 0,
             layoutType = 'GRID',
             loader: LoaderVisual = DotsLoader,
-            priorityIds,
+            eagerLoading,
         } = this.props
         const { gifs, isError, isDoneFetching } = this.state
 
@@ -230,7 +230,7 @@ class Grid extends PureComponent<Props, State> {
                                         hideAttribution={hideAttribution}
                                         noLink={noLink}
                                         borderRadius={borderRadius}
-                                        priority={priorityIds?.includes(gif.id)}
+                                        eagerLoading={eagerLoading?.includes(gif.id)}
                                     />
                                 ))}
                             </div>

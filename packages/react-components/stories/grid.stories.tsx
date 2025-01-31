@@ -67,7 +67,7 @@ const Grid = ({ loader, containerStyles, columns, limit = 10, ...other }: GridPr
                     <GridComponent
                         key={term}
                         width={width}
-                        columns={columns || width < 500 ? 2 : 3}
+                        columns={columns || (width < 500 ? 2 : 3)}
                         noResultsMessage={NoResults}
                         loader={loader}
                         fetchGifs={fetchGifs}
@@ -104,7 +104,11 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-export const GridStory: Story = {}
+export const GridStory: Story = {
+    args: {
+        eagerLoading: ['l0IylOPCNkiqOgMyA', 'l0IykOsxLECVejOzm'],
+    },
+}
 
 export const GridResponsive: Story = {
     args: {
