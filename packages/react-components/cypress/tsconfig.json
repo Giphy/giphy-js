@@ -1,21 +1,18 @@
 {
-  "extends": "../../../tsconfig.json",
-  "compilerOptions": {
-    "jsx": "react",
-    "resolveJsonModule": true,
-    "types": [
-      "cypress",
-      "@percy/cypress"
+    "extends": "../../../tsconfig.json",
+    "compilerOptions": {
+        "jsx": "react",
+        "resolveJsonModule": true,
+        "types": ["cypress", "@percy/cypress"]
+    },
+    "include": [
+        "./stories/*.ts",
+        "./stories/*.tsx",
+        "./support/*.ts",
+        "./utils/*.ts",
+        "../stories/*.ts",
+        "../stories/*.tsx",
+        "../src/*.ts",
+        "../src/*.tsx"
     ]
-  },
-  "include": [
-    "./stories/*.ts",
-    "./stories/*.tsx",
-    "./support/*.ts",
-    "./utils/*.ts",
-    "../stories/*.ts",
-    "../stories/*.tsx",
-    "../src/*.ts",
-    "../src/*.tsx"
-  ]
 }

@@ -2,7 +2,6 @@
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { action } from '@storybook/addon-actions'
-import { number } from '@storybook/addon-knobs'
 import { Meta, StoryObj } from '@storybook/react'
 import React, { CSSProperties, useCallback, useEffect, useState } from 'react'
 import { Gif as GifComponent, GifOverlayProps } from '../src'
@@ -103,7 +102,7 @@ export const Gif: Story = {}
 
 export const GifWithOverlay: Story = {
     args: {
-        overlay: (props: GifOverlayProps) => <VideoOverlay {...props} width={number('width', 500)} />,
+        overlay: (props: GifOverlayProps) => <VideoOverlay {...props} width={500} />,
     },
 }
 
@@ -180,9 +179,7 @@ export const GifWithVideoOverlayFillVideo: Story = {
         width: 340,
         height: 340,
         hideAttribution: true,
-        overlay: (props: GifOverlayProps) => (
-            <VideoOverlay width={number('width', 340)} height={number('height', 340)} {...props} />
-        ),
+        overlay: (props: GifOverlayProps) => <VideoOverlay width={340} height={340} {...props} />,
     },
 }
 

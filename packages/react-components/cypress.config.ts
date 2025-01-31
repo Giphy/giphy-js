@@ -5,6 +5,7 @@ export default defineConfig({
     defaultCommandTimeout: 10000,
     video: false,
     viewportWidth: 1080,
+    viewportHeight: 1000,
     projectId: 'zse12i',
 
     retries: {
@@ -16,8 +17,7 @@ export default defineConfig({
         specPattern: ['cypress/**/*.spec.tsx', 'cypress/**/*.spec.ts'],
         devServer: {
             framework: 'react',
-            bundler: 'webpack',
-            webpackConfig: require('./cypress/webpack.config'),
+            bundler: 'vite',
         },
     },
 

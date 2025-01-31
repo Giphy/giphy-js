@@ -1,4 +1,3 @@
-import styled from '@emotion/styled'
 import { Meta, StoryObj } from '@storybook/react'
 import fetchMock from 'fetch-mock'
 import React, { useContext, useLayoutEffect } from 'react'
@@ -9,6 +8,7 @@ import SuggestionBar from '../src/components/search-bar/suggestion-bar'
 import inTestsRunner from './in-tests-runner'
 import { mockSearchBar } from './mock-requests'
 import useWindowSize from './use-window-size'
+import { styled } from 'styled-components'
 
 const Grid = styled(Grid_)`
     margin-top: 20px;

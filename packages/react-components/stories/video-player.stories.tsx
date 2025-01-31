@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import styled from 'styled-components'
 import { GiphyFetch } from '@giphy/js-fetch-api'
 import { IGif } from '@giphy/js-types'
 import { Meta, StoryObj } from '@storybook/react'
@@ -42,7 +42,7 @@ const meta: Meta<typeof Demo> = {
             control: { type: 'boolean' },
         },
         id: {
-            control: { type: 'string' },
+            control: { type: 'text' },
         },
     },
     args: {

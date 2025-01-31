@@ -54,7 +54,7 @@ const meta: Meta<typeof VideoDemo> = {
             control: { type: 'boolean' },
         },
         id: {
-            control: { type: 'string' },
+            control: { type: 'text' },
         },
     },
     args: {
