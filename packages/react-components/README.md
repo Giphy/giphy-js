@@ -46,6 +46,7 @@ This SDK sends analytics events back to GIPHY in the form of pingbacks to help u
 | borderRadius                            | `number`                                 | 4         | a border radius applied to Gif Components making the corners rounded                                    |
 | noResultsMessage                        | `string or JSX.Element`                  | undefined | Customize the "No results" message                                                                      |
 | loader                                  | `ElementType`                            | undefined | Customize the loader, the default is the GIPHY brand loader                                             |
+| eagerLoading                            | `string[]`                               | undefined | An array of ids that should not be lazy loaded. Usefull for any gifs that are SSR                                         |
 | noLink                                  | `boolean`                                | false     | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick`   |
 | [hideAttribution](#attribution-overlay) | `boolean`                                | false     | Hide the user attribution that appears over a GIF                                                       |
 | [loaderConfig](#loader-config)          | `IntersectionObserverInit`               | undefined | Enables configuring the loader to fetch sooner than when just onscreen, allowing for smoother scrolling |
@@ -124,6 +125,7 @@ _Gif props_
 | backgroundColor                         | `string`                                   | random giphy color | The background of the gif before it loads                                                             |
 | [hideAttribution](#attribution-overlay) | `boolean`                                  | false              | Hide the user attribution that appears over a GIF                                                     |
 | noLink                                  | `boolean`                                  | false              | Use a `div` instead of an `a` tag for the Gif component, user defines functionality with `onGifClick` |
+| eagerLoading                            | `boolean`                                  | false              | Don't check if the gif is onscreen, display on first render. Useful for SSR                           |
 | [overlay](#gif-overlay)                 | `(props: GifOverlayProps):ReactType => {}` | undefined          | see below                                                                                             |
 | [Gif Events](#gif-events)               | \*                                         | \*                 | see below                                                                                             |
 
@@ -172,11 +174,11 @@ const Components = () => {
         <>
             <SearchBar />
             <SuggestionBar />
-            {/** 
-                key will recreate the component, 
-                this is important for when you change fetchGifs 
+            {/**
+                key will recreate the component,
+                this is important for when you change fetchGifs
                 e.g. changing from search term dogs to cats or type gifs to stickers
-                you want to restart the gifs from the beginning and changing a component's key does that 
+                you want to restart the gifs from the beginning and changing a component's key does that
             **/}
             <Grid key={searchKey} columns={3} width={800} fetchGifs={fetchGifs} />
         </>
