@@ -246,9 +246,12 @@ const Gif = ({
     }, [])
 
     const heightBasedOnWidth = getGifHeight(gif, width)
-    const height = style?.aspectRatio
-        ? forcedHeight // if we have aspect ratio set, then don't use heightBasedOnWidth
-        : heightBasedOnWidth
+
+    let height = forcedHeight
+    // if we have aspect ratio set, then don't use heightBasedOnWidth
+    if (!style?.aspectRatio && !forcedHeight) {
+        height = heightBasedOnWidth
+    }
 
     const bestRendition = getBestRendition(gif.images, width, forcedHeight || heightBasedOnWidth)
     if (!bestRendition) {
