@@ -46,7 +46,6 @@ describe('Grid', () => {
 
         cy.wrap(onGifsFetched).should('be.called')
         getGridGifs().should('be.visible').its('length').should('eq', GIFS_COUNT)
-        // cy.percySnapshot(`Grid / ${story.key}`)
 
         forEachGif((gifId, idx) => {
             gifUtilsCtx.gifId = gifId as string

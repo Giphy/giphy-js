@@ -2,7 +2,7 @@
 import { gifPaginator, GifsResult } from '@giphy/js-fetch-api'
 import { IGif, IUser } from '@giphy/js-types'
 import { getGifWidth } from '@giphy/js-util'
-import React, { ComponentProps, ElementType, PureComponent } from 'react'
+import React, { ElementType, PureComponent } from 'react'
 import styled from 'styled-components'
 import { debounce } from 'throttle-debounce'
 import ObserverShared from '../util/observer'
@@ -64,7 +64,6 @@ type Props = {
     borderRadius?: number
     tabIndex?: number
     loaderConfig?: IntersectionObserverInit
-    fetchPriority?: ComponentProps<typeof Gif>[`fetchPriority`]
 } & EventProps
 
 const defaultProps = Object.freeze({ gutter: 6, user: {}, initialGifs: [] })
@@ -145,7 +144,6 @@ class Carousel extends PureComponent<Props, State> {
             borderRadius,
             tabIndex = 0,
             loaderConfig,
-            fetchPriority,
         } = this.props
         const { gifs, isDoneFetching } = this.state
         const showLoader = !isDoneFetching
@@ -173,7 +171,6 @@ class Carousel extends PureComponent<Props, State> {
                                 noLink={noLink}
                                 borderRadius={borderRadius}
                                 backgroundColor={backgroundColor}
-                                fetchPriority={fetchPriority}
                             />
                         )
                     })}

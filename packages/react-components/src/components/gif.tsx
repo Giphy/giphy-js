@@ -53,9 +53,21 @@ export type EventProps = {
 
 type GifProps = {
     gif: IGif
+    /**
+     * The width of the grid in pixels. This size will also determine the renditions of the grid items.
+     */
     width: number
+    /**
+     * A percentage value for the container to scale into. If the container scales up to a large size
+     * and there is a small `width` property, the resolution of the grid items may be poor
+     */
     percentWidth?: string
+    /**
+     * Usually you don't need to define a height, as it can be calculated from the width provided in the gif data.
+     * Two use cases would be using your own aspect ratio, and when you need to animate the height.
+     */
     height?: number
+    percentHeight?: string
     backgroundColor?: string
     className?: string
     user?: Partial<IUser>
@@ -65,9 +77,7 @@ type GifProps = {
     borderRadius?: number
     tabIndex?: number
     style?: any
-    // issues with this will be resolved in the next React release:
-    // https://github.com/facebook/react/issues/27233
-    fetchPriority?: 'auto' | 'high' | 'low'
+    lazyLoad?: boolean
 }
 
 type Props = GifProps & EventProps
@@ -92,6 +102,7 @@ const Gif = ({
     gif: { bottle_data: bottleData = {} },
     width,
     percentWidth,
+    percentHeight,
     height: forcedHeight,
     onGifRightClick = noop,
     className = '',
@@ -107,6 +118,7 @@ const Gif = ({
     borderRadius = 4,
     style,
     tabIndex,
+    lazyLoad = true,
 }: Props) => {
     // only fire seen once per gif id
     const [hasFiredSeen, setHasFiredSeen] = useState(false)
@@ -114,7 +126,7 @@ const Gif = ({
     const [isHovered, setHovered] = useState(false)
     // only show the gif if it's on the screen
     // if we can't use the dom (SSR), then we show the gif by default
-    const [shouldShowMedia, setShouldShowMedia] = useState(!canUseDOM)
+    const [shouldShowMedia, setShouldShowMedia] = useState(!canUseDOM || !lazyLoad)
     // classname to target animations on image load
     const [loadedClassname, setLoadedClassName] = useState('')
     // the background color shouldn't change unless it comes from a prop or we have a sticker
@@ -232,13 +244,16 @@ const Gif = ({
             if (hoverTimeout.current) clearTimeout(hoverTimeout.current)
         }
     }, [])
-    const height = forcedHeight || getGifHeight(gif, width)
-    let percentHeight: string | undefined
-    if (percentWidth) {
-        const ratio = Math.round((height / width) * 100)
-        percentHeight = `${ratio}%`
+
+    const heightBasedOnWidth = getGifHeight(gif, width)
+
+    let height = forcedHeight
+    // if we have aspect ratio set, then don't use heightBasedOnWidth
+    if (!style?.aspectRatio && !forcedHeight) {
+        height = heightBasedOnWidth
     }
-    const bestRendition = getBestRendition(gif.images, width, height)
+
+    const bestRendition = getBestRendition(gif.images, width, forcedHeight || heightBasedOnWidth)
     if (!bestRendition) {
         if (gif.images) {
             console.error(`no rendition for ${gif.id}, rendition names: ${Object.keys(gif.images).join(', ')}`)
@@ -248,12 +263,14 @@ const Gif = ({
         return null
     }
     const rendition = gif.images[bestRendition.renditionName] as ImageAllTypes
-    const background =
-        backgroundColor || // <- specified background prop
-        // sticker has black if no backgroundColor is specified
-        (gif.is_sticker
-            ? `url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AQMAAACSSKldAAAABlBMVEUhIiIWFhYoSqvJAAAAGElEQVQY02MAAv7///8PWxqIPwDZw5UGABtgwz2xhFKxAAAAAElFTkSuQmCC') 0 0`
-            : defaultBgColor.current)
+    const removeBackground = loadedClassname === Gif.imgLoadedClassName && !gif.is_sticker
+    const background = removeBackground
+        ? 'unset' // the background will peek through if there's subpixel rendering, remove it after the gif loads
+        : backgroundColor || // <- specified background prop
+          // sticker has black if no backgroundColor is specified
+          (gif.is_sticker
+              ? `url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AQMAAACSSKldAAAABlBMVEUhIiIWFhYoSqvJAAAAGElEQVQY02MAAv7///8PWxqIPwDZw5UGABtgwz2xhFKxAAAAAElFTkSuQmCC') 0 0`
+              : defaultBgColor.current)
 
     const overflow = borderRadius ? 'hidden' : 'unset'
     return (
