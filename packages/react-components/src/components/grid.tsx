@@ -203,9 +203,7 @@ class Grid extends PureComponent<Props, State> {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     gap: gutter,
-                                    width: percentWidth
-                                        ? `calc(${(width / columns) * 100}% + ${totalGutterPx / columns}px)`
-                                        : gifWidth,
+                                    width: percentWidth ? `100%` : gifWidth,
                                     marginTop: columnOffsets?.[columnIndex],
                                 }}
                             >
