@@ -18,7 +18,7 @@ function BottleData({ src }: { src: string }) {
     useEffect(() => {
         setRender(true)
     }, [])
-    return render ? <img src={processedSrc.current} /> : null
+    return render ? <img src={processedSrc.current} width={0} height={0} /> : null
 }
 
 export default BottleData
