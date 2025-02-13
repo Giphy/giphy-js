@@ -1,5 +1,12 @@
 ## @giphy/react-components
 
+## 10.0.1
+
+### Patch Changes
+
+-   f1c6547: - fix pixel
+    -   use 100% for the column width
+
 ## 10.0.0
 
 ### Major Changes
