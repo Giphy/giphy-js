@@ -1,5 +1,5 @@
 import { noUUIDRandom } from '@giphy/js-util'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 function processTag(tag: string) {
     tag = tag.replace(`%%CACHEBUSTER%%`, noUUIDRandom())
@@ -11,8 +11,14 @@ function processTag(tag: string) {
     }
     return tag
 }
+
 function BottleData({ src }: { src: string }) {
-    return <img src={processTag(src)} />
+    const processedSrc = useRef(processTag(src))
+    const [render, setRender] = useState(false)
+    useEffect(() => {
+        setRender(true)
+    }, [])
+    return render ? <img src={processedSrc.current} width={0} height={0} /> : null
 }
 
 export default BottleData
