@@ -115,17 +115,13 @@ class Grid extends PureComponent<Props, State> {
     onFetch = debounce(Grid.fetchDebounce, async () => {
         if (this.unmounted) return
         const { isFetching, isLoaderVisible } = this.state
-        const { externalGifs, fetchGifs } = this.props
+        const { externalGifs } = this.props
         const prefetchCount = (externalGifs || this.state.gifs).length
-        if (externalGifs) {
-            // reinitialize the paginator every fetch with the new external gifs
-            this.paginator = gifPaginator(fetchGifs, externalGifs)
-        }
         if (!isFetching && isLoaderVisible) {
             this.setState({ isFetching: true, isError: false })
             let gifs
             try {
-                gifs = await this.paginator()
+                gifs = await this.paginator(externalGifs)
                 if (this.unmounted) return
             } catch (error) {
                 if (this.unmounted) return
@@ -135,8 +131,10 @@ class Grid extends PureComponent<Props, State> {
             }
             if (gifs) {
                 // if we've just fetched and we don't have
-                // any more gifs, we're done fetching
-                if (prefetchCount === gifs.length) {
+                // any more gifs, we're done fetching,
+                // unless we have a special flag
+                const skipCountCheck = !!(gifs as any)?.skipCountCheck
+                if (!skipCountCheck && prefetchCount === gifs.length) {
                     this.setState({ isDoneFetching: true })
                 } else {
                     this.setState({ gifs, isFetching: false })

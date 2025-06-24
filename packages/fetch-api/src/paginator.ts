@@ -1,24 +1,35 @@
 import { IGif } from '@giphy/js-types'
 import { GifsResult } from './result-types'
 
+export const invisibleGifsFlag = Symbol('has inivisible gifs')
 /**
  * @hidden
  */
 export const gifPaginator = (fetchGifs: (offset: number) => Promise<GifsResult>, initialGifs: IGif[] = []) => {
-    const gifs: IGif[] = [...initialGifs]
+    let gifs: IGif[] = [...initialGifs]
     // for deduping
-    const gifIds: (string | number)[] = initialGifs.map(g => g.id)
+    let gifIds: (string | number)[] = initialGifs.map((g) => g.id)
     let offset = initialGifs.length
     let isDoneFetching = false
-    return async () => {
+    return async (externalGifs?: IGif[]) => {
+        // gifs can be edited and tracked after they're loaded
+        // externalGifs is a hoisted gif state
+        if (externalGifs) {
+            gifs = externalGifs
+            gifIds = externalGifs.map((g) => g.id)
+        }
         if (isDoneFetching) {
             return gifs
         }
         const result = await fetchGifs(offset)
         const { pagination, data: newGifs } = result
+        // if there is an offset that is greater than the gif count
+        // there may be gifs that are hidden by the visibility service
+        const skipCountCheck = pagination.offset > gifs.length
+
         offset = pagination.count + pagination.offset
         isDoneFetching = offset === pagination.total_count
-        newGifs.forEach(gif => {
+        newGifs.forEach((gif) => {
             const { id } = gif
             if (!gifIds.includes(id)) {
                 // add gifs and gifIds
@@ -26,6 +37,15 @@ export const gifPaginator = (fetchGifs: (offset: number) => Promise<GifsResult>,
                 gifIds.push(id)
             }
         })
-        return [...gifs]
+        const g = [...gifs]
+        if (skipCountCheck) {
+            // @ts-expect-error a hidden flag just for the layout
+            // components to use. it lets them know that even though
+            // they fetched the same number of gifs twice,
+            // which normally means they should stop,
+            // try again with the new offset specified in pagination
+            g.skipCountCheck = invisibleGifsFlag
+        }
+        return g
     }
 }
