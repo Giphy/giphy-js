@@ -24,12 +24,12 @@ export const gifPaginator = (fetchGifs: (offset: number) => Promise<GifsResult>,
         const result = await fetchGifs(offset)
         const { pagination, data: newGifs } = result
 
-        // total_count is not often known, but if it is, it's a good indicator
-        // that we're done fetching
-        isDoneFetching = offset === pagination.total_count
-
         // on the next request, this will be the offset
         offset = pagination.count + pagination.offset
+
+        // total_count is not often known, but if it is, it's a good indicator
+        // that we're done fetching, the next request will be skipped
+        isDoneFetching = offset === pagination.total_count
 
         newGifs.forEach((gif) => {
             const { id } = gif
