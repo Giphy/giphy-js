@@ -112,7 +112,11 @@ class Carousel extends PureComponent<Props, State> {
                 this.setState({ isFetching: false })
             }
             if (gifs) {
-                if (existingGifs.length === gifs.length) {
+                // if we've just fetched and we don't have
+                // any more gifs, we're done fetching,
+                // unless we have a special flag
+                const skipCountCheck = !!(gifs as any)?.skipCountCheck
+                if (!skipCountCheck && existingGifs.length === gifs.length) {
                     this.setState({ isDoneFetching: true })
                 } else {
                     this.setState({ gifs, isFetching: false })
