@@ -23,13 +23,16 @@ export const gifPaginator = (fetchGifs: (offset: number) => Promise<GifsResult>,
         }
         const result = await fetchGifs(offset)
         const { pagination, data: newGifs } = result
+        // total_count is not often known, but if it is, it's a good indicator
+        // that we're done fetching
+        isDoneFetching = offset === pagination.total_count
+
         // if there is an offset that is greater than the gif count
         // there may be gifs that are hidden by the visibility service
-        const skipCountCheck = pagination.offset !== -Infinity && pagination.offset > gifs.length
+        const skipCountCheck = !isDoneFetching && pagination.offset > gifs.length
 
         offset = pagination.count + pagination.offset
 
-        isDoneFetching = offset === pagination.total_count || pagination.offset < 0
         newGifs.forEach((gif) => {
             const { id } = gif
             if (!gifIds.includes(id)) {
