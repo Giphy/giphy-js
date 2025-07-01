@@ -23,12 +23,14 @@ export const gifPaginator = (fetchGifs: (offset: number) => Promise<GifsResult>,
         }
         const result = await fetchGifs(offset)
         const { pagination, data: newGifs } = result
-        // if there is an offset that is greater than the gif count
-        // there may be gifs that are hidden by the visibility service
-        const skipCountCheck = pagination.offset > gifs.length
 
+        // on the next request, this will be the offset
         offset = pagination.count + pagination.offset
+
+        // total_count is not often known, but if it is, it's a good indicator
+        // that we're done fetching, the next request will be skipped
         isDoneFetching = offset === pagination.total_count
+
         newGifs.forEach((gif) => {
             const { id } = gif
             if (!gifIds.includes(id)) {
@@ -37,8 +39,10 @@ export const gifPaginator = (fetchGifs: (offset: number) => Promise<GifsResult>,
                 gifIds.push(id)
             }
         })
+
         const g = [...gifs]
-        if (skipCountCheck) {
+        // @ts-expect-error a hidden flag set by a fetch gifs function
+        if (pagination.hasMoreGifs) {
             // @ts-expect-error a hidden flag just for the layout
             // components to use. it lets them know that even though
             // they fetched the same number of gifs twice,
