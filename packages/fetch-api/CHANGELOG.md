@@ -1,5 +1,15 @@
 ## 4.1.1 (2021-08-09)
 
+## 5.7.0
+
+### Minor Changes
+
+-   39fdc51: add a workaround for channels with hidden gifs
+
+### Patch Changes
+
+-   5f3ea10: hidden gifs workarounds: tweak the logic for knowing when to fetch more gifs
+
 ## 5.6.0
 
 ### Minor Changes

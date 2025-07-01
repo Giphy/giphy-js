@@ -1,5 +1,17 @@
 ## @giphy/react-components
 
+## 10.1.0
+
+### Minor Changes
+
+-   39fdc51: add a workaround for channels with hidden gifs
+
+### Patch Changes
+
+-   Updated dependencies [39fdc51]
+-   Updated dependencies [5f3ea10]
+    -   @giphy/js-fetch-api@5.7.0
+
 ## 10.0.1
 
 ### Patch Changes
