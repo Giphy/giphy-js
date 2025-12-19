@@ -1,5 +1,11 @@
 ## @giphy/react-components
 
+## 10.1.1
+
+### Patch Changes
+
+-   698cb8a: pingback seen fix
+
 ## 10.1.0
 
 ### Minor Changes
