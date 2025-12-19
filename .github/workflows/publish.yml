@@ -10,6 +10,10 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
 jobs:
     publish:
         if: ${{ github.event.workflow_run.conclusion == 'success' }}
