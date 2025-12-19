@@ -121,7 +121,7 @@ const Gif = ({
     lazyLoad = true,
 }: Props) => {
     // only fire seen once per gif id
-    const [hasFiredSeen, setHasFiredSeen] = useState(false)
+    const hasFiredSeen = useRef(false)
     // hovered is for the gif overlay
     const [isHovered, setHovered] = useState(false)
     // only show the gif if it's on the screen
@@ -181,7 +181,7 @@ const Gif = ({
     // using a ref in case `gif` changes
     sendOnSeen.current = (entry: IntersectionObserverEntry) => {
         // flag so we don't observe any more
-        setHasFiredSeen(true)
+        hasFiredSeen.current = true
         Logger.debug(`GIF ${gif.id} seen. ${gif.title}`)
         // fire pingback
         pingback.onGifSeen(gif, user?.id, entry.boundingClientRect, attributes)
@@ -203,7 +203,7 @@ const Gif = ({
                 { threshold: [0.99] }
             )
         }
-        if (!hasFiredSeen && container.current && fullGifObserver.current) {
+        if (!hasFiredSeen.current && container.current && fullGifObserver.current) {
             // observe img for full gif view
             fullGifObserver.current.observe(container.current)
         }
@@ -215,13 +215,13 @@ const Gif = ({
         setLoadedClassName(Gif.imgLoadedClassName)
     }
     useEffect(() => {
-        // the id has changed, maybe the image has loaded
+        fullGifObserver.current?.disconnect()
+        hasFiredSeen.current = false
+        // when server side rendered, onLoad will not fire, call watchGif here
         if (image.current?.complete) {
             watchGif()
             onGifVisible(gif) // gif is visible, perhaps just partially
         }
-        fullGifObserver.current?.disconnect()
-        setHasFiredSeen(false)
         // We only want to fire this when gif id changes
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gif.id])
