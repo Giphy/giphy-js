@@ -24,6 +24,7 @@ jobs:
               with:
                   node-version: 24.x
                   registry-url: 'https://registry.npmjs.org'
+                  scope: '@giphy'
                   cache: 'yarn'
 
             - run: yarn install --immutable
