@@ -52,7 +52,7 @@
     "homepage": "https://github.com/Giphy/giphy-js/tree/master/packages/react-components",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Giphy/giphy-js.git",
+        "url": "git+https://github.com/Giphy/giphy-js.git",
         "directory": "packages/react-components"
     },
     "main": "dist/index.js",
