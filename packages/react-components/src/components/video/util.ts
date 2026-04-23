@@ -9,7 +9,7 @@ export const getErrorMessage = (code: number, src = '') => {
         case 3:
             return 'Decode Error. An error of some description occurred while decoding the media resource, after the resource was established to be usable.'
         case 4:
-            return `Can not play a video of type "${src.split('.').pop()}" on this platform.`
+            return 'Can not play this video on this platform. Video URL: ' + src
         default:
             return ''
     }
