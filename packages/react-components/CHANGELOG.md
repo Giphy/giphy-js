@@ -1,5 +1,11 @@
 ## @giphy/react-components
 
+## 10.1.2
+
+### Patch Changes
+
+-   46036ae: Log the full video URL for unsupported playback errors.
+
 ## 10.1.1
 
 ### Patch Changes
