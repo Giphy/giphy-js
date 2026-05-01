@@ -1,5 +1,11 @@
 ## 4.1.1 (2021-08-09)
 
+## 5.8.0
+
+### Minor Changes
+
+-   b677de7: Add a way to set the default rating for all GiphyFetch requests. Requests can still be overridden per request
+
 ## 5.7.0
 
 ### Minor Changes
