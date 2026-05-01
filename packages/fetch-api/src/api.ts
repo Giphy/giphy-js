@@ -1,6 +1,7 @@
 /* eslint-disable no-dupe-class-members */
 import { GifID } from '@giphy/js-types'
 import { getPingbackId } from '@giphy/js-util'
+import { defaultRating } from './constants'
 import { normalizeGif, normalizeGifs } from './normalize/gif'
 import {
     CategoriesOptions,
@@ -142,7 +143,7 @@ export class GiphyFetch {
         if (options.type === 'text') {
             excludeDynamicResults = true
         }
-        const qsParams = this.getQS({ rating: 'pg-13', ...options, q, excludeDynamicResults })
+        const qsParams = this.getQS({ rating: defaultRating, ...options, q, excludeDynamicResults })
         return request(`${getType(options)}/search?${qsParams}`, { normalizer: normalizeGifs }) as Promise<GifsResult>
     }
 
@@ -163,7 +164,7 @@ export class GiphyFetch {
      * @returns {Promise<GifsResult>}
      */
     trending(options: TrendingOptions = {}): Promise<GifsResult> {
-        return request(`${getType(options)}/trending?${this.getQS({ rating: 'pg-13', ...options })}`, {
+        return request(`${getType(options)}/trending?${this.getQS({ rating: defaultRating, ...options })}`, {
             normalizer: normalizeGifs,
         }) as Promise<GifsResult>
     }
@@ -174,7 +175,7 @@ export class GiphyFetch {
      * @returns {Promise<GifResult>}
      **/
     random(options?: RandomOptions): Promise<GifResult> {
-        return request(`${getType(options)}/random?${this.getQS({ rating: 'pg-13', ...options })}`, {
+        return request(`${getType(options)}/random?${this.getQS({ rating: defaultRating, ...(options || {}) })}`, {
             noCache: true,
             normalizer: normalizeGif,
         }) as Promise<GifResult>
@@ -191,7 +192,7 @@ export class GiphyFetch {
         return request(
             `${type}/related?${this.getQS({
                 gif_id: id,
-                rating: 'pg-13',
+                rating: defaultRating,
                 ...options,
             })}`,
             { normalizer: normalizeGifs }
@@ -206,7 +207,7 @@ export class GiphyFetch {
      **/
     channels(term: string, options: SearchOptions = {}): Promise<ChannelsResult> {
         return request(
-            `channels/search?${this.getQS({ q: term, rating: 'pg-13', ...options })}`
+            `channels/search?${this.getQS({ q: term, rating: defaultRating, ...options })}`
         ) as Promise<ChannelsResult>
     }
 }
