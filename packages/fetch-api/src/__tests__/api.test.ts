@@ -1,6 +1,7 @@
 import { IGif } from '@giphy/js-types'
 import 'jest-fetch-mock'
 import GiphyFetchAPI from '../api'
+import { setDefaultRating } from '../constants'
 import { DEFAULT_ERROR, ERROR_PREFIX } from '../request'
 
 const dummyGif = {
@@ -75,6 +76,7 @@ describe('response parsing', () => {
     beforeEach(() => {
         // possibly reset requestMap in request, which is a cache
         fetchMock.resetMocks()
+        setDefaultRating('pg-13')
     })
     test('categories', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(categoriesResponse))
@@ -128,6 +130,8 @@ describe('response parsing', () => {
     test('search', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.search('dogs')
+        const [req] = fetchMock.mock.calls
+        expect(req[0]).toContain('rating=pg-13')
         testDummyGif(data[0])
     })
     test('subcategories', async () => {
@@ -139,16 +143,22 @@ describe('response parsing', () => {
     test('trending', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.trending()
+        const [req] = fetchMock.mock.calls
+        expect(req[0]).toContain('rating=pg-13')
         testDummyGif(data[0])
     })
     test('random', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifResponse))
         const { data } = await gf.random()
+        const [req] = fetchMock.mock.calls
+        expect(req[0]).toContain('rating=pg-13')
         testDummyGif(data)
     })
     test('related', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.related('12345')
+        const [req] = fetchMock.mock.calls
+        expect(req[0]).toContain('rating=pg-13')
         testDummyGif(data[0])
     })
     test('related', async () => {
@@ -179,6 +189,23 @@ describe('response parsing', () => {
     test('explore', async () => {
         fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
         const { data } = await gf.search('pasta', { explore: true })
+        testDummyGif(data[0])
+    })
+    test('uses the configured global default rating', async () => {
+        setDefaultRating('pg')
+        fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
+        const { data } = await gf.search('dogs')
+        const [req] = fetchMock.mock.calls
+        expect(req[0]).toContain('rating=pg')
+        testDummyGif(data[0])
+    })
+    test('per-request rating overrides the configured global default', async () => {
+        setDefaultRating('g')
+        fetchMock.mockResponseOnce(JSON.stringify(gifsResponse))
+        const { data } = await gf.search('dogs', { rating: 'r' })
+        const [req] = fetchMock.mock.calls
+        expect(req[0]).toContain('rating=r')
+        expect(req[0]).not.toContain('rating=g')
         testDummyGif(data[0])
     })
     test('text trending', async () => {

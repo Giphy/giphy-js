@@ -1,7 +1,7 @@
 import { appendGiphySDKRequestHeader, getGiphySDKRequestHeaders } from '@giphy/js-util'
 
 export { default as GiphyFetch } from './api'
-export { serverUrl, setServerUrl } from './constants'
+export { defaultRating, serverUrl, setDefaultRating, setServerUrl } from './constants'
 export { default as FetchError, GeoFetchError } from './fetch-error'
 export * from './option-types'
 export { gifPaginator } from './paginator'
