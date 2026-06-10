@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import useThrottle from 'react-use/lib/useThrottle'
 import styled, { keyframes } from 'styled-components'
+import { useThrottle } from '../../hooks'
 import { CssVars, SearchContext } from './context'
 import SearchIcon_ from './search-icon'
 
@@ -13,13 +13,13 @@ const searchFx = keyframes`
     0% {
       transform: rotate(34deg) translate(-10px, 80px);
     };
-    
+
     100% {
       transform: rotate(34deg) translate(-10px, -20px);
     }
 `
 const plus = keyframes`
-    0% { 
+    0% {
       transform: translate(0px, 0px);
       opacity: 0;
     }
