@@ -37,7 +37,7 @@
         "@emotion/css": "11.9.0",
         "@giphy/js-analytics": "*",
         "@giphy/js-brand": "*",
-        "@giphy/js-fetch-api": "*",
+        "@giphy/js-fetch-api": "1.0.2",
         "@giphy/js-types": "*",
         "@giphy/js-util": "*",
         "bricks.js": "^1.8.0",
