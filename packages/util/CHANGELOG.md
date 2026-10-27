@@ -1,5 +1,11 @@
 ## 4.4.2
 
+## 5.2.1
+
+### Patch Changes
+
+-   998332c: Update uuid to ^11.1.1 to resolve downstream audit warnings for GHSA-w5hq-g745-h8pq.
+
 ## 5.2.0
 
 ### Minor Changes
