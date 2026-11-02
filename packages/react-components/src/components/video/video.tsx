@@ -2,6 +2,7 @@ import { pingback } from '@giphy/js-analytics'
 import { IGif, IImage } from '@giphy/js-types'
 import { getBestVideo, getGifHeight } from '@giphy/js-util'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { cancelVideoPlay, playVideo } from './play-video'
 import { getErrorMessage, QuartileEvent, shouldFireQuartile } from './util'
 
 const quartileEvents: QuartileEvent[] = [0.25, 0.5, 0.75]
@@ -104,6 +105,13 @@ const Video = ({
     const videoEl = useRef<HTMLVideoElement | null>(null)
 
     useEffect(() => {
+        const el = videoEl.current
+        return () => {
+            if (el) cancelVideoPlay(el)
+        }
+    }, [gif.id, media?.url])
+
+    useEffect(() => {
         // when the width and height change, check if there's a new url
         const newMedia = getBestVideo(gif.video, width, height) as IImage
         if (videoEl.current && media?.url && newMedia.url !== media.url) {
@@ -168,7 +176,7 @@ const Video = ({
     }, [onWaiting])
     const _onEnded = useCallback(() => {
         if (loop && videoEl.current) {
-            videoEl.current.play()
+            playVideo(videoEl.current)
         }
         onLoop?.(loopNumber.current)
         loopNumber.current = loopNumber.current + 1
@@ -179,32 +187,10 @@ const Video = ({
         onEnded?.()
     }, [onEnded, loop, onLoop])
     const _onEndFullscreen = useCallback(() => onEndFullscreen?.(), [onEndFullscreen])
-    const tryAutoPlayWithSound = useCallback(
-        async (videoEl: HTMLVideoElement) => {
-            if (videoEl) {
-                const promisePlay = videoEl.play()
-                if (promisePlay !== undefined) {
-                    try {
-                        await promisePlay
-                        onMuted?.(false)
-                    } catch (error) {
-                        // Autoplay not allowed!
-                        // Mute video and try to play again
-                        videoEl.muted = true
-                        // Allow the UI to show that the video is muted
-                        onMuted?.(true)
-                        videoEl.play()
-                    }
-                }
-            }
-        },
-        [onMuted]
-    )
-
     useEffect(() => {
         const el = videoEl.current
         if (el) {
-            tryAutoPlayWithSound(el)
+            playVideo(el, { retryMuted: true, onMuted })
             setVideoEl?.(el)
             if (!isNaN(volume)) {
                 el.volume = volume

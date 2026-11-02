@@ -8,6 +8,7 @@ import Attribution from './attribution'
 import { VolumeOffIcon, VolumeOnIcon } from './controls/volume'
 import ProgressBar from './progress-bar'
 import Video from './video'
+import { playVideo } from './play-video'
 
 type Props = {
     style?: CSSProperties
@@ -187,7 +188,7 @@ const VideoPlayer = (props: ComponentProps<typeof VideoWrapper>) => {
                 // which could be annoying
                 onUserMuted?.(!(muted || mutedByBrowser))
                 // adding this, it may save us if the browser blocks autoplay
-                videoEl?.play()
+                if (videoEl) playVideo(videoEl)
                 e.preventDefault()
                 toggleMute()
             }}
