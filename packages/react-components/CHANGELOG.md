@@ -1,5 +1,15 @@
 ## @giphy/react-components
 
+## 10.2.0
+
+### Minor Changes
+
+-   8c1fd02: Expose native playing, loadeddata, and loadedmetadata events on Video.
+
+### Patch Changes
+
+-   5ae95c6: Treat cancelled video play requests as cancellation instead of retrying muted playback. Retry autoplay only for browser policy rejection, ignore stale requests, and catch failed fallback, loop, and controls playback promises.
+
 ## 10.1.2
 
 ### Patch Changes
