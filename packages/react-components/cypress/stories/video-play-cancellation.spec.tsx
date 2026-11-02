@@ -1,7 +1,7 @@
 import { IGif } from '@giphy/js-types'
 import React from 'react'
 import Video from '../../src/components/video'
-import { cancelVideoPlay, playVideo } from '../../src/components/video/play-video'
+import { invalidatePlayRequest, playVideo } from '../../src/components/video/play-video'
 
 const deferred = () => {
     let resolve!: () => void
@@ -73,6 +73,36 @@ describe('video play requests', () => {
         })
     })
 
+    it('notifies muted state when the fallback throws synchronously', () => {
+        cy.then(async () => {
+            play.onFirstCall().rejects(new DOMException('policy', 'NotAllowedError'))
+            play.onSecondCall().throws(new DOMException('unsupported', 'NotSupportedError'))
+            await playVideo(video, { retryMuted: true, onMuted })
+            expect(video.muted).to.equal(true)
+            expect(onMuted).to.be.calledOnceWith(true)
+            expect(play).to.be.calledTwice
+        })
+    })
+
+    ;[false, true].forEach((reject) => {
+        it(`preserves pending autoplay ${reject ? 'policy retry' : 'success'} across a manual play request`, () => {
+            cy.then(async () => {
+                const pending = deferred()
+                play.onFirstCall().returns(pending.promise)
+                play.onSecondCall().resolves()
+                play.onThirdCall().resolves()
+                const autoplay = playVideo(video, { retryMuted: true, onMuted })
+                await playVideo(video)
+                if (reject) pending.reject(new DOMException('policy', 'NotAllowedError'))
+                else pending.resolve()
+                await autoplay
+                expect(play.callCount).to.equal(reject ? 3 : 2)
+                expect(video.muted).to.equal(reject)
+                expect(onMuted).to.be.calledOnceWith(reject)
+            })
+        })
+    })
+
     it('does not retry policy rejection when already muted', () => {
         cy.then(async () => {
             video.muted = true
@@ -113,25 +143,36 @@ describe('video play requests', () => {
         })
     })
 
-    ;['pause', 'emptied', 'source change', 'removal', 'explicit cancellation', 'new request'].forEach((reason) => {
+    const invalidations: Record<string, () => void | Promise<void>> = {
+        pause: () => {
+            video.dispatchEvent(new Event('pause'))
+        },
+        emptied: () => {
+            video.dispatchEvent(new Event('emptied'))
+        },
+        'source change': () => {
+            video.src = '/play-test-next.mp4'
+        },
+        removal: () => video.remove(),
+        'explicit invalidation': () => invalidatePlayRequest(video),
+        'new autoplay request': async () => {
+            play.onSecondCall().resolves()
+            await playVideo(video, { retryMuted: true })
+        },
+    }
+
+    Object.entries(invalidations).forEach(([reason, makeStale]) => {
         ;[false, true].forEach((reject) => {
             it(`ignores stale ${reject ? 'rejection' : 'success'} after ${reason}`, () => {
                 cy.then(async () => {
                     const pending = deferred()
                     play.onFirstCall().returns(pending.promise)
                     const request = playVideo(video, { retryMuted: true, onMuted })
-                    if (reason === 'pause' || reason === 'emptied') video.dispatchEvent(new Event(reason))
-                    if (reason === 'source change') video.src = '/play-test-next.mp4'
-                    if (reason === 'removal') video.remove()
-                    if (reason === 'explicit cancellation') cancelVideoPlay(video)
-                    if (reason === 'new request') {
-                        play.onSecondCall().resolves()
-                        await playVideo(video)
-                    }
+                    await makeStale()
                     if (reject) pending.reject(new DOMException('policy', 'NotAllowedError'))
                     else pending.resolve()
                     await request
-                    expect(play.callCount).to.equal(reason === 'new request' ? 2 : 1)
+                    expect(play.callCount).to.equal(reason === 'new autoplay request' ? 2 : 1)
                     expect(video.muted).to.equal(false)
                     expect(onMuted).not.to.be.called
                 })
@@ -155,17 +196,20 @@ const gif = {
     video: { assets: { '720p': { url: '/play-test.mp4', width: 320, height: 180 } } },
 } as IGif
 
+const stubCancelledPlayAfterAutoplay = () =>
+    cy.window().then((win) => {
+        const play = cy.stub(win.HTMLMediaElement.prototype, 'play').as('play')
+        play.onFirstCall().resolves()
+        play.onSecondCall().rejects(new DOMException('paused', 'AbortError'))
+    })
+
 describe('Video playback integration', () => {
     beforeEach(() => {
         cy.intercept('GET', '**/play-test*.mp4', { statusCode: 204 })
     })
 
     it('catches a cancelled loop request and preserves end callbacks', () => {
-        cy.window().then((win) => {
-            const play = cy.stub(win.HTMLMediaElement.prototype, 'play').as('play')
-            play.onFirstCall().resolves()
-            play.onSecondCall().rejects(new DOMException('paused', 'AbortError'))
-        })
+        stubCancelledPlayAfterAutoplay()
         const onEnded = cy.stub().as('onEnded')
         cy.mount(<Video gif={gif} width={320} height={180} loop onEnded={onEnded} />)
         cy.get('video').trigger('play').trigger('ended')
@@ -174,14 +218,37 @@ describe('Video playback integration', () => {
     })
 
     it('catches a cancelled controls-click request', () => {
-        cy.window().then((win) => {
-            const play = cy.stub(win.HTMLMediaElement.prototype, 'play').as('play')
-            play.onFirstCall().resolves()
-            play.onSecondCall().rejects(new DOMException('paused', 'AbortError'))
-        })
+        stubCancelledPlayAfterAutoplay()
         cy.mount(<Video gif={gif} width={320} height={180} controls />)
         cy.get('video').parent().click('center')
         cy.get('@play').should('have.been.calledTwice')
+    })
+
+    ;[false, true].forEach((reject) => {
+        it(`preserves pending autoplay ${reject ? 'policy retry' : 'mute notification'} after a controls click`, () => {
+            const pending = deferred()
+            cy.window().then((win) => {
+                const play = cy.stub(win.HTMLMediaElement.prototype, 'play').as('play')
+                play.onFirstCall().returns(pending.promise)
+                play.onSecondCall().resolves()
+                play.onThirdCall().resolves()
+            })
+            const onMuted = cy.stub().as('onMuted')
+            cy.mount(<Video gif={gif} width={320} height={180} controls muted={reject} onMuted={onMuted} />)
+            cy.get('@play').should('have.been.calledOnce')
+            cy.get('video').parent().click('center')
+            cy.get('@play').should('have.been.calledTwice')
+            // For policy rejection, the click unmutes the initially muted player.
+            cy.get('video').should('have.prop', 'muted', !reject)
+            cy.then(() => {
+                if (reject) pending.reject(new DOMException('policy', 'NotAllowedError'))
+                else pending.resolve()
+                return pending.promise.catch(() => undefined)
+            })
+            cy.get('@play').should('have.callCount', reject ? 3 : 2)
+            cy.get('@onMuted').should('have.been.calledOnceWith', reject)
+            cy.get('video').should('have.prop', 'muted', true)
+        })
     })
 
     it('invalidates pending autoplay when the component unmounts', () => {

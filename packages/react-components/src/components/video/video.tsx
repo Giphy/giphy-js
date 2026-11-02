@@ -2,7 +2,7 @@ import { pingback } from '@giphy/js-analytics'
 import { IGif, IImage } from '@giphy/js-types'
 import { getBestVideo, getGifHeight } from '@giphy/js-util'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { cancelVideoPlay, playVideo } from './play-video'
+import { invalidatePlayRequest, playVideo } from './play-video'
 import { getErrorMessage, QuartileEvent, shouldFireQuartile } from './util'
 
 const quartileEvents: QuartileEvent[] = [0.25, 0.5, 0.75]
@@ -107,7 +107,7 @@ const Video = ({
     useEffect(() => {
         const el = videoEl.current
         return () => {
-            if (el) cancelVideoPlay(el)
+            if (el) invalidatePlayRequest(el)
         }
     }, [gif.id, media?.url])
 
