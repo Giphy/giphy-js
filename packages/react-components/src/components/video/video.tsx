@@ -34,6 +34,7 @@ type Props = {
     onQuartile?: (quartile: QuartileEvent) => void
     onMuted?: (isMuted: boolean) => void
     muted?: boolean
+    autoPlay?: boolean
     ccEnabled?: boolean
     ccLanguage?: keyof NonNullable<IVideo['captions']>
     loop?: boolean
@@ -47,6 +48,7 @@ type Props = {
 }
 const Video = ({
     muted,
+    autoPlay = true,
     ccEnabled = false,
     ccLanguage = 'en',
     loop = true,
@@ -204,7 +206,9 @@ const Video = ({
     useEffect(() => {
         const el = videoEl.current
         if (el) {
-            tryAutoPlayWithSound(el)
+            if (autoPlay) {
+                tryAutoPlayWithSound(el)
+            }
             setVideoEl?.(el)
             if (!isNaN(volume)) {
                 el.volume = volume
@@ -247,7 +251,7 @@ const Video = ({
             width={isInPlayer ? '100%' : percentWidth || width}
             height={isInPlayer ? '100%' : percentHeight || height}
             muted={muted}
-            autoPlay
+            autoPlay={autoPlay}
             playsInline
             ref={videoEl}
             src={media?.url}

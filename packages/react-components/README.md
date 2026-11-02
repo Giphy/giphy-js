@@ -256,6 +256,7 @@ _Video props_
 | width              | `number`                   | undefined | The width of the video                           |
 | height             | `number`                   | undefined | The height of the video                          |
 | controls           | `boolean`                  | undefined | Show transport controls                          |
+| autoPlay           | `boolean`                  | true      | automatically start playback on mount            |
 | hideProgressBar    | `boolean`                  | undefined | if controls is true, hides progress bar          |
 | hideMute           | `boolean`                  | undefined | if controls is true, hides the mute button       |
 | hidePlayPause      | `boolean`                  | undefined | if controls is true, hides the play/pause button |
@@ -263,6 +264,8 @@ _Video props_
 | ccEnabled          | `boolean`                  | false     | if true, show captions                           |
 | ccLanguage         | `string`                   | 'en'      | the closed caption language                      |
 | onUserMuted        | `(muted: boolean) => void` | undefined | fired when the user toggles the mute state       |
+
+Set `autoPlay={false}` to load a video without automatically starting playback. Use `setVideoEl` to access the native video element and call `play()` when ready, handling its returned promise. This option controls automatic startup; it does not pause an already playing video or disable user-initiated playback or looping. Browsers may limit preloading, so this option does not guarantee a decoded frame before playback.
 
 ```tsx
 import { Video } from '@giphy/react-components'
