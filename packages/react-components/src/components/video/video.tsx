@@ -21,6 +21,9 @@ const Network = {
 type IVideo = NonNullable<IGif['video']>
 
 type Props = {
+    onPlaying?: React.ReactEventHandler<HTMLVideoElement>
+    onLoadedData?: React.ReactEventHandler<HTMLVideoElement>
+    onLoadedMetadata?: React.ReactEventHandler<HTMLVideoElement>
     onStateChange?: (state: MEDIA_STATE) => void
     onTimeUpdate?: (playhead: number) => void
     onError?: (error: number) => void
@@ -51,6 +54,9 @@ const Video = ({
     ccLanguage = 'en',
     loop = true,
     onStateChange,
+    onPlaying,
+    onLoadedData,
+    onLoadedMetadata,
     onTimeUpdate,
     onCanPlay,
     onFirstPlay,
@@ -252,6 +258,9 @@ const Video = ({
             ref={videoEl}
             src={media?.url}
             data-giphy-id={gif.id}
+            onPlaying={onPlaying}
+            onLoadedData={onLoadedData}
+            onLoadedMetadata={onLoadedMetadata}
         >
             {ccEnabled && captionSrc && (
                 <track label="English" kind="subtitles" srcLang={ccLanguage} src={captionSrc} default />

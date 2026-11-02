@@ -263,6 +263,13 @@ _Video props_
 | ccEnabled          | `boolean`                  | false     | if true, show captions                           |
 | ccLanguage         | `string`                   | 'en'      | the closed caption language                      |
 | onUserMuted        | `(muted: boolean) => void` | undefined | fired when the user toggles the mute state       |
+| onPlaying          | `React.ReactEventHandler<HTMLVideoElement>` | undefined | Native `playing` event: playback starts or resumes |
+| onLoadedData       | `React.ReactEventHandler<HTMLVideoElement>` | undefined | Native `loadeddata` event: current-frame data is available |
+| onLoadedMetadata   | `React.ReactEventHandler<HTMLVideoElement>` | undefined | Native `loadedmetadata` event: media metadata is available |
+
+These callbacks receive React media events; read the video element synchronously from `event.currentTarget`, including `event.currentTarget.duration` in `onLoadedMetadata`. They are available with or without controls. `onPlaying` can fire again when playback resumes after a pause or buffering. `onLoadedData` indicates current-frame data readiness, not that a frame has been painted onscreen.
+
+Existing callbacks keep their meanings: `onStateChange('playing')` and the first `onFirstPlay` notification are driven by the native `play` event, which can occur before `playing`.
 
 ```tsx
 import { Video } from '@giphy/react-components'
