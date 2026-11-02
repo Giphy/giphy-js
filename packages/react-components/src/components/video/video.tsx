@@ -22,6 +22,9 @@ type IVideo = NonNullable<IGif['video']>
 
 type Props = {
     onStateChange?: (state: MEDIA_STATE) => void
+    onPlaying?: React.ReactEventHandler<HTMLVideoElement>
+    onLoadedData?: React.ReactEventHandler<HTMLVideoElement>
+    onLoadedMetadata?: React.ReactEventHandler<HTMLVideoElement>
     onTimeUpdate?: (playhead: number) => void
     onError?: (error: number) => void
     onCanPlay?: () => void
@@ -51,6 +54,9 @@ const Video = ({
     ccLanguage = 'en',
     loop = true,
     onStateChange,
+    onPlaying,
+    onLoadedData,
+    onLoadedMetadata,
     onTimeUpdate,
     onCanPlay,
     onFirstPlay,
@@ -133,7 +139,7 @@ const Video = ({
             onError?.(code)
         }
     }, [onError])
-    const _onPlaying = useCallback(() => {
+    const _onPlay = useCallback(() => {
         onStateChange?.('playing')
         if (!hasPlayingFired.current) {
             hasPlayingFired.current = true
@@ -216,7 +222,7 @@ const Video = ({
     useEffect(() => {
         const el = videoEl.current
         if (el) {
-            el.addEventListener('play', _onPlaying)
+            el.addEventListener('play', _onPlay)
             el.addEventListener('pause', _onPaused)
             el.addEventListener('error', _onError)
             el.addEventListener('timeupdate', _onTimeUpdate)
@@ -227,7 +233,7 @@ const Video = ({
         }
         return () => {
             if (el) {
-                el.removeEventListener('play', _onPlaying)
+                el.removeEventListener('play', _onPlay)
                 el.removeEventListener('pause', _onPaused)
                 el.removeEventListener('error', _onError)
                 el.removeEventListener('timeupdate', _onTimeUpdate)
@@ -237,7 +243,7 @@ const Video = ({
                 el.removeEventListener('webkitendfullscreen', _onEndFullscreen)
             }
         }
-    }, [_onPlaying, _onPaused, _onError, _onTimeUpdate, _onCanPlay, _onEnded, _onWaiting, _onEndFullscreen])
+    }, [_onPlay, _onPaused, _onError, _onTimeUpdate, _onCanPlay, _onEnded, _onWaiting, _onEndFullscreen])
     const captionSrc = gif.video?.captions?.[ccLanguage]?.vtt
     return media?.url ? (
         <video
@@ -252,6 +258,9 @@ const Video = ({
             ref={videoEl}
             src={media?.url}
             data-giphy-id={gif.id}
+            onPlaying={onPlaying}
+            onLoadedData={onLoadedData}
+            onLoadedMetadata={onLoadedMetadata}
         >
             {ccEnabled && captionSrc && (
                 <track label="English" kind="subtitles" srcLang={ccLanguage} src={captionSrc} default />

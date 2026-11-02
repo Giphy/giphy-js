@@ -24,6 +24,9 @@ const DEFAULT_BASE_ASSERT_OPTIONS: BaseAssertOptions = {
 
 export function setupVideoTestUtils(gifId: string, options: TestUtilsOptions = {}): VideoTestUtilsContext {
     const onCanPlay = cy.stub().as('onCanPlay')
+    const onPlaying = cy.stub().as('onPlaying')
+    const onLoadedData = cy.stub().as('onLoadedData')
+    const onLoadedMetadata = cy.stub().as('onLoadedMetadata')
     const onEnded = cy.stub().as('onEnded')
     const onEndFullscreen = cy.stub().as('onEndFullscreen')
     const onError = cy.stub().as('onError')
@@ -41,6 +44,9 @@ export function setupVideoTestUtils(gifId: string, options: TestUtilsOptions = {
         loop: options.loop ?? false,
         events: {
             onCanPlay,
+            onPlaying,
+            onLoadedData,
+            onLoadedMetadata,
             onEnded,
             onEndFullscreen,
             onError,
