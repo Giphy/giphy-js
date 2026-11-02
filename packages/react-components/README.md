@@ -250,22 +250,22 @@ Here are the components in action in our [storybook](https://giphy.github.io/gip
 
 _Video props_
 
-| _prop_             | _type_                     | _default_ | _description_                                    |
-| ------------------ | -------------------------- | --------- | ------------------------------------------------ |
-| gif                | `IGif`                     | undefined | The gif to display that contains video data      |
-| width              | `number`                   | undefined | The width of the video                           |
-| height             | `number`                   | undefined | The height of the video                          |
-| controls           | `boolean`                  | undefined | Show transport controls                          |
-| hideProgressBar    | `boolean`                  | undefined | if controls is true, hides progress bar          |
-| hideMute           | `boolean`                  | undefined | if controls is true, hides the mute button       |
-| hidePlayPause      | `boolean`                  | undefined | if controls is true, hides the play/pause button |
-| persistentControls | `boolean`                  | undefined | don't hide controls when hovering away           |
-| ccEnabled          | `boolean`                  | false     | if true, show captions                           |
-| ccLanguage         | `string`                   | 'en'      | the closed caption language                      |
-| onUserMuted        | `(muted: boolean) => void` | undefined | fired when the user toggles the mute state       |
-| onPlaying          | `React.ReactEventHandler<HTMLVideoElement>` | undefined | Native `playing` event: playback starts or resumes |
-| onLoadedData       | `React.ReactEventHandler<HTMLVideoElement>` | undefined | Native `loadeddata` event: current-frame data is available |
-| onLoadedMetadata   | `React.ReactEventHandler<HTMLVideoElement>` | undefined | Native `loadedmetadata` event: media metadata is available |
+| _prop_             | _type_                                      | _default_ | _description_                                              |
+| ------------------ | ------------------------------------------- | --------- | ---------------------------------------------------------- |
+| gif                | `IGif`                                      | undefined | The gif to display that contains video data                |
+| width              | `number`                                    | undefined | The width of the video                                     |
+| height             | `number`                                    | undefined | The height of the video                                    |
+| controls           | `boolean`                                   | undefined | Show transport controls                                    |
+| hideProgressBar    | `boolean`                                   | undefined | if controls is true, hides progress bar                    |
+| hideMute           | `boolean`                                   | undefined | if controls is true, hides the mute button                 |
+| hidePlayPause      | `boolean`                                   | undefined | if controls is true, hides the play/pause button           |
+| persistentControls | `boolean`                                   | undefined | don't hide controls when hovering away                     |
+| ccEnabled          | `boolean`                                   | false     | if true, show captions                                     |
+| ccLanguage         | `string`                                    | 'en'      | the closed caption language                                |
+| onUserMuted        | `(muted: boolean) => void`                  | undefined | fired when the user toggles the mute state                 |
+| onPlaying          | `React.ReactEventHandler<HTMLVideoElement>` | undefined | native `playing` event: playback starts or resumes         |
+| onLoadedData       | `React.ReactEventHandler<HTMLVideoElement>` | undefined | native `loadeddata` event: current-frame data is available |
+| onLoadedMetadata   | `React.ReactEventHandler<HTMLVideoElement>` | undefined | native `loadedmetadata` event: media metadata is available |
 
 These callbacks receive React media events; read the video element synchronously from `event.currentTarget`, including `event.currentTarget.duration` in `onLoadedMetadata`. They are available with or without controls. `onPlaying` can fire again when playback resumes after a pause or buffering. `onLoadedData` indicates current-frame data readiness, not that a frame has been painted onscreen.
 
