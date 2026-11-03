@@ -38,7 +38,7 @@
     "dependencies": {
         "@giphy/js-analytics": "*",
         "@giphy/js-brand": "*",
-        "@giphy/js-fetch-api": "*",
+        "@giphy/js-fetch-api": "1.0.2",
         "@giphy/js-types": "*",
         "@giphy/js-util": "*",
         "throttle-debounce": "5.0.0"
